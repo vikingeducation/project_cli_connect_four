@@ -22,6 +22,22 @@ class Array
 		return marr
 	end #my_map	
 
+	def my_select
+		sarr = []
+		i = 0
+		while i < self.length
+			if yield(self[i])
+				sarr.push(self[i])
+				i += 1
+			else
+				i += 1
+			end
+		end
+
+		return sarr
+	end
+
+
 end
 
 
