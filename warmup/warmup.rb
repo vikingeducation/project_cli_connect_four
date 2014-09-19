@@ -9,12 +9,18 @@ class Array
 		self
 	end
 
+	def my_map
+		marr = []
+		i = 0
+		while i < self.length
+			marr.push(yield(self[i]))
+			i += 1
+		end
 
+		# marr.push(self.my_each{ |item| self })			
 
-	def my_stuff
-		self.reverse
-	end
-
+		return marr
+	end #my_map	
 
 end
 

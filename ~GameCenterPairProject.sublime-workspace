@@ -1,0 +1,992 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"nu",
+				"num_things"
+			],
+			[
+				"Tower",
+				"TowerOfHanoi"
+			],
+			[
+				"G",
+				"GameBoard"
+			],
+			[
+				"game",
+				"game_board"
+			],
+			[
+				"if",
+				"if	if … end"
+			],
+			[
+				"to",
+				"totaled"
+			],
+			[
+				"out",
+				"outcomes_arr"
+			],
+			[
+				"num",
+				"num_dice"
+			],
+			[
+				"resul",
+				"result_count"
+			],
+			[
+				"dic",
+				"dice_outcomes"
+			],
+			[
+				"Ro",
+				"Roll_outcome"
+			],
+			[
+				"ou",
+				"outcomes_arr"
+			],
+			[
+				"dice",
+				"dice_outcomes"
+			],
+			[
+				"roll_",
+				"roll_count"
+			],
+			[
+				"ro",
+				"roll_result"
+			],
+			[
+				"deb",
+				"DEBUG"
+			],
+			[
+				"IN",
+				"INFO"
+			],
+			[
+				"er",
+				"ERROR"
+			],
+			[
+				"in",
+				"INFO"
+			],
+			[
+				"NUM",
+				"num_sides"
+			],
+			[
+				"PRO",
+				"protected"
+			],
+			[
+				"D",
+				"DEBUG"
+			],
+			[
+				"n",
+				"num_sides"
+			],
+			[
+				"pro",
+				"protected"
+			],
+			[
+				"roll",
+				"roll_dice"
+			],
+			[
+				"R",
+				"RollDice"
+			],
+			[
+				"pr",
+				"print"
+			],
+			[
+				"ran",
+				"r.rand"
+			],
+			[
+				"met",
+				"num.methods"
+			],
+			[
+				"sort",
+				"num.sort_by"
+			],
+			[
+				"r",
+				"ran	randomize()"
+			],
+			[
+				"ali",
+				"vertical-align"
+			],
+			[
+				"b",
+				"background-color"
+			],
+			[
+				"mar",
+				"margin-top"
+			],
+			[
+				"fon",
+				"font-style"
+			],
+			[
+				"d",
+				"text-decoration"
+			],
+			[
+				"a",
+				"vertical-align"
+			],
+			[
+				"ma",
+				"margin-top"
+			],
+			[
+				"bo",
+				"border"
+			],
+			[
+				"h",
+				"h1	Tag"
+			],
+			[
+				"c",
+				"cout"
+			],
+			[
+				"of",
+				"offset"
+			],
+			[
+				"sw",
+				"switches"
+			],
+			[
+				"offset",
+				"offset_num"
+			],
+			[
+				"offse",
+				"offset_num"
+			],
+			[
+				"off",
+				"offset_num"
+			],
+			[
+				"itera",
+				"iteration_num"
+			],
+			[
+				"your",
+				"yourdomain"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "warmup/warmup.rb",
+			"settings":
+			{
+				"buffer_size": 17,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "[1] pry(main)> ",
+			"settings":
+			{
+				"buffer_size": 15,
+				"line_ending": "Unix",
+				"name": "*REPL* [ruby]",
+				"scratch": true
+			}
+		},
+		{
+			"contents": "bash: no job control in this shell\n<<                                                                                                   <s\nASP\nActionScript\nAppleScript\nBatch File\nC#\nC++\nCSS\nClojure\nColor Scheme - Default\nD\nDefault\nDiff\nErlang\nGo\nGraphviz\nGroovy\nHTML\nHaskell\nJava\nJavaScript\nLaTeX\nLanguage - English\nLisp\nLua\nMakefile\nMarkdown\nMatlab\nOCaml\nObjective-C\nPHP\nPackage Control\nPerl\nPython\nR\nRails\nRegular Expressions\nRestructuredText\nRuby\nRuby Debugger\nSQL\nSass\nScala\nShellScript\nSublimeLinter\nSublimeREPL\nSublimipsum\nTCL\nText\nTextile\nTheme - Default\nUser\nVintage\nXML\nYAML\n<<hereami\nbash: whereami: command not found\n<heream<      <s -a\n.\n..\n.DS_Store\nASP\nActionScript\nAppleScript\nBatch File\nC#\nC++\nCSS\nClojure\nColor Scheme - Default\nD\nDefault\nDiff\nErlang\nGo\nGraphviz\nGroovy\nHTML\nHaskell\nJava\nJavaScript\nLaTeX\nLanguage - English\nLisp\nLua\nMakefile\nMarkdown\nMatlab\nOCaml\nObjective-C\nPHP\nPackage Control\nPerl\nPython\nR\nRails\nRegular Expressions\nRestructuredText\nRuby\nRuby Debugger\nSQL\nSass\nScala\nShellScript\nSublimeLinter\nSublimeREPL\nSublimipsum\nTCL\nText\nTextile\nTheme - Default\nUser\nVintage\nXML\nYAML\n<s -<   <d ..\n;166m[phyman@SilverSurfer]: ~/Library/Application Support/Sublime Text 2$ ls\nInstalled Packages\nPackages\nPristine Packages\nSettings\n;166m[phyman@SilverSurfer]: ~/Library/Application Support/Sublime Text 2$          cd~\nbash: cd~: command not found\n;166m[phyman@SilverSurfer]: ~/Library/Application Support/Sublime Text 2$          cd ~\n;166m[phyman@SilverSurfer]: ~$                                                      ;166m[phyman@SilverSurfer]: ~$ clear\nTERM environment variable not set.\n;166m[phyman@SilverSurfer]: ~$                                                      ;166m[phyman@SilverSurfer]: ~$ cd Dev/Vintage\nbash: cd: Dev/Vintage: No such file or directory\n;166m[phyman@SilverSurfer]: ~$                                                      ;166m[phyman@SilverSurfer]: ~$ cd Dev\n;166m[phyman@SilverSurfer]: ~/Dev$                                                 ls\nMisc\nNotes Etc\nPHH projects\nTipit\nVikingSchool\ngit\ngit-util\ngoogle_appengine\n;166m[phyman@SilverSurfer]: ~/Dev$                                                 cd VikingSchool\n;166m[phyman@SilverSurfer]: ~/Dev/VikingSchool$                                    ls\nBootstrapJumbotron\nCode reveiw\nPeter PNDPO\ndanebook_homepage\ndanebook_pages\ndb_timeline_page.png\ndb_timeline_page_boxed.jpg\ngame_center_assignment\ngame_center_project\n;166m[phyman@SilverSurfer]: ~/Dev/VikingSchool$                                    cd game_center_project\n;166m[phyman@SilverSurfer]: ~/Dev/VikingSchool/game_center_project$                ls\nREADME.md\nblackjack\nconnect_four\nrock_paper_scissors\nwarmup\n;166m[phyman@SilverSurfer]: ~/Dev/VikingSchool/game_center_project$                ",
+			"settings":
+			{
+				"buffer_size": 2856,
+				"line_ending": "Unix",
+				"name": "*REPL* [shell]",
+				"scratch": true
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 287.0,
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: List Packages"
+			],
+			[
+				"sub",
+				"SublimeREPL: Ruby"
+			],
+			[
+				"REP",
+				"SublimeREPL: Ruby"
+			],
+			[
+				"Sublim",
+				"SublimeREPL: Ruby"
+			],
+			[
+				"Package",
+				"Package Control: Install Package"
+			],
+			[
+				"pack",
+				"Package Control: Install Package"
+			],
+			[
+				"",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 224.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/phyman/Library/Application Support/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
+		"/Users/phyman/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/Users/phyman/Dev/VikingSchool/game_center_assignment/tetris/Questions.txt",
+		"/Users/phyman/Dev/Misc/Comment-Blocks.txt",
+		"/Users/phyman/Dev/VikingSchool/game_center_assignment/~temp/Questions.txt",
+		"/Users/phyman/Library/Application Support/Sublime Text 2/Packages/SublimeREPL/SublimeREPL.sublime-settings",
+		"/Users/phyman/Library/Application Support/Sublime Text 2/Packages/SublimeREPL/config/Ruby/pry_repl.rb",
+		"/Users/phyman/Library/Application Support/Sublime Text 2/Packages/User/SublimeREPL.sublime-settings",
+		"/Users/phyman/Dev/VikingSchool/game_center_assignment/README.md",
+		"/Users/phyman/Dev/VikingSchool/game_center_assignment/.gitignore",
+		"/Users/phyman/Dev/VikingSchool/game_center_assignment/~temp.txt",
+		"/Users/phyman/Dev/VikingSchool/danebook_pages/timeline.html",
+		"/Users/phyman/Library/Application Support/Sublime Text 2/Packages/User/Package Control.sublime-settings",
+		"/Users/phyman/Dev/VikingSchool/danebook_pages/.gitignore",
+		"/Users/phyman/Dev/VikingSchool/danebook_pages/assets/css/styles.css",
+		"/Users/phyman/Dev/VikingSchool/danebook_pages/assets/css/styles.scss",
+		"/Users/phyman/Dev/VikingSchool/danebook_pages/about_edit.html",
+		"/Users/phyman/Dev/VikingSchool/danebook_pages/photos.html",
+		"/Users/phyman/Dev/VikingSchool/danebook_pages/friends.html",
+		"/Users/phyman/Dev/VikingSchool/danebook_pages/about.html",
+		"/Users/phyman/Dev/VikingSchool/danebook_pages/README.md",
+		"/Users/phyman/Dev/VikingSchool/danebook_pages/.git/COMMIT_EDITMSG",
+		"/Users/phyman/Dev/VikingSchool/danebook_pages/css/styles.scss",
+		"/Users/phyman/Dev/VikingSchool/danebook_homepage/.gitignore",
+		"/Users/phyman/Dev/VikingSchool/danebook_pages/css/styles.scss.css",
+		"/Users/phyman/Dev/VikingSchool/danebook_homepage/styles.css",
+		"/Users/phyman/Dev/VikingSchool/BootstrapJumbotron/jumbotronex.css",
+		"/Users/phyman/Library/Application Support/Sublime Text 2/Packages/User/JSON.sublime-settings",
+		"/Users/phyman/git/viking_school/VikingSchoolPrep/.git/COMMIT_EDITMSG",
+		"/Users/phyman/Downloads/g.sFYPskv9mTsVTnYc$defaultpad.dokuwiki",
+		"/Applications/Vagrant/embedded/gems/gems/i18n-0.6.4/README.textile",
+		"/Users/phyman/Documents/Tipit/JungleDisk/temp/JD-redesign_v1.2.txt",
+		"/Users/phyman/Documents/Tipit/JungleDisk/temp/www.jungledisk.com/Content/W_C/JenkinsWorkspace/www.jungledisk.com_PackageForProduction/JungleDisk.PublicWeb/obj/Release/Package/PackageTmp/Web.config",
+		"/Users/phyman/temp/full_chain_www_allout_org.crt",
+		"/Users/phyman/Box Sync/Tipit Projects/Jungle Disk/HTML/From HTML team/HB_PriceProdPgs-Jungle-disk-2014-02-07.zip",
+		"/Users/phyman/Documents/Tipit/JungleDisk/Design/Callouts on Comps/sitemap.xml",
+		"/Users/phyman/Dev/Tipit/JungleDisk/monitor/cpp (trunk)/jungledisk3/branding.py",
+		"/Users/phyman/temp/Implement Dynamic Activity Feed",
+		"/Users/phyman/temp/PeersActivityFeed.html",
+		"/Users/phyman/Tipit/Snippets",
+		"/Users/phyman/git/github/PurposeOpen/Platform/Gemfile.lock",
+		"/Users/phyman/temp/CP 2556 notes",
+		"/Users/phyman/temp/Purpose License info for wiki",
+		"/Users/phyman/temp/Purpose/PEERS/PEERS site functionality:",
+		"/Users/phyman/temp/All Out/Allout GoDaddy credentials",
+		"/Users/phyman/temp/h1. ClearDB",
+		"/Users/phyman/Library/Application Support/Sublime Text 2/Packages/Default/Default (OSX).sublime-keymap",
+		"/Users/phyman/Library/Application Support/Sublime Text 2/Packages/User/Default (OSX).sublime-keymap",
+		"/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/CarbonCore.framework/Versions/A/Headers/Finder.h",
+		"/Users/phyman/git/github/PurposeOpen/Platform/app/assets/javascripts/public/lib/jquery.nivo.slider.js",
+		"/Users/phyman/git/github/PurposeOpen/Platform/app/assets/javascripts/public/lib/jquery.multiselect.js",
+		"/Users/phyman/git/github/PurposeOpen/Platform/app/assets/javascripts/public/lib/jquery.multiselect.filter.js",
+		"/Users/phyman/git/github/PurposeOpen/Platform/app/assets/javascripts/public/lib/jquery.localisation-min.js",
+		"/Users/phyman/git/github/PurposeOpen/Platform/app/assets/javascripts/public/lib/jquery.livequery.js",
+		"/Users/phyman/git/github/PurposeOpen/Platform/app/assets/javascripts/public/lib/jquery.autoSuggest.js",
+		"/Users/phyman/git/github/PurposeOpen/Platform/app/assets/javascripts/admin/lib/underscore-min.js",
+		"/Users/phyman/git/github/PurposeOpen/Platform/app/assets/javascripts/admin/lib/jquery.tooltip.js",
+		"/Users/phyman/git/github/PurposeOpen/Platform/app/assets/javascripts/admin/lib/jquery.tagsinput.purposecampaigns.js",
+		"/Users/phyman/git/github/PurposeOpen/Platform/app/assets/javascripts/admin/lib/jquery.qtip.js",
+		"/Users/phyman/git/github/PurposeOpen/Platform/app/assets/javascripts/admin/lib/jquery.periodicalupdater.js",
+		"/Users/phyman/git/github/PurposeOpen/Platform/app/assets/javascripts/admin/lib/jquery.jstree.js",
+		"/Users/phyman/git/github/PurposeOpen/Platform/app/assets/javascripts/admin/lib/jquery.colorbox.js",
+		"/Users/phyman/git/github/PurposeOpen/Platform/app/assets/javascripts/admin/lib/jquery.charCount.js",
+		"/Users/phyman/git/github/PurposeOpen/Platform/app/assets/javascripts/admin/lib/jquery-ui-timepicker-addon.js",
+		"/Users/phyman/git/github/PurposeOpen/Platform/app/assets/javascripts/admin/lib/jquery-ui-1.8.11.custom.js",
+		"/Users/phyman/git/github/PurposeOpen/Platform/app/assets/javascripts/b-jquery-ui.min.js",
+		"/Users/phyman/git/github/PurposeOpen/Platform/app/assets/javascripts/admin/lib/details.polyfill.js",
+		"/Users/phyman/git/github/Platform/spec/spec_helper.rb",
+		"/Users/phyman/git/github/Platform/config/locales/en.yml",
+		"/Users/phyman/git/github/Platform/dummy_movement/config/locales/en.yml",
+		"/Users/phyman/git/github/Platform/app/models/platform_user_email_templates.rb",
+		"/Users/phyman/git/github/Platform/spec/mailers/platform_user_mailer_spec.rb",
+		"/Users/phyman/git/github/Platform/spec/models/action_sequence_spec.rb",
+		"/Users/phyman/git/github/Platform/app/assets/stylesheets/nivo-slider.css",
+		"/Users/phyman/git/github/Platform/app/models/action_sequence.rb",
+		"/Users/phyman/git/github/Platform/app/assets/stylesheets/sass/screen.scss",
+		"/Users/phyman/git/github/Platform/app/assets/stylesheets/sass/screen-happy.scss",
+		"/Users/phyman/git/github/Platform/app/assets/stylesheets/sass/screen-sad.scss",
+		"/Users/phyman/git/github/Platform/app/models/sendgrid_token_replacement.rb",
+		"/Users/phyman/git/github/Platform/app/assets/javascripts/public/lib/jquery.toggleedit.min.js",
+		"/Users/phyman/git/github/Platform/app/assets/javascripts/public/lib/jquery.autoSuggest.js",
+		"/Users/phyman/git/github/Platform/app/assets/javascripts/tinymce/plugins/purposeImageManagerPlugin/editor_plugin.js",
+		"/Users/phyman/git/github/Platform/config/autofire-email-defaults.yml",
+		"/Users/phyman/git/github/Platform/spec/models/sendgrid_mailer_spec.rb",
+		"/Users/phyman/git/github/Platform/spec/models/action_page_spec.rb",
+		"/Users/phyman/git/github/Platform/spec/controllers/api/members_controller_spec.rb",
+		"/Users/phyman/git/github/Platform/spec/controllers/admin/emails_controller_spec.rb",
+		"/Users/phyman/git/github/Platform/config/initializers/devise.rb",
+		"/Users/phyman/git/github/Platform/app/mailers/sendgrid_mailer.rb",
+		"/Users/phyman/git/github/Platform/app/models/movement.rb",
+		"/Users/phyman/git/github/Platform/app/helpers/application_helper.rb",
+		"/Users/phyman/git/github/Platform/spec/models/movement_spec.rb",
+		"/Users/phyman/git/github/Platform/spec/models/sendgrid_token_replacement_spec.rb",
+		"/Users/phyman/git/github/Platform/spec/mailers/sendgrid_mailer_spec.rb",
+		"/Users/phyman/git/github/Platform/spec/factories/movement_factory.rb",
+		"/Users/phyman/git/github/Platform/spec/factories/content_module_factory.rb",
+		"/Users/phyman/git/github/Platform/features/step_definitions/user_steps.rb",
+		"/Users/phyman/git/github/Platform/features/step_definitions/push.rb",
+		"/Users/phyman/git/github/Platform/features/user_privileges.feature",
+		"/Users/phyman/git/github/Platform/features/smoke_test.feature",
+		"/Users/phyman/git/github/Platform/features/pushes.feature",
+		"/Users/phyman/git/github/Platform/features/manage_movements.feature",
+		"/Users/phyman/git/github/Platform/features/manage_homepages.feature",
+		"/Users/phyman/git/github/Platform/features/manage_campaigns.feature",
+		"/Users/phyman/git/github/Platform/dummy_movement/Gemfile",
+		"/Users/phyman/git/github/Platform/config/initializers/mail.rb",
+		"/Users/phyman/git/github/Platform/config/environments/production.rb",
+		"/Users/phyman/git/github/Platform/config/deploy.rb",
+		"/Users/phyman/git/github/Platform/config/application.rb",
+		"/Users/phyman/git/github/Platform/app/views/layouts/_base.html.erb",
+		"/Users/phyman/git/github/Platform/app/views/layouts/health_dashboard.html.erb",
+		"/Users/phyman/git/github/Platform/app/models/email.rb",
+		"/Users/phyman/git/github/Platform/app/models/donation.rb",
+		"/Users/phyman/git/github/Platform/app/models/autofire_email.rb",
+		"/Users/phyman/git/github/Platform/app/mailers/purpose_mailer.rb",
+		"/Users/phyman/git/github/Platform/Gemfile",
+		"/Users/phyman/git/github/Platform/spec/models/email_targets_module_spec.rb",
+		"/Users/phyman/git/github/Platform/spec/models/user_spec.rb",
+		"/Users/phyman/git/github/Platform/spec/factories/email_factory.rb",
+		"/Users/phyman/git/github/Platform/spec/javascripts/maps.event_builder_spec.js",
+		"/Users/phyman/git/github/Platform/spec/javascripts/geo_spec.js",
+		"/Users/phyman/git/github/Platform/spec/controllers/admin/users_controller_spec.rb",
+		"/Users/phyman/git/github/Platform/features/support/paths.rb",
+		"/Users/phyman/git/github/Platform/features/step_definitions/seed_steps.rb",
+		"/Users/phyman/git/github/Platform/features/step_definitions/email_steps.rb",
+		"/Users/phyman/git/github/Platform/features/step_definitions/campaign_steps.rb",
+		"/Users/phyman/git/github/Platform/features/user_roles.feature",
+		"/Users/phyman/git/github/Platform/features/manage_users.feature"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			"*.*"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"pry",
+			"h5",
+			"COPY",
+			"about-body",
+			"left",
+			"basic",
+			"wrapper",
+			"about-section-wrapper",
+			"main",
+			"FRIENDS",
+			"test1",
+			"textarea",
+			"FRIENDS",
+			"Post wrapper",
+			"gtest",
+			">",
+			"submit",
+			"num_pass",
+			"label_adjust",
+			"num_switches",
+			"san",
+			"h3.",
+			"% h3.",
+			"*%{font-size:11pt;font-family:Arial}",
+			"%{font-size:11pt;font-family:Arial} %",
+			"o  ",
+			"o  ",
+			"o ",
+			"o",
+			"·",
+			"| ",
+			" |  |  |  |  |  |",
+			".jpg",
+			"h3. Notes\n\n* ",
+			" page",
+			"vsGoliath",
+			"allure-energy",
+			"http://fast.fonts.net/jsapi/4015710e-794e-4f24-bc5f-2dff2c89f21b.js\nhttp://fast.fonts.net/jsapi/4015710e-794e-4f24-bc5f-2dff2c89f21b.js\nfastfonts",
+			"fonts.com",
+			"font",
+			"fonts.com",
+			"Tipit",
+			"fonts.com",
+			"tipit",
+			"</loc>",
+			"<loc>",
+			"Watch the",
+			"mg src=\"{%",
+			"img",
+			"morgo",
+			"- ",
+			"Eric Hynds",
+			"Underscore.js 1.3.1",
+			"ctrl+shift+x",
+			"+k",
+			"k",
+			"delete",
+			"delete_line",
+			">",
+			"#<",
+			"=>[",
+			"], :",
+			",",
+			"=>",
+			"License",
+			"404",
+			"something went wrong",
+			"\nfield",
+			"Please enter a value",
+			"card_number_invalid",
+			"number",
+			"credit",
+			"credit card",
+			"Please enter",
+			"deliver_autofire_email_to_without_delay",
+			"strings",
+			"```Ruby",
+			"getup",
+			"purpose",
+			"you've been added",
+			"you have been added",
+			"purpose movement",
+			"Sanitizing",
+			"getup",
+			"pending",
+			"Change have been",
+			"purpose.com",
+			"getup",
+			"allout.org",
+			"@allout.org",
+			"@allout",
+			"allout",
+			"get up",
+			"purpose",
+			"walkfree",
+			"purpose",
+			".purpose",
+			"purpose",
+			"@purpose",
+			"purpose",
+			"@purpose",
+			"purpose",
+			"@purpose",
+			"purpose",
+			"getup",
+			"@purpose",
+			"@getup",
+			"getup",
+			"purpose",
+			"getup",
+			"domain",
+			"getup",
+			"getupt",
+			"@purpose",
+			"@domain",
+			"domain",
+			"purpose",
+			"getup",
+			"getup_",
+			"getup",
+			"#getup-",
+			"$getup-",
+			"getup",
+			"#getup-",
+			"$getup-",
+			"getup",
+			"#getup",
+			"$getup-"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"pass_counter",
+			"adjusted_label",
+			"NUM_SWITCHES",
+			"h2.",
+			"h2. ",
+			" ",
+			"h3. ",
+			"",
+			"**",
+			"*",
+			"# ",
+			"",
+			" |  |  |  |  |  |",
+			" |  |  |  |  |  ",
+			" |  |  |  |  |  |",
+			" | ",
+			"",
+			"[ProjName]",
+			"vsGoliath",
+			"h1. How to file an issue \n\nThere are two way to file an issue with the Chili Project app: 1) Directly in the app via it's web interface and 2) via Email submission, both will be covered here.\n\nh2. Chili Project App\n\n# Go to your project's Issues section\n** For this project it's: https://chili.tipit.net/projects/allure-energy/issues\n# Click on *Issues* in the left column.\n# On the listing of options that unfolds below *Issues* click on *New issue*\n** https://chili.tipit.net/projects/allure-energy/issues/new\n!http://content.screencast.com/users/Phhyman/folders/Snagit/media/cadcd1b4-feb0-4553-9a2d-4650fbaaf21f/2014-04-23_14-53-08.jpeg!\n# On the *New issue* screen, select a *Tracker* type \n** *Bug* for bugs\n** *Feature* for a new feature\n** *User Story* to describe the user experience and desired outcome, or \n** *Ticket* - usually used as a child or step of another issue or used for capturing a task that needs to be done\n# Fill in the *Subject* with a brief description of the issue.\n# Populate the *Description* with a template and/or related information.\n## It is +recommended+ (but not required) to use one of the templates available in the \"wiki's CP_templates page\":https://chili.tipit.net/projects/allure-energy/wiki/CP_templates to populate the issue's *Description field* first, then fill in the details within the template.\n*** These can be easily copied from the template body and pasted into the new issue.\n!http://content.screencast.com/users/Phhyman/folders/Snagit/media/a048a38a-adc9-44f7-9873-9c5eac1ad17d/2014-04-23_13-49-25.jpeg!\n*** Use the \"User Story template\":https://chili.tipit.net/projects/allure-energy/wiki/CP_templates#User-Story-template for a user story or a Feature issue\n*** Use the \"Bug template\":https://chili.tipit.net/projects/allure-energy/wiki/CP_templates#Bug-template for bugs found (of course!)\n# Leave the *Status* as +New+\n# Set the *Priority* to the appropriate level; this will establish how quickly the issue is scheduled to be addressed.\n# Set the *Assignee* to your Tipit Project Manager.\n# Set the *Due Date* if appropriate (but this is usually set by the Tipit PM when scheduling).\n# Attach any supporting files and/or screenshots using the *Files* and/or *Screenshots* functionality.\n!http://content.screencast.com/users/Phhyman/folders/Snagit/media/1f260657-9d55-4b59-b021-50b01a33b79b/2014-04-23_14-17-29.jpeg!\n# Assign *Watchers* that will be notified when the Issue is submitted or updated.\n# Use the *Preview* link to view the issue before creating and filing it in the system.\n** Make any edits or adjustments as needed.\n!http://content.screencast.com/users/Phhyman/folders/Snagit/media/9ab041af-4c9d-4a77-a8f5-219c6abdda1c/2014-04-23_14-33-03.jpeg!\n# Click *Create* to file the issues and notify the *Watchers* & *Assignee* via email.\n\n\nh2. Email submission\n\nAny email sent to the Chili Project's email address (chiliproject@chili.tipit.net) will be added to your project as a New Issue with a *Tracker type* of *Ticket*.\nThis is a quick method to file an issue and is especially useful option as it allows an issue to be filed from mobile devices quickly and easily.\n\n* The email's Subject line becomes the Issue's Subject\n* The email's body becomes the Issue's Description\n* Images inserted in the email body or attached to the email will be added to the issue too.\n\n\n!http://content.screencast.com/users/Phhyman/folders/Snagit/media/bd96fbf1-4432-499c-b36a-2256b9893e04/2014-04-23_14-40-39.jpeg!\nh1. How to file an issue \n\nThere are two way to file an issue with the Chili Project app: 1) Directly in the app via it's web interface and 2) via Email submission, both will be covered here.\n\nh2. Chili Project App\n\n# Go to your project's Issues section\n** For this project it's: https://chili.tipit.net/projects/allure-energy/issues\n# Click on *Issues* in the left column.\n# On the listing of options that unfolds below *Issues* click on *New issue*\n** https://chili.tipit.net/projects/allure-energy/issues/new\n!http://content.screencast.com/users/Phhyman/folders/Snagit/media/cadcd1b4-feb0-4553-9a2d-4650fbaaf21f/2014-04-23_14-53-08.jpeg!\n# On the *New issue* screen, select a *Tracker* type \n** *Bug* for bugs\n** *Feature* for a new feature\n** *User Story* to describe the user experience and desired outcome, or \n** *Ticket* - usually used as a child or step of another issue or used for capturing a task that needs to be done\n# Fill in the *Subject* with a brief description of the issue.\n# Populate the *Description* with a template and/or related information.\n## It is +recommended+ (but not required) to use one of the templates available in the \"wiki's CP_templates page\":https://chili.tipit.net/projects/allure-energy/wiki/CP_templates to populate the issue's *Description field* first, then fill in the details within the template.\n*** These can be easily copied from the template body and pasted into the new issue.\n!http://content.screencast.com/users/Phhyman/folders/Snagit/media/a048a38a-adc9-44f7-9873-9c5eac1ad17d/2014-04-23_13-49-25.jpeg!\n*** Use the \"User Story template\":https://chili.tipit.net/projects/allure-energy/wiki/CP_templates#User-Story-template for a user story or a Feature issue\n*** Use the \"Bug template\":https://chili.tipit.net/projects/allure-energy/wiki/CP_templates#Bug-template for bugs found (of course!)\n# Leave the *Status* as +New+\n# Set the *Priority* to the appropriate level; this will establish how quickly the issue is scheduled to be addressed.\n# Set the *Assignee* to your Tipit Project Manager.\n# Set the *Due Date* if appropriate (but this is usually set by the Tipit PM when scheduling).\n# Attach any supporting files and/or screenshots using the *Files* and/or *Screenshots* functionality.\n!http://content.screencast.com/users/Phhyman/folders/Snagit/media/1f260657-9d55-4b59-b021-50b01a33b79b/2014-04-23_14-17-29.jpeg!\n# Assign *Watchers* that will be notified when the Issue is submitted or updated.\n# Use the *Preview* link to view the issue before creating and filing it in the system.\n** Make any edits or adjustments as needed.\n!http://content.screencast.com/users/Phhyman/folders/Snagit/media/9ab041af-4c9d-4a77-a8f5-219c6abdda1c/2014-04-23_14-33-03.jpeg!\n# Click *Create* to file the issues and notify the *Watchers* & *Assignee* via email.\n\n\nh2. Email submission\n\nAny email sent to the Chili Project's email address (chiliproject@chili.tipit.net) will be added to your project as a New Issue with a *Tracker type* of *Ticket*.\nThis is a quick method to file an issue and is especially useful option as it allows an issue to be filed from mobile devices quickly and easily.\n\n* The email's Subject line becomes the Issue's Subject\n* The email's body becomes the Issue's Description\n* Images inserted in the email body or attached to the email will be added to the issue too.\n\n\n!http://content.screencast.com/users/Phhyman/folders/Snagit/media/bd96fbf1-4432-499c-b36a-2256b9893e04/2014-04-23_14-40-39.jpeg!\nvsGoliath",
+			"",
+			"* ",
+			"",
+			"```ruby",
+			"blank",
+			"@yourname",
+			"Your Name",
+			"yourdomain",
+			"Your Name",
+			"yourdomain",
+			"Your Name",
+			"yourdomain",
+			".yourdomain",
+			"@yourdomain",
+			"yourdomain",
+			"target",
+			"yourdomain",
+			"@yourdomain",
+			"yourdomain",
+			"target",
+			"target_",
+			"$target-",
+			"#target-",
+			"$target-",
+			"#target",
+			"$target-",
+			"color-",
+			"target",
+			"",
+			"Platform",
+			"*",
+			"*transkey*",
+			"*loginid*"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "warmup/warmup.rb",
+					"settings":
+					{
+						"buffer_size": 17,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110.0
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2.0,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": true,
+							"sublimelinter_gutter_marks_theme": "simple",
+							"sublimelinter_mark_style": "none",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/Ruby/Ruby.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 1,
+					"settings":
+					{
+						"buffer_size": 15,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								15,
+								15
+							]
+						],
+						"settings":
+						{
+							"auto_complete": true,
+							"auto_indent": false,
+							"detect_indentation": false,
+							"gutter": false,
+							"history_arrows": true,
+							"indent_subsequent_lines": false,
+							"line_numbers": false,
+							"repl": true,
+							"repl_external_id": "ruby",
+							"repl_id": "d1595455ec0d4f34bed5fcac146bb7a9",
+							"repl_restart_args":
+							{
+								"autocomplete_server": true,
+								"cmd":
+								{
+									"linux":
+									[
+										"ruby",
+										"${packages}/SublimeREPL/config/Ruby/pry_repl.rb",
+										"$editor"
+									],
+									"osx":
+									[
+										"ruby",
+										"${packages}/SublimeREPL/config/Ruby/pry_repl.rb",
+										"$editor"
+									],
+									"windows":
+									[
+										"ruby.exe",
+										"${packages}/SublimeREPL/config/Ruby/pry_repl.rb",
+										"$editor"
+									]
+								},
+								"cmd_postfix": "\n",
+								"cwd": "$file_path",
+								"encoding": "utf8",
+								"external_id": "ruby",
+								"soft_quit": "\nexit\n",
+								"syntax": "Packages/Ruby/Ruby.tmLanguage",
+								"type": "subprocess"
+							},
+							"repl_sublime2": true,
+							"smart_indent": false,
+							"spell_check": false,
+							"syntax": "Packages/Ruby/Ruby.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"settings":
+					{
+						"buffer_size": 2856,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2856,
+								2856
+							]
+						],
+						"settings":
+						{
+							"auto_complete": true,
+							"auto_indent": false,
+							"detect_indentation": false,
+							"gutter": false,
+							"history_arrows": true,
+							"indent_subsequent_lines": false,
+							"line_numbers": false,
+							"repl": true,
+							"repl_external_id": "shell",
+							"repl_id": "5119236a339c4bc88ebd197ce0f245fc",
+							"repl_restart_args":
+							{
+								"cmd":
+								{
+									"linux":
+									[
+										"bash",
+										"-i"
+									],
+									"osx":
+									[
+										"bash",
+										"-i"
+									],
+									"windows":
+									[
+										"cmd.exe"
+									]
+								},
+								"cmd_postfix": "\n",
+								"cwd": "$file_path",
+								"encoding":
+								{
+									"linux": "utf-8",
+									"osx": "utf-8",
+									"windows": "$win_cmd_encoding"
+								},
+								"env":
+								{
+								},
+								"external_id": "shell",
+								"suppress_echo": true,
+								"syntax": "Packages/Text/Plain text.tmLanguage",
+								"type": "subprocess"
+							},
+							"repl_sublime2": true,
+							"smart_indent": false,
+							"spell_check": false,
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2284.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.578544740864,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 118.0
+	},
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"gem",
+				"Platform/Gemfile.lock"
+			],
+			[
+				"yml",
+				"dummy_movement/config/locales/en.yml"
+			],
+			[
+				"ym",
+				"config/locales/en.yml"
+			],
+			[
+				"application",
+				"app/helpers/application_helper.rb"
+			],
+			[
+				"spec",
+				"spec/spec_helper.rb"
+			],
+			[
+				"",
+				"J4KFT-6P67K-BYQRX-D62TK-4PG24"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": false,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 147.0,
+	"status_bar_visible": true
+}
