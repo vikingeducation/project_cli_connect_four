@@ -71,15 +71,17 @@ class Board
     result = true
     color = @board[@last_move][-1]
     row = @board[@last_move].length-1
-    same_count= 0
+    same_count = 0
     (0..6).each do |i|
       if @board[i][row] == color
-        same_count =+1
+        same_count += 1
+        p same_count
+        return true if same_count == 4
       else
         same_count=0
       end
     end
-   result = false unless same_count == 4
+    false
   end
 
   def check_draw?
