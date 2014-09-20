@@ -84,60 +84,36 @@ class Board
   end
 
   def diagonal_up_check
-    result = true
+   
 
-    color = @board[@last_move][-1]
-    row = @board[@last_move].length-1
+    (0..6).each do |column|
+      (0..5).each do |row|
+        color = @board[column][row]
+        break unless @board[column+3] && @board[column+3][row+3]
 
-    i = row
-    column = @last_move #column where the diagonal hits zero height
-    until i == 0 || column == 0
-      i -= 1
-      column-= 1
-    end
-
-
-
-    same_count = 0
-    (0..(6-column)).each do |j|
-      if color == @board[column+j][j]
-        same_count += 1
-        return true if same_count == 4
-      else
-        same_count=0
+        if @board[column+1][row+1] == color && @board[column+2][row+2] == color && @board[column+3][row+3] == color
+          return true
+        end
       end
     end
     false
+
   end
 
   def diagonal_down_check
-    result = true
 
-    color = @board[@last_move][-1]
-    row = @board[@last_move].length-1
 
-    i = row
-    column = @last_move #column where the diagonal hits zero height
-    until i == 0 || column == 6
-      i -= 1
-      column += 1
-    end
-
-    p "column: #{column}"
-
-    same_count = 0
-    (0..column).each do |j|
-      p "J is #{j}; board[j][-j] is #{@board[j][-j-1]}"
-
-      if color == @board[j][-j-1]
-        same_count += 1
-        p same_count
-        return true if same_count == 4
-      else
-        same_count=0
+    (0..6).each do |column|
+      5.downto(0) do |row|
+        color = @board[column][row]
+        break unless @board[column+3] && @board[column+3][row-3]
+        if @board[column+1][row-1] == color && @board[column+2][row-2] == color && @board[column+3][row-3] == color
+          return true
+        end
       end
     end
     false
+
   end
 
   def check_draw?
