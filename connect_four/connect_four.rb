@@ -25,8 +25,8 @@ class ConnectFour
 
     loop do
       @board.render
-      player = swap_players(player)
       player.move
+      player = swap_players(player)
 
       break if connect_four? || draw?
     end
