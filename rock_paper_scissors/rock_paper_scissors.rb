@@ -1,4 +1,10 @@
+# File:           connect_four.rb
+# Purpose:        Week 2 paired project for the Viking Code School - http://www.vikingcodeschool.com/week-2-ruby/building-the-game-back-ends
+# Author:         Matthew Davis ( Github: chewieee) && Paul H. Hyman (phyman.com | GitHub: phyman) 
+# Copyright:      (C) Matthew Davis && Paul H. Hyman 2014 -
+# Product:        CLI version of the Connect Four game written in Ruby
 
+#!/usr/bin/ruby
 
 	# Global method
 	def play()
@@ -64,7 +70,6 @@ class Game
 			end
 		end
 
-private
 	def initialize(num_players) 
 		if num_players == 1
 			@player_1 = Player.new(1)
@@ -86,14 +91,14 @@ class Player
 		@number = player_num
 	end
 		
-	def get_choice
+	def make_choice
 		puts "Player #{@number} please choose (r)ock, (p)aper, (s)scissors"
 		choice = gets.strip.downcase	
 		if validate_choice(choice)
 			return choice
 		else
 			puts "Please try again to select a valid choice\n\n"
-			get_choice()
+			make_choice()
 		end # if validate
 	end	
 
@@ -105,7 +110,7 @@ end # Player
 
 class AI < Player
 	
-		def get_choice
+		def make_choice
 			return @@choices.sample
 		end
 end #AI
