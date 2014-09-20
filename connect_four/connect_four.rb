@@ -54,8 +54,8 @@ class Board
     @board = Array.new(7) { Array.new }
   end
 
-  def check_victory
-    vertical_check ||horizontal_check
+  def check_victory 
+    vertical_check || horizontal_check
 
   end
 
@@ -108,7 +108,7 @@ class Player
   end
 
   def move
-  
+
     column = nil
     loop do
       column = get_move
@@ -125,18 +125,5 @@ class Player
 
 end
 
-[0][1][2][3]
-[0][1][2][3]
-[0][1][2][3]
-[0][1][2][3]
-[0][1][2][3]
-[0][1][2][3]
-
-@board[0][1] == black
-@board[1][1] == black
-@board[2][1] == black
-@board[3][1] == black
-@board[4][1] == black
-@board[5][1] == black
 c4 = ConnectFour.new
 c4.play
