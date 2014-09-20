@@ -9,11 +9,15 @@
 #each column is a stack that can only be pushed onto
 #rejects move if stack is already 6
 
+require './connect_four_player.rb'
+require './connect_four_ai.rb'
+
 class ConnectFour
   def initialize
     @board = Board.new
     @player1 = Player.new(@board, "\u{2686}")
-    @player2 = Player.new(@board, "\u{2688}")
+    @player2 = ConnectFourAI.new(@board, "\u{2688}")
+    #Player.new(@board, "\u{2688}")
   end
 
   def play
@@ -36,8 +40,6 @@ class ConnectFour
 
   def connect_four?
     @board.check_victory
-
-
   end
 
   def draw?
@@ -46,17 +48,19 @@ class ConnectFour
 
   def game_over
     @board.render
+    puts "Ay, yo, Game Over"
   end
 end
 
 class Board
+  attr_accessor :board
+
   def initialize
     @board = Array.new(7) { Array.new }
   end
 
   def check_victory
     vertical_check || horizontal_check || diagonal_up_check || diagonal_down_check
-
   end
 
   def vertical_check
@@ -83,37 +87,27 @@ class Board
     false
   end
 
-  def diagonal_up_check
-   
 
+  def diagonal_up_check
     (0..6).each do |column|
       (0..5).each do |row|
         color = @board[column][row]
         break unless @board[column+3] && @board[column+3][row+3]
-
-        if @board[column+1][row+1] == color && @board[column+2][row+2] == color && @board[column+3][row+3] == color
-          return true
-        end
+        return true if @board[column+1][row+1] == color && @board[column+2][row+2] == color && @board[column+3][row+3] == color
       end
     end
     false
-
   end
 
   def diagonal_down_check
-
-
     (0..6).each do |column|
-      5.downto(0) do |row|
+      (0..5).each do |row|
         color = @board[column][row]
-        break unless @board[column+3] && @board[column+3][row-3]
-        if @board[column+1][row-1] == color && @board[column+2][row-2] == color && @board[column+3][row-3] == color
-          return true
-        end
+        break unless @board[column-3] && @board[column-3][row+3]
+        return true if @board[column-1][row+1] == color && @board[column-2][row+2] == color && @board[column-3][row+3] == color
       end
     end
     false
-
   end
 
   def check_draw?
@@ -135,40 +129,5 @@ class Board
 
 end
 
-class Player
-  def initialize(board, color)
-    @board = board
-    @color = color
-  end
-
-  def move
-
-    column = nil
-    loop do
-      column = get_move
-      break if @board.valid_move?(column, @color)
-    end
-
-    @board.add_piece(column, @color)
-  end
-
-  def get_move
-    puts "Enter a column to play your piece (0-6): "
-    move = gets.chomp.to_i
-  end
-
-end
-
 c4 = ConnectFour.new
 c4.play
-
-# [0,0] [1,1] [2,2] [3,3]
-# [6]
-
-# [0, 1, 2, 3, 4, 5]
-# [0, 1, 2, 3, 4, 5]
-# [0, 1, 2, 3, 4, 5]
-# [0, 1, 2, 3, 4, 5]
-# [0, 1, 2, 3, 4, 5]
-# [0, 1, 2, 3, 4, 5]
-# [0, 1, 2, 3, 4, 5]
