@@ -1,24 +1,28 @@
 
+
+	# Global method
+	def play()
+			puts "How many players? (1-2)"
+			players = gets.chomp.to_i
+			rps = Game.new(players)
+			rps.game_loop()
+	end #init game
+
 class Game
 
 	@p1_choice 		= nil
 	@p2_choice 		= nil
 
-	# Start game - input num_players
-		# if only 1 then create AI player
-
-		def play
+		def game_loop
 
 			loop do
-			
 				@p1_choice = @player_1.get_choice
 				@p2_choice = @player_2.get_choice
 				eval_winner()
 				declare_winner()
+			end # end loop do
 
-			end
-
-		end # play
+		end # end game loop
 
 		def eval_winner
 			@winner = nil
@@ -59,7 +63,7 @@ class Game
 		def declare_winner
 			puts "Player 1 chose #{@p1_choice} and Player 2 chose #{@p2_choice}"
 			if @winner == nil
-				puts "It was a tie!"
+				puts "It was a tie!\n\n"
 			else
 				puts "The winner is Player #{@winner.to_s}!"
 				exit
@@ -81,28 +85,27 @@ end # Game
 
 
 class Player
+
+	@@choices = ["r","p","s"]
 	
 	def initialize(player_num)
 		@number = player_num
 	end
-
-		@@choices = ["r","p","s"]
 		
+	def get_choice
+		puts "Player #{@number} please choose (r)ock, (p)aper, (s)scissors"
+		choice = gets.strip	
+		if validate_choice(choice)
+			return choice
+		else
+			puts "Please try again to select a valid choice\n\n"
+			get_choice()
+		end # if validate
+	end	
 
-		def get_choice
-			puts "Player #{@number} please choose (r)ock, (p)aper, (s)scissors"
-			choice = gets.strip	
-			if validate_choice(choice)
-				return choice
-			else
-				puts "Please try again to select a valid choice\n"
-				get_choice()
-			end # if validate
-		end	
-
-		def validate_choice(choice)
-			@@choices.include?(choice)
-		end
+	def validate_choice(choice)
+		@@choices.include?(choice)
+	end
 
 end # Player
 
@@ -114,11 +117,7 @@ class AI < Player
 end #AI
 
 
-puts "How many players? (1-2)"
-players = gets.chomp.to_i
-rps = Game.new(players)
-
-rps.play
+play()
 
 
 
