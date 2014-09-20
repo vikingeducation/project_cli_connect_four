@@ -55,7 +55,7 @@ class Board
   end
 
   def check_victory
-    vertical_check || horizontal_check || diagonal_up_check
+    vertical_check || horizontal_check || diagonal_up_check || diagonal_down_check
 
   end
 
@@ -85,11 +85,51 @@ class Board
 
   def diagonal_up_check
     result = true
+
     color = @board[@last_move][-1]
     row = @board[@last_move].length-1
+
+    i = row
+    column = @last_move #column where the diagonal hits zero height
+    until i == 0 || column == 0
+      i -= 1
+      column-= 1
+    end
+
+
+
     same_count = 0
-    (1..3).each do |j|
-      if color == @board[@last_move+j][row+j]
+    (0..(6-column)).each do |j|
+      if color == @board[column+j][j]
+        same_count += 1
+        return true if same_count == 4
+      else
+        same_count=0
+      end
+    end
+    false
+  end
+
+  def diagonal_down_check
+    result = true
+
+    color = @board[@last_move][-1]
+    row = @board[@last_move].length-1
+
+    i = row
+    column = @last_move #column where the diagonal hits zero height
+    until i == 0 || column == 6
+      i -= 1
+      column += 1
+    end
+
+    p "column: #{column}"
+
+    same_count = 0
+    (0..column).each do |j|
+      p "J is #{j}; board[j][-j] is #{@board[j][-j-1]}"
+
+      if color == @board[j][-j-1]
         same_count += 1
         p same_count
         return true if same_count == 4
