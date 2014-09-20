@@ -36,8 +36,6 @@ class ConnectFour
 
   def connect_four?
     @board.check_victory
-
-
   end
 
   def draw?
@@ -46,6 +44,7 @@ class ConnectFour
 
   def game_over
     @board.render
+    puts "Ay, yo, Game Over"
   end
 end
 
@@ -83,29 +82,21 @@ class Board
     false
   end
 
+  def diagonal_up_check
+      (0..6).each do |column|
+        (0..5).each do |row|
+          color = @board[column][row]
+          break unless @board[column+3] && @board[column+3][row+3]
 
-
-
-def diagonal_up_check
-  
-
-    (0..6).each do |column|
-      (0..5).each do |row|
-        color = @board[column][row]
-        break unless @board[column+3] && @board[column+3][row+3]
-
-        if @board[column+1][row+1] == color && @board[column+2][row+2] == color && @board[column+3][row+3] == color
-          return true
+          if @board[column+1][row+1] == color && @board[column+2][row+2] == color && @board[column+3][row+3] == color
+            return true
+          end
         end
       end
-    end
-    false
-
+      false
   end
 
   def diagonal_down_check
-
-
     (0..6).each do |column|
       (0..5).each do |row|
         color = @board[column][row]
@@ -116,9 +107,7 @@ def diagonal_up_check
       end
     end
     false
-
   end
-
 
   def check_draw?
     @board.all? {|i| i.length == 6}
@@ -146,13 +135,11 @@ class Player
   end
 
   def move
-
     column = nil
     loop do
       column = get_move
       break if @board.valid_move?(column, @color)
     end
-
     @board.add_piece(column, @color)
   end
 
@@ -165,12 +152,3 @@ end
 
 c4 = ConnectFour.new
 c4.play
-
-
-# 0[0, 1, 2, 3, 4, 5]
-# 1[0, 1, 2, 3, 4, 5]
-# 2[0, 1, 2, 3, 4, 5]
-# 3[0, 1, 2, 3, 4, 5]
-# 4[0, 1, 2, 3, 4, 5]
-# 5[0, 1, 2, 3, 4, 5]
-# 6[0, 1, 2, 3, 4, 5]
