@@ -1,46 +1,52 @@
 # Your code here!
 class RockPaperScissor
 
-	def initialize
-			@gamer = AI.new
-			@choice
-			@options = {:scissors => :rock, :rock => :paper, :paper => :scissors }
+	CHOICES = ["rock", "paper", "scissors"]
 
+	def initialize
+			@victory = {:scissors => :rock, :rock => :paper, :paper => :scissors }
 	end
 
 	def play
-		loop do
-			@choice.get_choice
-			@choice.is_valid?
-			break if check_win
+			get_choice
+			loop do
+				if is_valid?(@player_choice)
+					computer_chooses
+					check_win(@player_choice, @comp_choice)
+					break
+				else
+					puts "your choice was invalid, try again"
+				end
 			end
 	end
 
 	def get_choice
-		puts "Choose rock, paper or scissors."
-		@choice = gets.strip.downcase
+		puts "Choose rock, paper, or scissors."
+		@player_choice = gets.strip.downcase
 	end
 
-	def is_valid?
-		
+	def is_valid?(choice)
+		CHOICES.include?(choice)
 	end
 
-	def check_win
+	def check_win(choice1, choice2)
+		if choice1 == choice2
+			puts "This is a draw"
+		elsif @victory[choice1] == choice2
+			puts "computer wins"
+		else
+			puts "player wins"
+		end
+	end
 
-	end 
+	def computer_chooses
+		@comp_choice = CHOICES[rand(0..2)]
+		puts "Computer chooses #{@comp_choice}"
+	end
 
 end
 
-class AI
-	#generates a move
-end
-
-class Player
-end
-
-t = RockPaperScissor
+t = RockPaperScissor.new
 t.play
-
-puts "enter 1 for single player. Enter 2 for multi-player"
 
 
