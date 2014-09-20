@@ -31,7 +31,7 @@ class ConnectFour
       break if connect_four? || draw?
     end
 
-    game_over
+    game_over(player)
   end
 
   def swap_players(player)
@@ -46,9 +46,10 @@ class ConnectFour
     @board.check_draw?
   end
 
-  def game_over
+  def game_over(player)
     @board.render
     puts "Ay, yo, Game Over"
+    puts player == @player1 ? "Player 2 wins!" : "Player 1 wins!"
   end
 end
 
@@ -135,8 +136,10 @@ class Board
       puts "|\n"
       puts "-" * 29
     end
+    print "  "
+    0.upto(6) {|i| print i.to_s.ljust(4)}
 
-
+    puts "\n\n"
   end
 
 end
