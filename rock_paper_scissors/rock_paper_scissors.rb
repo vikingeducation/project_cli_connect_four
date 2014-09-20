@@ -34,23 +34,23 @@ class Game
       if player_2_choice == 'R'
         'DRAW'
       elsif player_2_choice == 'P'
-        'Player 2 wins'
+        'Paper smothers rock. Player 2 wins.'
       else
-        'Player 1 wins'
+        'Rock crushes scissors. Player 1 wins.'
       end
     elsif player_1_choice == 'P'
       if player_2_choice == 'R'
-        'Player 1 wins'
+        'Paper smothers rock. Player 1 wins.'
       elsif player_2_choice == 'P'
         'DRAW'
       else
-        'Player 2 wins'
+        'Scissors cut paper. Player 2 wins.'
       end
     else
       if player_2_choice == 'R'
-        'Player 2 wins'
+        'Rock crushes scissors. Player 2 wins.'
       elsif player_2_choice == 'P'
-        'Player 1 wins'
+        'Scissors cut paper. Player 1 wins.'
       else
         'DRAW'
       end
