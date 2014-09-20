@@ -70,16 +70,16 @@ class Board
   def horizontal_check
     result = true
     color = @board[@last_move][-1]
+    row = @board[@last_move].length-1
     same_count= 0
-    @board[i].length-1
     (0..6).each do |i|
-      if @board[i][@last_move.length-1] == color
+      if @board[i][row] == color
         same_count =+1
       else
         same_count=0
-      end  
+      end
     end
-   false
+   result = false unless same_count == 4
   end
 
   def check_draw?
