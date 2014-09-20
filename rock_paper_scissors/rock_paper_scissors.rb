@@ -1,8 +1,9 @@
 # Your code here!
 
 class Game
-  def initialize
+  def initialize(type='single')
     @player=Player.new
+    @game_type = type
   end
 
   def unicode(arg)
@@ -14,58 +15,42 @@ class Game
     when 'P'
       "\u{270B}"
     end
-
-
-  end
-
-  def rock
-    'R'
-  end
-
-  def paper
-    'P'
-  end
-
-  def scissors
-    'S'
   end
 
   def ai_move
-    [rock, paper, scissors].sample
+    ['R', 'P', 'S'].sample
   end
-
-
 
   def play
-    ai=ai_move
-    player_move=@player.get_player_input
-    
-    comparison=compare_fists(player_move,ai)
-    display_results(player_move,ai,comparison)
+    player_move = @player.get_player_input(@game_type == 'single' ? '' : ' 1')
+    player_2_move = @game_type == 'single' ? ai_move : @player.get_player_input(' 2')
+
+    comparison=compare_fists(player_move,player_2_move)
+    display_results(player_move,player_2_move,comparison)
   end
 
-  def compare_fists(player_choice,ai_choice)
-    if player_choice == 'R'
-      if ai_choice == 'R'
+  def compare_fists(player_1_choice,player_2_choice)
+    if player_1_choice == 'R'
+      if player_2_choice == 'R'
         'DRAW'
-      elsif ai_choice == 'P'
-        'YOU LOSE'
+      elsif player_2_choice == 'P'
+        'Player 2 wins'
       else
-        'YOU WIN'
+        'Player 1 wins'
       end
-    elsif player_choice == 'P'
-      if ai_choice == 'R'
-        'YOU WIN'
-      elsif ai_choice == 'P'
+    elsif player_1_choice == 'P'
+      if player_2_choice == 'R'
+        'Player 1 wins'
+      elsif player_2_choice == 'P'
         'DRAW'
       else
-        'YOU LOSE'
+        'Player 2 wins'
       end
     else
-      if ai_choice == 'R'
-        'YOU LOSE'
-      elsif ai_choice == 'P'
-        'YOU WIN'
+      if player_2_choice == 'R'
+        'Player 2 wins'
+      elsif player_2_choice == 'P'
+        'Player 1 wins'
       else
         'DRAW'
       end
@@ -73,23 +58,20 @@ class Game
   end
 
   def display_results(p,a,comp)
-    puts "\n#######################"
-    puts "Player: #{unicode(p)} VS. AI: #{unicode(a)}"
+    puts "\n#############################"
+    puts "Player 1: #{unicode(p)}  VS. Player 2: #{unicode(a)}"
     puts "Result: #{comp}"
-    puts "#######################"
+    puts "#############################"
   end
 
 end
 
 
 class Player
-  def initialize
 
-  end
-
-  def get_player_input
+  def get_player_input(player_num)
     loop do
-     puts "Select Rock, Paper, or Scissors (R, P, S):"
+     puts "Player#{player_num}, select Rock, Paper, or Scissors (R, P, S):"
      choice=gets.chomp.upcase
      return choice if ['R','P','S'].include?(choice)
     end
@@ -97,6 +79,13 @@ class Player
   end
 end
 
+game_type = nil
 
-g=Game.new
+loop do
+  puts "Will you play multi or single player?"
+  game_type = gets.chomp
+  break if game_type == 'single' || game_type == 'multi'
+end
+
+g=Game.new(game_type)
 g.play
