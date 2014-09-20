@@ -124,7 +124,19 @@ class Board
   end
 
   def render
-    @board.each { |column| p column }
+    5.downto(0) do |row|
+      0.upto(6) do |column|
+        if @board[column][row]
+          print "| #{@board[column][row]} "
+        else
+          print "|   "
+        end
+      end
+      puts "|\n"
+      puts "-" * 29
+    end
+
+
   end
 
 end
