@@ -54,8 +54,8 @@ class Board
     @board = Array.new(7) { Array.new }
   end
 
-  def check_victory
-    vertical_check ||horizontal_check
+  def check_victory 
+    vertical_check || horizontal_check
 
   end
 
@@ -71,10 +71,10 @@ class Board
     result = true
     color = @board[@last_move][-1]
     same_count= 0
-    @board[i].length-1
     (0..6).each do |i|
-      if @board[i][@last_move.length-1] == color
+      if @board[i][-1] == color
         same_count =+1
+        return true if same_count == 4
       else
         same_count=0
       end  
@@ -125,18 +125,5 @@ class Player
 
 end
 
-[0][1][2][3]
-[0][1][2][3]
-[0][1][2][3]
-[0][1][2][3]
-[0][1][2][3]
-[0][1][2][3]
-
-@board[0][1] == black
-@board[1][1] == black
-@board[2][1] == black
-@board[3][1] == black
-@board[4][1] == black
-@board[5][1] == black
 c4 = ConnectFour.new
 c4.play
