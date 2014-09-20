@@ -8,16 +8,15 @@
 #a board seven wide and 6 high
 #each column is a stack that can only be pushed onto
 #rejects move if stack is already 6
-
 require './connect_four_player.rb'
 require './connect_four_ai.rb'
 
+
 class ConnectFour
-  def initialize
+  def initialize(game_type)
     @board = Board.new
     @player1 = Player.new(@board, "\u{2686}")
-    @player2 = ConnectFourAI.new(@board, "\u{2688}")
-    #Player.new(@board, "\u{2688}")
+    game_type ==1 ? @player2 = ConnectFourAI.new(@board, "\u{2688}") : @player2 = Player.new(@board, "\u{2688}")
   end
 
   def play
@@ -50,6 +49,7 @@ class ConnectFour
     @board.render
     puts "Ay, yo, Game Over"
     puts player == @player1 ? "Player 2 wins!" : "Player 1 wins!"
+    exit
   end
 end
 
@@ -143,6 +143,3 @@ class Board
   end
 
 end
-
-c4 = ConnectFour.new
-c4.play
