@@ -35,14 +35,17 @@ class ConnectFour
   end
 
   def connect_four?
-    false
+    @board.check_victory
+
+
   end
 
   def draw?
-    false
+    @board.check_draw?
   end
 
   def game_over
+    @board.render
   end
 end
 
@@ -51,11 +54,44 @@ class Board
     @board = Array.new(7) { Array.new }
   end
 
+  def check_victory
+    vertical_check ||horizontal_check
+
+  end
+
+  def vertical_check
+    result=true
+    0.upto(3) do |i|
+     result = false unless (@board[@last_move][-1-i]  == @board[@last_move][-1])
+    end
+    result
+  end
+
+  def horizontal_check
+    result = true
+    color = @board[@last_move][-1]
+    same_count= 0
+    @board[i].length-1
+    (0..6).each do |i|
+      if @board[i][@last_move.length-1] == color
+        same_count =+1
+      else
+        same_count=0
+      end  
+    end
+   false
+  end
+
+  def check_draw?
+    @board.all? {|i| i.length == 6}
+  end
+
   def valid_move?(column, color)
     (0..6).include?(column) && @board[column].length < 6
   end
 
   def add_piece(column, color)
+    @last_move = column
     @board[column] << color
   end
 
@@ -89,5 +125,18 @@ class Player
 
 end
 
+[0][1][2][3]
+[0][1][2][3]
+[0][1][2][3]
+[0][1][2][3]
+[0][1][2][3]
+[0][1][2][3]
+
+@board[0][1] == black
+@board[1][1] == black
+@board[2][1] == black
+@board[3][1] == black
+@board[4][1] == black
+@board[5][1] == black
 c4 = ConnectFour.new
 c4.play
