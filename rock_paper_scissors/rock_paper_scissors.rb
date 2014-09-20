@@ -3,9 +3,14 @@
 	# Global method
 	def play()
 			puts "How many players? (1-2)"
-			players = gets.chomp.to_i
-			rps = Game.new(players)
-			rps.game_loop()
+			num_players = gets.chomp.to_i
+			# validate player count
+			if num_players < 1 || num_players > 2
+				puts "Please choose 1 or 2 players\n\n"
+				play()
+			end  
+			rps = Game.new(num_players)
+			rps.game_loop
 	end #init game
 
 class Game
@@ -18,46 +23,36 @@ class Game
 			loop do
 				@p1_choice = @player_1.get_choice
 				@p2_choice = @player_2.get_choice
-				eval_winner()
-				declare_winner()
+				eval_winner
+				declare_winner
+				if @winner
+					exit
+				end # if it's a tie play again!
+
 			end # end loop do
 
 		end # end game loop
 
 		def eval_winner
-			@winner = nil
-			
-			if @p1_choice		 == "r" && @p2_choice == "p"
-				@winner = 2
-
-			elsif @p1_choice == "r" && @p2_choice == "s"
-				@winner = 1
-
-			elsif @p1_choice == "r" && @p2_choice == "r"
-				@winner = nil
-
-			elsif @p1_choice == "s" && @p2_choice == "r"
-				@winner = 1
-
-			elsif @p1_choice == "s" && @p2_choice == "p"
-				@winner = 1
-
-			elsif @p1_choice == "s" && @p2_choice == "s"
-				@winner = nil
-			
-			elsif @p1_choice == "p" && @p2_choice == "r"
-				@winner = 1
-			
-			elsif @p1_choice == "p" && @p2_choice == "s"
-				@winner = 2
-			
-			elsif @p1_choice == "p" && @p2_choice == "p"
-				@winner = nil
-
-			else
-				puts "It'll never get to this point!"
-			end
-
+			if @p1_choice	== "r"
+				case @p2_choice
+				when "p" then	@winner = 2
+				when "s" then @winner = 1
+				when "r" then @winner = nil
+				end # end case
+			elsif @p1_choice == "p"
+				case @p2_choice 
+				when "p" then	@winner = nil
+				when "s" then @winner = 2
+				when "r" then @winner = 1
+			end # end case
+			else 
+				case @p2_choice
+				when "p" then @winner = 2
+				when "s" then @winner = 1
+				when "r" then @winner = nil
+			end # end case
+			end # end if
 		end
 
 		def declare_winner
@@ -66,7 +61,6 @@ class Game
 				puts "It was a tie!\n\n"
 			else
 				puts "The winner is Player #{@winner.to_s}!"
-				exit
 			end
 		end
 
@@ -94,7 +88,7 @@ class Player
 		
 	def get_choice
 		puts "Player #{@number} please choose (r)ock, (p)aper, (s)scissors"
-		choice = gets.strip	
+		choice = gets.strip.downcase	
 		if validate_choice(choice)
 			return choice
 		else
@@ -117,7 +111,7 @@ class AI < Player
 end #AI
 
 
-play()
+play
 
 
 
