@@ -83,17 +83,14 @@ class Board
   end
 
   def diagonal_up_check
-      (0..6).each do |column|
-        (0..5).each do |row|
-          color = @board[column][row]
-          break unless @board[column+3] && @board[column+3][row+3]
-
-          if @board[column+1][row+1] == color && @board[column+2][row+2] == color && @board[column+3][row+3] == color
-            return true
-          end
-        end
+    (0..6).each do |column|
+      (0..5).each do |row|
+        color = @board[column][row]
+        break unless @board[column+3] && @board[column+3][row+3]
+        return true if @board[column+1][row+1] == color && @board[column+2][row+2] == color && @board[column+3][row+3] == color
       end
-      false
+    end
+    false
   end
 
   def diagonal_down_check
@@ -101,9 +98,7 @@ class Board
       (0..5).each do |row|
         color = @board[column][row]
         break unless @board[column-3] && @board[column-3][row+3]
-        if @board[column-1][row+1] == color && @board[column-2][row+2] == color && @board[column-3][row+3] == color
-          return true
-        end
+        return true if @board[column-1][row+1] == color && @board[column-2][row+2] == color && @board[column-3][row+3] == color
       end
     end
     false
