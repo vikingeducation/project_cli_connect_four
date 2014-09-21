@@ -10,8 +10,6 @@
 	class ConnectFourGame
 
 		def initialize
-			puts "100"
-
 			@Col_num = 7
 			@Row_num = 6
 			@winner_player = nil
@@ -19,7 +17,6 @@
 		end
 
 		def play
-			puts "300"
 			set_players(get_player_count)
 
 			loop do
@@ -45,9 +42,9 @@
 			@player_1 = Player.new(@board, 1, "1")
 
 			if player_count == 1
-				@player_2 == AI.new(@board, 2, "2")
+				@player_2 = AI.new(@board, 2, "2")
 			else
-				@player_2 == Player.new(@board, 2, "2")
+				@player_2 = Player.new(@board, 2, "2")
 			end
 
 			@current_player = [@player_1, @player_2].sample
@@ -69,6 +66,7 @@
 			if @board.verify_drop(plyr_col_num)	
 				@current_player.drop_piece(plyr_col_num)
 			else
+				puts "This column is full, please select another column"
 				prompt_player_for_turn # play isn't valid recursive call
 			end
 
@@ -80,9 +78,9 @@
 
 		def switch_player
 			if @current_player == @player_1
-				@current_player = @player_2
+				@current_player  = 	@player_2
 			else
-				@current_player = @player_1
+				@current_player  = 	@player_1
 			end
 		end
 
@@ -92,6 +90,7 @@
 	
 	class Board
 
+		
 		##
 		#
 		def render()
@@ -118,9 +117,13 @@
 		##
 		#
 		def space?(col_num)
-			@playfield[col_num].size < @row_size
+			@playfield[(col_num - 1)].size < @row_size
 		end
 		
+		def accept_piece(col_num, piece)	
+			@playfield[col_num - 1] << piece
+		end
+
 		##
 		#
 		def initialize(col_num, row_num)
@@ -145,7 +148,7 @@
 		#
 		def drop_piece(col_num)
 			if @board.verify_drop(col_num)
-				@board[col_num] << piece
+				@board.accept_piece(col_num, piece)
 			end
 		end
 		
