@@ -105,13 +105,13 @@ class Board
 
 
   def vertical
-    vert = Array.new
+    vertical = Array.new
     @board.each do |column|
       column.each do |piece|
-        vert << piece
+        vertical << piece
       end
     end
-    if %w(xxxx oooo).any? {|str| vert.join.include? str}
+    if %w(xxxx oooo).any? {|str| vertical.join.include? str}
       true
     else
       false
@@ -129,6 +129,16 @@ class Board
     else
       return false
     end
+  end
+
+  def check_draw
+    @board.each do |column|
+      if column.length >= 7
+    end
+  end
+
+  def forwardslash
+    # @board[0][7] = @board[1][6] = @board[2][5] = @
   end
 end
 
