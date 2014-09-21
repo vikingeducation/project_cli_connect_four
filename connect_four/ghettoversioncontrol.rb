@@ -76,8 +76,8 @@ class Board
     end
   end
   
-  def horizontal
-    horiz = Array.new
+  def horizontal #actual rows
+    horiz = []
     (0..6).each do |column|
       (0..6).each do |row|
         horiz << @board[row][column]
@@ -91,25 +91,15 @@ class Board
       false
     end
   end
-  
-  # def vertical
-  #   @board.each do |col|
-  #     if %w(xxxx oooo).any? {|str| col.join.include? str}
-  #       return true
-  #       break
-  #     else
-  #       return false
-  #     end
-  #   end
-  # end
 
-
-  def vertical
-    vertical = Array.new
+  def vertical #actual COLUMNS
+    vertical = []
     @board.each do |column|
       column.each do |piece|
+        vertical << "b" if piece == nil
         vertical << piece
       end
+    vertical << "b"
     end
     if %w(xxxx oooo).any? {|str| vertical.join.include? str}
       true
@@ -117,29 +107,43 @@ class Board
       false
     end
   end
-
   
   def backslash
     backslash = []
-    (0..6).each do |coord|
-      backslash << @board[coord][coord]
+    #backslash-up
+    (0..6).each do |column|
+      (0..6).each do |column|
+        backslash << "b" if piece == nil
+        backslash << @board[column][colum+row]
+      end
+      backslash << "b"
     end
-    if %w(xxxx oooo).any? {|str| backslash.join.include? str}
-      return true
-    else
-      return false
+
+    #backslash-side
+    (0..6).each do |colstart|
+      (0..6).each do |row|
+      backslash << @board[0+colstart][row]
     end
+      backslash << "b"
+    end
+            if %w(xxxx oooo).any? {|str| backslash.join.include? str}
+        return true
+      else
+        return false
   end
 
-  def check_draw
-    @board.each do |column|
-      if column.length >= 7
-    end
-  end
+#  def check_draw
+#    isdraw = true
+#    @board.each do |column|
+#      if column.length =< 7
+#        isdraw = true
+#      else
+#        idraw = false
+#      end
+#    end
+#    return isdraw
+#  end
 
-  def forwardslash
-    # @board[0][7] = @board[1][6] = @board[2][5] = @
-  end
 end
 
 t = ConnectFour.new
