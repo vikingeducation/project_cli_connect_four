@@ -92,10 +92,10 @@ class Board
   end
   
   def vertical
-    @board.each do |col|
-      if %w(xxxx oooo).any? {|str| col.join.include? str}
+    (0..6).each do |column|
+      (0..6).each do |row|
+      if %w(xxxx oooo).any? {|str| @board[column][row].join.include? str}
         return true
-        break
       else
         return false
       end
@@ -114,8 +114,6 @@ class Board
       end
   end
 
-  def forwardslash
-    @board[0][7] = @board[1][6] = @board[2][5] = @
 end
 
 t = ConnectFour.new
