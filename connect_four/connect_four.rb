@@ -9,21 +9,22 @@
 
 	class ConnectFourGame
 
-		@col_num = 7
-		@row_num = 6
-
-
 		def initialize
-			@board = Board.new(@col_num, @row_num)
+			puts "100"
+
+			@Col_num = 7
+			@Row_num = 6
+			@winner_player = nil
+			@board = Board.new(@Col_num, @Row_num)
 		end
 
 		def play
+			puts "300"
 			set_players(get_player_count)
 
 			loop do
 				@board.render
 				prompt_player_for_turn
-				@current_player.drop_piece
 				evaluate_winner
 				switch_player
 			end
@@ -41,26 +42,40 @@
 		end
 
 		def set_players(player_count)
-			@player_1 == Player.new( )
+			@player_1 = Player.new(@board, 1, "1")
 
 			if player_count == 1
-				@player_2 == AI.new
+				@player_2 == AI.new(@board, 2, "2")
 			else
-				@player_2 == Player.new( )
+				@player_2 == Player.new(@board, 2, "2")
 			end
 
 			@current_player = [@player_1, @player_2].sample
 		end
 
+		##
+		# * Will prompt the player for a move
+		# * The board will check if the move is valid
+		# * If a valid move then triggers the player to 
+		# * 	drop the piece
+		#
 		def prompt_player_for_turn
-			# 
-	
+			puts "It is Player #{@current_player.player_num}'s turn"
+			puts "Which column would you like to drop your piece?"
+			puts "Columns are 1-#{@Col_num.to_i}"
+			plyr_col_num = gets.strip.to_i # get input from player
+			
+			# check the board if this is a vaild play
+			if @board.verify_drop(plyr_col_num)	
+				@current_player.drop_piece(plyr_col_num)
+			else
+				prompt_player_for_turn # play isn't valid recursive call
+			end
 
 		end
 
 		def evaluate_winner
-
-
+			return puts "Everyone wins if you can read this!"
 		end
 
 		def switch_player
@@ -94,7 +109,7 @@
 		#
 		def verify_drop(col_num)
 			ret_val = false
-			if (1..@col_num).include?(col_num) && space?(col_num)
+			if (1..col_num).include?(col_num) && space?(col_num)
 				ret_val = true
 			end
 			return ret_val
@@ -103,31 +118,39 @@
 		##
 		#
 		def space?(col_num)
-			@playfield[col_num].size < row_num
+			@playfield[col_num].size < @row_size
 		end
 		
 		##
 		#
 		def initialize(col_num, row_num)
-			@col_num = col_num
-			@row_num = row_num
-			@playfield = Array.new(@col_num.to_i) { Array.new(@row_num.to_i) }
+			puts "200"
+			@col_size = col_num
+			@row_size = row_num
+			# puts "@col_size is #{@col_size}"
+			# puts "@row_size is #{@row_size}"
+			# puts "col_num is #{col_num}"
+			# puts "row_num is #{row_num}"
+			@playfield = Array.new(@col_size.to_i) { Array.new() }
 		end
 
 	end # Board
 		
 	class Player
 		
+	public
+		attr_accessor :player_num, :piece, :board
+		
 		##
 		#
 		def drop_piece(col_num)
 			if @board.verify_drop(col_num)
-				@board[col_num] << piece 
+				@board[col_num] << piece
 			end
 		end
 		
-		def initialize(player_num = 9, piece = "$", board)
-			@player_num = player_num
+		def initialize(board, player_number = 9, piece = "$")
+			@player_num = player_number
 			@piece = piece
 			@board = board
 		end
@@ -136,10 +159,9 @@
 			
 	class AI < Player
 		
-
-		def initialize(player_num = 9, piece = "$", board)
-			
-		end		
+		# def initialize(player_num = 9, piece = "$", board)
+			# 
+		# end		
 
 	end # end AI
 
