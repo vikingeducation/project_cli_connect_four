@@ -131,6 +131,12 @@ class Board
     end
   end
 
+  def check_draw
+    @board.each do |column|
+      if column.length >= 7
+    end
+  end
+
   def forwardslash
     # @board[0][7] = @board[1][6] = @board[2][5] = @
   end
