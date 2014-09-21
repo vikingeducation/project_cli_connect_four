@@ -61,7 +61,7 @@ class Board
   end
 
   def check_win
-    horizontal || vertical || backslash
+    horizontal || vertical || search_diagnol
   end
 
   def place_piece(move, piece)
@@ -85,11 +85,7 @@ class Board
       end
     horiz << "b"
     end
-    if %w(xxxx oooo).any? {|str| horiz.join.include? str}
-      true
-    else
-      false
-    end
+    check_four(horiz)
   end
 
   def vertical #actual COLUMNS
@@ -101,36 +97,60 @@ class Board
       end
     vertical << "b"
     end
-    if %w(xxxx oooo).any? {|str| vertical.join.include? str}
-      true
-    else
-      false
-    end
+    check_four(vertical)
+  end
+
+  def check_four(arg)
+    %w(xxxx oooo).any?{|str| arg.join.include? str}
   end
   
-  def backslash
-    backslash = []
-    #backslash-up
-    (0..6).each do |column|
-      (0..6).each do |column|
-        backslash << "b" if piece == nil
-        backslash << @board[column][colum+row]
-      end
-      backslash << "b"
-    end
+  # def backslash
+  #   backslash = []
+  #   #backslash-up
+  #   (0..6).each do |column|
+  #     (0..6).each do |column|
+  #       backslash << "b" if piece == nil
+  #       backslash << @board[column][colum+row]
+  #     end
+  #     backslash << "b"
+  #   end
 
-    #backslash-side
-    (0..6).each do |colstart|
-      (0..6).each do |row|
-      backslash << @board[0+colstart][row]
-    end
-      backslash << "b"
-    end
-            if %w(xxxx oooo).any? {|str| backslash.join.include? str}
-        return true
+  #   #backslash-side
+  #   (0..6).each do |colstart|
+  #     (0..6).each do |row|
+  #     backslash << @board[0+colstart][row]
+  #   end
+  #     backslash << "b"
+  #   end
+  #     if %w(xxxx oooo).any? {|str| backslash.join.include? str}
+  #       return true
+  #     else
+  #       return false
+  #     end
+  # end
+
+  def search_diagnol
+    
+    # (0..6).each do |coord|
+    #   diagnol << @board[coord][coord]
+    diagnol = []
+    count = 0
+    @board.each do |column|
+      if column[count] == nil 
+        diagnol << "b"
       else
-        return false
+        diagnol << column[count]
+      end
+      count += 1
+    end
+    check_four(diagnol)
   end
+
+  def translate_diagnol
+
+  end
+
+
 
 #  def check_draw
 #    isdraw = true
