@@ -12,11 +12,65 @@
 		@col_num = 7
 		@row_num = 6
 
-		def initialize(args)
-		
-			@board = Board.new(@col_num,@row_num)
+
+		def initialize
+			@board = Board.new(@col_num, @row_num)
+		end
+
+		def play
+			set_players(get_player_count)
+
+			loop do
+				@board.render
+				prompt_player_for_turn
+				@current_player.drop_piece
+				evaluate_winner
+				switch_player
+			end
+		end
+
+		def get_player_count
+			puts "How many players? (1-2)"
+			num_players = gets.chomp.to_i
+			# validate player count
+			if num_players < 1 || num_players > 2
+				puts "Please choose 1 or 2 players\n\n"
+				get_player_count()
+			end  
+			return num_players
+		end
+
+		def set_players(player_count)
+			@player_1 == Player.new( )
+
+			if player_count == 1
+				@player_2 == AI.new
+			else
+				@player_2 == Player.new( )
+			end
+
+			@current_player = [@player_1, @player_2].sample
+		end
+
+		def prompt_player_for_turn
+			# 
+	
 
 		end
+
+		def evaluate_winner
+
+
+		end
+
+		def switch_player
+			if @current_player == @player_1
+				@current_player = @player_2
+			else
+				@current_player = @player_1
+			end
+		end
+
 			
 	end # ConnctFourGame
 		
@@ -26,6 +80,7 @@
 		##
 		#
 		def render()
+			@playfield.each { |x| p x }
 		end 
 
 		##
@@ -56,7 +111,7 @@
 		def initialize(col_num, row_num)
 			@col_num = col_num
 			@row_num = row_num
-			@playfield = Array.new(@col_num) { Array.new(@row_num) }
+			@playfield = Array.new(@col_num.to_i) { Array.new(@row_num.to_i) }
 		end
 
 	end # Board
@@ -81,8 +136,15 @@
 			
 	class AI < Player
 		
+
 		def initialize(player_num = 9, piece = "$", board)
-		
+			
 		end		
 
 	end # end AI
+
+game = ConnectFourGame.new
+game.play
+
+
+
