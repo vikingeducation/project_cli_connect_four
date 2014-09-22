@@ -20,6 +20,7 @@ class Blackjack
   end
 
   def play
+    @bet_amount=@player.make_bet
     loop do
       break if game_over?
       @deck.render(@player.get_cards,@dealer.get_cards)
@@ -54,21 +55,27 @@ class Blackjack
     player_total = @player.get_cards.reduce(:+)
     dealer_total = @dealer.get_cards.reduce(:+)
     if stand?
-      if player_total > dealer_total
-        puts "You win! Your total is #{player_total}"
+      if player_total > dealer_total #standard player win, no blackjack
+        @player.update_bet('w',@bet_amount)
+        puts "You win! You won $#{@bet_amount}. Total available: $#{@player.get_bankroll}"
       else
-        puts "You lose! You had #{player_total}, VS. the dealer's #{dealer_total}"
+        @player.update_bet('l',@bet_amount)
+        puts "You lose! You lost $#{@bet_amount}. Total available: $#{@player.get_bankroll}"
       end
     elsif blackjack?
       if player_total > dealer_total
-        puts "Blackjack! You win!"
+        @player.update_bet('w',@bet_amount,true)
+        puts "Blackjack! You won $#{@bet_amount}. Total available: $#{@player.get_bankroll}"
       else
-        puts "Dealer has blackjack. You lose!"
+        @player.update_bet('l',@bet_amount)
+        puts "Dealer has blackjack. You lost $#{@bet_amount}. Total available: $#{@player.get_bankroll}"
       end
     elsif player_total > 21
-      puts "Bust! You lose. You: #{player_total}, Dealer: #{dealer_total}"
+      @player.update_bet('l',@bet_amount)
+      puts "Bust! You lost $#{@bet_amount}. Total available: $#{@player.get_bankroll}"
     else
-      puts "Dealer bust! You win, #{player_total} vs. Dealer: #{dealer_total}"
+      @player.update_bet('w',@bet_amount)
+      puts "Dealer bust! You won $#{@bet_amount}. Total available: $#{@player.get_bankroll}"
     end
 
   end
@@ -147,10 +154,31 @@ class Player
     @deck=deck
     @player_cards = @deck.deal_cards(2, [])
     @player_stands = false
+    @bankroll = 100
   end
 
   def get_cards
     @player_cards
+  end
+
+  def make_bet
+    loop do 
+      puts "How much would you like to wager? You have $#{@bankroll} remaining."
+      bet_amount = gets.chomp.to_i
+      return bet_amount if bet_amount < @bankroll
+    end
+  end
+
+  def update_bet(result,amount,bj=false)
+    if result == 'w'
+      @bankroll += bj ? 1.5*amount : amount #pay 1.5x for blackjack and 1x for normal win
+    elsif result == 'l'
+      @bankroll -= amount
+    end
+  end
+
+  def get_bankroll
+    @bankroll
   end
   
   def get_move
