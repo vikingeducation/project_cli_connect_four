@@ -61,15 +61,9 @@
 			puts "It is Player #{@current_player.player_num}'s turn"
 			puts "Which column would you like to drop your piece?"
 			puts "Columns are 1-#{@Col_num.to_i}"
-			plyr_col_num = gets.strip.to_i # get input from player
-			
-			# check the board if this is a vaild play
-			if @board.verify_drop(plyr_col_num)	
-				@current_player.drop_piece(plyr_col_num)
-			else
-				puts "This column is full, please select another column"
-				prompt_player_for_turn # play isn't valid recursive call
-			end
+
+			@current_player.get_player_response
+
 
 		end
 
@@ -130,6 +124,8 @@
 	
 	class Board
 
+		attr_reader :col_size, :row_size
+		
 		##
 		#
 		def initialize(col_num, row_num)
@@ -192,10 +188,6 @@
 		def vert_pieces_in_a_row?(piece_count, piece)
         # check if there are {piece_count} 
         # number of pieces in a vertical row
-        # verticals.any? do |vert|
-        #     vert.include
-        # end
-
         verticals.any? do |vert|
             vert.join('').include?((piece * piece_count))
           end
@@ -223,6 +215,7 @@
       all_diags
     end
     end
+    
     def verticals
         # return the vertical pieces
         @playfield
@@ -259,15 +252,43 @@
 			@board = board
 		end
 
+		def get_player_response
+			@plyr_col_num = gets.strip.to_i # get input from player
+			take_turn
+		end
+
+		def take_turn
+			# check the board if this is a vaild play
+			if @board.verify_drop(@plyr_col_num)	
+					drop_piece(@plyr_col_num)
+			else
+				puts "This column is full, please select another column"
+				get_player_response # play isn't valid recursive call
+			end
+			
+		end
+
 	end # end Player
 			
 	class AI < Player
 		
-		# def initialize(player_num = 9, piece = "$", board)
-			# 
-		# end		
+		##
+		#
+		def drop_piece(col_num)
+			if @board.verify_drop(col_num)
+					@board.accept_piece(col_num, piece)
+			end
+		end
+
+		def get_player_response
+			@plyr_col_num = rand(1...@board.col_size)
+			take_turn
+		end
 
 	end # end AI
+
+## ---------------------------------------------------------------
+## ---------------------------------------------------------------	
 
 game = ConnectFourGame.new
 game.play
