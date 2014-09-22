@@ -23,7 +23,7 @@
 			loop do
 				@board.render
 				prompt_player_for_turn
-				check_victory
+				break if check_victory
 				switch_player
 			end
 		end
@@ -79,6 +79,7 @@
 
 		def check_victory
 			if winning_combination?
+				@board.render
 				puts "Congratulations #{@current_player.player_num}, you win!"
 				true
 			else
@@ -104,24 +105,24 @@
 		end
 
 		def winning_combination?
-			winning_diagonal?		||
+			# winning_diagonal?		||
 			winning_horizontal?	||
 			winning_vertical?
 		end
 
 		def winning_diagonal?
 			# check if are four in a row on any verticals
-			return diag_pieces_in_a_row(@Win_count)
+			return @board.diag_pieces_in_a_row?(@Win_count, @current_player.piece)
 		end
 
 		def winning_vertical?
       # check if are four in a row on any verticals
-      return vert_pieces_in_a_row(@Win_count)
+      return @board.vert_pieces_in_a_row?(@Win_count, @current_player.piece)
     end
 
     def winning_horizontal?
       # check if are four in a row on any horizontals
-      return horz_pieces_in_a_row(@Win_count)
+      return @board.horz_pieces_in_a_row?(@Win_count, @current_player.piece)
     end
 			
 	end # ConnctFourGame
@@ -177,33 +178,37 @@
 			end
 		end
 
-		def diag_pieces_in_a_row?(piece_count)
+		def diag_pieces_in_a_row?(piece_count, piece)
 			# check if there are {piece_count} 
 			# number of pieces in a diagonal row
 			return false
 		end
 
 		# game's X rows
-		def vert_pieces_in_a_row?(piece_count)
+		def vert_pieces_in_a_row?(piece_count, piece)
         # check if there are {piece_count} 
         # number of pieces in a vertical row
         # verticals.any? do |vert|
         #     vert.include
         # end
+
+        verticals.any? do |vert|
+            vert.join('').include?((piece * piece_count))
+          end
     end
 
     # game's Y columns
-    def horz_pieces_in_a_row?(piece_count)
+    def horz_pieces_in_a_row?(piece_count, piece)
         # check if there are {piece_count} 
         # number of pieces in a horizontal row
         horizontals.any? do |horz|
-            horz.all?{|cell| cell == @current_player.piece }
+           horz.join('').include?((piece * piece_count))
         end
     end
 
     def verticals
         # return the vertical pieces
-        @board
+        @playfield
     end
 
     # horizontals
@@ -211,7 +216,7 @@
         # return the horizontal pieces
         horizontals = []
         6.times do |i|
-            horizontals << [@board.get_playfield[0][i],@board[1][i],@board[2][i],@board[3][i],@board[4][i],@board[5][i],@board[6][i]]
+            horizontals << [@playfield[0][i],@playfield[1][i],@playfield[2][i],@playfield[3][i],@playfield[4][i],@playfield[5][i],@playfield[6][i]]
         end
         horizontals
     end
@@ -227,7 +232,7 @@
 		#
 		def drop_piece(col_num)
 			if @board.verify_drop(col_num)
-					@board.accept_piece(col_num, piece) @board[col_num] << piece
+					@board.accept_piece(col_num, piece)
 			end
 		end
 		
