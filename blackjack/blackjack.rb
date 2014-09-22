@@ -21,33 +21,51 @@ class Blackjack
 
   def play
     loop do
+      break if game_over?
       @deck.render(@player.get_cards,@dealer.get_cards)
       @stand1 = @player.get_move
       @stand2 = @dealer.get_move
 
 
-      break if game_over?
+
     end
     @deck.render(@player.get_cards,@dealer.get_cards)
     end_game_outputs
   end
 
   def game_over?
-    @player.get_cards.reduce(:+) > 21 || \
-    @dealer.get_cards.reduce(:+) > 21  || \
-    (@stand1 == 'stand' && @stand2 == 'stand')
+    over_21? || stand? || blackjack?
+  end
+
+  def over_21?
+    @player.get_cards.reduce(:+) > 21 || @dealer.get_cards.reduce(:+) > 21  
+  end
+
+  def stand?
+    @stand1 == 'stand' && @stand2 == 'stand'
+  end
+
+  def blackjack?
+    @player.get_cards.length == 2 && @player.get_cards.reduce(:+) == 21 || \
+    @dealer.get_cards.length == 2 && @dealer.get_cards.reduce(:+) == 21 
   end
 
   def end_game_outputs
     player_total = @player.get_cards.reduce(:+)
     dealer_total = @dealer.get_cards.reduce(:+)
-    if @stand1 == 'stand' && @stand2 == 'stand'
+    if stand?
       if player_total > dealer_total
         puts "You win! Your total is #{player_total}"
       else
         puts "You lose! You had #{player_total}, VS. the dealer's #{dealer_total}"
       end
-    elsif player_total > 27
+    elsif blackjack?
+      if player_total > dealer_total
+        puts "Blackjack! You win!"
+      else
+        puts "Dealer has blackjack. You lose!"
+      end
+    elsif player_total > 21
       puts "Bust! You lose. You: #{player_total}, Dealer: #{dealer_total}"
     else
       puts "Dealer bust! You win, #{player_total} vs. Dealer: #{dealer_total}"
@@ -84,12 +102,12 @@ class Deck
       deck[:clubs] << 10
     end
 
-    1.times do #push in the aces
-      deck[:hearts] << 11
-      deck[:diamonds] << 11
-      deck[:spades] << 11
-      deck[:clubs] << 11
-    end
+    #push in the aces
+    deck[:hearts] << 11
+    deck[:diamonds] << 11
+    deck[:spades] << 11
+    deck[:clubs] << 11
+
     deck
   end
 
@@ -116,8 +134,10 @@ class Deck
     end
   end
   def render(player, dealer)
+    puts "\n################################"
     puts "Player cards are #{player}"
     puts "Dealer cards are #{dealer}"
+    puts "################################\n\n"
   end
 
 end
@@ -126,6 +146,7 @@ class Player
   def initialize(deck)
     @deck=deck
     @player_cards = @deck.deal_cards(2, [])
+    @player_stands = false
   end
 
   def get_cards
@@ -134,18 +155,23 @@ class Player
   
   def get_move
     choice=nil
-    loop do
-      puts "What would you like to do? You can (h)it or (s)tand:"
-      choice=gets.chomp.downcase
-      break if choice == 'h' || choice == 's'
+    if @player_stands == true
+      make_move('s')
+    else
+      loop do
+        puts "What would you like to do? You can (h)it or (s)tand:"
+        choice=gets.chomp.downcase
+        break if choice == 'h' || choice == 's'
+      end
+      make_move(choice)
     end
-    make_move(choice)
   end
 
   def make_move(choice)
     if choice == 'h'
       @deck.deal_cards(@player_cards)
     else
+      @player_stands = true
       'stand'#return a "stand" message back to Blackjack
     end
   end
@@ -155,6 +181,11 @@ end
 
 
 class Dealer < Player
+  def initialize(deck)
+    @deck=deck
+    @player_cards = @deck.deal_cards(1, []) #init dealer with only one card
+    @player_stands = false
+  end
   def get_move
     if @player_cards.reduce(:+) < 17
       make_move('h') #dealer hits below 17
