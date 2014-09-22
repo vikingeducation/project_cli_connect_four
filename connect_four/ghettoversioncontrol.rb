@@ -61,7 +61,7 @@ class Board
   end
 
   def check_win
-    horizontal || vertical || search_diagnol
+    horizontal || vertical || forwardslash
   end
 
   def place_piece(move, piece)
@@ -95,7 +95,7 @@ class Board
         vertical << "b" if piece == nil
         vertical << piece
       end
-    vertical << "b"
+      vertical << "b"
     end
     check_four(vertical)
   end
@@ -104,53 +104,20 @@ class Board
     %w(xxxx oooo).any?{|str| arg.join.include? str}
   end
   
-  # def backslash
-  #   backslash = []
-  #   #backslash-up
-  #   (0..6).each do |column|
-  #     (0..6).each do |column|
-  #       backslash << "b" if piece == nil
-  #       backslash << @board[column][colum+row]
-  #     end
-  #     backslash << "b"
-  #   end
-
-  #   #backslash-side
-  #   (0..6).each do |colstart|
-  #     (0..6).each do |row|
-  #     backslash << @board[0+colstart][row]
-  #   end
-  #     backslash << "b"
-  #   end
-  #     if %w(xxxx oooo).any? {|str| backslash.join.include? str}
-  #       return true
-  #     else
-  #       return false
-  #     end
-  # end
-
-  def search_diagnol
-    
-    # (0..6).each do |coord|
-    #   diagnol << @board[coord][coord]
-    diagnol = []
-    count = 0
+  def forwardslash
+    diagonal = []
     @board.each do |column|
-      if column[count] == nil 
-        diagnol << "b"
-      else
-        diagnol << column[count]
+      @board.each do |row|
+        (0..6).each do |diag|
+        if @board[column+diag][row+diag] == nil
+          diagonal << "b"
+        else
+          diagonal << @board[column+diag][row+diag]
+        end
       end
-      count += 1
     end
-    check_four(diagnol)
+    check_four(diagonal)
   end
-
-  def translate_diagnol
-
-  end
-
-
 
 #  def check_draw
 #    isdraw = true
