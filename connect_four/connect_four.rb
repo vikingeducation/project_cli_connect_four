@@ -105,7 +105,7 @@
 		end
 
 		def winning_combination?
-			# winning_diagonal?		||
+			winning_diagonal?		||
 			winning_horizontal?	||
 			winning_vertical?
 		end
@@ -181,7 +181,11 @@
 		def diag_pieces_in_a_row?(piece_count, piece)
 			# check if there are {piece_count} 
 			# number of pieces in a diagonal row
-			return false
+			diagonals.any? do |diag|
+				if diag.size > 3
+					diag.join('').include?((piece * piece_count))
+				end
+			end
 		end
 
 		# game's X rows
@@ -206,6 +210,19 @@
         end
     end
 
+    def diagonals
+    	[@playfield, @playfield.map(&:reverse)].inject([]) do |all_diags, matrix|
+      ((-matrix.count + 1)..matrix.first.count).each do |offet_index|
+        diagonal = []
+        (matrix.count).times do |row_index|
+          col_index = offet_index + row_index
+          diagonal << matrix[row_index][col_index] if col_index >= 0
+        end
+        all_diags << diagonal.compact if diagonal.compact.count > 1
+      end
+      all_diags
+    end
+    end
     def verticals
         # return the vertical pieces
         @playfield
