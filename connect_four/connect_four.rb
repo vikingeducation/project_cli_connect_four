@@ -40,12 +40,12 @@
 		end
 
 		def set_players(player_count)
-			@player_1 = Player.new(@board, 1, "1")
+			@player_1 = Player.new(@board, 1, "赤")
 
 			if player_count == 1
-				@player_2 = AI.new(@board, 2, "2")
+				@player_2 = AI.new(@board, 2, "黄")
 			else
-				@player_2 = Player.new(@board, 2, "2")
+				@player_2 = Player.new(@board, 2, "黄")
 			end
 
 			@current_player = [@player_1, @player_2].sample
@@ -137,9 +137,28 @@
 		
 		##
 		#
-		def render()
-			@playfield.each { |x| p x }
-		end 
+		def render
+		   puts "\e[H\e[2J"
+		   puts "\t+++++++ Connect Four ++++++++"
+		   puts "\n\n\n"
+		   5.downto(0) do |row|
+		   	print "\t"
+		     (0..6).each do |col|
+		       if @playfield[col][row]
+		         print "| #{@playfield[col][row]}"
+		       else
+		         print "|   "
+		       end
+		     end
+		     puts "|\n"
+		     puts "\t" + "-" * 29
+		   end
+		   print "\t  " 
+		   (1..7).each {|i| print i.to_s.ljust(4)}
+
+		   puts " "
+		   puts " "
+		 end
 
 		##
 		#
@@ -152,16 +171,29 @@
 		#
 		def verify_drop(col_num)
 			ret_val = false
-			if (1..col_num).include?(col_num) && space?(col_num)
+			if  valid_column?(col_num) && space?(col_num)
 				ret_val = true
 			end
 			return ret_val
 		end
 
+		def valid_column?(col_num)
+			if (1..@col_size).include?(col_num) 
+				true
+			else
+				puts "That is not a valid column. Please select another column."
+				false
+			end
+		end
 		##
 		#
 		def space?(col_num)
-			@playfield[(col_num - 1)].size < @row_size
+			if @playfield[(col_num - 1)].size < @row_size
+				true
+			else
+				puts "This column is full, please select another column."
+				false
+			end
 		end
 		
 		def accept_piece(col_num, piece)	
@@ -262,7 +294,6 @@
 			if @board.verify_drop(@plyr_col_num)	
 					drop_piece(@plyr_col_num)
 			else
-				puts "This column is full, please select another column"
 				get_player_response # play isn't valid recursive call
 			end
 			
