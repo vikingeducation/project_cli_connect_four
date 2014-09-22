@@ -61,7 +61,7 @@ class Board
   end
 
   def check_win
-    horizontal || vertical || search_diagonal
+    horizontal || vertical || search_diagonal || search_other_diagonal
   end
 
   def place_piece(move, piece)
@@ -109,10 +109,12 @@ class Board
     (0..6).each do |column|
       (0..6).each do |row|
         (0..6).each do |diag|
-          if @board[column+diag][row+diag] == nil
-            diagonal << "b"
-          else
-          diagonal << @board[column+diag][row+diag]
+          unless @board[column+diag].nil?
+            if @board[column+diag][row+diag].nil?
+              diagonal << "b"
+            else
+            diagonal << @board[column+diag][row+diag]
+            end
           end
         end
       end
@@ -120,9 +122,26 @@ class Board
     check_four(diagonal)
   end
 
+  def search_other_diagonal
+    diagonal = []
+    (0..6).each do |column|
+      (0..6).each do |row|
+        (0..6).each do |diag|
+          unless @board[column+diag].nil?
+            if @board[column-diag][row+diag].nil?
+              diagonal << "b"
+            else
+            diagonal << @board[column+diag][row+diag]
+            end
+          end
+        end
+      end
+    end
+    check_four(diagonal)
+  end
 
  def check_draw
-   @board.each do |column|
+  @board.each do |column|
      column.length >= 7
    end
  end
