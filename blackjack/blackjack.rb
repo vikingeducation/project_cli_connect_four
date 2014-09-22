@@ -24,7 +24,7 @@ class Blackjack
 
 
   def play
-    @bet_amount=@player.make_bet
+    bet_check
     loop do
       break if game_over?
       @deck.render(@player.get_cards,@dealer.get_cards)
@@ -36,9 +36,19 @@ class Blackjack
     play_again?
   end
 
-  def game_over?
-    over_21? || stand? || blackjack?
+  def bet_check
+    if @player.get_bankroll > 0
+      @bet_amount=@player.make_bet
+    else 
+      puts "You ran out of money :( Go rob a bank and come back to play some more!"
+      exit
+    end
   end
+
+  def game_over?
+    over_21? || stand? || blackjack? || bankroll_empty?
+  end
+
 
   def over_21?
     @player.get_cards.reduce(:+) > 21 || @dealer.get_cards.reduce(:+) > 21  
@@ -51,6 +61,10 @@ class Blackjack
   def blackjack?
     @player.get_cards.length == 2 && @player.get_cards.reduce(:+) == 21 || \
     @dealer.get_cards.length == 2 && @dealer.get_cards.reduce(:+) == 21 
+  end
+
+  def bankroll_empty?
+    @player.get_bankroll == 0
   end
 
   def end_game_outputs

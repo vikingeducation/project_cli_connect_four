@@ -15,7 +15,7 @@ class Player
     loop do 
       puts "How much would you like to wager? You have $#{@bankroll} remaining."
       bet_amount = gets.chomp.to_i
-      return bet_amount if bet_amount < @bankroll
+      return bet_amount if bet_amount <= @bankroll
     end
   end
 
