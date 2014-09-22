@@ -27,9 +27,9 @@ class Game
 		def game_loop
 
 			loop do
-				@p1_choice = @player_1.get_choice
-				@p2_choice = @player_2.get_choice
-				eval_winner
+				@p1_choice = @player_1.make_choice
+				@p2_choice = @player_2.make_choice
+				eval_winner(@p1_choice, @p2_choice)
 				declare_winner
 				if @winner
 					exit
@@ -39,26 +39,18 @@ class Game
 
 		end # end game loop
 
-		def eval_winner
-			if @p1_choice	== "r"
-				case @p2_choice
-				when "p" then	@winner = 2
-				when "s" then @winner = 1
-				when "r" then @winner = nil
-				end # end case
-			elsif @p1_choice == "p"
-				case @p2_choice 
-				when "p" then	@winner = nil
-				when "s" then @winner = 2
-				when "r" then @winner = 1
-			end # end case
-			else 
-				case @p2_choice
-				when "p" then @winner = 2
-				when "s" then @winner = 1
-				when "r" then @winner = nil
-			end # end case
-			end # end if
+		def eval_winner(player1, player2)
+			case [player1, player2]
+
+			when %w{ p r }, %w{ s p }, %w{ r s }
+				@winner = 1  
+
+			when %w{ r p }, %w{ p s }, %w{ s r }
+				@winner = 2
+
+			else
+				@winner = nil
+			end
 		end
 
 		def declare_winner
