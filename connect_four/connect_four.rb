@@ -22,7 +22,7 @@
 			loop do
 				@board.render
 				prompt_player_for_turn
-				evaluate_winner
+				check_victory
 				switch_player
 			end
 		end
@@ -72,8 +72,26 @@
 
 		end
 
-		def evaluate_winner
-			return puts "Everyone wins if you can read this!"
+		def check_game_over
+			check_victory || check_draw
+		end
+
+		def check_victory
+			if winning_combination?
+				puts "Congratulations #{@current_player.player_num}, you win!"
+				true
+			else
+				false
+			end
+		end
+
+		def check_draw
+			if @board.full?
+				puts "The gameboard is full, it's a draw."
+				true
+			else
+				false
+			end
 		end
 
 		def switch_player
@@ -84,6 +102,45 @@
 			end
 		end
 
+		def winning_combination?
+			winning_diagonal?		||
+			winning_horizontal?	||
+			winning_vertical?
+		end
+
+		def winning_diagonal?
+
+		end
+
+		def winning_vertical?
+        # check if specified piece has a triplet across verticals
+        verticals.any? do |vert|
+            vert.all?{|cell| cell == @current_player.piece }
+        end
+    end
+
+    # winning_horizontal?
+    def winning_horizontal?
+        # check if specified piece has a triplet across horizontals
+        horizontals.any? do |horz|
+            horz.all?{|cell| cell == @current_player.piece }
+        end
+    end
+
+    def verticals
+        # return the vertical pieces
+        @board
+    end
+
+    # horizontals
+    def horizontals
+        # return the horizontal pieces
+        horizontals = []
+        6.times do |i|
+            horizontals << [@board.get_playfield[0][i],@board[1][i],@board[2][i],@board[3][i],@board[4][i],@board[5][i],@board[6][i]]
+        end
+        horizontals
+    end
 			
 	end # ConnctFourGame
 		
@@ -124,10 +181,15 @@
 			@playfield[col_num - 1] << piece
 		end
 
+		def full?
+			@playfield.all? do |row|
+				row.none?(&:nil?)
+			end
+		end
+
 		##
 		#
 		def initialize(col_num, row_num)
-			puts "200"
 			@col_size = col_num
 			@row_size = row_num
 			# puts "@col_size is #{@col_size}"
@@ -148,7 +210,7 @@
 		#
 		def drop_piece(col_num)
 			if @board.verify_drop(col_num)
-				@board.accept_piece(col_num, piece)
+				@board.accept_piece(col_num, piece) @board[col_num] << piece
 			end
 		end
 		
