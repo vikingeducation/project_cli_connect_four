@@ -10,6 +10,7 @@
 	class ConnectFourGame
 
 		def initialize
+			@Win_count = 4 # 4 in a row wins
 			@Col_num = 7
 			@Row_num = 6
 			@winner_player = nil
@@ -109,43 +110,32 @@
 		end
 
 		def winning_diagonal?
-
+			# check if are four in a row on any verticals
+			return diag_pieces_in_a_row(@Win_count)
 		end
 
 		def winning_vertical?
-        # check if specified piece has a triplet across verticals
-        verticals.any? do |vert|
-            vert.all?{|cell| cell == @current_player.piece }
-        end
+      # check if are four in a row on any verticals
+      return vert_pieces_in_a_row(@Win_count)
     end
 
-    # winning_horizontal?
     def winning_horizontal?
-        # check if specified piece has a triplet across horizontals
-        horizontals.any? do |horz|
-            horz.all?{|cell| cell == @current_player.piece }
-        end
-    end
-
-    def verticals
-        # return the vertical pieces
-        @board
-    end
-
-    # horizontals
-    def horizontals
-        # return the horizontal pieces
-        horizontals = []
-        6.times do |i|
-            horizontals << [@board.get_playfield[0][i],@board[1][i],@board[2][i],@board[3][i],@board[4][i],@board[5][i],@board[6][i]]
-        end
-        horizontals
+      # check if are four in a row on any horizontals
+      return horz_pieces_in_a_row(@Win_count)
     end
 			
 	end # ConnctFourGame
 		
 	
 	class Board
+
+		##
+		#
+		def initialize(col_num, row_num)
+			@col_size = col_num
+			@row_size = row_num
+			@playfield = Array.new(@col_size.to_i) { Array.new() }
+		end
 
 		
 		##
@@ -187,17 +177,44 @@
 			end
 		end
 
-		##
-		#
-		def initialize(col_num, row_num)
-			@col_size = col_num
-			@row_size = row_num
-			# puts "@col_size is #{@col_size}"
-			# puts "@row_size is #{@row_size}"
-			# puts "col_num is #{col_num}"
-			# puts "row_num is #{row_num}"
-			@playfield = Array.new(@col_size.to_i) { Array.new() }
+		def diag_pieces_in_a_row?(piece_count)
+			# check if there are {piece_count} 
+			# number of pieces in a diagonal row
+			return false
 		end
+
+		# game's X rows
+		def vert_pieces_in_a_row?(piece_count)
+        # check if there are {piece_count} 
+        # number of pieces in a vertical row
+        # verticals.any? do |vert|
+        #     vert.include
+        # end
+    end
+
+    # game's Y columns
+    def horz_pieces_in_a_row?(piece_count)
+        # check if there are {piece_count} 
+        # number of pieces in a horizontal row
+        horizontals.any? do |horz|
+            horz.all?{|cell| cell == @current_player.piece }
+        end
+    end
+
+    def verticals
+        # return the vertical pieces
+        @board
+    end
+
+    # horizontals
+    def horizontals
+        # return the horizontal pieces
+        horizontals = []
+        6.times do |i|
+            horizontals << [@board.get_playfield[0][i],@board[1][i],@board[2][i],@board[3][i],@board[4][i],@board[5][i],@board[6][i]]
+        end
+        horizontals
+    end
 
 	end # Board
 		
@@ -210,7 +227,7 @@
 		#
 		def drop_piece(col_num)
 			if @board.verify_drop(col_num)
-				@board.accept_piece(col_num, piece) @board[col_num] << piece
+					@board.accept_piece(col_num, piece) @board[col_num] << piece
 			end
 		end
 		
