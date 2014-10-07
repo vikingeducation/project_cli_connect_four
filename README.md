@@ -10,3 +10,5 @@ As always, you will:
 4. Perform code review on your partner for the upcoming week
 
 This is a paired assignment.  Feel free to ask your classmates or instructors for help.
+
+# eof
