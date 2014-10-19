@@ -68,7 +68,8 @@
 		end
 
 		def check_game_over
-			check_victory || check_draw
+			check_victory || 
+			check_draw
 		end
 
 		def check_victory
