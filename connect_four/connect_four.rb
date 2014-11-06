@@ -61,7 +61,7 @@ class Board
   end
 
   def check_win
-    horizontal || vertical || search_diagonal || search_other_diagonal
+    horizontal || vertical || search_diagonal || search_other_diagonal || check_draw
   end
 
   def place_piece(move, piece)
@@ -140,12 +140,17 @@ class Board
     check_four(diagonal)
   end
 
- def check_draw
-  @board.each do |column|
-     column.length >= 7
-   end
- end
-
+  def check_draw
+    @board.each do |column|
+      if column.length >= 7
+        return true
+      else
+        return false
+        break
+      end
+    end
+  end
+  
 end
 
 t = ConnectFour.new

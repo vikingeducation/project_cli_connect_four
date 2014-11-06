@@ -8,16 +8,16 @@ class RockPaperScissor
 	end
 
 	def play
-			get_choice
-			loop do
-				if is_valid?(@player_choice)
-					computer_chooses
-					check_win(@player_choice, @comp_choice)
-					break
-				else
-					puts "your choice was invalid, try again"
-				end
+		get_choice
+		loop do
+			if is_valid?(@player_choice)
+				computer_chooses
+				check_win(@player_choice, @comp_choice)
+				break
+			else
+				puts "your choice was invalid, try again"
 			end
+		end
 	end
 
 	def get_choice
