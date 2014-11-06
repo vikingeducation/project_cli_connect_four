@@ -104,6 +104,8 @@ class Board
     %w(xxxx oooo).any?{|str| arg.join.include? str}
   end
 
+
+  #prepare to cry at the horror of this implementation
   def search_diagonal
     diagonal = []
     (0..6).each do |column|
