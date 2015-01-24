@@ -13,8 +13,8 @@ class ConnectFour
     @player_x = Player.new("x")
 
     if number_of_players == 1
-      puts "AI is not ready."
-      exit #placeholder for AI
+      puts "HAL engaged"
+      @player_o = AI.new("o")
     else
       @player_o = Player.new("o")
     end
