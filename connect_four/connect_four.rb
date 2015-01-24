@@ -19,6 +19,7 @@ class Board
     @board = Array.new(7) {Array.new(0)} #7 empty columns
   end
 
+  # Graphic methods
   def render
     puts "\n   1 2 3 4 5 6 7"
     5.downto 0 do |row|
@@ -50,7 +51,10 @@ class Board
     end
   end
 
+
+# Victory checking methods
   def win?
+    # Checks vertical, horizontal, and diaogonal victory conditions
     vertical_win? ||
     horizontal_win? ||
     up_diagonal_win? ||
@@ -123,7 +127,10 @@ class Board
   end
 
   def winning_array?(array)
-    !array.include?(nil) && array.uniq.length == 1
+    # If there are any nils, that indicates an empty "spot"
+    # A winning row will consist of the same values, and
+    # therefore uniq.length will return 1
+    !array.include?(nil) && array.uniq.length == 1 
   end
 
 end
