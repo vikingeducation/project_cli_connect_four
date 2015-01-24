@@ -1,3 +1,6 @@
+require './ai.rb'
+require './player.rb'
+
 class RockPaperScissors
   attr_reader :player_quits, :player_one, :player_two
   attr_accessor :player_one_wins
@@ -64,36 +67,5 @@ class RockPaperScissors
     else
       puts "Player two wins!"
     end
-  end
-end
-
-class Player
-  attr_accessor :choice
-  attr_reader :player_id
-
-  def initialize(player_id)
-    @player_id = player_id
-  end
-
-  def move
-    self.choice = nil
-    until valid_input?
-      print "Player #{player_id}, choose rock ('R'), paper ('P') or scissors ('S')\n > "
-      self.choice = gets.chomp.upcase
-      unless valid_input?
-        print "That's not an allowed move!\n"
-      end
-    end
-    self.choice
-  end
-
-  def valid_input?
-    ["R","P","S"].include? self.choice
-  end
-end
-
-class AI
-  def move
-    ["R","P","S"].sample
   end
 end
