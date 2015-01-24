@@ -39,10 +39,29 @@ class Board
   end
 
   # # Winning conditions
-  # check vertical
-  # check horizontal
+
+  def vertical_win?
+    #check all columns
+    #board[0..3] #to board[2..5]
+    board.each do |column|
+        0.upto(2) do |row|
+          test_array = column[row..(row+3)]
+          return true if winning_array?(test_array)
+        end
+    end
+    false
+  end
+
+  def horizontal_win?
+    #check between rows
+  end
   # check diagonal
   # end
+
+  def winning_array?(array)
+    !array.include?(nil) && array.uniq.length == 1
+  end
+
 end
 
 class Player
