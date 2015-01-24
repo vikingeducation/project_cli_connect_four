@@ -4,14 +4,20 @@ class RockPaperScissors
 
 # Set up the game initially
   def initialize
+    # Ask if two player or one player
     @player_quits = false
     @player_one_wins = false
+
+    #Note: change to player1
     @player = Player.new
+
+    #if two player, make a player2.Player object and run play_two
+
+    #if one player, create ai instance and run play_one
     @ai = AI.new
-    play
   end
 
-  def play
+  def play_one
     until player_quits
       player_move = player.ask_for_player_choice
       ai_move = ai.ask_for_ai_move
@@ -23,6 +29,10 @@ class RockPaperScissors
       end
       ask_player_to_continue
     end
+  end
+
+  def play_two
+
   end
 
   def pick_winner(move1,move2)
