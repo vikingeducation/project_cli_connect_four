@@ -1,36 +1,54 @@
-ConnectFour object
-
+class ConnectFour
 end
 
-Board object: Array of arrays
-    [[x,x,x,nil,nil,nil],      <= one column 
-     [o,x,nil,nil,nil,nil]]    <= second column
-     
-     
-     board[column] << "o"     <= Move adding 'o' to the "top" of that column
+class Board
+  attr_accessor :board
 
-methods:
+  def initialize
+    @board = Array.new(7) {Array.new(0)} #7 empty columns
+  end
 
-#Graphics
-render
 
-#Modifying the board
-validate column_is_not_full
-insert_coin_into_column
+  # Graphics
+  def render
+    row = 5
+    7.times do |column|
+      unless board[column][row].nil?
+        print board[column][row]
+      else
+        print " "
+      end
+      puts ""
+    end
+  end
 
-# Winning conditions
-check vertical
-check horizontal
-check diagonal
+  # #Modifying the board
+  def column_is_full?(column)
+    board[column].length == 6
+  end
+
+  def insert_coin(column, player_id)
+    if column_is_full?(column)
+      puts "Error: The column is full! Please choose another column"
+      # Note: Account for looping issues
+    else
+      board[column] << player_id
+    end
+  end
+
+  # # Winning conditions
+  # check vertical
+  # check horizontal
+  # check diagonal
+  # end
 end
 
-Player object
-
+class Player
 end
 
-AI object
-
+class AI
 end
+
 
 
 
