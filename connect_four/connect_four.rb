@@ -1,14 +1,34 @@
 class ConnectFour
+  attr_reader :board, :player_x, :player_o
+
   def initialize
+    @board = Board.new
     puts "\n WELCOME to CONNECT FOUR"
     puts "One player or two?"
     number_of_players = gets.chomp.to_i
+    @player_x = Player.new("X")
 
     if number_of_players == 1
-      exit #Placeholder 
+      exit #placeholder for AI
     else
-      # "play" method here
+      @player_o = Player.new("O")
     end
+
+    play
+  end
+
+  # Play needs to switch off between X and O.
+  
+  def play   #This is actually just one turn
+    board.render
+    column = nil
+    until (0..6).include? column
+      column = (player_x.pick_column - 1)  #returns column, adjusts for indexing
+      unless (0..6).include? column
+        puts "Error! That is not a column."
+      end
+    end
+    board.insert_coin column, player_x.player_id
   end
 end
 
