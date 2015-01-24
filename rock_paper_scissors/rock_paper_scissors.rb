@@ -1,25 +1,28 @@
 class RockPaperScissors
-  attr_reader :player_quits, :player, :ai
+  attr_reader :player_quits, :player_one, :player_two, :ai
   attr_accessor :player_one_wins
 
 # Set up the game initially
   def initialize
-    # Ask if two player or one player
     @player_quits = false
     @player_one_wins = false
+    @player_one = Player.new(1)
+    puts "Welcome to Rock Paper Scissors!"
+    puts "One player or two?"
+    number_of_players = gets.chomp.to_i
 
-    #Note: change to player1
-    @player = Player.new
-
-    #if two player, make a player2.Player object and run play_two
-
-    #if one player, create ai instance and run play_one
-    @ai = AI.new
+    if number_of_players == 1
+      @ai = AI.new
+      play_one
+    else
+      @player_two = Player.new(2)
+      play_two
+    end
   end
 
   def play_one
     until player_quits
-      player_move = player.ask_for_player_choice
+      player_move = player_one.ask_for_player_choice
       ai_move = ai.ask_for_ai_move
       if is_draw?(player_move,ai_move)
         puts "It's a draw"
@@ -32,7 +35,17 @@ class RockPaperScissors
   end
 
   def play_two
-
+    until player_quits
+      player_one_move = player_one.ask_for_player_choice
+      player_two_move = player_two.ask_for_player_choice
+      if is_draw?(player_one_move,player_two_move)
+        puts "It's a draw"
+      else
+        pick_winner(player_one_move,player_two_move)
+        display_winner_message player_two_move
+      end
+      ask_player_to_continue
+    end
   end
 
   def pick_winner(move1,move2)
@@ -67,19 +80,20 @@ class RockPaperScissors
       puts "Player two wins!"
     end
   end
-# Compare the moves to declare a winner
-# Ask if player wants to play again.
-#   If yes, loop to beginning.
-#   Else, exit game.
 end
 
 class Player
   attr_accessor :choice
+  attr_reader :player_id
+
+  def initialize(player_id)
+    @player_id = player_id
+  end
 
   def ask_for_player_choice
     self.choice = nil
     until valid_input?
-      print "Choose rock ('R'), paper ('P') or scissors ('S')\n > "
+      print "Player #{player_id}, choose rock ('R'), paper ('P') or scissors ('S')\n > "
       self.choice = gets.chomp.upcase
       unless valid_input?
         print "That's not an allowed move!\n"
