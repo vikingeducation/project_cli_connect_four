@@ -12,12 +12,14 @@ class Game
 	def num_human
 		p "How many humans will be playing?"
 		@humans = gets.chomp.to_i
-		until validate_humans do
+		until validate_humans do #we still need a validate humans I think
 			print "Invalid Selection! Please enter '1' or '2'"
 		end
-		puts "This will be a #{@humans} player game."
+		puts "This will be a #{@humans}-player game."
 	end
 
+	def play
+	end
 
 			#validate input
 	#creating the game, 2 players,
@@ -53,12 +55,14 @@ class Player
 		elsif @role == "human"
 			puts  "Please enter your selection (rock, paper, scissors): "
 			@guess=gets.chomp
-			validate_guess
+			until validate_guess(@guess)
+				puts "Invalid Selection! Guess must either be rock, paper or scissors"
+			end
+		end
 	end
 
 	def validate_guess(value)
-		while !@@guess_hash.keys.include?()
-
+		@@guess_hash.keys.include?(value) ? true : false
 	end
 
 end
