@@ -8,21 +8,23 @@ class Board
     @board = Array.new(7) {Array.new(0)} #7 empty columns
   end
 
-
-  # Graphics
   def render
-    row = 5
-    7.times do |column|
-      unless board[column][row].nil?
-        print board[column][row]
-      else
-        print " "
+    puts "\n   1 2 3 4 5 6 7"
+    5.downto 0 do |row|
+      print "  |"
+      0.upto 6 do |column|
+        if board[column][row].nil?
+          print " |"
+        else
+          print board[column][row]
+          print "|"
+        end
       end
-      puts ""
+      print "\n"
     end
+    print "   1 2 3 4 5 6 7\n\n"
   end
 
-  # #Modifying the board
   def column_is_full?(column)
     board[column].length == 6
   end
@@ -44,6 +46,7 @@ class Board
 end
 
 class Player
+  # possible turn loop here: Player checks to see if Board has completed the requsted move. #insert_coin is Boolean, until loop in Player
 end
 
 class AI

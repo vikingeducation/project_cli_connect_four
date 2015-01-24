@@ -1,5 +1,5 @@
 class RockPaperScissors
-  attr_reader :player_quits, :player_one, :player_two, :ai
+  attr_reader :player_quits, :player_one, :player_two
   attr_accessor :player_one_wins
 
 # Set up the game initially
@@ -12,32 +12,18 @@ class RockPaperScissors
     number_of_players = gets.chomp.to_i
 
     if number_of_players == 1
-      @ai = AI.new
-      play_one
+      @player_two = AI.new
     else
       @player_two = Player.new(2)
-      play_two
     end
+
+    play
   end
 
-  def play_one
+  def play
     until player_quits
-      player_move = player_one.ask_for_player_choice
-      ai_move = ai.ask_for_ai_move
-      if is_draw?(player_move,ai_move)
-        puts "It's a draw"
-      else
-        pick_winner(player_move,ai_move)
-        display_winner_message ai_move
-      end
-      ask_player_to_continue
-    end
-  end
-
-  def play_two
-    until player_quits
-      player_one_move = player_one.ask_for_player_choice
-      player_two_move = player_two.ask_for_player_choice
+      player_one_move = player_one.move
+      player_two_move = player_two.move
       if is_draw?(player_one_move,player_two_move)
         puts "It's a draw"
       else
@@ -65,7 +51,6 @@ class RockPaperScissors
     move1 == move2
   end
 
-
   def ask_player_to_continue
     puts "Enter 'q' to quit, or anything else to play again: "
     quit_prompt = gets.chomp.upcase
@@ -90,7 +75,7 @@ class Player
     @player_id = player_id
   end
 
-  def ask_for_player_choice
+  def move
     self.choice = nil
     until valid_input?
       print "Player #{player_id}, choose rock ('R'), paper ('P') or scissors ('S')\n > "
@@ -108,7 +93,7 @@ class Player
 end
 
 class AI
-  def ask_for_ai_move
+  def move
     ["R","P","S"].sample
   end
 end
