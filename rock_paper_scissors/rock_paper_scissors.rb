@@ -66,3 +66,4 @@ class Player
 	end
 
 end
+#SOMEWHERE OMG
