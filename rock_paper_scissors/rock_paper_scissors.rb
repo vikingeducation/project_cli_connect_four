@@ -1,6 +1,40 @@
-# Your code here!
+class Game
+	#welcome method , greets user etc.
+	def initialize
+		@humans = 0
+		@plays = 0
+	end
 
-class player
+	def welcome
+		puts "Welcome! Let's play 'Rock, Paper, Scissors!'"
+	end
+	#method number of human players
+	def num_human
+		p "How many humans will be playing?"
+		@humans = gets.chomp.to_i
+		until validate_humans do
+			print "Invalid Selection! Please enter '1' or '2'"
+		end
+		puts "This will be a #{@humans} player game."
+	end
+
+
+			#validate input
+	#creating the game, 2 players,
+			#def play
+				#if 1 human player
+						#generate two players, one human one computer
+						#generate computer (random) guess
+				#else 2 human player
+						#generate two players, human
+						#each player input guess
+				#end
+				#comparing method
+				#output result
+			#end	
+end
+
+class Player
 	attr_accessor :role, :guess
 	@@guess_hash={:rock=0, :paper=1, :scissors=2}
 	def initialize (role)
