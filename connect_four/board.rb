@@ -23,14 +23,6 @@ class Board
     print "   1 2 3 4 5 6 7\n\n"
   end
 
-  def column_is_full?(column)
-    board[column].length == 6
-  end
-
-  def column_is_invalid?(column)
-    !(0..6).include? column
-  end
-
   def insert_coin(column, player_id)
     if column.nil?
       false
@@ -46,8 +38,6 @@ class Board
     end
   end
 
-
-# Victory checking methods
   def win?
     # Checks vertical, horizontal, and diaogonal victory conditions
     vertical_win? ||
@@ -61,6 +51,16 @@ class Board
       return false if column.length < 6
     end
     return true
+  end
+
+  private
+
+  def column_is_full?(column)
+    board[column].length == 6
+  end
+
+  def column_is_invalid?(column)
+    !(0..6).include? column
   end
 
   def vertical_win?
@@ -127,5 +127,4 @@ class Board
     # therefore uniq.length will return 1
     !array.include?(nil) && array.uniq.length == 1
   end
-
 end

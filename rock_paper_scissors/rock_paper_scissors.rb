@@ -23,6 +23,8 @@ class RockPaperScissors
     play
   end
 
+  private
+
   def play
     until player_quits
       player_one_move = player_one.move

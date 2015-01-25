@@ -25,6 +25,7 @@ class ConnectFour
     end
   end
 
+  private
 
   def turn(current_player)
     board.render

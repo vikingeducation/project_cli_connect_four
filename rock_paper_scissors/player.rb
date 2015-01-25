@@ -18,6 +18,8 @@ class Player
     self.choice
   end
 
+  private
+
   def valid_input?
     ["R","P","S"].include? self.choice
   end
