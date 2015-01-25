@@ -1,21 +1,33 @@
 # Your code here!
-
 class Game
 
   # Interwebs fail...
   def initialize
     @player1 = Player.new("X")
     @player2 = Player.new("O")
+    @current_player = @player1
+    @board = Board.new
   end
 
   # The main play loop
   def play
     welcome
-
-
+    loop do
+      until @board.drop_token(@current_player.get_move_column) do
+        puts "Column full! Please choose another column!"
+        print "> "
+      end
+    #  board_render
+    #  wins?
     # keep doing moves in a loop
     # until board is full or someone wins
     # quit or play again?
+      if @current_player == @player1
+        @current_player = @player2
+      else
+        @current_player = @player1
+      end
+    end
 
   end
 
@@ -31,9 +43,21 @@ end
 
 
 
-
 #************************
 class Board
+  def initialize
+
+  end
+
+  def drop_token(column_number)
+    true
+  end
+
+  def column_full
+  end
+
+  def board_full
+  end
 
 
 end
@@ -54,11 +78,11 @@ class Player
 
     # prompt player to make move
     # store that into a variable
-    puts "Make your move, bro.  Which column (0-6)?"
+    puts "Make your move, player #{@game_token}.  Which column (0-6)?"
     print "> "
     move = gets.chomp.to_i
 
-    unless (0..6).include?(move)
+    until (0..6).include?(move)
       puts "Nope, try again. 0-6 only, please!"
       print "> "
       move = gets.chomp.to_i
@@ -88,7 +112,8 @@ class AI
 
 end
 
-
+schwad = Game.new
+schwad.play
 
 
 
