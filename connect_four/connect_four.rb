@@ -14,7 +14,7 @@ class ConnectFour
 
     if number_of_players == 1
       puts "HAL engaged"
-      @player_o = AI.new("o")
+      @player_o = AI.new("o", board)
     else
       @player_o = Player.new("o")
     end
@@ -24,6 +24,7 @@ class ConnectFour
       turn player_o
     end
   end
+
 
   def turn(current_player)
     board.render
