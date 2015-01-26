@@ -1,116 +1,63 @@
-# Your code here!
+require 'pry'
+require 'pry-byebug'
+require './board.rb'
+require './player.rb'
+require './computer.rb'
+
+
 class Game
 
-  # Interwebs fail...
   def initialize
     @player1 = Player.new("X")
     @player2 = Player.new("O")
     @current_player = @player1
-    @board = Board.new
+    @game_board = Board.new
   end
 
   # The main play loop
   def play
     welcome
     loop do
-      until @board.drop_token(@current_player.get_move_column) do
+      #lines 17-19 are my favorite
+      until @game_board.drop_token(@current_player.get_move_column,@current_player.game_token) do 
         puts "Column full! Please choose another column!"
-        print "> "
+        binding.pry
+        print ">"
       end
-    #  board_render
-    #  wins?
-    # keep doing moves in a loop
-    # until board is full or someone wins
-    # quit or play again?
+      @game_board.board_render
+      swap_players
+    end
+  end
+
+  def swap_players
       if @current_player == @player1
         @current_player = @player2
       else
         @current_player = @player1
       end
-    end
-
   end
 
-
   def welcome
-    puts "Welcome to Connect Four.  This is a 2 player game."
+    puts "Welcome to Connect Four. Play against a computer or human? "
+    game_answer = gets.strip.chomp
+    if game_answer == "human"
+    elsif game_answer == "computer"
+      @player2 = Computer.new("O")
+    end
     puts "Player 1, it's your turn. Let's play."
   end
 
-
+  def what_is_in_that_element_helper(element_contents)
+      if element_contents == nil
+        return nil
+      elsif element_contents == "X"
+        return "X"
+      elsif element_contents == "O"
+        return "O"
+      end
+  end
 end
 
-
-
-
-#************************
-class Board
-  def initialize
-
-  end
-
-  def drop_token(column_number)
-    true
-  end
-
-  def column_full
-  end
-
-  def board_full
-  end
-
-
-end
-
-
-
-
-
-#************************
-class Player
-
-  def initialize(game_token)
-    @game_token = game_token
-  end
-
-  # Returns the column they drop the token into
-  def get_move_column
-
-    # prompt player to make move
-    # store that into a variable
-    puts "Make your move, player #{@game_token}.  Which column (0-6)?"
-    print "> "
-    move = gets.chomp.to_i
-
-    until (0..6).include?(move)
-      puts "Nope, try again. 0-6 only, please!"
-      print "> "
-      move = gets.chomp.to_i
-    end
-
-  end
-
-
-end
-
-
-
-
-
-#************************
-class AI
-
-  def initialize
-
-  end
-
-  # Returns the column they drop the token into
-  def get_move_column
-    
-  end
-
-
-end
 
 schwad = Game.new
 schwad.play
