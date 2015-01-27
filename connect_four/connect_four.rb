@@ -47,6 +47,7 @@ class Game
     puts "Player 1, it's your turn. Let's play."
   end
 
+  #THIS METHOD NEVER GOT USED - HISTORICAL ARCHIVE 1/26/15
   def what_is_in_that_element_helper(element_contents)
       if element_contents == nil
         return nil

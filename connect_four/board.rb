@@ -16,6 +16,7 @@ class Board
       end
       @board[column_number][i] = game_token
       #animates the dropping of the token4, can be buggy but fun
+      #MODULATE!!
       animate = 0
       while animate < i
         @board[column_number][animate] = game_token
@@ -26,6 +27,7 @@ class Board
         animate += 1
       end       
     end
+    #MODULATE!!
     if win?
       board_render
       puts " #{game_token} wins! play again? (y/n)"
