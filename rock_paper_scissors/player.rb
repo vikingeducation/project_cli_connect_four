@@ -1,6 +1,6 @@
 class Player
 
-  attr_accessor :choice
+  attr_accessor :choice, :pid
 
   def initialize( pid )
     @pid = pid
