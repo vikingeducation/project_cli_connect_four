@@ -13,5 +13,11 @@ class Player
       false
     end
   end
+  
+  def draw?( opponent )
+    if self.choice == opponent.choice
+      true
+    end
+  end
 
 end
