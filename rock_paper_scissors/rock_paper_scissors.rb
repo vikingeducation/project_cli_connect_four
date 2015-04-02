@@ -7,7 +7,6 @@ class RPS
     @current_player = @p1
     @tachikoma = Tachikoma.new
     @valid_input = false
-    @failed_first = false
   end
   
   def play
