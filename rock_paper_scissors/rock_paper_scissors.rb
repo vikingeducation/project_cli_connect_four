@@ -2,9 +2,10 @@
 class RockPaperScissors
 	# Set initial variables
 	def initialize
-		@player_1 = Player.new
+		@player_1 = Human.new
 		@player_2 = Computer.new
 		@board = Board.new
+		# Could use a constant (or @@class variable) for this
 		@moves = ["rock","paper","scissors"]
 		start
 	end
@@ -57,15 +58,15 @@ class RockPaperScissors
 		# Scenario for P1 rock	
 		elsif moves[0] == 1
 			return 1 if moves[1] == 3
-			return 2 if moves[1] == 2
+			return 2
 		# Scenario for P1 paper
 		elsif moves[0] == 2
 			return 1 if moves[1] == 1
-			return 2 if moves[1] == 3
+			return 2
 		# Scenario for P1 scissors
 		elsif moves[0] == 3
 			return 1 if moves[1] == 2
-			return 2 if moves[1] == 1
+			return 2
 		end
 	end
 end
@@ -74,22 +75,14 @@ end
 # In RPS there isn't much board so this
 # will control the output.
 class Board
-	# Initial settings
-	def initialize
-		@player_1_wins = 0
-		@player_2_wins = 0
-	end
-
 	# Clear board
 	def clear
 		system "clear"
 	end
 
 	# Render
-	def render(player_1_wins,player_2_wins)
-		@player_1_wins = player_1_wins
-		@player_2_wins = player_2_wins
-		@output = "
+	def render(player_1_wins= 0,player_2_wins=0)
+		output = "
 ROCK PAPER SCISSORS
 -------------------
 You know how to play!
@@ -100,37 +93,23 @@ Enter:
 
 SCORE
 --------------------
-Player 1: #{@player_1_wins}
-Player 2: #{@player_2_wins}\n"
+Player 1: #{player_1_wins}
+Player 2: #{player_2_wins}\n"
 		clear
-		print @output
+		print output
 	end
 end
 
 # Create a new player, this will be the
 # human-interaction portion.
 class Player
+	# Instead of this could have another method 
+	# which just increments wins
 	attr_accessor :wins
 	
 	# Initialize, get number of wins
 	def initialize
 		@wins = 0
-	end
-
-	# Select move
-	def get_move
-		error_message = nil
-		loop do
-			puts error_message || "Select your move:"
-			move = gets.chomp.to_i
-			if valid_move?(move)
-				return move
-				break
-			else
-				error_message = "Invalid input, please enter a number 1-3"
-				redo
-			end
-		end
 	end
 
 	# Validate move
@@ -146,6 +125,25 @@ class Player
 			end
 		else
 			false
+		end
+	end
+end
+
+# Create Human player
+class Human < Player
+	# Human version of get_move
+	def get_move
+		error_message = nil
+		loop do
+			puts error_message || "Select your move:"
+			move = gets.chomp.to_i
+			if valid_move?(move)
+				return move
+				break
+			else
+				error_message = "Invalid input, please enter a number 1-3"
+				redo
+			end
 		end
 	end
 end
