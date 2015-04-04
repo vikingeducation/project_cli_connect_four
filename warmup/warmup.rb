@@ -13,5 +13,25 @@ class Array
 		end
 		self
 	end
+
+	# Create the my_map method
+	def my_map
+		capture = []
+		0.upto(self.length-1) do |index|
+			capture << yield(self[index])
+		end
+		capture
+	end
+
+	# Create the my_select method
+	def my_select
+		capture = []
+		0.upto(self.length-1) do |index|
+			if yield(self[index])
+				capture << self[index]
+			end
+		end
+		capture
+	end
 end
 
