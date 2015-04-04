@@ -1,5 +1,3 @@
-require "pry"
-
 # Controls the overall game
 class RockPaperScissors
 	# Set initial variables
@@ -28,20 +26,25 @@ class RockPaperScissors
 			@winner = get_winner(@player_1_move,@player_2_move)
 
 			# Output winner
-			if @winner.nil?
-				puts "We had a draw! #{@moves[@player_1_move-1]} ties #{@moves[@player_2_move-1]}"
-			elsif @winner == 1
-				puts "Player 1 wins! #{@moves[@player_1_move-1]} beats #{@moves[@player_2_move-1]}"
-				@player_1.wins=(@player_1.wins+1)
-			else
-				puts "Player 2 wins! #{@moves[@player_2_move-1]} beats #{@moves[@player_1_move-1]}"
-				@player_2.wins=(@player_2.wins+1)
-			end
+			output_winner
 
 			# What next?
 			puts "What next? 1 to play again, 2 to quit"
 			input = gets.chomp.to_i
 			break if input == 2
+		end
+	end
+
+	# Output winner
+	def output_winner
+		if @winner.nil?
+			puts "We had a draw! #{@moves[@player_1_move-1]} ties #{@moves[@player_2_move-1]}"
+		elsif @winner == 1
+			puts "Player 1 wins! #{@moves[@player_1_move-1]} beats #{@moves[@player_2_move-1]}"
+			@player_1.wins=(@player_1.wins+1)
+		else
+			puts "Player 2 wins! #{@moves[@player_2_move-1]} beats #{@moves[@player_1_move-1]}"
+			@player_2.wins=(@player_2.wins+1)
 		end
 	end
 
@@ -75,15 +78,6 @@ class Board
 	def initialize
 		@player_1_wins = 0
 		@player_2_wins = 0
-		@output = "
-ROCK PAPER SCISSORS
--------------------
-You know how to play
-enter 1 for rock, 
-2 for paper, or 3 for
-scissors. Good luck!
-Player 1: #{@player_1_wins}
-Player 2: #{@player_2_wins}\n"
 	end
 
 	# Clear board
@@ -98,10 +92,14 @@ Player 2: #{@player_2_wins}\n"
 		@output = "
 ROCK PAPER SCISSORS
 -------------------
-You know how to play
-enter 1 for rock, 
-2 for paper, or 3 for
-scissors. Good luck!
+You know how to play!
+Enter: 
+1 for rock, 
+2 for paper, or 
+3 for scissors. Good luck!
+
+SCORE
+--------------------
 Player 1: #{@player_1_wins}
 Player 2: #{@player_2_wins}\n"
 		clear
