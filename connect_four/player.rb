@@ -20,12 +20,13 @@ end
 
 class Human < Player
 	# Make a move
-	def make_move
+	def select_column(board)
 		error_message, input = nil, nil
 		loop do
 			puts error_message || "Enter the column number you'd like to select:"
 			input = gets.chomp.to_i
-			break if valid_input?(input)
+			break if valid_input?(input) && board.playable_column?(input-1)
+			# How can I get these to be different error messages??
 			error_message = "Invalid Input. Enter column number 1-#{NUM_COLUMNS}"
 			redo		
 		end

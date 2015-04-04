@@ -8,6 +8,7 @@ require './player.rb'
 # Set constants
 NUM_ROWS = 6
 NUM_COLUMNS = 7
+BOTTOM_ROW = NUM_ROWS-1
 
 class Connect4
 	# Initialize
@@ -28,9 +29,25 @@ class Connect4
 		loop do
 			@board.render
 			puts "It's #{current_player.name}'s turn!"
-			current_move = current_player.make_move
+			current_column = current_player.select_column(@board)-1
 
+			# Make the move
+			@board.add_piece(current_column, current_player.piece)
+
+			# Check for victory
+			break if @board.is_victory?
+
+			# Check for draw
+			break if @board.is_board_full?
+
+			# Switch player
+			current_player = switch_player(current_player)
 		end
+	end
+
+	# Switch player
+	def switch_player(current_player)
+		current_player == @player_1 ? @player_2 : @player_1
 	end
 end
 
