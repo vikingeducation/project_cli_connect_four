@@ -10,11 +10,7 @@ class Player
 	# See if we have a valid input. Just seeing
 	# if this is a number 1..NUM_COLUMNS
 	def valid_input?(input)
-		if (1..NUM_COLUMNS).to_a.include?(input)
-			true
-		else
-			false
-		end
+		(1..NUM_COLUMNS).to_a.include?(input) ? true : false
 	end
 end
 
