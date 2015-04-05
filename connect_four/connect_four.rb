@@ -79,7 +79,11 @@ class Connect4
 	# Output the proper ending
 	def output_ending(current_player)
 		@board.render
-		puts @board.is_victory? ? "Congratulations! #{current_player.name} won! Thanks for playing :)" : "Looks like we have a draw. Good job playing defense players!"
+		# I wanted to use is_board_full? instead of is_victory? because
+		# it's a much simpler check. Since draw or victory are the only
+		# two ways out of the loop, it makes sense to just call the 
+		# less intense of the two.
+		puts @board.is_board_full? ? "Looks like we have a draw. Good job playing defense players!" : "Congratulations! #{current_player.name} won! Thanks for playing :)"
 	end
 end
 
