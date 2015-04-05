@@ -26,7 +26,7 @@ class Board
 	# Render board
 	def render
 		clear
-		output_buffer = ""
+		output_buffer = "---------------\n   CONNECT 4   \n---------------\n"
 		@board.each do |row|
 			output_buffer << row.join(' ') + "\n"
 		end

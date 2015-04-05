@@ -83,7 +83,11 @@ class Connect4
 		# it's a much simpler check. Since draw or victory are the only
 		# two ways out of the loop, it makes sense to just call the 
 		# less intense of the two.
-		puts @board.is_board_full? ? "Looks like we have a draw. Good job playing defense players!" : "Congratulations! #{current_player.name} won! Thanks for playing :)"
+		if current_player.class == AI
+			puts @board.is_board_full? ? "Looks like we have a draw. Good job playing defense players!" : "Looks like the computer won. Better luck next time HUMAN!"
+		else
+			puts @board.is_board_full? ? "Looks like we have a draw. Good job playing defense players!" : "Congratulations! #{current_player.name} won! Thanks for playing :)"
+		end
 	end
 end
 
