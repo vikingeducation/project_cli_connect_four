@@ -33,6 +33,20 @@ end
 class AI < Player
 	# Make a move as AI
 	def select_column(board)
-		rand(1..7)
+		winning_move = can_win?(board)
+		winning_move ? winning_move : rand(1..7)
+	end
+
+	# See if there's a winning move
+	def can_win?(board)
+		# Cycle through all possible column selections
+		(1..NUM_COLUMNS).to_a.each do |column|
+			# Since we're going to try all the possibilities here
+			# I don't want to affect the actual board. Make a deep dup each time.
+			board_copy = Marshal.load(Marshal.dump(board))
+			board_copy.add_piece(column-1, @piece)
+			return column if board_copy.is_victory? 
+		end
+		nil # Return nil if there's no winning move. Then just choose randomly.
 	end
 end
