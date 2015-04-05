@@ -19,7 +19,7 @@ class Player
 end
 
 class Human < Player
-	# Make a move
+	# Make a move as a human
 	def select_column(board)
 		error_message, input = nil, nil
 		loop do
@@ -35,5 +35,8 @@ class Human < Player
 end
 
 class AI < Player
-
+	# Make a move as AI
+	def select_column(board)
+		rand(1..7)
+	end
 end

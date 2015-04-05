@@ -85,17 +85,70 @@ class Board
 
 	# Horizontal victory?
 	def horizontal_victory?
-		false
+		victory = false
+		# Cycles through all rows
+		BOTTOM_ROW.downto(0) do |row|
+			# Cycles from left-most column to row 3 (really row 4).
+			# This doesn't need to change since the check length
+			# will always be 4.
+			0.upto(NUM_COLUMNS-4) do |column|
+				temp_array = []
+				temp_array << @board[row][column] << @board[row][column+1] << @board[row][column+2] << @board[row][column+3]
+				unless temp_array.all? {|element| element == "-"}
+					if temp_array.uniq.length == 1
+						victory = true
+						break
+					end
+				end
+			end
+		end
+		victory
 	end
 
 	# Diagonal up victory?
 	def diagonal_up_victory?
-		false
+		victory = false
+		# Cycles down to the 3rd row from the top
+		# this will always stay the same.
+		BOTTOM_ROW.downto(3) do |row|
+			# Cycles from left-most column to row 3 (really row 4).
+			# This doesn't need to change since the check length
+			# will always be 4.
+			0.upto(NUM_COLUMNS-4) do |column|
+				temp_array = []
+				temp_array << @board[row][column] << @board[row-1][column+1] << @board[row-2][column+2] << @board[row-3][column+3]
+				unless temp_array.all? {|element| element == "-"}
+					if temp_array.uniq.length == 1
+						victory = true
+						break
+					end
+				end
+			end
+		end
+		victory
 	end
 
 	# Diagonal down victory?
 	def diagonal_down_victory?
-		false
+		victory = false
+		# Cycles up to the 4th row from the bottom
+		# this will always stay the same.
+		0.upto(BOTTOM_ROW-3) do |row|
+			# Cycles from left-most column to row 3 (really row 4).
+			# This doesn't need to change since the check length
+			# will always be 4.
+			0.upto(NUM_COLUMNS-4) do |column|
+				temp_array = []
+				temp_array << @board[row][column] << @board[row+1][column+1] << @board[row+2][column+2] << @board[row+3][column+3]
+				unless temp_array.all? {|element| element == "-"}
+					if temp_array.uniq.length == 1
+						victory = true
+						break
+					end
+				end
+			end
+		end
+		victory
 	end
 	# Is the board full?
 	def is_board_full?
