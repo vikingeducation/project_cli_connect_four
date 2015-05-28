@@ -3,7 +3,13 @@ class ConnectFour
   def initialize
     @board = Board.new
     @player_one = Player.new("Player One", "X", @board)
-    @player_two = Player.new("Player Two", "O", @board)
+
+    puts "Play against AI? (y/n)"
+    if gets.chomp.downcase == "y"
+      @player_two = AIPlayer.new("CPU", "O", @board)
+    else
+      @player_two = Player.new("Player Two", "O", @board)
+    end
 
     @board.render
 
@@ -111,7 +117,7 @@ class Board
         test_string << @gameboard[col][row]
       end
 
-      @winner = "Player One" if test_string.include?("XXXX")
+      @winner = "Player One" if test_string.include?("XXXX") #why can't I put @player_one.name here???
       @winner = "Player Two" if test_string.include?("OOOO")
     end
   end
@@ -202,6 +208,15 @@ class Player
 
   def valid_range?(input)
     input.to_i.between?(1, 7)
+  end
+
+end
+
+class AIPlayer < Player
+
+  def select_column
+    user_input = rand(0..6)
+    @board.try_column(user_input, @piece)
   end
 
 end
