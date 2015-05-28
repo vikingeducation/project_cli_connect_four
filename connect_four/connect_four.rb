@@ -103,8 +103,7 @@ class Board
   def win_conditions
     win_horizontal
     win_vertical
-    win_diagonal_right
-    win_diagonal_left
+    win_diagonals
     @winner
   end
 
@@ -131,7 +130,7 @@ class Board
   end
 
 
-  def win_diagonal_right
+  def win_diagonals
     # starting in cols 0 to 3
     0.upto(3) do |col|
 
@@ -158,13 +157,6 @@ class Board
         @winner = "Player One" if test_string.include?("XXXX")
         @winner = "Player Two" if test_string.include?("OOOO")
       end
-    end
-  end
-
-
-  def win_diagonal_left
-    # starting in cols 0 to 3
-    0.upto(3) do |col|
     end
   end
 
