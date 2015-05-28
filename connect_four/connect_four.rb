@@ -160,6 +160,147 @@ class Board
     end
   end
 
+
+
+
+# for AI testing
+  def find_moves
+    possible_moves = []
+    @gameboard.each_with_index do |col, col_index|
+      move = []
+      col.each_with_index do |row, row_index|
+        if row == "_"
+          move = [row_index, col_index]
+          break
+        end
+      end
+      possible_moves << move
+    end
+    possible_moves
+  end
+
+
+  def find_preferred_move
+    preferred_move = nil
+    possible_moves = find_moves
+
+    possible_moves.each do |input|
+      if any_possible_win?(input[0], input[1])
+        preferred_move = input[1]
+        break
+      end
+    end
+
+    preferred_move
+  end
+
+
+  def possible_horizonatal?(row, col)
+    #check horiz
+    counter = 1
+    1.upto(3) do |index|
+      if (col + index).between?(0,6)
+        if @gameboard[col + index][row] == "O" # moves right
+          counter += 1
+        else
+          break
+        end
+      end
+    end
+    -1.downto(-3) do |index|
+      if (col + index).between?(0,6)
+        if @gameboard[col + index][row] == "O" # moves left
+          counter += 1
+        else
+          break
+        end
+      end
+    end
+    counter >= 4
+  end
+
+
+  def possible_vertical?(row, col)
+    #check vertical
+    counter = 1
+    1.upto(3) do |index|
+      if (row + index).between?(0,5)
+        if @gameboard[col][row + index] == "O" # moves up
+          counter += 1
+        else
+          break
+        end
+      end
+    end
+    -1.downto(-3) do |index|
+      if (row + index).between?(0,5)
+        if @gameboard[col][row + index] == "O" # moves down
+          counter += 1
+        else
+          break
+        end
+      end
+    end
+    counter >= 4
+  end
+
+
+  def possible_diagonal_upright?(row, col)
+    #check diagonal
+    counter = 1
+    1.upto(3) do |index|
+      if (col + index).between?(0,6) && (row + index).between?(0,5)
+        if @gameboard[col + index][row + index] == "O" # moves right & up
+          counter += 1
+        else
+          break
+        end
+      end
+    end
+    -1.downto(-3) do |index|
+      if (col + index).between?(0,6) && (row + index).between?(0,5)
+        if @gameboard[col + index][row + index] == "O" # moves left & down
+          counter += 1
+        else
+          break
+        end
+      end
+    end
+    counter >= 4
+  end
+
+
+  def possible_diagonal_upleft?(row, col)
+    #check diagonal
+    counter = 1
+    1.upto(3) do |index|
+      if (col - index).between?(0,6) && (row + index).between?(0,5)
+        if @gameboard[col - index][row + index] == "O" # moves left & up
+          counter += 1
+        else
+          break
+        end
+      end
+    end
+    -1.downto(-3) do |index|
+      if (col - index).between?(0,6) && (row + index).between?(0,5)
+        if @gameboard[col - index][row + index] == "O" # moves right & down
+          counter += 1
+        else
+          break
+        end
+      end
+    end
+    counter >= 4
+  end
+
+
+  def any_possible_win?(row, col)
+    possible_horizonatal?(row, col) || possible_vertical?(row, col) || possible_diagonal_upright?(row, col) || possible_diagonal_upleft?(row, col)
+  end
+
+
+
 end
 
 
@@ -207,7 +348,14 @@ end
 class AIPlayer < Player
 
   def select_column
-    user_input = rand(0..6)
+    preferred_move = @board.find_preferred_move
+
+    if preferred_move.nil?
+      user_input = rand(0..6)
+    else
+      user_input = preferred_move
+    end
+
     @board.try_column(user_input, @piece)
   end
 
