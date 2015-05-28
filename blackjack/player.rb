@@ -27,11 +27,11 @@ class Player
           @cash -= input.to_i
           break
         else
-          puts "You don't have that much cash to bet!"
+          print "You don't have that much cash to bet!\n  $"
         end
 
       else
-        puts "Whole dollar bets only, please!"
+        print "Whole dollar bets only, please!\n  $"
       end
 
     end
@@ -49,9 +49,15 @@ class Player
     input.to_i <= @cash
   end
 
-  # hit
 
-  # stay
+  def hit
+  # hit
+  end
+
+
+  def stand
+  # stand
+  end
 
   #
 
