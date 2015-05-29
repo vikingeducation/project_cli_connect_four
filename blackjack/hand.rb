@@ -11,6 +11,9 @@ class Hand
   end
 
 
+
+  # MAIN PLAY FLOW functions
+
   def deal_and_check
     get_bet
     deal_hands
@@ -42,7 +45,6 @@ class Hand
       @winner = @dealer
       player_lose
     when 1
-      puts "You win!"
       @winner = @player
       player_win
     else
@@ -52,6 +54,9 @@ class Hand
     # end turn
   end
 
+
+
+  # DEAL & CHECK functions
 
   def get_bet
     @bet = @player.make_bet
@@ -72,29 +77,13 @@ class Hand
   end
 
 
-  def sum_hand(cards)
-    #puts cards
-    cards.inject(0) { |sum, card| sum + @deck.card_values[card] }
-  end
-
-
-  def render_hand(player, cards)
-    total = sum_hand(cards)
-    print "#{player.upcase}: #{cards.join(" ")} --> "
-    if has_blackjack?(player, cards)
-      print "BLACKJACK!!!"
-    elsif has_busted?(cards)
-      print "BUSTED!!!"
-    else
-      print "#{total.to_s.rjust(2)}"
+  def blackjack_winner
+    if has_blackjack?(@dealer, @dealer_cards)
+      @winner = @dealer
+    elsif has_blackjack?(@player, @player_cards)
+      @payout_factor += 0.5
+      @winner = @player
     end
-    print "\n"
-  end
-
-
-  def render_all
-    render_hand("Player", @player_cards)
-    render_hand("Dealer", @dealer_cards)
   end
 
 
@@ -104,6 +93,9 @@ class Hand
     total == 21 && cards.length == 2
   end
 
+
+
+  # PLAYER LOOP functions
 
   def player_choices(player, cards)
 
@@ -148,18 +140,51 @@ class Hand
   end
 
 
+
+  # DEALER SPECIFIC functions
+
   def reveal_hidden_card
     @dealer_cards[1] = @hidden_card
   end
 
 
-  def blackjack_winner
-    if has_blackjack?(@dealer, @dealer_cards)
-      @winner = @dealer
-    elsif has_blackjack?(@player, @player_cards)
-      @payout_factor += 0.5
-      @winner = @player
+
+  # UTILITY functions
+
+  def sum_hand(cards)
+    #puts cards
+    aces = cards.count("A")
+    total = cards.inject(0) { |sum, card| sum + @deck.card_values[card] }
+
+    aces.times do
+      total -= 10 if total > 21
     end
+
+    total
+  end
+
+
+  def render_hand(player, cards)
+    total = sum_hand(cards)
+    print "#{player.name.upcase}: #{cards.join(" ")} --> "
+    if has_blackjack?(player, cards)
+      print "BLACKJACK!!!"
+    elsif has_busted?(cards)
+      print "BUSTED!!!"
+    else
+      print "#{total.to_s.rjust(2)}"
+    end
+    print "\n"
+  end
+
+
+  def render_all
+    system("clear")
+    puts "You bet $#{@bet}.\nRemaining cash: $#{@player.cash}."
+    print "\n"
+    render_hand(@player, @player_cards)
+    render_hand(@dealer, @dealer_cards)
+    print "\n"
   end
 
 
@@ -174,26 +199,29 @@ class Hand
   end
 
 
+
+  # WIN/LOSS functions
+
   def player_lose
-    puts "from player_lose!"  #runs 4 times every time???
+    puts "You lost $#{@bet}! Balance: $#{@player.cash}."
   end
 
 
   def player_win
-    puts "from player_win!"
     payout
   end
 
 
   def push
-    @payout_factor = 1.0
-    puts "Push!"
-    payout
+    @player.cash += @bet
+    puts "It's a push! You get your $#{@bet} back. Balance: $#{@player.cash}."
   end
 
 
   def payout
-    @player.cash += (@bet * @payout_factor).to_i # we round down in this casino...
+    winnings = (@bet * @payout_factor).to_i # we round down in this casino...
+    @player.cash += winnings
+    puts "You win $#{winnings - @bet}! Balance: $#{@player.cash}."
   end
 
 end

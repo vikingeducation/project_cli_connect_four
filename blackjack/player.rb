@@ -1,5 +1,7 @@
 class Player
   attr_accessor :cash
+  attr_reader :name
+
 
   def initialize(attrs)
     @name = attrs[:name]
@@ -23,7 +25,7 @@ class Player
       if integer_bet?(input)
 
         if enough_cash_to_bet?(input)
-          puts "You bet $#{input}!\nRemaining cash: $#{@cash - input.to_i}."
+          #puts "You bet $#{input}!\nRemaining cash: $#{@cash - input.to_i}."
           @cash -= input.to_i
           break
         else

@@ -19,26 +19,15 @@ class Deck
 
     @cards = (2..10).to_a.map { |card| card.to_s }
     @cards += ["J", "Q", "K", "A"]
-    @cards *= 4
+    @cards *= 4 # makes one full deck
+    @cards *= 4 # makes 4-deck shoe
     @cards.shuffle!
 
-    #@cards = ["K","5","A","5","K"] #for testing
   end
 
 
   def deal_card
     @cards.pop
   end
-
-
-#  def get_card_value(card)
-#    @card_values[card]
-#  end
-  # shuffle
-
-  # re-stack
-
-
-
 
 end

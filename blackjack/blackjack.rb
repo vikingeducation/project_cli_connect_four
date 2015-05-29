@@ -7,22 +7,21 @@ require "./deck.rb"
 class Blackjack
 
   def initialize
-    @dealer = Dealer.new
+    @dealer = Dealer.new(name: "Dealer")
     @player = Player.new(name: "Player", cash: 500)
 
     @deck = Deck.new
-
-
   end
 
 
   def play_session
+    system("clear")
     puts "Welcome!  Let's start playing."
     hand_count = 0
     loop do
       hand_count += 1
+      reshuffle_deck
       deal_hand
-      end_hand
 
       if bankrupt?
         puts "Looks like you've run out of money!  Thanks for playing!"
@@ -35,8 +34,10 @@ class Blackjack
         hands = hand_count.to_s + " hand"
         hands << "s" if hand_count > 1
 
-        puts "Thanks for playing!  After #{hands}, you walk away with $#{@player.cash} in your pocket."
+        puts "\nThanks for playing!  After #{hands}, you walk away with $#{@player.cash} in your pocket."
         break
+      else
+        system("clear")
       end
     end
 
@@ -48,16 +49,17 @@ class Blackjack
   end
 
 
-  def end_hand
-    #@hand = nil
-  end
-
-
   def bankrupt?
     @player.cash <= 0
   end
 
 
+  def reshuffle_deck
+    if @deck.cards.length < 52
+      puts "Reshuffling..."
+      @deck = Deck.new
+    end
+  end
 
 end
 
