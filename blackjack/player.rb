@@ -50,6 +50,21 @@ class Player
   end
 
 
+  def player_choice(sum) # sum not used for human player
+    input = String.new
+    puts "You have #{sum}.\nChoose whether to 'hit' or 'stand':"
+    loop do # validation loop
+      input = gets.chomp.downcase
+      if ["hit", "stand"].include?(input)
+        break
+      else
+        puts "Invalid input. Please enter 'hit' or 'stand':"
+      end
+    end
+    input
+  end
+
+
   def hit
   # hit
   end

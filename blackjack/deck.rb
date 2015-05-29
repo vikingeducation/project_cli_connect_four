@@ -14,9 +14,10 @@ class Deck
     @card_values["Q"] = 10
     @card_values["K"] = 10
     @card_values["A"] = 11
+    @card_values["?"] = 0 # for hidden dealer card
 
 
-    @cards = (2..10).to_a.each { |card| card.to_s }
+    @cards = (2..10).to_a.map { |card| card.to_s }
     @cards += ["J", "Q", "K", "A"]
     @cards *= 4
     @cards.shuffle!
@@ -28,9 +29,9 @@ class Deck
   end
 
 
-  def get_card_value(card)
-    @card_values[card]
-  end
+#  def get_card_value(card)
+#    @card_values[card]
+#  end
   # shuffle
 
   # re-stack

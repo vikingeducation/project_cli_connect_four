@@ -43,7 +43,7 @@ class Blackjack
 
 
   def deal_hand
-    @hand = Hand.new(player: @player, deck: @deck)
+    @hand = Hand.new(player: @player, dealer: @dealer, deck: @deck)
 
   end
 
