@@ -22,6 +22,7 @@ class Blackjack
     loop do
       hand_count += 1
       deal_hand
+      end_hand
 
       if bankrupt?
         puts "Looks like you've run out of money!  Thanks for playing!"
@@ -44,7 +45,11 @@ class Blackjack
 
   def deal_hand
     @hand = Hand.new(player: @player, dealer: @dealer, deck: @deck)
+  end
 
+
+  def end_hand
+    #@hand = nil
   end
 
 

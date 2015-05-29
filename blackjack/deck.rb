@@ -21,6 +21,8 @@ class Deck
     @cards += ["J", "Q", "K", "A"]
     @cards *= 4
     @cards.shuffle!
+
+    #@cards = ["K","5","A","5","K"] #for testing
   end
 
 

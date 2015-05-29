@@ -65,17 +65,4 @@ class Player
   end
 
 
-  def hit
-  # hit
-  end
-
-
-  def stand
-  # stand
-  end
-
-  #
-
-
-
 end
