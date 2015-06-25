@@ -1,0 +1,21 @@
+setup the game
+create a human player
+create an AI player
+create a board
+loop
+  ask the player for a move
+  validate the input
+    quit if q
+  make sure move is possible
+  add piece to board
+  check game end conditions
+    victory
+      if connectfour horizontol, vertical, diag
+      exit
+    draw 
+      if board filled
+      exit
+  switch players
+restart loop
+
+game board is 6x7
