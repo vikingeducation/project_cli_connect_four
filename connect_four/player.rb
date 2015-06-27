@@ -1,4 +1,6 @@
 class Player
+  attr_reader :piece
+
   def initialize(piece_color)
     @piece = piece_color
   end
@@ -17,10 +19,6 @@ class Human < Player
         end
       end
     end
-    # print input thing
-    # loop
-    # break loop if input valid
-    # check with the board to see if the move is valid & add to board
   end
 
   def valid_input_format?(input)
@@ -36,9 +34,8 @@ end
 class AI < Player
   
   def get_move
-    # return a move based on some logic
-    # probably random to begin with
-    
+    (1..6).to_a.sample
   end
+
 end
 

@@ -28,11 +28,12 @@ class Board
   end
 
   def render_board
-    # draw the board    
+    @columns    
   end
 
-  def winning_line?
+  def winning_line?(piece)
     # diag || horiz || vert
+    winning_horizontal?(piece)
   end
 
   def winning_diagonal?
@@ -52,10 +53,6 @@ class Board
         end
       end
     end
-  end
-
-  def largest_hash_key(hash)
-    hash.max_by{ |k,v| v }[0]
   end
 
   def winning_vertical?
