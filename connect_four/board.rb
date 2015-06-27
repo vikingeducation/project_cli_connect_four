@@ -1,15 +1,30 @@
+require 'pry'
+
 class Board
+  attr_reader :columns
+
   def initialize
-    # create a blank board somehow
+    make_board
   end
 
-  def valid_move?(move)
-    # return true if the player's move is possible 
+  def make_board
+    @columns = {}
+    1.upto(7) do |i|
+      @columns[i] = []
+    end
+    @columns 
+  end
+
+  def valid_move?(column)
+    if @columns[column].length < 6
+      true
+    end 
   end
 
   def add_piece(column, piece)
-    # place players piece on the board
-    
+    if valid_move?(column)
+      @columns[column] << piece
+    end    
   end
 
   def render_board
@@ -24,8 +39,23 @@ class Board
     # check to see if player has a winning diagonal
   end
 
-  def winning_horizontal?
-    # check to see if player has a winning horizontal
+  def winning_horizontal?(piece)
+    @columns.each do |col_number, column|
+      column.each_with_index do |blank, position|
+        if col_number == 5
+          return false
+        elsif blank == piece &&
+          @columns[(col_number + 1)][position] == piece &&
+          @columns[(col_number + 2)][position] == piece &&
+          @columns[(col_number + 3)][position] == piece
+          return true
+        end
+      end
+    end
+  end
+
+  def largest_hash_key(hash)
+    hash.max_by{ |k,v| v }[0]
   end
 
   def winning_vertical?
