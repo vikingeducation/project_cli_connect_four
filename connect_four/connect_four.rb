@@ -1,72 +1,3 @@
-=begin
-
-
-check_win? logic
-5  5  5  5  5  5
-4  4  4  4  4  4
-3  3  3  3  3  3
-2  2  2  2  2  2
-1  1  1  1  1  1
-0  0  0  0  0  0
-c0 c1 c2 c3 c4 c5
-
-horiz
-0.upto(5).times do |row]
-  0.upto(2).times do |col|
-    if board[0 + col][row] == board[1 + col][row] == board[2 + col][row] == board[3 + col][row]
-
-vertical
-0.upto(5).times do |col|
-  0.upto(2).times do |row|
-    if board[col][0 + row] == board[col][1 + row] == board[col][2 + row] == board[col][3 + row]
-/
-0.upto(2).times do |xpos|
-  0.upto(2).times do |ypos|
-    if board[ypos][xpos] == board[1 + ypos][1 + xpos] == board[2 + ypos][2 + xpos] == board[3+ypos][3+xpos]
-0 0
-  board[0][0] board [1][1] board [2][2] board[3][3]
-0 1
-  board[1][0] board [2][1] board [3][2] board[4][3]
-0 2
-  board[2][0] board [3][1] board [4][2] board[5][3]
-2 2
-  board[2][3] board [3][4] board [4][5] board[5][6]
-
-5  5  5  5  5  5
-4  4  4  4  4  4
-3  3  3  3  3  3
-2  2  2  2  2  2
-1  1  1  1  1  1
-0  0  0  0  0  0
-c0 c1 c2 c3 c4 c5
-
-\
-5.downto(3).times do |row|
-  0.upto(2).times do |col|
-    if board[col][row] == board[col + 1][row - 1] == board[col + 2][row - 2] == board[col + 3][row - 3]
-
-  def get(col, row)
-    return board[col][row]
-  end
-
-1. class Input
-  - get input (c1 thru c6)
-  - def validate move
-    - check_move?
-    - does a simple numeric check
-2. class Board
-  - [[x,x,x,x,x,x], [x,x,x,x,x,x], [x,x,x,x,x,x], [x,x,x,x,x,x], [x,x,x,x,x,x], [x,x,x,x,x,x]]
-  - def check_win?
-    - horizontal wins
-    - vertical wins
-    - diagonal wins
-  - def check_move?
-    - if col is filled
-3. class Display
-  - [[]]
-
-=end
-
 class Player
 
   def initialize(is_ai = false)
@@ -90,10 +21,14 @@ class Player
 
   # Algorithm for deciding the ai's move
   def ai_move
-
+  	(0..5).to_a.sample
   end
 
 end
+
+# see if there is a winning move
+# stop human if they are winning
+
 
 class Game
 
@@ -170,7 +105,9 @@ class Board
     # Horizontal
     0.upto(5) do |row|
       0.upto(2) do |col|
-        if (@state[0 + col][row] == @state[1 + col][row]) && (@state[0 + col][row] == @state[2 + col][row]) && (@state[0 + col][row] == @state[3 + col][row])
+        if (@state[0 + col][row] == @state[1 + col][row]) &&
+        (@state[0 + col][row] == @state[2 + col][row]) &&
+        (@state[0 + col][row] == @state[3 + col][row])
           return @state[col][row] unless @state[col][row].nil?
         end
       end
@@ -179,7 +116,9 @@ class Board
     # Vertical
     0.upto(5) do |col|
       0.upto(2) do |row|
-        if (@state[col][0 + row] == @state[col][1 + row]) && (@state[col][0 + row] == @state[col][2 + row]) && (@state[col][0 + row] == @state[col][3 + row])
+        if (@state[col][0 + row] == @state[col][1 + row]) &&
+        	(@state[col][0 + row] == @state[col][2 + row]) &&
+        	(@state[col][0 + row] == @state[col][3 + row])
           return @state[col][row] unless @state[col][row].nil?
         end
       end
@@ -188,7 +127,9 @@ class Board
     # Bottom left to upper right
     0.upto(2) do |row|
       0.upto(2) do |col|
-        if (@state[col][row] == @state[1 + col][1 + row]) && (@state[col][row] == @state[2 + col][2 + row]) && (@state[col][row] == @state[3 + col][3 + row])
+        if (@state[col][row] == @state[1 + col][1 + row]) &&
+        	(@state[col][row] == @state[2 + col][2 + row]) &&
+        	(@state[col][row] == @state[3 + col][3 + row])
           return @state[col][row] unless @state[col][row].nil?
         end
       end
@@ -197,7 +138,9 @@ class Board
     # Upper left to lower right
     5.downto(3) do |row|
       0.upto(2) do |col|
-        if (@state[col][row] == @state[col + 1][row - 1]) && (@state[col][row] == @state[col + 2][row - 2]) && (@state[col][row] == @state[col + 3][row - 3])
+        if (@state[col][row] == @state[col + 1][row - 1]) &&
+        	(@state[col][row] == @state[col + 2][row - 2]) &&
+        	(@state[col][row] == @state[col + 3][row - 3])
           return @state[col][row] unless @state[col][row].nil?
         end
       end
@@ -211,7 +154,6 @@ class Board
   end
 
   def display
-
     puts ""
     puts ""
     5.downto(0) do |idx|
@@ -227,20 +169,65 @@ class Board
   end
 end
 
-# class Array
-#     def deep_dup
-#         result = []
-#         self.each do |item|
-#             if item.is_a?(Array)
-#                 result << item.deep_dup    #Recursively calling deep_dup to get into subarrays
-#             else
-#                 result << item   #Fixnum has a static reference and doesn't need to be duplicated, as changing a number changes the reference as well
-#             end
-#         end
-#         return result
-#     end
-# end
-
 game = Game.new
 
 game.play
+
+
+=begin
+
+check_win? logic
+5  5  5  5  5  5
+4  4  4  4  4  4
+3  3  3  3  3  3
+2  2  2  2  2  2
+1  1  1  1  1  1
+0  0  0  0  0  0
+c0 c1 c2 c3 c4 c5
+
+horiz
+0.upto(5).times do |row]
+  0.upto(2).times do |col|
+    if board[0 + col][row] == board[1 + col][row] == board[2 + col][row] == board[3 + col][row]
+
+vertical
+0.upto(5).times do |col|
+  0.upto(2).times do |row|
+    if board[col][0 + row] == board[col][1 + row] == board[col][2 + row] == board[col][3 + row]
+/
+0.upto(2).times do |xpos|
+  0.upto(2).times do |ypos|
+    if board[ypos][xpos] == board[1 + ypos][1 + xpos] == board[2 + ypos][2 + xpos] == board[3+ypos][3+xpos]
+0 0
+  board[0][0] board [1][1] board [2][2] board[3][3]
+0 1
+  board[1][0] board [2][1] board [3][2] board[4][3]
+0 2
+  board[2][0] board [3][1] board [4][2] board[5][3]
+2 2
+  board[2][3] board [3][4] board [4][5] board[5][6]
+
+\
+5.downto(3).times do |row|
+  0.upto(2).times do |col|
+    if board[col][row] == board[col + 1][row - 1] == board[col + 2][row - 2] == board[col + 3][row - 3]
+
+  def get(col, row)
+    return board[col][row]
+  end
+
+1. class Input
+  - get input (c1 thru c6)
+  - def validate move
+    - check_move?
+    - does a simple numeric check
+2. class Board
+  - [[x,x,x,x,x,x], [x,x,x,x,x,x], [x,x,x,x,x,x], [x,x,x,x,x,x], [x,x,x,x,x,x], [x,x,x,x,x,x]]
+  - def check_win?
+    - horizontal wins
+    - vertical wins
+    - diagonal wins
+  - def check_move?
+    - if col is filled
+
+=end
