@@ -48,24 +48,31 @@ class Player
 
   def move
     col=get_input
-    until move_valid?(col)
-      col=get_input
-    end
-    @board[5][col-1] = "-"
-
+    col, row = move_valid(col, row)
+    @board[row][col-1] = "-"
   end
 
   # =>valid move?
-  def move_valid?(col)
-    #puts some kind of check
-    if col < 8 && @board[5][col-1]=="0"
-      true
-    else
+  def move_valid(col, row)
+    while col > 8
       puts "You can't put it there"
-      return false
+      col=get_input
     end
+    if check_row(col).nil?
+    return col, row
+  end
 
-
+  def check_row(col)
+    row = 5
+    while @board[row][col-1] != "0"
+      if row < 0
+        puts "This column is full"
+        return nil
+      else
+        row -= 1
+      end
+    end
+    row
   end
 
 end
