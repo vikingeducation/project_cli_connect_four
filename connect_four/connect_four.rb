@@ -48,33 +48,33 @@ class Player
 
   def move
     col=get_input
-    col, row = move_valid(col, row)
+
+    until check?(col) 
+      col=get_input
+    end
+    row=find_row(col)
+
     @board[row][col-1] = "-"
   end
 
-  # =>valid move?
-  def move_valid(col, row)
-    while col > 8
-      puts "You can't put it there"
-      col=get_input
-    end
-    if check_row(col).nil?
-    return col, row
+  def check?(col)
+      arr = []
+      5.downto(0) do |row|
+        arr << @board[row][col]
+      end
+      
+     (col < 8 && col > 0 &&  arr.include?("0")) 
   end
 
-  def check_row(col)
+  def find_row(col)
     row = 5
-    while @board[row][col-1] != "0"
-      if row < 0
-        puts "This column is full"
-        return nil
-      else
-        row -= 1
-      end
+    while @board[row][col-1] != "0"  
+        row<0 ? (puts "Counted down 0") : row -= 1
     end
     row
   end
-
+  # =>valid move?
+ 
 end
 
 class Board
