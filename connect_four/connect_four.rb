@@ -143,6 +143,52 @@ class Board
 
   end
 
+  def full?
+
+    @game_board.all? { |column| column.length == 6}
+
+  end
+
+  def check_victory?
+
+    check_vertical?(@game_board) || check_horizontal?(@game_board) || check_diagonal?(@game_board)
+
+  end
+
+  def check_vertical?(board)
+
+    board.each do |column|
+
+      num_consec = 0
+
+      current = column[0]
+
+      column.each do |element|
+
+        if element == current
+          num_consec += 1
+          return true if num_consec >= 4
+        else
+          num_consec = 1
+          current = element
+        end
+
+      end
+    end
+    return false
+  end
+
+  def check_horizontal?(board)
+
+    check_vertical?(board.tranpose)
+
+  end
+
+  def check_diagonal?(board)
+
+
+  end
+
 end
 
 class Player
