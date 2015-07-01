@@ -10,7 +10,8 @@
 =end
 
 class ConnectFour
-  def initalize
+
+  def initialize
     @player1 = Human.new
     @player1_color = "R"
     @player2_color = "B"
@@ -25,27 +26,21 @@ class ConnectFour
 
       @game.render
 
-      # 1.render
-      # 2. ask move
-      # 3. make move if false?
-      # 4. ask move
-      # 5. make move
-         player1_valid = false
-         player2_valid = false
-         until player1_valid 
-           move = @player1.turn
-           player1_valid =  @game.make_move(move, @player1_color) 
-         end
+      player1_valid = false
+      until player1_valid 
+        player1_move = @player1.turn
+        player1_valid =  @game.make_move(player1_move, @player1_color) 
+       end
 
-        @game.win?
+      @game.win?
 
-         until player2_valid
-           player2_move = @player2.turn
-           player2_valid = @game.make_move(player2_move, @player2_color)
-         end
+      player2_valid = false
+      until player2_valid
+        player2_move = @player2.turn
+        player2_valid = @game.make_move(player2_move, @player2_color)
+      end
 
-        @game.win?
-
+      @game.win?
 
     end
 
@@ -105,23 +100,24 @@ class Board
   end
 
   def make_move(column, color)
+    
+    @row = bottom_empty_row(column)
 
-    row = bottom_empty_row(column)
-
-    if row == false
+    if @row == false
       puts "The column is full. Choose another one."
       return false
     else 
-      @current_board[column][row] = color
+      @current_board[@row][column] = color
+      @column = column
     end
 
   end
 
   def bottom_empty_row (column)
 
-    5.downto(0) do |i|
-      if @current_board[i][column] == "O"
-        return i
+    5.downto(0) do |row|
+      if @current_board[row][column] == "O"
+        return row
       end
     end
 
@@ -130,9 +126,132 @@ class Board
   end
 
   def win?
-    
-    win_conditions =  [
+
+    [vertical(@row, @column), horizontal(@row, @column), diagonal_right(@row, @column), diagonal_left(@row, @column)].any?
 
   end
 
+  ###### Methods to check if true ########
+
+  def vertical (row, column)
+    piece = @currentboard[row][column]
+    counter = 1
+
+    #counting in down on the board (not array number) direction
+
+    3.times do |x|
+      if @currentboard[row + x][column] == piece
+      counter += 1
+      else
+      break
+      end
+    end
+
+    if counter >=4
+      return true
+    end
+
+    return false
+  end
+
+  def horizontal (row, column)
+    piece = @currentboard[row][column]
+    counter = 1
+
+    # counting in right direction
+
+    3.times do |x|
+      if @currentboard[row][column + x] == piece
+      counter += 1
+      else
+      break
+      end
+    end
+
+    #counting in left direction
+
+    3.times do |x|
+      if @currentboard[row][column - x] == piece
+      counter += 1
+      else
+      break
+      end
+    end
+
+
+    if counter >=4
+      return true
+    end
+
+    return false
+  end
+
+  def diagonal_right (row, column)
+    piece = @currentboard[row][column] #5,3 on paper
+    counter = 1
+
+    # counting up in right direction
+
+    3.times do |x|
+      if @currentboard[row - x][column + x] == piece
+      counter += 1
+      else
+      break
+      end
+    end
+
+    #counting down in the left direction
+
+    3.times do |x|
+      if @currentboard[row + x][column - x] == piece
+      counter += 1
+      else
+      break
+      end
+    end
+
+
+    if counter >=4
+      return true
+    end
+
+    return false
+  end
+
+  def diagonal_left (row, column)
+    piece = @currentboard[row][column]
+    counter = 1
+
+    # counting up in left direction
+
+    3.times do |x|
+      if @currentboard[row - x][column - x] == piece
+      counter += 1
+      else
+      break
+      end
+    end
+
+    #counting down in the right direction
+
+    3.times do |x|
+      if @currentboard[row + x][column + x] == piece
+      counter += 1
+      else
+      break
+      end
+    end
+
+
+    if counter >=4
+      return true
+    end
+
+    return false
+  end
+
 end
+
+
+g = ConnectFour.new
+g.play

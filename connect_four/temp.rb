@@ -1,6 +1,5 @@
-
 def vertical
-  piece = @currentboard[row][column] #3,3 on paper
+  piece = @currentboard[row][column]
   counter = 1
 
   #counting in down on the board (not array number) direction
@@ -21,7 +20,7 @@ def vertical
 end
 
 def horizontal
-  piece = @currentboard[row][column] #5,3 on paper
+  piece = @currentboard[row][column]
   counter = 1
 
   # counting in right direction
@@ -37,7 +36,7 @@ def horizontal
   #counting in left direction
 
   3.times do |x|
-    if @currentboard[row][column + x] == piece
+    if @currentboard[row][column - x] == piece
     counter += 1
     else
     break
@@ -85,7 +84,7 @@ def diagonal_right
 end
 
 def diagonal_left
-  piece = @currentboard[row][column] #5,3 on paper
+  piece = @currentboard[row][column]
   counter = 1
 
   # counting up in left direction
