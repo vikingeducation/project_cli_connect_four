@@ -1,26 +1,23 @@
 # Your code here!
 
 class Game
-  
-  def initialize
-    
 
+  def initialize
     start_game
   end
   #initialize players and board
 
   #start game loop
   def start_game
-    @board = Board.new.build_board
+    @board = Board.new
+    @board.build_board
     puts "Game started"
-    player1 = Player.new 
-    player2 = Player.new
-    
+    player1 = Player.new(@board)
+    player2 = Player.new(@board)
+
     loop do
-      player1.move(@board)
-      @board.render #include move check and display
-      player2.move(@board)
-      @board.render
+      player1.move
+      player2.move
     end
   end
 
@@ -33,8 +30,8 @@ end
 class Player
   #pass instance into game
   #make a move
-  def initialize
-    @board
+  def initialize(board)
+    @player_board = board
   end
 
   def get_input
@@ -42,11 +39,12 @@ class Player
     input = gets.chomp.to_i
   end
 
-  def move(board_current)
-    move=get_input
+  def move
+    @player_board.render #include move check and display
+    move = get_input
     puts move
-    board_current[5][move] = "-"
-    
+    @player_board[5][move] = "-"
+
   end
   # =>valid move?
   def move_valid?
@@ -65,9 +63,9 @@ class Board
   end
 
   def render
-    for i in (0..5) #rows   
-      for j in (0..6) #columns  
-        print @field[i][j]
+    for row in (0..5) #rows
+      for column in (0..6) #columns
+        print @field[row][column]
       end
       puts
     end
@@ -75,14 +73,15 @@ class Board
 
   def build_board
     #build board
-    for i in (0..5) #rows
+    for row in (0..5) #rows
       @field<<[]
-      for j in (0..6) #columns
-        @field[i][j]="0"
-        print @field[i][j]
+      for column in (0..6) #columns
+        @field[row][column]="0"
+        print @field[row][column]
       end
       puts
     end
+    @field
   end
 
 
