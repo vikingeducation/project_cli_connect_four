@@ -134,13 +134,16 @@ class Board
   ###### Methods to check if true ########
 
   def vertical (row, column)
-    piece = @currentboard[row][column]
+    piece = @current_board[row][column]
     counter = 1
-
+    p piece
     #counting in down on the board (not array number) direction
 
     3.times do |x|
-      if @currentboard[row + x][column] == piece
+       x += 1
+     
+
+      if !(@current_board[row + x]).nil?  && @current_board[row + x][column] == piece
       counter += 1
       else
       break
@@ -155,13 +158,13 @@ class Board
   end
 
   def horizontal (row, column)
-    piece = @currentboard[row][column]
+    piece = @current_board[row][column]
     counter = 1
 
     # counting in right direction
 
     3.times do |x|
-      if @currentboard[row][column + x] == piece
+      if @current_board[row][column + x] == piece
       counter += 1
       else
       break
@@ -171,7 +174,7 @@ class Board
     #counting in left direction
 
     3.times do |x|
-      if @currentboard[row][column - x] == piece
+      if @current_board[row][column - x] == piece
       counter += 1
       else
       break
@@ -187,13 +190,13 @@ class Board
   end
 
   def diagonal_right (row, column)
-    piece = @currentboard[row][column] #5,3 on paper
+    piece = @current_board[row][column] #5,3 on paper
     counter = 1
 
     # counting up in right direction
 
     3.times do |x|
-      if @currentboard[row - x][column + x] == piece
+      if @current_board[row - x][column + x] == piece
       counter += 1
       else
       break
@@ -203,7 +206,7 @@ class Board
     #counting down in the left direction
 
     3.times do |x|
-      if @currentboard[row + x][column - x] == piece
+      if @current_board[row + x][column - x] == piece
       counter += 1
       else
       break
@@ -219,13 +222,13 @@ class Board
   end
 
   def diagonal_left (row, column)
-    piece = @currentboard[row][column]
+    piece = @current_board[row][column]
     counter = 1
 
     # counting up in left direction
 
     3.times do |x|
-      if @currentboard[row - x][column - x] == piece
+      if @current_board[row - x][column - x] == piece
       counter += 1
       else
       break
@@ -235,7 +238,7 @@ class Board
     #counting down in the right direction
 
     3.times do |x|
-      if @currentboard[row + x][column + x] == piece
+      if @current_board[row + x][column + x] == piece
       counter += 1
       else
       break
