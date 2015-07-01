@@ -79,7 +79,8 @@ class Board
 
   def victory?
 
-    vert_victory? || horz_victory?
+    #vert_victory? || horz_victory? || diag_victory?
+    diag_victory?
       
 
   end
@@ -144,6 +145,22 @@ class Board
     end
     return false
 
+  end
+
+
+  def diag_victory?
+
+    i = 0
+    if @game[i][i]         == @game[i + 1][i + 1] &&
+       @game[i + 1][i + 1] == @game[i + 2][i + 2] &&
+       @game[i + 2][i + 2] == @game[i + 3][i + 3] &&
+       @game[i][i]         != 0
+
+      puts "diag victory!"
+      return true
+    end
+
+    return false
   end
 
   
