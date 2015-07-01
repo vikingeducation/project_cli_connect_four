@@ -1,25 +1,26 @@
 # Your code here!
-
+require "byebug"
 class Game
   
   def initialize
     
-
-    start_game
+    @board = Board.new
+    
   end
   #initialize players and board
 
   #start game loop
   def start_game
-    @board = Board.new.build_board
+    @board.build_board
     puts "Game started"
-    player1 = Player.new 
-    player2 = Player.new
+    player1 = Player.new(@board)
+    player2 = Player.new(@board)
     
     loop do
-      player1.move(@board)
+      player1.move
       @board.render #include move check and display
-      player2.move(@board)
+      puts "Other player move"
+      player2.move
       @board.render
     end
   end
@@ -33,8 +34,8 @@ end
 class Player
   #pass instance into game
   #make a move
-  def initialize
-    @board
+  def initialize(board)
+    @board=board.field
   end
 
   def get_input
@@ -42,15 +43,25 @@ class Player
     input = gets.chomp.to_i
   end
 
-  def move(board_current)
-    move=get_input
-    puts move
-    board_current[5][move] = "-"
-    
+  def move  
+    col=get_input 
+    until move_valid?(col) 
+      col=get_input 
+    end
+    @board[5][col-1] = "-"
   end
+
   # =>valid move?
-  def move_valid?
+  def move_valid?(col)
     #puts some kind of check
+    if col < 8 && @board[5][col-1]=="0" 
+      true
+    else
+      puts "You can't put it there"
+      return false
+    end  
+
+    
   end
 
 end
@@ -84,6 +95,6 @@ class Board
       puts
     end
   end
-
-
 end
+g=Game.new
+g.start_game
