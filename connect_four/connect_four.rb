@@ -59,7 +59,13 @@ class Player
     row=find_row(col)
 
     @board_array[row][col-1] = @piece
-    @board.game_over?(@piece)
+    puts "#{@board.game_over?(@piece)}"
+    if @board.game_over?(@piece) 
+      @board.render
+      exit 
+    else
+      "Checked"
+    end
   end
 
   def check?(col)
@@ -139,12 +145,27 @@ class Board
     # 3.times do |i|
     #     horizontals << [@board[0][i],@board[1][i],@board[2][i]]
     # end
-    # horizontals
+    # horizontals@field[row..row+3][col-1].all?  {|place| place == symbol}
+
+    #[[ 1 1 1 ], [2 2 2 ]]
+    
+      0.upto(6) do |col|
+        0.upto(2) do |row|
+          if [@field[row][col],@field[row+1][col],@field[row+2][col],@field[row+3][col]].all?  {|place| place == symbol}
+            
+            return true
+          end 
+        end 
+      end
+    
+    false
   end
+
 
   def horizontal_win?(symbol) #
     @field.each do |row|
       0.upto(3) do |index|
+        
         if row[index..index+3].all? {|place| place == symbol}
           return true
         end
