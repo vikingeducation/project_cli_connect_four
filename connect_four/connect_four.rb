@@ -21,26 +21,35 @@ class ConnectFour
   
   def play
     choose_opponent
-    
-    loop do
+    @game.render
 
-      @game.render
+    loop do
 
       player1_valid = false
       until player1_valid 
+        puts "Player 1 Turn"
         player1_move = @player1.turn
         player1_valid =  @game.make_move(player1_move, @player1_color) 
        end
 
-      @game.win?
-
+      @game.render
+      if @game.win?
+        puts "Player 1 wins"
+        exit
+      end
+   
       player2_valid = false
       until player2_valid
+        puts "Player 2 Turn"
         player2_move = @player2.turn
         player2_valid = @game.make_move(player2_move, @player2_color)
       end
 
-      @game.win?
+      @game.render
+      if @game.win?
+        puts "Player 2 wins"
+        exit
+      end
 
     end
 
@@ -64,14 +73,17 @@ class Human
   def turn
 
     puts "Where do you want to drop your piece (column from right)"
-    column = gets.chomp.to_i
-
+    column = gets.chomp.to_i-1
 
   end
 
 end
 
 class Computer
+
+  def turn
+    column = (0..6).to_a.sample
+  end
 
 end
 
@@ -81,7 +93,7 @@ class Board
 
   def initialize
 
-    @current_board = Array.new(6) { Array.new(7) {"O"} }
+    @current_board = Array.new(6) { Array.new(7) {"-"} }
 
   end
 
@@ -116,7 +128,7 @@ class Board
   def bottom_empty_row (column)
 
     5.downto(0) do |row|
-      if @current_board[row][column] == "O"
+      if @current_board[row][column] == "-"
         return row
       end
     end
@@ -126,6 +138,10 @@ class Board
   end
 
   def win?
+    p "Vertical " + vertical(@row, @column).to_s
+    p "horizontal " + horizontal(@row, @column).to_s
+    p "diagonal_right " + diagonal_right(@row, @column).to_s
+    p "diagonal_left " + diagonal_left(@row, @column).to_s
 
     [vertical(@row, @column), horizontal(@row, @column), diagonal_right(@row, @column), diagonal_left(@row, @column)].any?
 
@@ -136,13 +152,11 @@ class Board
   def vertical (row, column)
     piece = @current_board[row][column]
     counter = 1
-    p piece
+
     #counting in down on the board (not array number) direction
 
     3.times do |x|
        x += 1
-     
-
       if !(@current_board[row + x]).nil?  && @current_board[row + x][column] == piece
       counter += 1
       else
@@ -158,13 +172,14 @@ class Board
   end
 
   def horizontal (row, column)
-    piece = @current_board[row][column]
+    piece = @current_board[row][column] #[4][2]
     counter = 1
 
     # counting in right direction
 
     3.times do |x|
-      if @current_board[row][column + x] == piece
+      x += 1
+      if !(@current_board[row][column + x]).nil?  && @current_board[row][column + x] == piece
       counter += 1
       else
       break
@@ -174,13 +189,13 @@ class Board
     #counting in left direction
 
     3.times do |x|
-      if @current_board[row][column - x] == piece
+      x += 1
+      if !(@current_board[row][column - x]).nil? && @current_board[row][column - x] == piece
       counter += 1
       else
       break
       end
     end
-
 
     if counter >=4
       return true
@@ -196,7 +211,8 @@ class Board
     # counting up in right direction
 
     3.times do |x|
-      if @current_board[row - x][column + x] == piece
+      x += 1
+      if !(@current_board[row - x]).nil? && !(@current_board[row - x][column + x]).nil? && @current_board[row - x][column + x] == piece
       counter += 1
       else
       break
@@ -206,13 +222,13 @@ class Board
     #counting down in the left direction
 
     3.times do |x|
-      if @current_board[row + x][column - x] == piece
+      x += 1
+      if !(@current_board[row + x]).nil? && !(@current_board[row + x][column - x]).nil? && @current_board[row + x][column - x] == piece
       counter += 1
       else
       break
       end
     end
-
 
     if counter >=4
       return true
@@ -228,7 +244,8 @@ class Board
     # counting up in left direction
 
     3.times do |x|
-      if @current_board[row - x][column - x] == piece
+      x += 1
+      if !(@current_board[row - x]).nil? && !(@current_board[row - x][column - x]).nil? && @current_board[row - x][column - x] == piece
       counter += 1
       else
       break
@@ -238,13 +255,13 @@ class Board
     #counting down in the right direction
 
     3.times do |x|
-      if @current_board[row + x][column + x] == piece
+      x += 1
+      if !(@current_board[row + x]).nil? && !(@current_board[row + x][column + x]).nil? && @current_board[row + x][column + x] == piece
       counter += 1
       else
       break
       end
     end
-
 
     if counter >=4
       return true
