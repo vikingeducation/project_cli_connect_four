@@ -44,7 +44,7 @@ class ConnectFour
     end
 
     display_result
-    ask_for_play_again
+    #ask_for_play_again
   end
 
   def choose_game_type
@@ -61,11 +61,11 @@ class ConnectFour
   def create_players(choice)
 
     if choice == 1
-      @player1 = Human.new("player1", :X, @board)
-      @player2 = AI.new("player2", :O, @board)
+      @player1 = Human.new("player1", "x", @board)
+      @player2 = AI.new("player2", "o", @board)
     else
-      @player1 = Human.new("player1", :X, @board)
-      @player2 = Human.new("player2", :O, @board)
+      @player1 = Human.new("player1", "x", @board)
+      @player2 = Human.new("player2", "o", @board)
     end
 
   end
@@ -114,29 +114,31 @@ end
 
 
 class Board
+  attr_reader :game_board
 
   def initialize
 
-    @game_board = make_new_board
-
-  end
-
-  def make_board
-
-    Array.new(7) { [] }
+    @game_board = Array.new(7) { %w(- - - - - -) }
 
   end
 
   def render
 
-    p @game_board
-
+    @game_board.transpose.each {|l| p l}
+    
   end
 
   def add_piece(column, piece)
 
-    if @game_board[column-1].length < 6
-      @game_board[column-1] << piece
+    if @game_board[column-1][0] == "-"
+      #@game_board[column-1].each_with_index do |element, i|  
+      @game_board[column-1].length.downto(0) do |i|
+        if @game_board[column-1][i] == "-"
+          @game_board[column-1][i] = piece 
+          break
+        end
+      end
+      return true
     else
       puts "This column is full, you can not add more pieces in it."
     end
@@ -145,7 +147,11 @@ class Board
 
   def full?
 
-    @game_board.all? { |column| column.length == 6}
+    @game_board.each do |col|
+      return false if col.include?("-")
+    end
+
+    return true
 
   end
 
@@ -163,7 +169,13 @@ class Board
 
       current = column[0]
 
-      column.each do |element|
+      column.each_with_index do |element, i|
+
+        if element == "-"
+          num_consec = 0
+          current = column[i+1]
+          next
+        end
 
         if element == current
           num_consec += 1
@@ -180,13 +192,54 @@ class Board
 
   def check_horizontal?(board)
 
-    check_vertical?(board.tranpose)
+    check_vertical?(board.transpose)
 
   end
 
   def check_diagonal?(board)
 
+    check_diagonal_helper(board, 1) || check_diagonal_helper(board, -1)
 
+  end
+
+
+
+  def check_diagonal_helper(board, step)
+
+    (0..5).each do |row|
+  
+      col = 0
+
+      current = board[col][row]
+
+      num_consec = 0
+      
+      6.times do
+
+        if board[col][row] == "-"
+          num_consec = 0
+          current = board[col+1][row+step]
+          next
+        end
+
+        if board[col][row] == current
+          num_consec += 1
+          return true if num_consec >= 4
+        else
+          num_consec = 0
+          current = board[col][row]
+        end
+
+        col += 1
+        row += step
+
+        break if col >= 7 || row >= 6
+
+      end
+
+      return false
+
+    end
   end
 
 end
@@ -204,9 +257,6 @@ class Player
 
   end
 
-
-
-
 end
 
 class Human < Player
@@ -221,11 +271,8 @@ class Human < Player
 
       if format_valid?(column)
 
-        if @board.add_piece(column, @piece)
+        break if @board.add_piece(column, @piece)
 
-          break
-
-        end
       end
     end
 
