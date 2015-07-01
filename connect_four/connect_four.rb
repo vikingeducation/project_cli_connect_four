@@ -73,13 +73,18 @@ class Player
     @is_ai = is_ai
   end
 
-  def make_move
+  def get_move
     @is_ai? human_move : ai_move
   end
 
   def human_move
-    puts "Input a move"
-
+    puts "Input a move Col 1 to 6"
+    col_to_add_to = gets.chomp.to_i
+    col_to_add_to -= 1
+    until col_to_add_to >= 0 && col_to_add_to < 6
+    	self.human_move
+    end
+    col_to_add_to
   end
 
   # Algorithm for deciding the ai's move
@@ -99,13 +104,23 @@ class Game
   def play
     @board = Board.new
     instantiate_players # Are there two players or 1 vs ai?
+    @turn = 0
     until(@board.winner || @board.full?)
-      @players[0].make_move
-      @players[1].make_move
+      @board.move(get_valid_move)
+      @board.display
+      @turn += 1
     end
-
     @board.winner ? (puts "Player #{@board.winner} wins!") : (puts "It's a draw!")
 
+  end
+
+  def get_valid_move
+  	col = @players[@turn%2].get_move
+  	while @board.col_full?(col)
+  		col = @players[@turn%2].get_move
+  		puts "That column is full"
+  	end
+  	return col, turn%2
   end
 
   def instantiate_players
@@ -132,7 +147,11 @@ end
 class Board
 
   def initialize
+  	@board_state = [[],[],[],[],[],[]]
+  end
 
+  def move(col, player)
+  	@board_state[col] << player
   end
 
   # Returns the winner, or NIL if there is no winner
@@ -144,4 +163,12 @@ class Board
 
   end
 
+  def display
+
+  end
+
+  def col_full?(col_no)
+  	@board_state[col_no].length > 5
+  end
 end
+
