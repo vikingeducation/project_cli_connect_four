@@ -32,15 +32,15 @@ class ConnectFour
 
     create_players(choose_game_type)
 
-    current_player = @player1
+    @current_player = @player1
 
     loop do
       @board.render
 
-      current_player.get_move
+      @current_player.get_move
 
       break if game_over?
-      current_player = switch_player
+      switch_player
     end
 
     display_result
@@ -61,12 +61,51 @@ class ConnectFour
   def create_players(choice)
 
     if choice == 1
-      @player1 = Human.new(:X, @board)
-      @player2 = AI.new(:O, @board)
+      @player1 = Human.new("player1", :X, @board)
+      @player2 = AI.new("player2", :O, @board)
     else
-      @player1 = Human.new(:X, @board)
-      @player2 = Human.new(:O, @board)
+      @player1 = Human.new("player1", :X, @board)
+      @player2 = Human.new("player2", :O, @board)
     end
+
+  end
+
+  def game_over?
+    @board.check_victory? || @board.full?
+  end
+
+  def switch_player
+
+    if @current_player == @player1
+      @current_player = @player2
+    else
+      @current_player = @player1
+    end
+
+  end
+
+  def display_result
+
+    if @board.full?
+      puts "Draw!"
+    else
+      puts "#{@current_player.name} wins!"
+    end
+
+  end
+
+  def ask_for_play_again
+
+    puts "Do you want to play again? (y/n)"
+
+    input = gets.chomp.downcase
+
+    until ["y", "n"].include?(input)
+      puts "Your input is not valid. Try typing y or n"
+      input = gets.chomp.downcase
+    end
+
+    play if input == "y"
 
   end
 
@@ -84,7 +123,7 @@ class Board
 
   def make_board
 
-    Array.new(6) { Array.new(7)}
+    Array.new(7) { [] }
 
   end
 
@@ -94,11 +133,24 @@ class Board
 
   end
 
+  def add_piece(column, piece)
+
+    if @game_board[column-1].length < 6
+      @game_board[column-1] << piece
+    else
+      puts "This column is full, you can not add more pieces in it."
+    end
+
+  end
+
 end
 
 class Player
+  attr_reader :name
 
-  def initialize(piece, board)
+  def initialize(name, piece, board)
+
+    @name = name
 
     @piece = piece
 
@@ -129,6 +181,22 @@ class Human < Player
 
         end
       end
+    end
+
+  end
+
+  def ask_for_column
+
+    gets.chomp.to_i
+
+  end
+
+  def format_valid?(column)
+
+    if (1..7).include?(column)
+      return true
+    else
+      puts "The number you input must be between 1 and 7."
     end
 
   end
