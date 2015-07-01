@@ -2,4 +2,5 @@
 
 [An Object-Oriented Ruby project from the Viking Code School](http://www.vikingcodeschool.com)
 
-Created by Xin L and David M
+David M
+Xin L
