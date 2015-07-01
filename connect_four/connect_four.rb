@@ -29,8 +29,7 @@ class ConnectFour
     # print_instructions
 
     @board.render
-
-
+    @player1.get_move
 
 
   end
@@ -44,16 +43,6 @@ class Board
   def initialize
 
     @game = Array.new(6) { Array.new(7) { 0 }  }
-
-    # @game = [
-    #           [0,0,0,0,0,0,0],
-    #           [0,0,0,0,0,0,0],
-    #           [0,0,0,0,0,0,0],
-    #           [0,0,0,0,0,0,0],
-    #           [0,0,0,0,0,0,0],
-    #           [0,0,0,0,0,0,0],
-    #           [0,0,0,0,0,0,0]
-    #         ]
 
 
   end
@@ -79,11 +68,20 @@ end
 
 class Human < Player
 
+
   def get_move
 
     puts "Some intructions"
     #
-    move = gets.chomp
+    loop do
+      move = gets.chomp.to_i - 1
+
+      if (0..6).include?(move)
+        return move
+      else
+        puts "Invalid move"
+      end
+    end
 
   end
 
