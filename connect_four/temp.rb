@@ -15,3 +15,36 @@
 
   block
 =end
+
+
+class ComputerAi
+  def intialize (gameboard)
+    @gameboard = gameboard
+  end
+  
+  def computer_check_three(row, column)
+    piece = @current_board[row][column]
+    counter = 1
+    #counting in down on the board (not array number) direction
+
+    2.times do |x|
+       x += 1
+      if !(@current_board[row + x]).nil?  && @current_board[row + x][column] == piece
+      counter += 1
+      else
+      break
+      end
+    end
+
+    if counter == 3
+       check_empty_slots
+    end
+
+    return false
+  end
+
+  def check_empty_slots
+     
+  end
+end
+  
