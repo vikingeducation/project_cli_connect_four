@@ -26,7 +26,7 @@ class ConnectFour
 
 
   def play
-    # print_instructions
+    print_instructions
 
 
     current_player = @player1
@@ -35,7 +35,7 @@ class ConnectFour
     loop do
       @board.render
       puts "Player #{@num} turn"
-      @board.move(current_player.get_move, @num)
+      @board.move(current_player.get_move(@board), @num)
       if @board.victory?
         @board.render
         puts "Player #{@num} Wins!"
@@ -64,11 +64,20 @@ class ConnectFour
 
   end
 
+  def print_instructions
+
+    puts "Enter the column where you want to drop your piece"
+    puts "Get 4 in a row to win!"
+
+  end
+
 end
 
 
 
 class Board
+
+  attr_reader :game
 
   def initialize
 
@@ -80,13 +89,15 @@ class Board
 
   def render
 
-    display = @game.transpose
+    system "clear"
+
+    display = @game#.transpose
     display.each {|i| p i }
-    puts " --------------------"
-    7.times { |i| print "-"; print (i + 1 ); print ("-")}
-    puts
+    # puts "---------------------"
+    # 7.times { |i| print "-"; print (i + 1 ); print ("-")}
+    # puts
     
-    puts
+    # puts
 
   end
 
@@ -105,14 +116,13 @@ class Board
 
   def victory?
 
-    vert_victory? || horz_victory? || diag_victory?
-      
+    #vert_victory? || horz_victory? || diag_victory?
 
+    diag_victory?
+      
   end
 
   def horz_victory?
-
-
 
     @game.each do |row|
 
@@ -204,8 +214,6 @@ class Board
            @game.reverse[vert + i + 2][horz + i + 2] == @game.reverse[vert + i + 3][horz + i + 3] &&
            @game.reverse[vert + i]    [horz+ i]      != 0
 
-
-          puts "diag2 victory!"
           i+1
           return true
         end
@@ -223,7 +231,11 @@ end
 
 class Player
 
+  def valid_move?(board, move)
 
+    (0..6).include?(move) && board.game[move].include?(0)
+
+  end
 
 
 end
@@ -233,20 +245,33 @@ end
 class Human < Player
 
 
-  def get_move
+  def get_move(board)
 
-    puts "Some intructions"
+    puts "Enter next move"
     #
     loop do
-      move = gets.chomp.to_i - 1
-
-      if (0..6).include?(move)
-        return move
-      else
+      until valid_move?(board, move = gets.chomp.to_i - 1)
         puts "Invalid move"
       end
+      return move
+
+      # if (0..6).include?(move)
+      #   return move
+      # else
+      #   puts "Invalid move"
+      # end
     end
 
+  end
+
+end
+
+
+class Computer < Player
+
+  def get_move(board)
+    until valid_move?(board, move = (1..7).to_a.sample)
+    end
   end
 
 end
