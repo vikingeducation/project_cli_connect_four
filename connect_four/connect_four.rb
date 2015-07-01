@@ -2,15 +2,15 @@
 
 class Game
 
-  def initialize
-    start_game
+  def initialize # set initial state
+    @board = Board.new
+    @board.build_board
+    #start_game
   end
   #initialize players and board
 
   #start game loop
   def start_game
-    @board = Board.new
-    @board.build_board
     puts "Game started"
     player1 = Player.new(@board)
     player2 = Player.new(@board)
