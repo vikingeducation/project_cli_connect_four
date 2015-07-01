@@ -74,7 +74,7 @@ class Player
   end
 
   def get_move
-    @is_ai? human_move : ai_move
+    @is_ai? ai_move : human_move
   end
 
   def human_move
@@ -82,7 +82,8 @@ class Player
     col_to_add_to = gets.chomp.to_i
     col_to_add_to -= 1
     until col_to_add_to >= 0 && col_to_add_to < 6
-    	self.human_move
+      puts "Invalid column number, try again!"
+    	col_to_add_to = self.human_move
     end
     col_to_add_to
   end
@@ -110,17 +111,27 @@ class Game
       @board.display
       @turn += 1
     end
-    @board.winner ? (puts "Player #{@board.winner} wins!") : (puts "It's a draw!")
+    @board.winner ? (puts "Player #{@board.winner + 1} wins!") : (puts "It's a draw!")
 
   end
 
+  def current_player
+    @players[@turn%2]
+  end
+
   def get_valid_move
-  	col = @players[@turn%2].get_move
-  	while @board.col_full?(col)
-  		col = @players[@turn%2].get_move
-  		puts "That column is full"
+    puts "Turn #{@turn + 1}, Player #{(@turn % 2) + 1}"
+  	col = current_player.get_move
+  	if @board.col_full?(col)
+      puts "That column is full."
+      @board.display
+      while @board.col_full?(col)
+  		  col = current_player.get_move
+        puts "That column is full."
+        @board.display
+      end
   	end
-  	return col, turn%2
+  	return col, @turn%2
   end
 
   def instantiate_players
@@ -147,28 +158,89 @@ end
 class Board
 
   def initialize
-  	@board_state = [[],[],[],[],[],[]]
+  	@state = [[],[],[],[],[],[]]
   end
 
-  def move(col, player)
-  	@board_state[col] << player
+  def move(args)
+  	@state[args[0]] << args[1]
   end
 
   # Returns the winner, or NIL if there is no winner
   def winner
+    # Horizontal
+    0.upto(5) do |row|
+      0.upto(2) do |col|
+        if (@state[0 + col][row] == @state[1 + col][row]) && (@state[0 + col][row] == @state[2 + col][row]) && (@state[0 + col][row] == @state[3 + col][row])
+          return @state[col][row] unless @state[col][row].nil?
+        end
+      end
+    end
 
+    # Vertical
+    0.upto(5) do |col|
+      0.upto(2) do |row|
+        if (@state[col][0 + row] == @state[col][1 + row]) && (@state[col][0 + row] == @state[col][2 + row]) && (@state[col][0 + row] == @state[col][3 + row])
+          return @state[col][row] unless @state[col][row].nil?
+        end
+      end
+    end
+
+    # Bottom left to upper right
+    0.upto(2) do |row|
+      0.upto(2) do |col|
+        if (@state[col][row] == @state[1 + col][1 + row]) && (@state[col][row] == @state[2 + col][2 + row]) && (@state[col][row] == @state[3 + col][3 + row])
+          return @state[col][row] unless @state[col][row].nil?
+        end
+      end
+    end
+
+    # Upper left to lower right
+    5.downto(3) do |row|
+      0.upto(2) do |col|
+        if (@state[col][row] == @state[col + 1][row - 1]) && (@state[col][row] == @state[col + 2][row - 2]) && (@state[col][row] == @state[col + 3][row - 3])
+          return @state[col][row] unless @state[col][row].nil?
+        end
+      end
+    end
+
+    return nil
   end
 
   def full?
-
+    return @state.reduce(0){|acc, col| acc += col.length} == 36
   end
 
   def display
 
+    puts ""
+    puts ""
+    5.downto(0) do |idx|
+      0.upto(5) do |pos|
+        @state[pos][idx]? (print "#{@state[pos][idx]}") : (print " ")
+      end
+      puts ""
+    end
   end
 
   def col_full?(col_no)
-  	@board_state[col_no].length > 5
+  	@state[col_no].length > 5
   end
 end
 
+# class Array
+#     def deep_dup
+#         result = []
+#         self.each do |item|
+#             if item.is_a?(Array)
+#                 result << item.deep_dup    #Recursively calling deep_dup to get into subarrays
+#             else
+#                 result << item   #Fixnum has a static reference and doesn't need to be duplicated, as changing a number changes the reference as well
+#             end
+#         end
+#         return result
+#     end
+# end
+
+game = Game.new
+
+game.play
