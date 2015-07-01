@@ -14,8 +14,8 @@ class Game
 
     @board.build_board
     puts "Game started"
-    player1 = Player.new(@board)
-    player2 = Player.new(@board)
+    player1 = Player.new(@board, :o)
+    player2 = Player.new(@board, :x)
 
     loop do
       player1.move
@@ -23,8 +23,10 @@ class Game
       puts "Other player move"
       player2.move
       @board.render
+
     end
   end
+
 
   #render empty board
   #ask player for move
@@ -35,9 +37,11 @@ end
 class Player
   #pass instance into game
   #make a move
-  def initialize(board)
+  def initialize(board, piece)
 
-    @board=board.field
+    @board_array = board.field
+    @board = board
+    @piece = piece
 
   end
 
@@ -49,32 +53,39 @@ class Player
   def move
     col=get_input
 
-    until check?(col) 
+    until check?(col)
       col=get_input
     end
     row=find_row(col)
 
-    @board[row][col-1] = "-"
+    @board_array[row][col-1] = @piece
+    @board.game_over?(@piece)
   end
 
   def check?(col)
-      arr = []
-      5.downto(0) do |row|
-        arr << @board[row][col]
-      end
-      
-     (col < 8 && col > 0 &&  arr.include?("0")) 
+    arr = []
+    5.downto(0) do |row|
+      arr << @board_array[row][col-1]
+    end
+    empty_space = arr.include?("0")
+    puts "This column is full!" unless empty_space
+   (col < 8 && col > 0 &&  empty_space)
   end
 
   def find_row(col)
     row = 5
-    while @board[row][col-1] != "0"  
-        row<0 ? (puts "Counted down 0") : row -= 1
+    while @board_array[row][col-1] != "0"
+        if row < 0
+          puts "Counted down 0"
+          break
+        else
+         row -= 1
+       end
     end
     row
   end
   # =>valid move?
- 
+
 end
 
 class Board
@@ -83,7 +94,7 @@ class Board
   #check move in board
   #render
   def initialize
-    @field=[]
+    @field =[]
   end
 
   def render
@@ -107,6 +118,45 @@ class Board
     end
     @field
   end
+
+  def game_over?(symbol)
+    winning_combo?(symbol) || tie?(symbol)
+  end
+
+  def winning_combo?(symbol)
+    vertical_win?(symbol) || horizontal_win?(symbol) || diagonal_win?(symbol)
+  end
+
+  def tie?(symbol)
+    # no winning combo and full board
+  end
+
+  def vertical_win?(symbol)
+    #    3.times do |i|
+    #     horizontals << [@board[0][i],@board[1][i],@board[2][i]]
+    # end
+    # horizontals        horizontals = []
+    # 3.times do |i|
+    #     horizontals << [@board[0][i],@board[1][i],@board[2][i]]
+    # end
+    # horizontals
+  end
+
+  def horizontal_win?(symbol) #
+    @field.each do |row|
+      0.upto(3) do |index|
+        if row[index..index+3].all? {|place| place == symbol}
+          return true
+        end
+      end
+    end
+    false
+  end
+
+  def diagonal_win?(symbol)
+    #
+  end
+
 end
 g=Game.new
 g.start_game
