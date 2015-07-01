@@ -1,23 +1,28 @@
 # Your code here!
-
+require "byebug"
 class Game
 
-  def initialize # set initial state
+  def initialize
+
     @board = Board.new
-    @board.build_board
-    #start_game
+
   end
   #initialize players and board
 
   #start game loop
   def start_game
+
+    @board.build_board
     puts "Game started"
     player1 = Player.new(@board)
     player2 = Player.new(@board)
 
     loop do
       player1.move
+      @board.render #include move check and display
+      puts "Other player move"
       player2.move
+      @board.render
     end
   end
 
@@ -31,7 +36,9 @@ class Player
   #pass instance into game
   #make a move
   def initialize(board)
-    @player_board = board
+
+    @board=board.field
+
   end
 
   def get_input
@@ -40,15 +47,25 @@ class Player
   end
 
   def move
-    @player_board.render #include move check and display
-    move = get_input
-    puts move
-    @player_board[5][move] = "-"
+    col=get_input
+    until move_valid?(col)
+      col=get_input
+    end
+    @board[5][col-1] = "-"
 
   end
+
   # =>valid move?
-  def move_valid?
+  def move_valid?(col)
     #puts some kind of check
+    if col < 8 && @board[5][col-1]=="0"
+      true
+    else
+      puts "You can't put it there"
+      return false
+    end
+
+
   end
 
 end
@@ -83,6 +100,6 @@ class Board
     end
     @field
   end
-
-
 end
+g=Game.new
+g.start_game
