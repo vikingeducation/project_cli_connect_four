@@ -1,19 +1,5 @@
 =begin
-1. class Player
-	- get input (c1 thru c6)
-	- def validate move
-		- check_move?
-		- does a simple numeric check
-2. class Board
-	- [[x,x,x,x,x,x], [x,x,x,x,x,x], [x,x,x,x,x,x], [x,x,x,x,x,x], [x,x,x,x,x,x], [x,x,x,x,x,x]]
-	- def check_win?
-		- horizontal wins
-		- vertical wins
-		- diagonal wins
-	- def check_move?
-		- if col is filled
-3. class Display
-	- [[]]
+
 
 check_win? logic
 5  5  5  5  5  5
@@ -25,12 +11,14 @@ check_win? logic
 c0 c1 c2 c3 c4 c5
 
 horiz
-0.upto(5).times do |ypos]
-  0.upto(2).times do |ctr|
-    if board[0 + ctr][y] == board[1 + ctr][y] == board[2 + ctr][y] == board[3 + ctr][y]
+0.upto(5).times do |row]
+  0.upto(2).times do |col|
+    if board[0 + col][row] == board[1 + col][row] == board[2 + col][row] == board[3 + col][row]
 
 vertical
-
+0.upto(5).times do |col|
+  0.upto(2).times do |row|
+    if board[col][0 + row] == board[col][1 + row] == board[col][2 + row] == board[col][3 + row]
 /
 0.upto(2).times do |xpos|
   0.upto(2).times do |ypos|
@@ -44,9 +32,116 @@ vertical
 2 2
   board[2][3] board [3][4] board [4][5] board[5][6]
 
+5  5  5  5  5  5
+4  4  4  4  4  4
+3  3  3  3  3  3
+2  2  2  2  2  2
+1  1  1  1  1  1
+0  0  0  0  0  0
+c0 c1 c2 c3 c4 c5
+
 \
-6.downto(3).times do |xpos|
-  0.upto(3).times do |ypos|
-    if board[ypos][xpos] == board[ypos - 1][1 + xpos] == board[ypos - 2][2 + xpos] == board[ypos - 3][3+xpos]
+5.downto(3).times do |row|
+  0.upto(2).times do |col|
+    if board[col][row] == board[col + 1][row - 1] == board[col + 2][row - 2] == board[col + 3][row - 3]
+
+  def get(col, row)
+    return board[col][row]
+  end
+
+1. class Input
+  - get input (c1 thru c6)
+  - def validate move
+    - check_move?
+    - does a simple numeric check
+2. class Board
+  - [[x,x,x,x,x,x], [x,x,x,x,x,x], [x,x,x,x,x,x], [x,x,x,x,x,x], [x,x,x,x,x,x], [x,x,x,x,x,x]]
+  - def check_win?
+    - horizontal wins
+    - vertical wins
+    - diagonal wins
+  - def check_move?
+    - if col is filled
+3. class Display
+  - [[]]
 
 =end
+
+class Player
+
+  def initialize(is_ai = false)
+    @is_ai = is_ai
+  end
+
+  def make_move
+    @is_ai? human_move : ai_move
+  end
+
+  def human_move
+    puts "Input a move"
+
+  end
+
+  # Algorithm for deciding the ai's move
+  def ai_move
+
+  end
+
+end
+
+class Game
+
+  def initialize
+    @players = []
+  end
+
+  # Main Game loop
+  def play
+    @board = Board.new
+    instantiate_players # Are there two players or 1 vs ai?
+    until(@board.winner || @board.full?)
+      @players[0].make_move
+      @players[1].make_move
+    end
+
+    @board.winner ? (puts "Player #{@board.winner} wins!") : (puts "It's a draw!")
+
+  end
+
+  def instantiate_players
+    puts "How many players are there?"
+    choice = gets.chomp
+    if choice == "1"
+      puts "Do you want to go first or second?"
+      choice = gets.chomp
+      if choice == "1"
+        @players << Player.new
+        @players << Player.new(true)
+      else
+        @players << Player.new(true)
+        @players << Player.new
+      end
+    else
+      @players << Player.new
+      @players << Player.new
+    end
+  end
+
+end
+
+class Board
+
+  def initialize
+
+  end
+
+  # Returns the winner, or NIL if there is no winner
+  def winner
+
+  end
+
+  def full?
+
+  end
+
+end
