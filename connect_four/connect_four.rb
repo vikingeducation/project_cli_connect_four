@@ -30,10 +30,22 @@ class ConnectFour
       # 3. make move if false?
       # 4. ask move
       # 5. make move
+         player1_valid = false
+         player2_valid = false
+         until player1_valid 
+           move = @player1.turn
+           player1_valid =  @game.make_move(move, @player1_color) 
+         end
 
-      # next if @game.make_move(move, @player1_color) == false 
-      #   move = @player1.turn
-      # end
+        @game.win?
+
+         until player2_valid
+           player2_move = @player2.turn
+           player2_valid = @game.make_move(player2_move, @player2_color)
+         end
+
+        @game.win?
+
 
     end
 
@@ -114,6 +126,12 @@ class Board
     end
 
     return false
+
+  end
+
+  def win?
+    
+    win_conditions =  [
 
   end
 
