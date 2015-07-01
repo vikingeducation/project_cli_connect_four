@@ -29,8 +29,17 @@ class ConnectFour
     # print_instructions
 
     @board.render
-    @board.move(@player1.get_move)
-    @board.render
+
+    current_player = 1
+    loop do
+      @board.move(@player1.get_move, 1)
+
+      system "clear"
+      @board.render
+      @board.victory?
+
+
+    end
 
   end
 
@@ -50,21 +59,94 @@ class Board
 
   def render
 
-    temp = @game.transpose
-    temp.each {|i| p i }
+    display = @game #.transpose
+    display.each {|i| p i }
 
   end
 
 
-  def move(num)
+  def move(num,player)
 
     row = @game[num].detect {|i| i != 0}
     if row.nil?
-      @game[num][-1] = 1
+      @game[num][-1] = player
+    else
+      @game[num][@game[num].index(row) - 1] = player
+
     end
 
   end
 
+  def victory?
+
+    vert_victory? || horz_victory?
+      
+
+  end
+
+  def horz_victory?
+
+    puts "horz_test"
+
+    @game.each do |row|
+
+      3.times do |i|
+
+        # puts i
+        # puts row
+
+        if row[i]   == row[i+1] &&
+           row[i+1] == row[i+2] &&
+           row[i+2] == row[i+3] &&
+           row[i]   != 0
+
+          puts "hi"
+          return true
+  
+
+        end
+      end
+
+
+
+    end
+
+  return false
+
+  end
+
+  def vert_victory?
+
+    puts "vert test"
+
+
+  
+    @game.transpose.each do |row|
+
+      4.times do |i|
+
+        # puts i
+        # puts row
+
+        if row[i]   == row[i+1] &&
+           row[i+1] == row[i+2] &&
+           row[i+2] == row[i+3] &&
+           row[i]   != 0
+
+          puts "win"
+          return true
+        
+        end
+      end
+
+      
+
+    end
+    return false
+
+  end
+
+  
 
 end
 
