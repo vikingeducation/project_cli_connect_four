@@ -29,8 +29,8 @@ class ConnectFour
     # print_instructions
 
     @board.render
-    @player1.get_move
-
+    @board.move(@player1.get_move)
+    @board.render
 
   end
 
@@ -42,16 +42,29 @@ class Board
 
   def initialize
 
-    @game = Array.new(6) { Array.new(7) { 0 }  }
+    @game = Array.new(7) { Array.new(6) { 0 }  }
 
 
   end
+
 
   def render
 
-    @game.each {|i| p i }
+    temp = @game.transpose
+    temp.each {|i| p i }
 
   end
+
+
+  def move(num)
+
+    row = @game[num].detect {|i| i != 0}
+    if row.nil?
+      @game[num][-1] = 1
+    end
+
+  end
+
 
 end
 
