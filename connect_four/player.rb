@@ -1,13 +1,7 @@
 class Player
-
-  def initialize
-
-  end
-
   def move
     raise NotImplemented
   end
-
 end
 
 class AI < Player
@@ -17,9 +11,6 @@ class AI < Player
     @player_num = player_num
   end
 
-  # see if there is a winning move
-  # stop human if they are winning
-
   def board_copy
     return Board.new(@board.state)
   end
@@ -27,27 +18,32 @@ class AI < Player
   def winning_move
     moves = (0..5).to_a
     moves.each do |col|
-      sim_board = board_copy
-      unless sim_board.col_full?(col)
-        sim_board.move(col)
-        if sim_board.winner == @player_num
-          return col
-        end
-      end
+      correct_move = simulate_move(col, @player_num)
+      return col if correct_move
     end
     return nil
+  end
+
+  def simulate_move(col, player)
+    sim_board = board_copy
+      unless sim_board.col_full?(col)
+        sim_board.move([col,player])
+        if sim_board.winner
+          return sim_board.winner
+        end
+      end
+      return nil
+  end
+
+  def opponent
+    (@player_num - 1).abs
   end
 
   def living_move
     moves = (0..5).to_a
     moves.each do |col|
-      sim_board = board_copy
-      unless sim_board.col_full?(col)
-        sim_board.move(col)
-        if sim_board.winner == (@player_num - 1).abs
-          return col
-        end
-      end
+      correct_move = simulate_move(col, opponent)
+      return col if correct_move
     end
     return nil
   end
@@ -58,9 +54,6 @@ class AI < Player
     moves.reject!{|col| sim_board.col_full?(col)}
     moves.sample
   end
-
-
-
 
   def move
     potential_move ||= winning_move

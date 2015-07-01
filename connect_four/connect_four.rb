@@ -1,8 +1,6 @@
 require './player.rb'
 require './board.rb'
 
-
-
 class Game
 
   def initialize
