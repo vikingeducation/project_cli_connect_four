@@ -99,10 +99,11 @@ class Player
 
 end
 
-class AI < Player
+class AI < Player #untested
 
   def move
     #puts "AI move"
+    @last_move = [5,0]
     #if no symbol, random
     #if symbol, put in adjacent spot,   =o=x==oox
       #only if more than 2 spaces available(your symbol or free)
@@ -115,8 +116,8 @@ class AI < Player
   end
 
 
-  def vertical_check?(symbol, @last_move)
-    col = @last_move[1]
+  def vertical_check?(symbol, last_move)
+    col = last_move[1]
 
     0.upto(2) do |row|
       if [@field[row][col],@field[row+1][col],@field[row+2][col],@field[row+3][col]].all?  {|place| place == symbol || place == "0"}
@@ -128,14 +129,14 @@ class AI < Player
   end
 
 
-  def horizontal_check?(symbol, @last_move)
-    row = @last_move[0]
+  def horizontal_check?(symbol, last_move)
+    row = last_move[0]
     0.upto(3) do |index|
       if row[index..index+3].all? do |place|
         place == symbol || place == "0"
         return true
+        end #end for .all? method
       end
-    end
     false
   end
 
