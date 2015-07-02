@@ -213,7 +213,7 @@ class Board
 
           if board[col][row] == "-"
             num_consec = 0
-            current = board[col+1][row+step]
+            current = board[col+1][row+step] if (0..6).include?(col+1) && (0..5).include?(row+step)
           elsif board[col][row] == current
             num_consec += 1
             #puts num_consec
@@ -229,11 +229,9 @@ class Board
           break if col >= 7 || row >= 6 || col < 0 || row < 0
 
         end
-
-        return false
-
       end
     end
+    return false
   end
 
 end
