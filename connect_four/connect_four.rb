@@ -18,13 +18,11 @@ class ConnectFour
 
     @board = Board.new
 
-    play
-
   end
 
   def welcome
     puts "Welcome to Connect Four"
-    puts "Choose between 1 and 7 to drop your disk"
+    puts "Choose between 1 and 7 to play"
   end
 
   def play
@@ -42,14 +40,14 @@ class ConnectFour
       break if game_over?
       switch_player
     end
-
+    @board.render
     display_result
     #ask_for_play_again
   end
 
   def choose_game_type
     puts "Would you like to play (1) against the computer 
-    or (2) against another player"
+or (2) against another player?"
     input = gets.chomp.to_i
     until [1,2].include?(input)
       puts "Your input is not valid. Try typing 1 or 2"
@@ -61,11 +59,11 @@ class ConnectFour
   def create_players(choice)
 
     if choice == 1
-      @player1 = Human.new("player1", "x", @board)
-      @player2 = AI.new("player2", "o", @board)
+      @player1 = Human.new("Player 1", "x", @board)
+      @player2 = AI.new("Player 2", "o", @board)
     else
-      @player1 = Human.new("player1", "x", @board)
-      @player2 = Human.new("player2", "o", @board)
+      @player1 = Human.new("Player 1", "x", @board)
+      @player2 = Human.new("Player 2", "o", @board)
     end
 
   end
@@ -124,8 +122,12 @@ class Board
 
   def render
 
+    puts
+
     @game_board.transpose.each {|l| p l}
-    
+
+    puts
+
   end
 
   def add_piece(column, piece)
@@ -198,7 +200,8 @@ class Board
 
   def check_diagonal?(board)
 
-    check_diagonal_helper(board, 1) || check_diagonal_helper(board, -1)
+    check_diagonal_helper(board, 1) || 
+    check_diagonal_helper(board, -1)
 
   end
 
@@ -206,39 +209,45 @@ class Board
 
   def check_diagonal_helper(board, step)
 
-    (0..5).each do |row|
-  
-      col = 0
+    p board
 
-      current = board[col][row]
+    (0..6).each do |c|
 
-      num_consec = 0
-      
-      6.times do
+      (0..5).each do |r|
+    
 
-        if board[col][row] == "-"
-          num_consec = 0
-          current = board[col+1][row+step]
-          next
+        current = board[c][r]
+
+        num_consec = 0
+
+        col = c
+
+        row = r
+
+        6.times do
+
+          if board[col][row] == "-"
+            num_consec = 0
+            current = board[col+1][row+step]
+          elsif board[col][row] == current
+            num_consec += 1
+            puts num_consec
+            return true if num_consec >= 4
+          else
+            num_consec = 1
+            current = board[col][row]
+          end
+
+          col += 1
+          row += step
+
+          break if col >= 7 || row >= 6 || col < 0 || row < 0
+
         end
 
-        if board[col][row] == current
-          num_consec += 1
-          return true if num_consec >= 4
-        else
-          num_consec = 0
-          current = board[col][row]
-        end
-
-        col += 1
-        row += step
-
-        break if col >= 7 || row >= 6
+        return false
 
       end
-
-      return false
-
     end
   end
 
@@ -263,7 +272,7 @@ class Human < Player
 
   def get_move
 
-    puts "Which column would you like to drop your disk?"
+    print "Which column would you like to drop your disk? "
 
     loop do
 
@@ -299,6 +308,55 @@ end
 
 
 class AI < Player
+
+  def get_move
+
+    loop do
+
+      break if @board.add_piece(generate_move, @piece)
+
+    end
+  end
+
+  def generate_move
+
+    (1..7).each do |column|
+
+      board_copy = []
+
+      @board.game_board.each { |col| board_copy << col.dup }
+
+      if test_piece(column, @piece, board_copy)
+
+        if @board.check_vertical?(board_copy) || 
+        @board.check_horizontal?(board_copy) || 
+        @board.check_diagonal?(board_copy)
+          return column
+        end
+
+      end
+
+    end
+
+    return rand(1..7)
+
+  end
+
+  def test_piece(column, piece, test_board)
+
+    if test_board[column-1][0] == "-"
+      test_board[column-1].length.downto(0) do |i|
+        if test_board[column-1][i] == "-"
+          test_board[column-1][i] = piece
+          break
+        end
+      end
+      return true
+    else
+      return false
+    end
+
+  end
 
 
 
