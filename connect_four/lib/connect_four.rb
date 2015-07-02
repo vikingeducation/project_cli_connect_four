@@ -1,5 +1,5 @@
-require './player.rb'
-require './board.rb'
+require_relative './player.rb'
+require_relative './board.rb'
 
 # The Game class manages the game flow.
 class Game
@@ -87,6 +87,5 @@ class Game
 
 end
 
-game = Game.new
-
-game.play
+#game = Game.new
+#game.play
