@@ -19,7 +19,7 @@ class ConnectFour
 
   def initialize
 
-    @player1 = Human.new
+    @player1 = Computer.new
     @player2 = Human.new 
 
     @board = Board.new
@@ -30,14 +30,14 @@ class ConnectFour
   def play
 
 
-    current_player = @player1
+    @current_player = @player1
     @num = 1
 
     loop do
       @board.render
       print_instructions
       puts "Player #{@num} turn"
-      @board.move(current_player.get_move(@board), @num)
+      @board.move(@current_player.get_move(@board), @num)
       if @board.victory?
         @board.render
         puts "Player #{@num} Wins!"
@@ -47,12 +47,12 @@ class ConnectFour
         puts "It's a tie!"
         break
       end
-      switch_player(current_player)
+      switch_player
     end
 
   end
 
-  def switch_player(current_player)
+  def switch_player
 
     if @num == 1
 
@@ -62,10 +62,10 @@ class ConnectFour
 
     end
 
-    if current_player == @player1
-      current_player = @player2
+    if @current_player == @player1
+      @current_player = @player2
     else
-      current_player = @player1
+      @current_player = @player1
     end
 
   end
