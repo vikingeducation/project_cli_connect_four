@@ -1,17 +1,3 @@
-# Set up the game initially (ConnectFour)
-#     Create a game board (Board)
-#     Create a players (Player)
-# Start the game loop (ConnectFour)
-#     Render the board (Board)
-#     Ask for and validate the current player's coordinates (Player)
-#     If the game should end (ConnectFour)
-#         Display the proper victory / draw message
-#         Stop looping
-#     Else
-#     switch (ConnectFour)
-
-
-
 class ConnectFour
 
   def initialize
@@ -21,8 +7,10 @@ class ConnectFour
   end
 
   def welcome
+    puts "----------------------------------------"
     puts "Welcome to Connect Four"
-    puts "Choose between 1 and 7 to play"
+    puts "Choose between 1 and 7 when dropping a disk"
+    puts "----------------------------------------"
   end
 
   def play
@@ -46,8 +34,7 @@ class ConnectFour
   end
 
   def choose_game_type
-    puts "Would you like to play (1) against the computer 
-or (2) against another player?"
+    puts "Would you like to play (1) against the computer or (2) against another player?"
     input = gets.chomp.to_i
     until [1,2].include?(input)
       puts "Your input is not valid. Try typing 1 or 2"
@@ -133,7 +120,6 @@ class Board
   def add_piece(column, piece)
 
     if @game_board[column-1][0] == "-"
-      #@game_board[column-1].each_with_index do |element, i|  
       @game_board[column-1].length.downto(0) do |i|
         if @game_board[column-1][i] == "-"
           @game_board[column-1][i] = piece 
@@ -209,12 +195,11 @@ class Board
 
   def check_diagonal_helper(board, step)
 
-    p board
+    #p board
 
     (0..6).each do |c|
 
       (0..5).each do |r|
-    
 
         current = board[c][r]
 
@@ -231,7 +216,7 @@ class Board
             current = board[col+1][row+step]
           elsif board[col][row] == current
             num_consec += 1
-            puts num_consec
+            #puts num_consec
             return true if num_consec >= 4
           else
             num_consec = 1
