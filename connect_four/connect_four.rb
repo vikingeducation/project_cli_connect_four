@@ -11,10 +11,11 @@ class Game
 
   #start game loop
   def start_game
+
     @board.build_board
     puts "Game started"
     player1 = Player.new(@board, :o)
-    player2 = choose_opponent
+    player2 = Player.new(@board, :x)
 
     loop do
       player1.move
@@ -22,30 +23,20 @@ class Game
       puts "Other player move"
       player2.move
       @board.render
+
     end
   end
 
-  def choose_opponent
-    if play_against_AI?
-      return AI.new(@board, :x)
-    else
-      return Player.new(@board, :x)
-    end
-  end
 
-  def play_against_AI?
-    input = false
-    unless (input.class.is_a? Integer) && [1,2].include?(input)
-      puts "Play against a (1)computer or (2) another player?"
-      input = gets.chomp.to_i
-    end
-    input == 1 ? true : false
-  end
-
+  #render empty board
+  #ask player for move
+  #render board after each move
+  #check for win state: horizontal, vertical, diagonal
 end
 
 class Player
-
+  #pass instance into game
+  #make a move
   def initialize(board, piece)
 
     @board_array = board.field
@@ -68,9 +59,12 @@ class Player
     row=find_row(col)
 
     @board_array[row][col-1] = @piece
-    if @board.game_over?(@piece)
+    puts "#{@board.game_over?(@piece)}"
+    if @board.game_over?(@piece) 
       @board.render
-      exit
+      exit 
+    else
+      "Checked"
     end
   end
 
@@ -96,51 +90,7 @@ class Player
     end
     row
   end
-
-end
-
-class AI < Player
-
-  def move
-    #puts "AI move"
-    #if no symbol, random
-    #if symbol, put in adjacent spot,   =o=x==oox
-      #only if more than 2 spaces available(your symbol or free)
-    if vertical_check(symbol) || horizontal_check(symbol)
-      @board_array[row][col-1] = @piece
-      @last_move = [row, col]
-    end
-    #diagonal moves
-    #block player
-  end
-
-
-  def vertical_check?(symbol, @last_move)
-    col = @last_move[1]
-
-    0.upto(2) do |row|
-      if [@field[row][col],@field[row+1][col],@field[row+2][col],@field[row+3][col]].all?  {|place| place == symbol || place == "0"}
-        return true
-      end
-    end
-
-    false
-  end
-
-
-  def horizontal_check?(symbol, @last_move)
-    row = @last_move[0]
-    0.upto(3) do |index|
-      if row[index..index+3].all? do |place|
-        place == symbol || place == "0"
-        return true
-      end
-    end
-    false
-  end
-
-
-  end
+  # =>valid move?
 
 end
 
@@ -184,26 +134,18 @@ class Board
   end
 
   def tie?(symbol)
-    for row in (0..5) #rows
-      for column in (0..6) #columns
-        return false if @field[row][column] == '0'
-      end
-    end
-    puts "No more moves! It's a tie."
-    true
+    # no winning combo and full board
   end
 
   def vertical_win?(symbol)
-
       0.upto(6) do |col|
         0.upto(2) do |row|
           if [@field[row][col],@field[row+1][col],@field[row+2][col],@field[row+3][col]].all?  {|place| place == symbol}
-
+            
             return true
-          end
-        end
-      end
-
+          end 
+        end 
+      end   
     false
   end
 
@@ -211,7 +153,7 @@ class Board
   def horizontal_win?(symbol) #
     @field.each do |row|
       0.upto(3) do |index|
-
+        
         if row[index..index+3].all? {|place| place == symbol}
           return true
         end
@@ -220,14 +162,11 @@ class Board
     false
   end
 
+
   def diagonal_win?(symbol)
-    #
+    
   end
 
 end
-
-
-
-
 g=Game.new
 g.start_game
