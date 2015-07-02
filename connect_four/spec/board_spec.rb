@@ -2,8 +2,6 @@ require 'board'
 
 describe Board do
 
-	
-
 	describe '#initialize' do
 		#let(:board){Board.new}
 		it 'new board should initialize as an array' do
@@ -14,29 +12,40 @@ describe Board do
 		it 'new board instance is deep duplicated' do
 			board1=Board.new
 			board2=Board.new
-		
 			expect(board1.state[0].object_id!=board2.state[0].object_id).to be(true)		
 		end
 	end
 
 	describe '#move' do
-		before (:each) do
-			@board=Board.new
-			@board.move([1,2])
+		#subject (:@board) {Board.new}
+		let(:board) {Board.new}
+		before(:each) do
+			board.move([1,2])
 		end
+
 		it 'accepts an array as an argument' do
-			expect(@board.state[1].class).to eq(Array)
+			expect(board.state[1].class).to eq(Array)
 		end
 
 		it 'adds variable to column' do
-			expect(@board.state[1]).to eq([2])
+			expect(board.state[1]).to eq([2])
 		end
 	end
 
 	describe '#winner' do
-		# horizontal_winner=
-		# vertical_winner=
-		xit 'checks horizontal winner and returns winner' do
+		let(:board) {Board.new}
+		context "checking horizontal winner" do
+			it 'checks horizontal winner and returns winner' do
+				board.move([0,1])
+				board.move([0,1])
+				board.move([0,1])
+				board.move([0,1])
+				expect(board.winner).to be(1)
+			end
+			xit 'finds all winning entries in each row' do
+			end
+			xit 'searches all rows' do
+			end
 		end
 	end
 
