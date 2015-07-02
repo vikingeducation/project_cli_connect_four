@@ -8,6 +8,7 @@
   -Board class for controlling the game board
       -render board display
 =end
+require './computerai'
 
 class ConnectFour
 
