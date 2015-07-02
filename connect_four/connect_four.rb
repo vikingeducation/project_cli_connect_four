@@ -162,8 +162,7 @@ class Board
     end
   end
 
-  def build_board
-    #build board
+  def build_board  #top right= row 0, col 0; bottom left= row 5, col6
     for row in (0..5) #rows
       @field<<[]
       for column in (0..6) #columns
@@ -195,23 +194,22 @@ class Board
 
   def vertical_win?(symbol)
 
-      0.upto(6) do |col|
-        0.upto(2) do |row|
-          if [@field[row][col],@field[row+1][col],@field[row+2][col],@field[row+3][col]].all?  {|place| place == symbol}
+    0.upto(6) do |col|
+      0.upto(2) do |row|
+        if [@field[row][col],@field[row+1][col],@field[row+2][col],@field[row+3][col]].all?  {|place| place == symbol}
 
-            return true
-          end
+          return true
         end
       end
+    end
 
     false
   end
 
 
-  def horizontal_win?(symbol) #
+  def horizontal_win?(symbol)
     @field.each do |row|
       0.upto(3) do |index|
-
         if row[index..index+3].all? {|place| place == symbol}
           return true
         end
@@ -221,7 +219,26 @@ class Board
   end
 
   def diagonal_win?(symbol)
-    #
+    #top right= row 0, col 0; bottom left= row 5, col6
+    0.upto(3) do |col|
+      5.downto(3) do |row|
+        break if !(0..5).include?(row+3) || !(0..6).include?(col-3)
+        if [@field[row][col],@field[row+1][col-1],@field[row+2][col-2],@field[row+3][col-3]].all?  {|place| place == symbol}
+          return true
+        end
+      end
+    end
+
+    6.downto(3) do |col|
+      5.downto(3) do |row|
+        break if !(0..5).include?(row-3) || !(0..6).include?(col-3)
+        if [@field[row][col],@field[row-1][col-1],@field[row-2][col-2],@field[row-3][col-3]].all?  {|place| place == symbol}
+          return true
+        end
+      end
+    end
+
+    false
   end
 
 end
