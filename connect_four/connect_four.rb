@@ -15,10 +15,12 @@ loop until game conditions met
 
 class ConnectFour
 
+
+
   def initialize
 
-    @player1 = Computer.new
-    @player2 = Computer.new 
+    @player1 = Human.new
+    @player2 = Human.new 
 
     @board = Board.new
 
@@ -26,7 +28,6 @@ class ConnectFour
 
 
   def play
-    print_instructions
 
 
     current_player = @player1
@@ -34,6 +35,7 @@ class ConnectFour
 
     loop do
       @board.render
+      print_instructions
       puts "Player #{@num} turn"
       @board.move(current_player.get_move(@board), @num)
       if @board.victory?
@@ -70,8 +72,7 @@ class ConnectFour
 
   def print_instructions
 
-    puts "Enter the column where you want to drop your piece"
-    puts "Get 4 in a row to win!"
+    puts "*****Enter the column where you want to drop your piece*****"
 
   end
 
@@ -81,7 +82,7 @@ end
 
 class Board
 
-  attr_reader :game
+  attr_accessor :game
 
   def initialize
 
@@ -208,8 +209,6 @@ class Board
            @game[vert + i + 2][horz + i + 2] == @game[vert + i + 3][horz + i + 3] &&
            @game[vert + i]    [horz+ i]      != 0
 
-
-          puts "diag victory!"
           i+1
           return true
         end
@@ -286,33 +285,46 @@ end
 class Computer < Player 
 
 
+#   def deep_dupe(arr)
 
-  def check_for_win(board)
+#     new_arr = []
 
-    temp = []
+#     arr.each do |x|
+#       new_arr << x.dup
+#     end
 
-    puts temp.victory?
+#     new_arr
 
-     7.times do |i|
-
-      temp.game.move(i)
-        if temp.victory?
-          puts "winning move is"
-          p i
-        end
-
-    end
+# end
 
 
 
+#   def check_for_win(board)
+
+#     temp = []
+
+#      7.times do |i|
+#       temp = board
+#       temp.game = deep_dupe(board.game)
+
+#       temp.move(i, 1)
+#         if temp.victory?
+#           puts "winning move is"
+#           p i
+#         end
+
+#     end
 
 
-    return nil
-  end
+
+
+
+   # return nil
+#   end
 
   def get_move(board)
 
-    check_for_win(board)
+    #check_for_win(board)
 
     until valid_move?(board, move = (0..6).to_a.sample)
     end
