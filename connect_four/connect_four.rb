@@ -17,8 +17,8 @@ class ConnectFour
 
   def initialize
 
-    @player1 = Human.new
-    @player2 = Human.new 
+    @player1 = Computer.new
+    @player2 = Computer.new 
 
     @board = Board.new
 
@@ -39,6 +39,10 @@ class ConnectFour
       if @board.victory?
         @board.render
         puts "Player #{@num} Wins!"
+        break
+      elsif @board.full?
+        @board.render
+        puts "It's a tie!"
         break
       end
       switch_player(current_player)
@@ -91,13 +95,13 @@ class Board
 
     system "clear"
 
-    display = @game#.transpose
+    display = @game.transpose
     display.each {|i| p i }
-    # puts "---------------------"
-    # 7.times { |i| print "-"; print (i + 1 ); print ("-")}
-    # puts
+    puts "---------------------"
+    7.times { |i| print "-"; print (i + 1 ); print ("-")}
+    puts
     
-    # puts
+    puts
 
   end
 
@@ -114,11 +118,23 @@ class Board
 
   end
 
+  def full?
+
+    @game.each do |i| 
+      return false if i.include?(0) 
+
+    end
+
+    return true
+
+  end
+
   def victory?
 
-    #vert_victory? || horz_victory? || diag_victory?
+    
 
-    diag_victory?
+    vert_victory? || horz_victory? || diag_victory?
+
       
   end
 
@@ -267,11 +283,41 @@ class Human < Player
 end
 
 
-class Computer < Player
+class Computer < Player 
+
+
+
+  def check_for_win(board)
+
+    temp = []
+
+    puts temp.victory?
+
+     7.times do |i|
+
+      temp.game.move(i)
+        if temp.victory?
+          puts "winning move is"
+          p i
+        end
+
+    end
+
+
+
+
+
+    return nil
+  end
 
   def get_move(board)
-    until valid_move?(board, move = (1..7).to_a.sample)
+
+    check_for_win(board)
+
+    until valid_move?(board, move = (0..6).to_a.sample)
     end
+    return move
+
   end
 
 end
