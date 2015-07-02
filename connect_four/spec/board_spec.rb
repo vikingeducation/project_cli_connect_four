@@ -38,34 +38,49 @@ describe Board do
 			it 'checks horizontal winner and returns winner' do
 				4.times do
 					board.move([0,1])
-				end	
+				end
 				expect(board.winner).to be(1)
 			end
-			
+
 			it 'finds all winning entries in each row' do
-				
-				
-				# 0.upto(3) do |i|
+				0.upto(2) do |i|
 				 	board_check=Board.new
-					i=0
 					board_check.move([i,1])
 					board_check.move([i+1,1])
 					board_check.move([i+2,1])
 					board_check.move([i+3,1])
-
-					expect(board.winner).to eq(1)
-					
-				# end
+					expect(board_check.winner).to eq(1)  #does it break the loop here?
+				end
 			end
 
+			it 'finds all winning entries in each column' do
+				0.upto(5) do |i|
+					board_check = Board.new
+					# board_check.move([i,1])
+					# board_check.move([i+1,1])
+					# board_check.move([i+2,1])
+					# board_check.move([i+3,1])
+					 #
+					4.times do
+						board_check.move([i,1])
+					end
+					# board_check.move([i,2])
+					# board_check.move([i,1]) * 4 times
 
-			xit 'searches all rows' do
+					# board_check.move([i,2])
+					# board_check.move([i,2])
+					# board_check.move([i,1]) * 4 times
+					expect(board_check.winner).to eq(1)
+
+				end
 			end
 		end
 	end
 
 	# describe '#horizontal_winner' do
-	# 	xit 'finds all winning entries in each row' do
+	#
+	# searches all rows
+	#xit 'finds all winning entries in each row' do
 	# 	end
 	# 	xit 'searches all rows' do
 	# 	end
