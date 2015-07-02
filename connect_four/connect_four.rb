@@ -13,7 +13,7 @@ class Game
   def start_game
     @board.build_board
     puts "Game started"
-    player1 = Player.new(@board, :o)
+    player1 = Player.new(@board, :*)
     player2 = choose_opponent
 
     loop do
@@ -70,6 +70,7 @@ class Player
     @board_array[row][col-1] = @piece
     if @board.game_over?(@piece)
       @board.render
+      puts "You Won!"
       exit
     end
   end
@@ -101,22 +102,25 @@ end
 
 class AI < Player #untested
 
-  def move
-    #puts "AI move"
-    @last_move = [5,0]
     #if no symbol, random
     #if symbol, put in adjacent spot,   =o=x==oox
       #only if more than 2 spaces available(your symbol or free)
-    if vertical_check(symbol) || horizontal_check(symbol)
-      @board_array[row][col-1] = @piece
-      @last_move = [row, col]
-    end
-    #diagonal moves
+      #diagonal moves
     #block player
+  def move #incomplete
+    symbol = :x
+    #puts "AI move"
+    @last_move = [5,0]
+
+    # if vertical_check(symbol, @last_move) || horizontal_check(symbol, @last_move)
+    #   @board_array[row][col-1] = symbol
+    #   @last_move = [row, col]
+    # end
+
   end
 
 
-  def vertical_check?(symbol, last_move)
+  def vertical_check(symbol, last_move)
     col = last_move[1]
 
     0.upto(2) do |row|
@@ -129,7 +133,7 @@ class AI < Player #untested
   end
 
 
-  def horizontal_check?(symbol, last_move)
+  def horizontal_check(symbol, last_move)
     row = last_move[0]
     0.upto(3) do |index|
       if row[index..index+3].all? do |place|
@@ -219,7 +223,7 @@ class Board
     false
   end
 
-  def diagonal_win?(symbol)
+  def diagonal_win?(symbol) #not all checks compatible
     #top right= row 0, col 0; bottom left= row 5, col6
     0.upto(3) do |col|
       5.downto(3) do |row|
