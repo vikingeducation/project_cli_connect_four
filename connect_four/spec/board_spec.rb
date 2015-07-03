@@ -39,22 +39,19 @@ describe Board do
 
 			it 'finds all winning entries in each row' do
 				0.upto(2) do |i|
-				 	board_check=Board.new
-					board_check.move([i,1])
-					board_check.move([i+1,1])
-					board_check.move([i+2,1])
-					board_check.move([i+3,1])
-					expect(board_check.winner).to eq(1)  #does it break the loop here?
+					for a in 0..3
+						board.move([i+a,1])
+					end
+					expect(board.winner).to eq(1)  #does it break the loop here?
 				end
 			end
 
 			it 'finds winning entries in each column' do
 				0.upto(5) do |i|
-					board_check = Board.new
 					4.times do
-						board_check.move([i,1])
+						board.move([i,1])
 					end
-					expect(board_check.winner).to eq(1)
+					expect(board.winner).to eq(1)
 
 				end
 			end
