@@ -1,25 +1,19 @@
-# Your code here!
-require "byebug"
 class Game
 
   def initialize
-
     @board = Board.new
-
   end
-  #initialize players and board
 
-  #start game loop
   def start_game
     @board.build_board
     puts "Game started"
-    player1 = Player.new(@board, :*)
+    player1 = Player.new(@board, :o)
     player2 = choose_opponent
 
     loop do
       player1.move
-      @board.render #include move check and display
-      puts "Other player move"
+      @board.render
+      puts "Other player's move:"
       player2.move
       @board.render
     end
@@ -35,7 +29,7 @@ class Game
 
   def play_against_AI?
     input = false
-    unless (input.class.is_a? Integer) && [1,2].include?(input)
+    until ((input.is_a? Integer) && [1,2].include?(input))
       puts "Play against a (1)computer or (2) another player?"
       input = gets.chomp.to_i
     end
@@ -49,25 +43,24 @@ class Player
   def initialize(board, piece)
 
     @board_array = board.field
-    @board = board
+    @board = board   #board object
     @piece = piece
 
   end
 
-  def get_input
-    puts "Which column do you want to put your piece in? (from column from 1 to 7)"
-    input = gets.chomp.to_i
+  def move
+    row, col = define_column_row
+    make_move(row, col)
+    win
   end
 
-  def move
-    col=get_input
-
-    until check?(col)
-      col=get_input
-    end
-    row=find_row(col)
-
+  def make_move(row, col)
     @board_array[row][col-1] = @piece
+  end
+
+  private
+
+  def win
     if @board.game_over?(@piece)
       @board.render
       puts "You Won!"
@@ -75,19 +68,35 @@ class Player
     end
   end
 
+  def define_column_row
+    col=get_input
+
+    until check?(col)
+      col=get_input
+    end
+    row=find_row(col)
+
+    return row, col
+  end
+
+  def get_input
+    puts "Which column do you want to put your piece in? (from column from 1 to 7)"
+    gets.chomp.to_i
+  end
+
   def check?(col)
     arr = []
     5.downto(0) do |row|
       arr << @board_array[row][col-1]
     end
-    empty_space = arr.include?("0")
+    empty_space = arr.include?("-")
     puts "This column is full!" unless empty_space
    (col < 8 && col > 0 &&  empty_space)
   end
 
   def find_row(col)
     row = 5
-    while @board_array[row][col-1] != "0"
+    while @board_array[row][col-1] != "-"
         if row < 0
           puts "Counted down 0"
           break
@@ -109,7 +118,7 @@ class AI < Player #untested
     #block player
   def move #incomplete
     symbol = :x
-    #puts "AI move"
+    puts "The AI is still learning... it'll pass."
     @last_move = [5,0]
 
     # if vertical_check(symbol, @last_move) || horizontal_check(symbol, @last_move)
@@ -120,11 +129,11 @@ class AI < Player #untested
   end
 
 
-  def vertical_check(symbol, last_move)
+  def vertical_check(symbol)
     col = last_move[1]
 
     0.upto(2) do |row|
-      if [@field[row][col],@field[row+1][col],@field[row+2][col],@field[row+3][col]].all?  {|place| place == symbol || place == "0"}
+      if [@field[row][col],@field[row+1][col],@field[row+2][col],@field[row+3][col]].all?  {|place| place == symbol || place == "-"}
         return true
       end
     end
@@ -133,11 +142,11 @@ class AI < Player #untested
   end
 
 
-  def horizontal_check(symbol, last_move)
+  def horizontal_check(symbol)
     row = last_move[0]
     0.upto(3) do |index|
       if row[index..index+3].all? do |place|
-        place == symbol || place == "0"
+        place == symbol || place == "-"
         return true
         end #end for .all? method
       end
@@ -151,9 +160,7 @@ end
 
 class Board
   attr_accessor :field
-  #pass instance into game
-  #check move in board
-  #render
+
   def initialize
     @field =[]
   end
@@ -162,35 +169,41 @@ class Board
     for row in (0..5) #rows
       for column in (0..6) #columns
         print @field[row][column]
+        print " "
       end
       puts
     end
+    puts "1|2|3|4|5|6|7"
   end
 
   def build_board  #top right= row 0, col 0; bottom left= row 5, col6
-    for row in (0..5) #rows
+    for row in (0..5)
       @field<<[]
-      for column in (0..6) #columns
-        @field[row][column]="0"
+      for column in (0..6)
+        @field[row][column]="-"
         print @field[row][column]
+        print " "
       end
       puts
     end
+    puts "1|2|3|4|5|6|7"
     @field
   end
 
   def game_over?(symbol)
-    winning_combo?(symbol) || tie?(symbol)
+    winning_combo?(symbol) || tie?
   end
+
+  private
 
   def winning_combo?(symbol)
-    vertical_win?(symbol) || horizontal_win?(symbol) || diagonal_win?(symbol)
+    vertical_win?(symbol) || horizontal_win?(symbol) || diagonal_left_win?(symbol) || diagonal_right_win?(symbol)
   end
 
-  def tie?(symbol)
+  def tie?
     for row in (0..5) #rows
       for column in (0..6) #columns
-        return false if @field[row][column] == '0'
+        return false if @field[row][column] == "-"
       end
     end
     puts "No more moves! It's a tie."
@@ -211,7 +224,6 @@ class Board
     false
   end
 
-
   def horizontal_win?(symbol)
     @field.each do |row|
       0.upto(3) do |index|
@@ -223,16 +235,7 @@ class Board
     false
   end
 
-  def diagonal_win?(symbol) #not all checks compatible
-    #top right= row 0, col 0; bottom left= row 5, col6
-    0.upto(3) do |col|
-      5.downto(3) do |row|
-        break if !(0..5).include?(row+3) || !(0..6).include?(col-3)
-        if [@field[row][col],@field[row+1][col-1],@field[row+2][col-2],@field[row+3][col-3]].all?  {|place| place == symbol}
-          return true
-        end
-      end
-    end
+  def diagonal_left_win?(symbol)
 
     6.downto(3) do |col|
       5.downto(3) do |row|
@@ -246,10 +249,19 @@ class Board
     false
   end
 
+  def diagonal_right_win?(symbol)
+    #top right= row 0, col 0; bottom left= row 5, col6
+    0.upto(3) do |col|
+      5.downto(3) do |row|
+        break if !(0..5).include?(row-3) || !(0..6).include?(col+3)
+        if [@field[row][col],@field[row-1][col+1],@field[row-2][col+2],@field[row-3][col+3]].all?  {|place| place == symbol}
+          return true
+        end
+      end
+    end
+
+    false
+  end
+
 end
 
-
-
-
-g=Game.new
-g.start_game
