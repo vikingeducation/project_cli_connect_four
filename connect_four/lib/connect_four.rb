@@ -19,7 +19,6 @@ class Game
       @turn += 1
     end
     @board.winner ? (puts "Player #{@board.winner + 1} wins!") : (puts "It's a draw!")
-
   end
 
   private
