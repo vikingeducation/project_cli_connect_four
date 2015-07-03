@@ -2,4 +2,11 @@
 
 [An Object-Oriented Ruby project from the Viking Code School](http://www.vikingcodeschool.com)
 
-Alok Pradhan & Donald Kelsey
+
+Alok Pradhan & Olga - Rspec added
+
+
+Olga Ayvazyan
+Alice Fung
+
+
