@@ -52,7 +52,6 @@ describe Board do
 						board.move([i,1])
 					end
 					expect(board.winner).to eq(1)
-
 				end
 			end
 		end
