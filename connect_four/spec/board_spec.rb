@@ -76,6 +76,15 @@ describe Board do
 			end
 		end
 	end
+	let(:board3) {Board.new}
+	describe '#col_full?' do
+		it 'returns true if a column is full' do
+			6.times do
+				board3.move([0,1])
+			end
+			expect(board3.col_full?(0)).to be true
+		end
+	end
 
 	# describe '#horizontal_winner' do
 	#
@@ -92,11 +101,6 @@ describe Board do
 	# 	xit 'goes through all columns' do
 	# 	end
 	# end
-
-	describe '#col_full?' do
-		xit 'returns true if a column is full' do
-		end
-	end
 
 	# full?
 	# pretty_disc
