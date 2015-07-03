@@ -1,14 +1,4 @@
-=begin
-  -Main class for controlling flow of the game
-      -method for picking opponent
-      -method for victory?
-      -method for looping the turns until victory?
-  -Human player class
-  -Computer player class
-  -Board class for controlling the game board
-      -render board display
-=end
-require './computerai'
+##current board is not being sent in line 22,35 because it's only used in board.... see if AI works with board instead
 
 class ConnectFour
 
@@ -27,28 +17,29 @@ class ConnectFour
     loop do
 
       player1_valid = false
+      @current_board = @game.current_board
       until player1_valid 
-        puts "Player 1 Turn"
-        player1_move = @player1.turn
+        puts "Player Red Turn"
+        player1_move = @player1.turn(@current_board)
         player1_valid =  @game.make_move(player1_move, @player1_color) 
        end
 
       @game.render
       if @game.win?
-        puts "Player 1 wins"
+        puts "Player Red wins"
         exit
       end
-   
+  
       player2_valid = false
       until player2_valid
-        puts "Player 2 Turn"
-        player2_move = @player2.turn
+        puts "Player Black Turn"
+        player2_move = @player2.turn(@current_board)
         player2_valid = @game.make_move(player2_move, @player2_color)
       end
 
       @game.render
       if @game.win?
-        puts "Player 2 wins"
+        puts "Player Black wins"
         exit
       end
 
@@ -57,12 +48,21 @@ class ConnectFour
   end
 
   def choose_opponent
-    puts "Would you like to play vs human (h) or computer? "
+
+    valid_options = ["h", "c","a"]
+    opponent = ""
+
+    until valid_options.include?(opponent)
+    puts "Would you like to play vs human(h), computer(c) or AI(a)? "
+    opponent = gets.chomp.downcase
+    end
     
-    if gets.chomp.downcase == "h"
+    if opponent == "h"
       @player2 = Human.new
-    else
+    elsif opponent == "c"
       @player2 = Computer.new
+    elsif opponent == "a"
+      @player2 = AI.new
     end
 
   end
@@ -71,10 +71,10 @@ end
 
 class Human
 
-  def turn
+  def turn(current_board) #useless
 
     puts "Where do you want to drop your piece (column from right)"
-    column = gets.chomp.to_i-1
+    gets.chomp.to_i-1
 
   end
 
@@ -82,8 +82,8 @@ end
 
 class Computer
 
-  def turn
-    column = (0..6).to_a.sample
+  def turn(current_board) #useless
+    (0..6).to_a.sample
   end
 
 end
@@ -139,22 +139,23 @@ class Board
   end
 
   def win?
-    p "Vertical " + vertical(@row, @column).to_s
-    p "horizontal " + horizontal(@row, @column).to_s
-    p "diagonal_right " + diagonal_right(@row, @column).to_s
-    p "diagonal_left " + diagonal_left(@row, @column).to_s
+    # CHECK WORKING
+    # p "Vertical " + vertical(@row, @column).to_s
+    # p "horizontal " + horizontal(@row, @column).to_s
+    # p "diagonal_right " + diagonal_right(@row, @column).to_s
+    # p "diagonal_left " + diagonal_left(@row, @column).to_s
 
     [vertical(@row, @column), horizontal(@row, @column), diagonal_right(@row, @column), diagonal_left(@row, @column)].any?
 
   end
 
-  ###### Methods to check if true ########
+  ###### Methods to check if 4 pieces in a row ########
 
   def vertical (row, column)
     piece = @current_board[row][column]
     counter = 1
 
-    #counting in down on the board (not array number) direction
+    #counting in down on the board
 
     3.times do |x|
        x += 1
@@ -209,7 +210,7 @@ class Board
     piece = @current_board[row][column] #5,3 on paper
     counter = 1
 
-    # counting up in right direction
+    # counting up in right up direction
 
     3.times do |x|
       x += 1
@@ -220,7 +221,7 @@ class Board
       end
     end
 
-    #counting down in the left direction
+    #counting down in the left down direction
 
     3.times do |x|
       x += 1
@@ -242,7 +243,7 @@ class Board
     piece = @current_board[row][column]
     counter = 1
 
-    # counting up in left direction
+    # counting up in left up direction
 
     3.times do |x|
       x += 1
@@ -253,7 +254,7 @@ class Board
       end
     end
 
-    #counting down in the right direction
+    #counting down in the right down direction
 
     3.times do |x|
       x += 1
@@ -273,6 +274,167 @@ class Board
 
 end
 
+
+
+
+#### AI #####
+
+class AI
+
+  def initialize
+    @opponent_color = "R"
+    
+  end
+
+  def turn(current_board) 
+    @current_board = current_board
+    pieces = []
+
+    7.times do |column|
+      bottom_row = bottom?(column)
+      if bottom_row == false
+        pieces << 0
+      else
+        pieces << check_pieces_around(bottom_row, column)
+      end
+    end
+
+    #pieces [2, 3, 0, 1, 1, 0, 0]
+    return pieces.index(pieces.max)
+
+  end
+
+  def bottom?(column)
+    puts column
+
+    5.downto(0) do |row|
+      puts row
+      puts @current_board[row][column]
+      if @current_board[row][column] == "-"
+        return row
+      end
+    end
+
+    return false
+
+  end
+  
+  def check_pieces_around(row,column)
+
+      [vertical_check(row,column),horizontal_check(row,column),diagonal_right_check(row,column),diagonal_left_check(row,column)].max
+     
+  end
+
+  def vertical_check(row, column)
+
+    counter = 0
+
+    #counting in down 
+    3.times do |x|
+       x += 1
+      if !(@current_board[row + x]).nil?  && @current_board[row + x][column] == @opponent_color
+
+      counter += 1
+      else
+      break
+      end
+    end
+    
+    return counter
+
+  end
+
+  def horizontal_check(row, column)
+
+     counter = 0
+
+    #counting right
+    3.times do |x|
+      x += 1
+      if !(@current_board[row][column + x]).nil?  && @current_board[row][column + x] == @opponent_color
+
+      counter += 1
+      else
+      break
+      end
+    end
+
+    #counting left
+    3.times do |x|
+      x += 1
+      if !(@current_board[row][column - x]).nil? && @current_board[row][column - x] == @opponent_color
+
+      counter += 1
+      else
+      break
+      end
+    end
+    
+    return counter 
+
+  end
+
+    def diagonal_right_check(row, column)
+
+     counter = 0
+    
+
+    3.times do |x|
+      x += 1
+      if !(@current_board[row - x]).nil? && !(@current_board[row - x][column + x]).nil? && @current_board[row - x][column + x] == @opponent_color
+
+      counter += 1
+      else
+      break
+      end
+    end
+
+
+    3.times do |x|
+      x += 1
+      if !(@current_board[row + x]).nil? && !(@current_board[row + x][column - x]).nil? && @current_board[row + x][column - x] == @opponent_color
+
+      counter += 1
+      else
+      break
+      end
+    end
+    
+    return counter 
+
+  end
+  
+  def diagonal_left_check(row, column)
+
+     counter = 0
+
+    3.times do |x|
+      x += 1
+      if !(@current_board[row - x]).nil? && !(@current_board[row - x][column - x]).nil? && @current_board[row - x][column - x] == @opponent_color
+
+      counter += 1
+      else
+      break
+      end
+    end
+
+
+    3.times do |x|
+      x += 1
+      if !(@current_board[row + x]).nil? && !(@current_board[row + x][column + x]).nil? && @current_board[row + x][column + x] == @opponent_color
+
+      counter += 1
+      else
+      break
+      end
+    end
+    
+    return counter 
+
+  end
+
+end
+  
 
 g = ConnectFour.new
 g.play
