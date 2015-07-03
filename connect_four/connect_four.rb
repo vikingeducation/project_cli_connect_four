@@ -2,7 +2,6 @@ load 'player.rb'
 load 'board.rb'
 
 class ConnectFour
-  attr_reader :current_player, :player_1, :player_2, :board
 
   def initialize
     @board = Board.new

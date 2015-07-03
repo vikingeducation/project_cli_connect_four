@@ -1,7 +1,6 @@
 require 'colorize'
 
 class Board
-  attr_accessor :columns
 
   def initialize
     make_board

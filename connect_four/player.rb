@@ -1,8 +1,16 @@
-class Human
+class Player
   attr_reader :name, :piece
 
   def initialize(piece)
     @piece = piece
+  end
+  
+end
+
+class Human < Player
+
+  def initialize(piece)
+    super(piece)
     @name = get_name
   end
 
@@ -30,11 +38,10 @@ class Human
   
 end
 
-class AI
-  attr_reader :name, :piece
+class AI < Player
 
   def initialize(piece)
-    @piece = piece
+    super(piece)
     @name = ["HAL", "The Computer", "Siri"].sample
   end
   
