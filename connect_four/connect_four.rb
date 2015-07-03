@@ -1,4 +1,5 @@
 class ConnectFour
+  attr_accessor :player1, :player2, :current_player
 
   def initialize
 
@@ -46,11 +47,11 @@ class ConnectFour
   def create_players(choice)
 
     if choice == 1
-      @player1 = Human.new("Player 1", "x", @board)
-      @player2 = AI.new("Player 2", "o", @board)
+      @player1 = Human.new("Player 1", :x, @board)
+      @player2 = AI.new("Computer", :o, @board)
     else
-      @player1 = Human.new("Player 1", "x", @board)
-      @player2 = Human.new("Player 2", "o", @board)
+      @player1 = Human.new("Player 1", :x, @board)
+      @player2 = Human.new("Player 2", :o, @board)
     end
 
   end
@@ -79,49 +80,55 @@ class ConnectFour
 
   end
 
-  def ask_for_play_again
+  # def ask_for_play_again
 
-    puts "Do you want to play again? (y/n)"
+  #   puts "Do you want to play again? (y/n)"
 
-    input = gets.chomp.downcase
+  #   input = gets.chomp.downcase
 
-    until ["y", "n"].include?(input)
-      puts "Your input is not valid. Try typing y or n"
-      input = gets.chomp.downcase
-    end
+  #   until ["y", "n"].include?(input)
+  #     puts "Your input is not valid. Try typing y or n"
+  #     input = gets.chomp.downcase
+  #   end
 
-    play if input == "y"
+  #   play if input == "y"
 
-  end
+  # end
 
 end
 
 
 
 class Board
-  attr_reader :game_board
+  attr_reader  :game_board
 
-  def initialize
-
-    @game_board = Array.new(7) { %w(- - - - - -) }
+  def initialize(game_board = nil)
+    
+    @game_board = game_board
+    @game_board ||= Array.new(7) { Array.new(6) { :- } }
 
   end
 
   def render
-
     puts
+    puts "1  2  3  4  5  6  7"
+    puts "==================="
 
-    @game_board.transpose.each {|l| p l}
+    @game_board.transpose.each do |l| 
+      l.each {|e| print "#{e}  "}
+      puts
+    end
 
+    puts "==================="
+    puts "1  2  3  4  5  6  7"
     puts
-
   end
 
   def add_piece(column, piece)
 
-    if @game_board[column-1][0] == "-"
+    if @game_board[column-1][0] == :-
       @game_board[column-1].length.downto(0) do |i|
-        if @game_board[column-1][i] == "-"
+        if @game_board[column-1][i] == :-
           @game_board[column-1][i] = piece 
           break
         end
@@ -136,16 +143,18 @@ class Board
   def full?
 
     @game_board.each do |col|
-      return false if col.include?("-")
+      return false if col.include?(:-)
     end
 
     return true
 
   end
 
-  def check_victory?
+  def check_victory?(game_board = @game_board)
 
-    check_vertical?(@game_board) || check_horizontal?(@game_board) || check_diagonal?(@game_board)
+    check_vertical?(game_board) || 
+    check_horizontal?(game_board) || 
+    check_diagonal?(game_board)
 
   end
 
@@ -159,7 +168,7 @@ class Board
 
       column.each_with_index do |element, i|
 
-        if element == "-"
+        if element == :-
           num_consec = 0
           current = column[i+1]
           next
@@ -211,7 +220,7 @@ class Board
 
         6.times do
 
-          if board[col][row] == "-"
+          if board[col][row] == :-
             num_consec = 0
             current = board[col+1][row+step] if (0..6).include?(col+1) && (0..5).include?(row+step)
           elsif board[col][row] == current
@@ -255,7 +264,7 @@ class Human < Player
 
   def get_move
 
-    print "Which column would you like to drop your disk? "
+    print "#{@name}, which column would you like to drop your disk? "
 
     loop do
 
@@ -270,11 +279,16 @@ class Human < Player
 
   end
 
+  private 
+
+
   def ask_for_column
 
     gets.chomp.to_i
 
   end
+
+
 
   def format_valid?(column)
 
@@ -303,6 +317,7 @@ class AI < Player
 
   def generate_move
 
+    # check if there is a possible winning move
     (1..7).each do |column|
 
       board_copy = []
@@ -311,9 +326,7 @@ class AI < Player
 
       if test_piece(column, @piece, board_copy)
 
-        if @board.check_vertical?(board_copy) || 
-        @board.check_horizontal?(board_copy) || 
-        @board.check_diagonal?(board_copy)
+        if @board.check_victory?(board_copy)
           return column
         end
 
@@ -321,15 +334,34 @@ class AI < Player
 
     end
 
+    # check if the other player has a possible 
+    # winning move and block it
+    (1..7).each do |column|
+
+      board_copy = []
+
+      @board.game_board.each { |col| board_copy << col.dup }
+
+      if test_piece(column, :x, board_copy)
+
+        if @board.check_victory?(board_copy)
+          return column
+        end
+
+      end
+
+    end
+
+    # otherwise return a random move
     return rand(1..7)
 
   end
 
   def test_piece(column, piece, test_board)
 
-    if test_board[column-1][0] == "-"
+    if test_board[column-1][0] == :-
       test_board[column-1].length.downto(0) do |i|
-        if test_board[column-1][i] == "-"
+        if test_board[column-1][i] == :-
           test_board[column-1][i] = piece
           break
         end
