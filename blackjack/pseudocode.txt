@@ -1,0 +1,48 @@
+Setup the game game class
+Create a dealer dealer, player class
+Create a player player class
+Create a deck of cards deck class
+Shuffle the deck of cards
+deal two cards to the player and to the dealer
+reveal one of the dealers cards to the player
+main game routine
+- start player loop
+- - check if player has busted
+- - ask the player if they want to hit or stand
+- start the dealer loop
+- - dealer hits until 17
+check victory conditions
+game over
+
+def total_hand(hand)
+  values = []
+  hand.map do |card|
+    # The "cards" are designed to be manipulated somewhat easily so we can
+    # Calculate the value of the hand.  Here we convert face cards to 10
+    value = card.gsub(/[JQK]/, '10')
+    # And then slice off the last two characters of text
+    value = card.slice(-2..-1)
+    # Finally we have an array consisting of just the values of the cards
+    values << value.to_i
+    end
+  values.reduce(:+)
+end
+
+def total_hand_with_aces(hand)
+  # Here we decide how to deal with Aces in the hand, and determine the value
+  # of the hand based on that decision.
+  aces = Array.new(hand.select { |card| card[0] == "A" })
+  hand -= aces
+  # We've selected the aces out of the hand array then sent the remaining hand
+  # to be calculated
+  value = total_hand(hand)
+  num_of_aces = aces.length
+  # Now we decide if one of our aces is going to equal 11 or not.  Handles the 
+  # edge case of several aces in hand.  The final return from this method is the 
+  # value of the hand with the most advantageous values for the aces.
+  if value + 11 + (num_of_aces - 1) > 21
+    value + num_of_aces
+  else
+    value + 11 + (num_of_aces - 1)
+  end
+end
