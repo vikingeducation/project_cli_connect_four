@@ -38,69 +38,84 @@ class Blackjack
     @deck = DeckOfCards.new
     @deck.shuffle
     @table = Table.new([@deck.card, @deck.card],[@deck.card, @deck.card])
-    @player_1 = Player.new
-    @dealer = Player.new
+    @player_1 = Human.new
+    @dealer = Dealer.new
     @current_player = @player_1
+    @table.current_hand = @table.player_hand
   end
 
   def play
-    loop do 
-      @table.render_table
-      @table.current_hand = @table.player_hand
-      input = @current_player.hit_or_stand
-      break if player_ends_hand?(input)
-      break if hand_end?
-      player_hit if input =="h"
-    end
+    input = nil
+    @table.render_table(@current_player)
     loop do
-      puts "In Dealer Loop"
-      puts "Quitting..."
-      exit
+      advance_game(input)
+      input = @current_player.hit_or_stand(@table)
+    end
+  end
+
+  def determine_winner
+    if nil
+    end
+  end
+
+  def advance_game(input)
+    if hand_end?(input)
+      if @current_player == @player_1
+        @current_player = @dealer
+        @table.current_hand = @table.dealer_hand
+      elsif @current_player == @dealer
+        exit
+      end
+    elsif input == "h"
+      player_hit
     end
   end
 
   def player_hit
     @table.current_hand << @deck.card
+    @table.render_table(@current_player)
     puts "#{@current_player} Hits!"
   end
 
-  def hand_end?
-    blackjack? || busted?
+  def hand_end?(input)
+    blackjack? || busted? || stand?(input) || quit?(input)
   end
 
   def blackjack?
-    if @table.current_hand.blackjack?
+    if @table.blackjack?
+      @current_player.hand_value = :blackjack
+      @table.render_table(@current_player)
       puts "#{@current_player} blackjack!"
       return true
     end
   end
 
   def busted?
-    if @table.current_hand.busted?
-      puts "#{@current_player} busted!"
+    if @table.busted?
+      @current_player.hand_value = :busted
+      @table.render_table(@current_player)
+      puts "#{@current_player} busts at #{@table.total_hand}!"
       return true
     end
   end
 
-  def player_ends_hand?(input)
-    stand?(input) || quit?(input)
-  end
-
   def stand?(input)
     if input == "s"
-      puts "#{@current_player} stands."
+      @current_player.hand_value = @table.total_hand
+      @table.render_table(@current_player)
+      puts "#{@current_player} stands at #{@table.total_hand}."
       return true
     end
   end
 
   def quit?(input)
     if input == "q"
+      @table.render_table(@current_player)
       puts "#{@current_player} has quit!"
       exit
     end
   end
-
-
-
-
 end
+
+game = Blackjack.new
+game.play

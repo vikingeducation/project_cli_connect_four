@@ -4,18 +4,20 @@ class Table
   def initialize(player_hand, dealer_hand)
     @player_hand = player_hand
     @dealer_hand = dealer_hand
-    @current_hand = @player_hand
   end
 
-  def render_table
+  def render_table(current_player)
+    sleep(1)
     system 'clear'
-    if @current_hand != @dealer_hand
-    print "Dealer's hand > [#][#{@dealer_hand[0]}"
+    if current_player.is_a?(Dealer)
+      print "Dealer's hand > "
+      render_hand(@dealer_hand)
     else
-    print "Dealer's hand > #{render_hand(@dealer_hand)}"
+      print "Dealer's hand > [###] [#{(@dealer_hand[0])}]"
     end
     print "\n"
-    print "Player's hand > #{render_hand(@player_hand)}"
+    print "Player's hand > "
+    render_hand(@player_hand)
     print "\n"
   end
 
@@ -54,6 +56,7 @@ class Table
   def total_hand_without_aces
     values = []
     @current_hand.map do |card|
+      next if card[0] == "A"
       value = card.gsub(/[JQK]/, '10')
       value.slice!(-2..-1)
       values << value.to_i
@@ -63,7 +66,6 @@ class Table
 
   def total_hand_with_aces
     aces = Array.new(@current_hand.select { |card| card[0] == "A" })
-    @current_hand -= aces
     value = total_hand_without_aces
     num_of_aces = aces.length
     if value + 11 + (num_of_aces - 1) > 21
