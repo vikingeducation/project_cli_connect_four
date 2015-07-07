@@ -6,6 +6,14 @@ class DeckOfCards
   end
 
 
+  def card
+    @deck.pop    
+  end
+
+
+  private
+
+
   def make
     # This was more fun than manually typing an array with all 52 playing cards
     # in it.
@@ -17,11 +25,6 @@ class DeckOfCards
         @deck << value + suit
       end
     end   
-  end
-
-
-  def card
-    @deck.pop    
   end
   
 end

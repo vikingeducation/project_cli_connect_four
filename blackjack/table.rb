@@ -22,12 +22,15 @@ class Table
     puts @players_status
   end
 
+  
+  private
 
-  def render_hand(hand)
-    hand.each do |card|
-      print "[#{card}] "
+
+    def render_hand(hand)
+      hand.each do |card|
+        print "[#{card}] "
+      end
     end
-  end
 
 
 end

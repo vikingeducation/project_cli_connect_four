@@ -19,12 +19,14 @@ module Helper
 
   def total_hand_without_aces(hand)
     values = []
+
     hand.map do |card|
       next if card[0] == "A"
       value = card.gsub(/[JQK]/, '10')
       value.slice!(-2..-1)
       values << value.to_i
-      end
+    end
+    
     values.reduce(:+)
   end
 
@@ -65,9 +67,11 @@ module Helper
   def determine_best_hand(player_hand_value, dealer_hand_value)
     hands = { :Player => player_hand_value, 
               :Dealer => dealer_hand_value }
+
     hands.keep_if do |key,val| 
       val <= 21
     end
+    
     return hands.max_by { |key,val| val }[0]
   end
 
