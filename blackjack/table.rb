@@ -9,7 +9,7 @@ class Table
   def render_table(current_player, player_hand, dealer_hand)
     sleep(1)
     system 'clear'
-    if current_player.is_a?(Dealer)
+    if current_player.is_a?(Dealer) || current_player == nil
       print "Dealer's hand > "
       render_hand(dealer_hand)
     else

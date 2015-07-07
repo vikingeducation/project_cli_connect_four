@@ -19,6 +19,7 @@ class Blackjack
 
 
   def play
+    end_on_deal?
     play_hand(@player_1)
     play_hand(@dealer)
     @table.render_table(@current_player, @player_1.hand, @dealer.hand)
@@ -33,6 +34,30 @@ class Blackjack
       input = @current_player.hit_or_stand
       player_hit if input == "h"
       break if hand_end?(input)
+    end
+  end
+
+
+  def dealt_blackjack?
+    if blackjack_in_hand?(@dealer.hand)
+      return :Dealer
+    elsif blackjack_in_hand?(@player_1.hand)
+      # payout here?
+      return :Player
+    end
+  end
+  
+
+  def end_on_deal?
+    dealt_blackjack = dealt_blackjack?
+    if dealt_blackjack == :Dealer
+      @table.render_table(nil, @player_1.hand, @dealer.hand)
+      puts "Bummer, dealer was dealt 21!  Game Over!"
+      exit
+    elsif dealt_blackjack == :Player
+      @table.render_table(nil, @player_1.hand, @dealer.hand)
+      puts "Holy smokes, you were dealt 21!  1.5x Payout!"
+      exit
     end
   end
 

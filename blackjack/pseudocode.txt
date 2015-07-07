@@ -60,3 +60,7 @@ playhand player
 - - break if hand_end?
 playhand dealer, same method as above
 determine winner
+
+play_game
+@player_1.get_bet
+
