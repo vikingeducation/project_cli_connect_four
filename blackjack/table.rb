@@ -6,6 +6,7 @@ class Table
     @dealer_hand = dealer_hand
   end
 
+
   def render_table(current_player)
     sleep(1)
     system 'clear'
@@ -13,7 +14,7 @@ class Table
       print "Dealer's hand > "
       render_hand(@dealer_hand)
     else
-      print "Dealer's hand > [###] [#{(@dealer_hand[0])}]"
+      print "Dealer's hand > [###] [#{(@dealer_hand[1])}]"
     end
     print "\n"
     print "Player's hand > "
@@ -21,11 +22,13 @@ class Table
     print "\n"
   end
 
+
   def render_hand(hand)
     hand.each do |card|
       print "[#{card}] "
     end
   end
+
 
   def busted?
     if total_hand > 21
@@ -33,17 +36,20 @@ class Table
     end
   end
 
+
   def blackjack?
     if total_hand == 21
       return true
     end
   end
 
+
   def aces_in_hand?
     if @current_hand.any? { |card| card[0] == "A" }
       return true
     end
   end
+
 
   def total_hand
     if aces_in_hand?
@@ -52,6 +58,7 @@ class Table
       total_hand_without_aces
     end
   end
+
 
   def total_hand_without_aces
     values = []
@@ -64,6 +71,7 @@ class Table
     values.reduce(:+)
   end
 
+
   def total_hand_with_aces
     aces = Array.new(@current_hand.select { |card| card[0] == "A" })
     value = total_hand_without_aces
@@ -75,5 +83,28 @@ class Table
     end
   end
 
+
+  def winner?(player_hand_value, dealer_hand_value)
+    unless draw?(player_hand_value, dealer_hand_value)
+      determine_best_hand(player_hand_value, dealer_hand_value)
+    end
+  end
+
+
+  def determine_best_hand(player_hand_value, dealer_hand_value)
+    hands = { :Player => player_hand_value, 
+              :Dealer => dealer_hand_value }
+    hands.keep_if do |key,val| 
+      val <= 21
+    end
+    return hands.max_by { |key,val| val }[0]
+  end
+
+
+  def draw?(player_hand_value, dealer_hand_value)
+    if player_hand_value == dealer_hand_value
+      return true
+    end
+  end
 
 end
