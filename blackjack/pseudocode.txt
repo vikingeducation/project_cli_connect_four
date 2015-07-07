@@ -46,3 +46,17 @@ def total_hand_with_aces(hand)
     value + 11 + (num_of_aces - 1)
   end
 end
+
+*check for blackjack before this*
+new play routine
+procedural method
+*could setup "players" array and each through it, make other players AI for now
+playhand player
+- set current player equal to method argument
+- - play loop
+- - render table *going to store last player status to show on render, to avoid
+- - rendering all over the place
+- - get input 
+- - break if hand_end?
+playhand dealer, same method as above
+determine winner

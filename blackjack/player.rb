@@ -1,8 +1,11 @@
 class Player
-  attr_accessor :hand_value
-  
-  def initialize
-    @hand_value = nil  
+
+  attr_accessor :hand_value, :hand
+
+  include Helper
+
+  def initialize(hand)
+    @hand = hand
   end
     
 end
@@ -11,7 +14,7 @@ end
 
 class Human < Player
 
-  def hit_or_stand(table)
+  def hit_or_stand
     puts "Player do you want to hit or stand?"
     print "Enter 'h' for hit, 's' for stand, 'q' to quit > "
     loop do
@@ -37,10 +40,10 @@ end
 
 class Dealer < Player
 
-  def hit_or_stand(table)
-    if default_stand_includes_ace?(table)
+  def hit_or_stand
+    if default_stand_includes_ace?
       return "h"
-    elsif default_stand?(table)
+    elsif default_stand?
       return "s"
     else
       return "h"
@@ -48,15 +51,15 @@ class Dealer < Player
   end
 
 
-  def default_stand?(table)
-    if table.total_hand >= 17
+  def default_stand?
+    if total_hand(@hand) >= 17
       return true
     end
   end
 
 
-  def default_stand_includes_ace?(table)
-    if table.aces_in_hand? && table.total_hand == 17
+  def default_stand_includes_ace?
+    if aces_in_hand?(@hand) && total_hand(@hand) == 17
       true
     end
   end
