@@ -7,6 +7,8 @@ class Player
   
 end
 
+
+
 class Human < Player
 
   def initialize(piece)

@@ -1,5 +1,6 @@
-load 'player.rb'
-load 'board.rb'
+require_relative "./player.rb"
+require_relative "./board.rb"
+require 'colorize'
 
 class ConnectFour
 

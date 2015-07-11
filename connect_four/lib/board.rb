@@ -1,9 +1,23 @@
-require 'colorize'
+# public methods are full, winning_line?(piece), valid_move?(column)
+# add_piece(column, piece)
+# private methods are make_board, make_color(piece), 
+# diagonal_steps?(piece, starting_column, starting_position),
+# winning_diagonal?(piece), winning_horizontal?(piece), winning_vertical?(piece)
+# 
+# test initialize with default, full of nil board
+# test add_piece to an empty column between 1-7
+# test add_piece to a partially empty column
+# test if board is full
+# test winning_line with no winning lines
+# test winning_line with a winning lines (horz, diag, and vert)
+#
+# test add_piece to a full column (valid_move?)
+
 
 class Board
 
-  def initialize
-    make_board
+  def initialize(board_state = nil)
+    @columns = ( board_state || make_board )
   end
 
 
@@ -59,11 +73,11 @@ class Board
 
 
     def make_board
-      @columns = {}
+      columns = {}
       1.upto(7) do |i|
-        @columns[i] = Array.new(6)
+        columns[i] = Array.new(6)
       end
-      @columns 
+      columns 
     end
 
     

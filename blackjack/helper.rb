@@ -2,11 +2,7 @@ module Helper
 
 
   def total_hand(hand)
-    if aces_in_hand?(hand)
-      total_hand_with_aces(hand)
-    else
-      total_hand_without_aces(hand)
-    end
+    aces_in_hand?(hand) ? total_hand_with_aces(hand) : total_hand_without_aces(hand)
   end
 
 
@@ -51,9 +47,7 @@ module Helper
 
 
   def blackjack_in_hand?(hand)
-    if total_hand(hand) == 21
-      return true
-    end
+    total_hand(hand) == 21
   end
 
 
@@ -77,9 +71,7 @@ module Helper
 
 
   def draw?(player_hand_value, dealer_hand_value)
-    if player_hand_value == dealer_hand_value
-      return true
-    end
+    player_hand_value == dealer_hand_value
   end
 
 
