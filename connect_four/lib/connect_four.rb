@@ -6,7 +6,7 @@ class ConnectFour
 
   def initialize
     @board = Board.new
-    game_mode
+    #game_mode
   end
 
 
@@ -41,12 +41,14 @@ class ConnectFour
 
     def setup_game(mode)
       @player_1 = Human.new(:r)
+      @player_1.get_name
       @current_player = @player_1
       case mode
       when "1"
         @player_2 = AI.new(:y)
       when "2"
         @player_2 = Human.new(:y)
+        @player_2.get_name
       end
     end
 
@@ -94,5 +96,5 @@ class ConnectFour
 end
 
 
-go = ConnectFour.new
-go.game_loop
+#go = ConnectFour.new
+#go.game_loop

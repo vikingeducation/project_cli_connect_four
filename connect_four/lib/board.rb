@@ -36,19 +36,18 @@ class Board
 
 
   def full?
-    @columns.each do |col_number, column|
-      return false if column.any? {|pos| pos == nil}
-    end
-    return true
+    @columns.values.flatten.all? { |piece| piece != nil }
+    # @columns.each do |col_number, column|
+    #   return false if column.any? {|pos| pos == nil}
+    # end
+    # return true
   end
 
 
   def winning_line?(piece)
-    if winning_horizontal?(piece) ||
+    winning_horizontal?(piece) ||
       winning_diagonal?(piece) ||
       winning_vertical?(piece)
-      return true
-    end
   end
   
 

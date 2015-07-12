@@ -1,3 +1,8 @@
+# players should require a piece to initialize
+# human players should gets a name
+# AI players will have a random name, won't test these just mock out response
+# get_move
+
 class Player
   attr_reader :name, :piece
 
@@ -13,13 +18,12 @@ class Human < Player
 
   def initialize(piece)
     super(piece)
-    @name = get_name
   end
 
 
   def get_name
     print "What's your name, player? > "
-    gets.chomp
+    @name = gets.chomp
   end
 
 
