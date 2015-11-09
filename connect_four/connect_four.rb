@@ -11,9 +11,15 @@ class ConnectFour
 
     @player1 = Player.new(@board)
     @player2 = Player.new(@board)
+
+    start
   end
 
   private
+
+  def start
+    @board.render
+  end
 
   def welcome_message
     puts "**************************************"
