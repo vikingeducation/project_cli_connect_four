@@ -2,6 +2,8 @@
 require_relative 'connect_four_board'
 require_relative 'connect_four_player'
 
+require 'pry'
+
 class ConnectFour
 
   def initialize
@@ -16,10 +18,11 @@ class ConnectFour
 
   def play
     give_instructions
+    @board.render
 
     loop do
-      @board.render
       @current_player.get_move
+      @board.render
 
       break if game_over?
       switch_player

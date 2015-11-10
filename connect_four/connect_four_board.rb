@@ -38,13 +38,13 @@ class Board
   end
 
   def place_move(move, symbol)
-    column = move -1
-    @columns[column].push(symbol)
-    #TODO:  validate move
-
-    #TODO: delete this
-    render
-    true
+    column = move - 1
+    if move_location_valid?(column)
+      @columns[column].push(symbol)
+      true
+    else
+      false
+    end
   end
 
   def winning_combination?(symbol)
@@ -52,10 +52,19 @@ class Board
   end
 
   def full?
-    @columns.all? { |column| column.size == 6 }
+    @columns.to_a.all? { |col_pair| col_pair.last.size == 6 }
+    # binding.pry
   end
 
   private
+
+  def move_location_valid?(column)
+    if @columns[column].size == 6
+      puts "I'm sorry, that column is full. Try again."
+    else
+      true
+    end
+  end
 
   def winning_diagonal?(symbol)
     all_diagonals.any? {|diag| diag.include?(symbol * 4)}
@@ -80,7 +89,9 @@ class Board
     6.times do |row_index|
       horizontals[row_index] = ''
       7.times do |column_index|
-        unless @columns[column_index][row_index] == nil
+        if @columns[column_index][row_index] == nil
+          horizontals[row_index] << '-'
+        else
           horizontals[row_index] << @columns[column_index][row_index]
         end
       end
@@ -110,7 +121,7 @@ class Board
       diagonal = ''
       diag.each do |coords|
         symbol = @columns[coords.first][coords.last]
-        diagonal += symbol unless symbol.nil?
+        symbol.nil? ? diagonal += '-' : diagonal += symbol
       end
       diagonals << diagonal
     end
