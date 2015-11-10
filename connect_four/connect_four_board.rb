@@ -1,4 +1,5 @@
 class Board
+  attr_reader :columns
 
   def initialize
     @columns = {
@@ -43,6 +44,42 @@ class Board
     #TODO: delete this
     render
     true
+  end
+
+  def winning_combination?(symbol)
+    winning_diagonal?(symbol) || winning_horizontal?(symbol) ||winning_vertical?(symbol)
+  end
+
+  def winning_diagonal?(symbol)
+    # TODO: create
+    false
+  end
+
+  def winning_horizontal?(symbol)
+    all_horizontals.any? {|row| row.include?(symbol * 4)}
+  end
+
+  def winning_vertical?(symbol)
+    all_verticals.any? {|column| column.include?(symbol * 4)}
+  end
+
+  def all_verticals
+    verticals = []
+    @columns.each {|column, content| verticals << content.join}
+    verticals
+  end
+
+  def all_horizontals
+    horizontals = []
+    6.times do |row_index|
+      horizontals[row_index] = ''
+      7.times do |column_index|
+        unless @columns[column_index][row_index] == nil
+          horizontals[row_index] << @columns[column_index][row_index]
+        end
+      end
+    end
+    horizontals
   end
 
 end

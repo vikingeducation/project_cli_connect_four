@@ -29,7 +29,20 @@ class ConnectFour
   private
 
   def game_over?
-    true
+    win? || draw?
+  end
+
+  def win?
+    if @board.winning_combination?(@current_player.symbol)
+      puts "Congratulations, #{@current_player.name}! You WON!!"
+      true
+    else
+      false
+    end
+  end
+
+  def draw?
+    @board.columns.all? { |column| column.size == 6 }
   end
 
   def switch_player
