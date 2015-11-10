@@ -1,3 +1,6 @@
+# Pull in deep_dup module
+require_relative 'deep_dup'
+
 # Pull in board and player classes
 require_relative 'connect_four_board'
 require_relative 'connect_four_player'

@@ -1,4 +1,5 @@
 class Board
+  attr_reader :columns
 
   def initialize
     @columns = {
@@ -47,8 +48,8 @@ class Board
     end
   end
 
-  def winning_combination?(symbol)
-    winning_diagonal?(symbol) || winning_horizontal?(symbol) ||winning_vertical?(symbol)
+  def winning_combination?(symbol, columns = @columns)
+    winning_diagonal?(symbol, columns) || winning_horizontal?(symbol, columns) ||winning_vertical?(symbol, columns)
   end
 
   def full?
@@ -70,40 +71,40 @@ class Board
     end
   end
 
-  def winning_diagonal?(symbol)
-    all_diagonals.any? {|diag| diag.include?(symbol * 4)}
+  def winning_diagonal?(symbol, columns)
+    all_diagonals(columns).any? {|diag| diag.include?(symbol * 4)}
   end
 
-  def winning_horizontal?(symbol)
-    all_horizontals.any? {|row| row.include?(symbol * 4)}
+  def winning_horizontal?(symbol, columns)
+    all_horizontals(columns).any? {|row| row.include?(symbol * 4)}
   end
 
-  def winning_vertical?(symbol)
-    all_verticals.any? {|column| column.include?(symbol * 4)}
+  def winning_vertical?(symbol, columns)
+    all_verticals(columns).any? {|column| column.include?(symbol * 4)}
   end
 
-  def all_verticals
+  def all_verticals(columns)
     verticals = []
-    @columns.each {|column, content| verticals << content.join}
+    columns.each {|column, content| verticals << content.join}
     verticals
   end
 
-  def all_horizontals
+  def all_horizontals(columns)
     horizontals = []
     6.times do |row_index|
       horizontals[row_index] = ''
       7.times do |column_index|
-        if @columns[column_index][row_index] == nil
+        if columns[column_index][row_index] == nil
           horizontals[row_index] << '-'
         else
-          horizontals[row_index] << @columns[column_index][row_index]
+          horizontals[row_index] << columns[column_index][row_index]
         end
       end
     end
     horizontals
   end
 
-  def all_diagonals
+  def all_diagonals(columns)
     diagonals = []
     valid_col_rows = [
       [ [0,2], [1,3], [2,4], [3,5] ],
@@ -124,7 +125,7 @@ class Board
     valid_col_rows.each do |diag|
       diagonal = ''
       diag.each do |coords|
-        symbol = @columns[coords.first][coords.last]
+        symbol = columns[coords.first][coords.last]
         symbol.nil? ? diagonal += '-' : diagonal += symbol
       end
       diagonals << diagonal
