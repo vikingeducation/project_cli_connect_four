@@ -1,5 +1,4 @@
 class Board
-  attr_reader :columns
 
   def initialize
     @columns = {
@@ -41,6 +40,8 @@ class Board
   def place_move(move, symbol)
     column = move -1
     @columns[column].push(symbol)
+    #TODO:  validate move
+
     #TODO: delete this
     render
     true
@@ -49,6 +50,12 @@ class Board
   def winning_combination?(symbol)
     winning_diagonal?(symbol) || winning_horizontal?(symbol) ||winning_vertical?(symbol)
   end
+
+  def full?
+    @columns.all? { |column| column.size == 6 }
+  end
+
+  private
 
   def winning_diagonal?(symbol)
     # TODO: create

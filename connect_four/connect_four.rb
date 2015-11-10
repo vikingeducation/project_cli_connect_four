@@ -42,7 +42,12 @@ class ConnectFour
   end
 
   def draw?
-    @board.columns.all? { |column| column.size == 6 }
+    if @board.full?
+      puts "Game over.  Looks like it's a draw.  :("
+      true
+    else
+      false
+    end
   end
 
   def switch_player
