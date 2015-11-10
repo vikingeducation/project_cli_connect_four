@@ -83,12 +83,14 @@ class Board
     all_verticals(columns).any? {|column| column.include?(symbol * 4)}
   end
 
+  # TODO: Could simplify to only check last move's column
   def all_verticals(columns)
     verticals = []
     columns.each {|column, content| verticals << content.join}
     verticals
   end
 
+  # TODO: Could simplify to only check last move's row
   def all_horizontals(columns)
     horizontals = []
     6.times do |row_index|
@@ -104,6 +106,7 @@ class Board
     horizontals
   end
 
+  # TODO: Could definitely simplify this - only check valid diagonals for last move.
   def all_diagonals(columns)
     diagonals = []
     valid_col_rows = [
