@@ -109,7 +109,8 @@ class Board
     valid_col_rows.each do |diag|
       diagonal = ''
       diag.each do |coords|
-        diagonal += @columns[coords.first][coords.last]
+        symbol = @columns[coords.first][coords.last]
+        diagonal += symbol unless symbol.nil?
       end
       diagonals << diagonal
     end
