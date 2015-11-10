@@ -56,6 +56,10 @@ class Board
     # binding.pry
   end
 
+  def spot_open?(column)
+    @columns[column].size < 6
+  end
+
   private
 
   def move_location_valid?(column)

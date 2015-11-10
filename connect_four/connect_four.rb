@@ -1,18 +1,26 @@
 # Pull in board and player classes
 require_relative 'connect_four_board'
 require_relative 'connect_four_player'
+require_relative 'human'
+require_relative 'computer'
 
 require 'pry'
 
 class ConnectFour
 
   def initialize
-    @board = Board.new
-
     welcome_message
 
-    @player1 = Player.new(@board, "x")
-    @player2 = Player.new(@board, "o")
+    @board = Board.new
+    @mode = get_mode
+    @player1 = Human.new(@board, "x")
+
+    if @mode == 2
+      @player2 = Human.new(@board, "o")
+    else
+      @player2 = Computer.new(@board, "o")
+    end
+
     @current_player = @player1
   end
 
@@ -30,6 +38,11 @@ class ConnectFour
   end
 
   private
+
+  def get_mode
+    puts "Enter 1 to play against the computer or 2 to play with another human."
+    gets.chomp.to_i
+  end
 
   def game_over?
     win? || draw?
