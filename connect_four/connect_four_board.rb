@@ -4,8 +4,8 @@ class Board
     @columns = {
       0 => [],
       1 => [],
-      2 => ['x','o'],
-      3 => ['o'],
+      2 => [],
+      3 => [],
       4 => [],
       5 => [],
       6 => []
@@ -35,7 +35,14 @@ class Board
 
     # Reverse row strings so it looks like a connect four board
     row_strings.reverse.each { |row| puts row }
+  end
 
+  def place_move(move, symbol)
+    column = move -1
+    @columns[column].push(symbol)
+    #TODO: delete this
+    render
+    true
   end
 
 end

@@ -12,11 +12,7 @@ class ConnectFour
     @player1 = Player.new(@board, "x")
     @player2 = Player.new(@board, "o")
     @current_player = @player1
-
-    play
   end
-
-  private
 
   def play
     give_instructions
@@ -29,6 +25,8 @@ class ConnectFour
       switch_player
     end
   end
+
+  private
 
   def game_over?
     true
@@ -51,3 +49,4 @@ class ConnectFour
 end
 
 game = ConnectFour.new
+game.play
