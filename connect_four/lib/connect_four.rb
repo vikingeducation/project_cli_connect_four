@@ -2,8 +2,8 @@
 require_relative 'deep_dup'
 
 # Pull in board and player classes
-require_relative 'connect_four_board'
-require_relative 'connect_four_player'
+require_relative 'board'
+require_relative 'player'
 require_relative 'human'
 require_relative 'computer'
 
