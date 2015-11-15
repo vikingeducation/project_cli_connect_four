@@ -11,14 +11,14 @@ require 'pry'
 
 class ConnectFour
 
-  def initialize
+  def initialize(mode=nil)
     welcome_message
 
     @board = Board.new
-    @mode = get_mode
+    mode = mode || get_mode
     @player1 = Human.new(@board, "x")
 
-    if @mode == 2
+    if mode == 2
       @player2 = Human.new(@board, "o")
     else
       @player2 = Computer.new(@board, "o")
@@ -85,5 +85,5 @@ class ConnectFour
   end
 end
 
-game = ConnectFour.new
-game.play
+# game = ConnectFour.new
+# game.play
