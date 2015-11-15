@@ -1,8 +1,8 @@
 class Human < Player
 
-  def initialize(board, symbol)
+  def initialize(board, symbol, name=nil)
     super(board, symbol)
-    @name = get_name
+    @name = name || get_name
     puts "Welcome, #{@name}. Your game piece is '#{symbol}'."
   end
 
