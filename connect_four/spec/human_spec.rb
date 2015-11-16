@@ -29,10 +29,18 @@ describe 'Human' do
 
   describe '#get_move' do
 
-    # TODO:  I feel like this isn't good enough
     it 'should not be an endless do loop' do
       allow(human).to receive(:ask_move).and_return(4)
+      expect(human).to receive(:ask_move)
+      human.get_move
       expect(human.get_move).to eq(nil)
+    end
+
+    it 'should run twice if invalid column initially given' do
+      allow(human).to receive(:ask_move).and_return(0, 4)
+      expect(human).to receive(:ask_move)
+      expect(human).to receive(:ask_move)
+      human.get_move
     end
   end
 
