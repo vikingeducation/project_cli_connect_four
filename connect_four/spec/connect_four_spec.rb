@@ -21,8 +21,14 @@ describe 'ConnectFour' do
 
   describe '#play' do
 
-    # TODO:  I feel like this should be tested somehow
-    it 'should play'
+    it 'should switch players and check for game win' do
+      allow(game1).to receive(:game_over?).and_return(false, true)
+      expect(game1).to receive(:game_over?)
+      expect(game1).to receive(:game_over?)
+      expect(game1).to receive(:switch_player)
+      game1.play
+    end
+
   end
 
 end
