@@ -1,11 +1,14 @@
 require_relative 'board'
+require_relative 'board'
 require_relative 'human'
+
 
 class ConnectFour
 
   def initialize
     @board = Board.new
-    @human = Human.new
+    @player1 = Human.new(@board, "X")
+    @player2 = Human.new(@board, "O")
   end
 
   def game_intro
@@ -24,6 +27,11 @@ class ConnectFour
 
   def start_game
     @board.render
+    loop do
+      print "Player 1 - "
+      @player1.turn
+      @board.render
+    end
   end
 
 end
