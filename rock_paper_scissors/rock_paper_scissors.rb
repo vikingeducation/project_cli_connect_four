@@ -1,3 +1,7 @@
+require_relative 'player'
+require_relative 'computer'
+require_relative 'human'
+
 class RockPaperScissors
   GameName = "Rock! Paper! Scissors!"
   Underline = "----------------------"
@@ -94,8 +98,7 @@ class RockPaperScissors
   end
 
   def draw?(human_response, computer_response)
-    return true if human_response == computer_response
-    false
+    human_response == computer_response
   end
 
   def lose?(human_response, computer_response)
@@ -131,58 +134,6 @@ class RockPaperScissors
     puts ""
     puts score_board
     score_board.split('').size.times {print '='}
-  end
-
-end
-
-class Player
-  ValidAnswers = %w(r p s)
-end
-
-class Human < Player
-
-  def ask_for_response
-    print "Type r, p or s then press enter (or q to quit): "
-    response = gets.chomp.downcase
-    until response_is_valid?(response)
-      puts "Invalid decision!"
-      print "Type 'r' for rock, 'p' for paper or 's' for scissors then enter (or q to quit): "
-      response = gets.chomp.downcase
-    end
-    response
-  end
-
-  def set_mode
-    print "Type 1 to play against computer or 2 to play against another person (or q to quit) and then press enter: "
-    response = gets.chomp
-    until mode_is_valid?(response)
-      puts "Invalid decision!" 
-      print "Type 1 to play against computer or 2 to play against another person (or q to quit) and then press enter: "
-      response = gets.chomp
-    end
-    response
-  end
-
-  private
-
-  def mode_is_valid?(response)
-    exit if response == 'q'
-    return true if ['1', '2'].include? response
-    false
-  end
-
-  def response_is_valid?(response)
-    exit if response == 'q'
-    return true if ValidAnswers.include? response
-    false
-  end
-
-end
-
-class Computer < Player
-
-  def get_response
-    response = ValidAnswers[rand(3)]
   end
 
 end
