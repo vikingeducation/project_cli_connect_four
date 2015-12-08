@@ -57,41 +57,37 @@ class RockPaperScissors
     word
   end
 
-  def result(human_response, computer_response)
-    if human_response == 'r'
-      if computer_response == 'r'
-        message = "DRAW!"
-        @draws += 1
-      elsif computer_response == 'p'
-        message = "You LOSE!"
-        @losses += 1
-      else
-        message = "You WIN!"
-        @wins += 1 
-      end
-    elsif human_response == 'p'
-      if computer_response == 'r'
-        message = "You WIN!"
-        @wins += 1
-      elsif computer_response == 'p'
-        message = "DRAW!"
-        @draws += 1
-      else
-        message = "You LOSE!"
-        @losses += 1
-      end
+  def add_to_scoreboard(message)
+    if message == "DRAW!"
+      @draws += 1
+    elsif message == "You LOSE!"
+      @losses += 1
     else
-      if computer_response == 'r'
-        message = "You LOSE!"
-        @losses += 1
-      elsif computer_response == 'p'
-        message = "You WIN!"
-        @wins += 1
-      else
-        message = "DRAW!"
-        @draws += 1
-      end
+      @wins += 1
     end
+  end
+
+  def draw?(human_response, computer_response)
+    return true if human_response == computer_response
+    false
+  end
+
+  def lose?(human_response, computer_response)
+    return true if human_response == 'r' && computer_response == 'p'
+    return true if human_response == 'p' && computer_response == 's'
+    return true if human_response == 's' && computer_response == "r"
+    false
+  end
+
+  def result(human_response, computer_response)
+    if draw?(human_response, computer_response)
+      message = "DRAW!"
+    elsif lose?(human_response, computer_response)
+      message = "You LOSE!"
+    else
+      message = "You WIN!"
+    end
+    add_to_scoreboard(message)
     message
   end
 
@@ -136,7 +132,7 @@ end
 class Computer < Player
 
   def get_response
-    response = ValidAnswers.shuffle[0]
+    response = ValidAnswers[rand(3)]
   end
 
 end
