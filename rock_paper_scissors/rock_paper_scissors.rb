@@ -4,7 +4,9 @@ class RockPaperScissors
 
   def initialize
     @human = Human.new
+    @human2 = Human.new
     @computer = Computer.new
+    @mode = '1'
     @wins = 0
     @losses = 0
     @draws = 0
@@ -27,13 +29,19 @@ class RockPaperScissors
     puts "IT'S TIME TO BATTLE!"
     puts "////////////////////"
     puts ""
-    play
+    @mode = @human.set_mode
+    if @mode == '1'
+      one_player_mode
+    else
+      two_player_mode
+    end
   end
 
   private
 
-  def play
+  def one_player_mode
     loop do
+      puts ""
       human_response = @human.ask_for_response
       computer_response = @computer.get_response
       puts ""
@@ -42,6 +50,24 @@ class RockPaperScissors
       puts "YOU ::::: #{change_response_to_word(human_response)}   #{result(human_response, computer_response)}   #{change_response_to_word(computer_response)} ::::: COMPUTER"
       puts ""
       score
+      puts ""
+    end
+  end
+
+  def two_player_mode
+    loop do
+      puts ""
+      puts "PLAYER 1"
+      human_response = @human.ask_for_response
+      puts ""
+      puts "PLAYER 2"
+      human2_response = @human2.ask_for_response
+      puts ""
+      puts GameName
+      puts ""
+      puts "PLAYER 1 ::::: #{change_response_to_word(human_response)}   #{result(human_response, human2_response)}   #{change_response_to_word(human2_response)} ::::: PLAYER 2"
+      puts ""
+      score_for_two
       puts ""
     end
   end
@@ -95,9 +121,16 @@ class RockPaperScissors
     score_board = "Wins: #{@wins} Losses: #{@losses} Draws #{@draws}"
     score_board.split('').size.times {print '='}
     puts ""
-    puts "Wins: #{@wins} Losses: #{@losses} Draws #{@draws}"
+    puts score_board
+    score_board.split('').size.times {print '='}
+  end
+
+  def score_for_two
+    score_board = "PLAYER 1: #{@wins} PLAYER 2: #{@losses} Draws #{@draws}"
     score_board.split('').size.times {print '='}
     puts ""
+    puts score_board
+    score_board.split('').size.times {print '='}
   end
 
 end
@@ -119,7 +152,24 @@ class Human < Player
     response
   end
 
+  def set_mode
+    print "Type 1 to play against computer or 2 to play against another person (or q to quit) and then press enter: "
+    response = gets.chomp
+    until mode_is_valid?(response)
+      puts "Invalid decision!" 
+      print "Type 1 to play against computer or 2 to play against another person (or q to quit) and then press enter: "
+      response = gets.chomp
+    end
+    response
+  end
+
   private
+
+  def mode_is_valid?(response)
+    exit if response == 'q'
+    return true if ['1', '2'].include? response
+    false
+  end
 
   def response_is_valid?(response)
     exit if response == 'q'
