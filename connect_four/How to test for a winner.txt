@@ -1,0 +1,27 @@
+How to test for a winner
+
+1 2 3 4 5 6 7
+| | | | | | | |
+| | | | | | | |
+| | | | | | |X|
+| | | | |O| |X|
+| | | | |O| |X|
+| | | | |O| |X|
+===============
+//           \\
+
+######### 1. The Vertical
+-> Test each column for four of the same in a row ("X" or "O")
+-> If they're building from top to bottom
+-> if the starting point is position 3, then it's impossible
+
+###### RULES #######
+1. Any column can have a vertical win.
+2. Only rows 0-2 cam have a vertical win.
+2. Only columns 0-3 can have have a horizontal win
+3. Any row can have a horizonal win.
+4. Diagonals can go bottom left to top right or top left to bottom right. 
+5. They still have up for rows worth, so diagonals can only happen from columns 0-3
+6. top to bottom can only happen from rows 3-5
+7. bottom to top can only happen from rows 0-2
+8. If there's been a set number of turns and a winner hasn't been found, then it's a draw. 

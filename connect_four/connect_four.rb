@@ -30,6 +30,11 @@ class ConnectFour
     loop do
       print "Player 1 - "
       @player1.turn
+      puts ""
+      @board.render
+      print "Player 2 - "
+      @player2.turn
+      puts ""
       @board.render
     end
   end
