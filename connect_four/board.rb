@@ -1,5 +1,7 @@
 class Board
 
+  attr_reader :grid
+
   def initialize
     @answer = []
     @grid = []
@@ -43,7 +45,43 @@ class Board
     false
   end
 
+  # How do you determine a winning move?
+  # by seeing any four in a rows and there's a gap to fill with your piece.
+  def winning_move?(piece)
+    @answer = []
+    4.times {@answer << piece}
+    @grid.each_with_index do |column, index|
+      return true if vertical_move?(column)
+    end
+    false
+  end
+
+  def winning_vertical_position
+    position = nil
+    @grid.each_with_index do |column, index|
+      column.each_with_index do |value, index2|
+        if index2 < 3
+          if (([column[index2], column[index2 + 1], column[index2 + 2], column[index2 + 3]] - @answer).size == 1) && (([column[index2], column[index2 + 1], column[index2 + 2], column[index2 + 3]] - @answer).include? " ")
+            position = index + 1
+          end
+        end
+      end
+    end
+    position
+  end
+
   private
+
+  def vertical_move?(column)
+    column.each_with_index do |value, index|
+      if index < 3
+        if (([column[index], column[index + 1], column[index + 2], column[index + 3]] - @answer).size == 1) && (([column[index], column[index + 1], column[index + 2], column[index + 3]] - @answer).include? " ")
+          return true
+        end
+      end
+    end
+    false
+  end
 
   def diagonal_win?(index)
     row = 0

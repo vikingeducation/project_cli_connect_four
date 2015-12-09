@@ -5,6 +5,8 @@ require_relative 'computer'
 
 class ConnectFour
 
+attr_reader :round
+
   def initialize
     @board = Board.new
     @mode = nil
@@ -14,6 +16,7 @@ class ConnectFour
     @player_two = Human.new(@board, @player_two_piece)
     @player_one_name = "Player 1"
     @player_two_name = "Player 2"
+    @round = 1
   end
 
   def game_intro
@@ -33,14 +36,13 @@ class ConnectFour
   private
 
   def set_one_player_settings
-    @player_two = Computer.new(@board, @player_two_piece)
+    @player_two = Computer.new(@board, @player_two_piece, self)
     @player_one_name = "Human"
     @player_two_name = "Computer"
   end
 
   def start_game
     @board.render
-    round = 1
     while round < 22 do
       print "#{@player_one_name} - "
       @player_one.turn
@@ -52,7 +54,7 @@ class ConnectFour
       puts ""
       @board.render
       test_for_winner(@player_two_name, @player_two_piece)
-      round += 1
+      @round += 1
     end
     puts "It's a DRAW..."
     puts ""
