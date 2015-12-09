@@ -12,6 +12,8 @@ class ConnectFour
     @player_two_piece = "O"
     @player_one = Human.new(@board, @player_one_piece)
     @player_two = Human.new(@board, @player_two_piece)
+    @player_one_name = "Player 1"
+    @player_two_name = "Player 2"
   end
 
   def game_intro
@@ -24,26 +26,32 @@ class ConnectFour
     puts "The pieces fall straight down, occupying the next available space within the column. The objective of the game is to connect four of one's own discs next to each other vertically, horizontally, or diagonally before your opponent."
     puts ""
     @mode = @player_one.set_mode
-    @player_two = Computer.new(@board, @player_two_piece) if @mode == '1'
+    set_one_player_settings if @mode == '1'
     start_game
   end
 
   private
 
+  def set_one_player_settings
+    @player_two = Computer.new(@board, @player_two_piece)
+    @player_one_name = "Human"
+    @player_two_name = "Computer"
+  end
+
   def start_game
     @board.render
     round = 1
     while round < 22 do
-      print "Player 1 - "
+      print "#{@player_one_name} - "
       @player_one.turn
       puts ""
       @board.render
-      test_for_winner("Player 1", @player_one_piece)
-      print "Player 2 - "
+      test_for_winner(@player_one_name, @player_one_piece)
+      print "#{@player_two_name} - "
       @player_two.turn
       puts ""
       @board.render
-      test_for_winner("Player 2", @player_two_piece)
+      test_for_winner(@player_two_name, @player_two_piece)
       round += 1
     end
     puts "It's a DRAW..."
