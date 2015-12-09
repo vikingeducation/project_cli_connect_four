@@ -34,16 +34,31 @@ class Board
     @answer = []
     4.times {@answer << piece}
     @grid.each_with_index do |column, index|
-      return true if vertical_four?(piece, column)
+      return true if vertical_four?(column)
       if index < 4
-        return true if horizontal_win?(piece, index)
-        #return true if diagonal_win?(piece, index)
+        return true if horizontal_win?(index)
+        return true if diagonal_win?(index)
       end
     end
     false
   end
 
-  def horizontal_win?(piece, index)
+  private
+
+  def diagonal_win?(index)
+    row = 0
+    while row < 6
+      if row <= 2
+        return true if [@grid[index][row], @grid[index+1][row + 1], @grid[index + 2][row + 2], @grid[index+3][row + 3]] == @answer
+      else
+        return true if [@grid[index][row], @grid[index+1][row - 1], @grid[index+2][row - 2], @grid[index+3][row - 3]] == @answer
+      end
+      row += 1
+    end
+    false
+  end
+
+  def horizontal_win?(index)
     row = 0
     while row < 6
       return true if [@grid[index][row], @grid[index+1][row], @grid[index+2][row], @grid[index+3][row]] == @answer
@@ -51,8 +66,6 @@ class Board
     end
     false
   end
-
-  private
 
   def render_current_board
     row_number = 5
@@ -67,7 +80,7 @@ class Board
     end
   end
 
-  def vertical_four?(piece, column)
+  def vertical_four?(column)
     row = 0
     while row < 3
       return true if [column[row], column[row + 1], column[row + 2], column[row + 3]] == @answer
