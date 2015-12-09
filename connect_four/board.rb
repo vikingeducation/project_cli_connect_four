@@ -1,6 +1,7 @@
 class Board
 
   def initialize
+    @answer = []
     @grid = []
     7.times {@grid << [' ', ' ', ' ', ' ', ' ', ' ']}
   end
@@ -30,12 +31,23 @@ class Board
   end
 
   def winner?(piece)
+    @answer = []
+    4.times {@answer << piece}
     @grid.each_with_index do |column, index|
       return true if vertical_four?(piece, column)
       if index < 4
-        #return true if horizonal_win?(piece, index)
+        return true if horizontal_win?(piece, index)
         #return true if diagonal_win?(piece, index)
       end
+    end
+    false
+  end
+
+  def horizontal_win?(piece, index)
+    row = 0
+    while row < 6
+      return true if [@grid[index][row], @grid[index+1][row], @grid[index+2][row], @grid[index+3][row]] == @answer
+      row += 1
     end
     false
   end
@@ -56,12 +68,9 @@ class Board
   end
 
   def vertical_four?(piece, column)
-    answer = [piece, piece, piece, piece]
     row = 0
     while row < 3
-      if [column[row], column[row + 1], column[row + 2], column[row + 3]] == answer
-        return true
-      end
+      return true if [column[row], column[row + 1], column[row + 2], column[row + 3]] == @answer
       row += 1
     end
     false
