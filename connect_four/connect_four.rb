@@ -7,8 +7,10 @@ class ConnectFour
 
   def initialize
     @board = Board.new
-    @player_one = Human.new(@board, "X")
-    @player_two = Human.new(@board, "O")
+    @player_one_piece = "X"
+    @player_two_piece = "O"
+    @player_one = Human.new(@board, @player_one_piece)
+    @player_two = Human.new(@board, @player_two_piece)
   end
 
   def game_intro
@@ -28,25 +30,31 @@ class ConnectFour
   def start_game
     @board.render
     round = 1
-    # It should keep looping until the number of turns is finished or if there's a break because someone as won.
-    # The thing is the game needs to know if the loop is over, if it's over because somebody won or if it ran out of goes and nobody won.
-    # Could have it set that if there's a winner, it out puts a message and then exits the game.
-    # Draw message only plays if there's no winner and the loop finishes.
     while round < 22 do
       print "Player 1 - "
       @player_one.turn
       puts ""
       @board.render
-      #break if @board.winner?("X")
+      test_for_winner("Player 1", @player_one_piece)
       print "Player 2 - "
       @player_two.turn
       puts ""
       @board.render
-      #break if @board.winner?("O")
+      test_for_winner("Player 2", @player_two_piece)
       round += 1
     end
     puts "It's a DRAW..."
     puts ""
+  end
+
+  def test_for_winner(player, piece)
+    if @board.winner?(piece)
+      puts "Connect Four!"
+      puts ""
+      puts "#{player} Wins!"
+      puts ""
+      exit
+    end
   end
 
 end

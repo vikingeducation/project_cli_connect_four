@@ -29,11 +29,19 @@ class Board
     puts ""
   end
 
+  def winner?(piece)
+    @grid.each_with_index do |column, index|
+      return true if vertical_four?(piece, column)
+      if index < 4
+        #return true if horizonal_win?(piece, index)
+        #return true if diagonal_win?(piece, index)
+      end
+    end
+    false
+  end
+
   private
 
-  # it's rendering top left to bottom right
-  # so the first while loop needs to count down (row numbers)
-  # second while loop needs to count up (column numbers)
   def render_current_board
     row_number = 5
     while row_number >= 0
@@ -45,6 +53,18 @@ class Board
       puts "|"
       row_number -= 1
     end
+  end
+
+  def vertical_four?(piece, column)
+    answer = [piece, piece, piece, piece]
+    row = 0
+    while row < 3
+      if [column[row], column[row + 1], column[row + 2], column[row + 3]] == answer
+        return true
+      end
+      row += 1
+    end
+    false
   end
 
 end
