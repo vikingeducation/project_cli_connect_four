@@ -24,7 +24,7 @@ class ConnectFour
     puts "The pieces fall straight down, occupying the next available space within the column. The objective of the game is to connect four of one's own discs next to each other vertically, horizontally, or diagonally before your opponent."
     puts ""
     @mode = @player_one.set_mode
-    @player_two = Computer.new(@board, @player_two_piece) if @mode == '2'
+    @player_two = Computer.new(@board, @player_two_piece) if @mode == '1'
     start_game
   end
 
