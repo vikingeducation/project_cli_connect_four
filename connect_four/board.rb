@@ -1,11 +1,13 @@
 class Board
 
-  attr_reader :grid
+  attr_reader :grid, :winning_move
 
   def initialize
     @answer = []
     @grid = []
+    @horizontal_four = []
     7.times {@grid << [' ', ' ', ' ', ' ', ' ', ' ']}
+    @winning_move = nil
   end
 
   def add_piece_to_board(response, piece)
@@ -51,26 +53,52 @@ class Board
     @answer = []
     4.times {@answer << piece}
     @grid.each_with_index do |column, index|
-      return true if vertical_move?(column)
+      if vertical_move?(column)
+        @winning_move = index + 1
+        return true 
+      end
+      if index < 4
+        if horizontal_move?(index)
+          @winning_move = winning_horizontal_position(index) + 1
+          puts @winning_move
+          return true
+        end
+      end
     end
     false
   end
 
-  def winning_vertical_position
+  private
+
+  def winning_horizontal_position(index)
     position = nil
-    @grid.each_with_index do |column, index|
-      column.each_with_index do |value, index2|
-        if index2 < 3
-          if (([column[index2], column[index2 + 1], column[index2 + 2], column[index2 + 3]] - @answer).size == 1) && (([column[index2], column[index2 + 1], column[index2 + 2], column[index2 + 3]] - @answer).include? " ")
-            position = index + 1
+    @grid[index].each_with_index do |value, spot|
+      if valid_horizontal_finisher?(index, spot)
+        @horizontal_four.each_with_index do |piece, location|
+          if ((piece == " ") && (spot == 0 || (@grid[index + location][spot - 1] != " ")))
+            return position = index + location
           end
         end
       end
     end
-    position
   end
 
-  private
+  def valid_horizontal_finisher?(index, spot)
+    if @horizontal_four - @answer == [" "]
+      return true
+    end
+    false
+  end
+
+  def horizontal_move?(column)
+    @grid[column].each_with_index do |spot, index|
+      @horizontal_four = [@grid[column][index], @grid[column + 1][index], @grid[column + 2][index], @grid[column + 3][index]]
+      if valid_horizontal_finisher?(column, index)
+        return true
+      end
+    end
+    false
+  end
 
   def vertical_move?(column)
     column.each_with_index do |value, index|

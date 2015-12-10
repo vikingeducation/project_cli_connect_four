@@ -32,7 +32,7 @@ class Computer
     response = nil
     return 4 if @connect_four.round == 1
     if @board.winning_move?(@piece)
-      response = @board.winning_vertical_position
+      response = @board.winning_move
     end
     if response == nil
       return get_valid_column

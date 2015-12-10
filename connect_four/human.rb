@@ -24,7 +24,7 @@ class Human
     until (valid_column_number.include? response) && (@board.does_column_have_space?(response))
       puts "Invalid Selection!"
       print "Pick a column from 1 to 7 that has space: "
-      response = respond
+      response = respond.to_i
     end
     response
   end
