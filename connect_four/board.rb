@@ -5,7 +5,7 @@ class Board
   def initialize
     @answer = []
     @grid = []
-    @horizontal_four = []
+    @four_in_a_row = []
     7.times {@grid << [' ', ' ', ' ', ' ', ' ', ' ']}
     @winning_move = nil
   end
@@ -56,6 +56,9 @@ class Board
         if horizontal_move?(column_number)
           winning_horizontal_position(column_number)
           return true
+        elsif diagonal_move?(column_number)
+          winning_diagonal_position(column_number)
+          return true
         end
       end
     end
@@ -64,13 +67,34 @@ class Board
 
   private
 
+  def diagonal_move?(column)
+    @grid[column].each_with_index do |value, row|
+      if row <= 2
+        @four_in_a_row = [@grid[column][row], @grid[column + 1][row + 1], @grid[column + 2][row + 2], @grid[column + 3][row + 3]]
+      else
+        @four_in_a_row = [@grid[column][row], @grid[column + 1][row - 1], @grid[column + 2][row - 2], @grid[column + 3][row - 3]]
+      end
+      return true if one_spot_to_win?
+    end
+    false
+  end
+
+  # The diagonal position works but it's not accurate. The position_below_is_not_empty? does not work accurately for this but good enough for now. 
+  def winning_diagonal_position(column)
+    @grid[column].each_with_index do |value, row|
+      @four_in_a_row.each_with_index do |piece, piece_location|
+        if position_below_is_not_empty?(column, row, piece, piece_location)
+          return @winning_move = column + piece_location + 1
+        end
+      end
+    end
+  end
+
   def winning_horizontal_position(column)
     @grid[column].each_with_index do |value, row|
-      if one_spot_to_win?
-        @horizontal_four.each_with_index do |piece, piece_location|
-          if position_below_is_not_empty?(column, row, piece, piece_location)
-            return @winning_move = column + piece_location + 1
-          end
+      @four_in_a_row.each_with_index do |piece, piece_location|
+        if position_below_is_not_empty?(column, row, piece, piece_location)
+          return @winning_move = column + piece_location + 1
         end
       end
     end
@@ -81,12 +105,12 @@ class Board
   end
 
   def one_spot_to_win?
-    @horizontal_four - @answer == [" "]
+    @four_in_a_row - @answer == [" "]
   end
 
   def horizontal_move?(column)
     @grid[column].each_with_index do |value, row|
-      @horizontal_four = [@grid[column][row], @grid[column + 1][row], @grid[column + 2][row], @grid[column + 3][row]]
+      @four_in_a_row = [@grid[column][row], @grid[column + 1][row], @grid[column + 2][row], @grid[column + 3][row]]
         return true if one_spot_to_win?
     end
     false
@@ -94,10 +118,8 @@ class Board
 
   def vertical_winner?(column)
     column.each_with_index do |value, index|
-      if index < 3
-        if (([column[index], column[index + 1], column[index + 2], column[index + 3]] - @answer).size == 1) && (([column[index], column[index + 1], column[index + 2], column[index + 3]] - @answer).include? " ")
-          return true
-        end
+      if index < 3 && value != " "
+        return true if ([column[index], column[index + 1], column[index + 2], column[index + 3]] - @answer) == [" "]
       end
     end
     false
