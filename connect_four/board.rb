@@ -35,6 +35,7 @@ class Board
   end
 
   def winner?(piece)
+    set_answer(piece)
     @grid.each_with_index do |column, column_number|
       return true if vertical_win?(column)
       if column_number < 4
