@@ -7,46 +7,43 @@ class Human
 
   def turn
     print " - Pick a column to drop your piece (1-7) or q to quit: "
-    response = pick_a_column
-    @board.add_piece_to_board(response, @piece)
+    @board.add_piece_to_board(pick_a_column, @piece)
   end
 
   def set_mode
     print "1 or 2 player mode (type 1 or 2 then press enter): "
-    response = pick_a_mode
+    pick_a_mode
   end
 
   private
 
   def get_valid_column(response)
-    response = response.to_i
-    valid_column_number = (1..7).to_a
-    until (valid_column_number.include? response) && (@board.does_column_have_space?(response))
+    column = response.to_i
+    valid_column = (1..7).to_a
+    until (valid_column.include? column) && (@board.does_column_have_space?(column))
       puts "Invalid Selection!"
       print "Pick a column from 1 to 7 that has space: "
-      response = respond.to_i
+      column = respond.to_i
     end
-    response
+    column
   end
 
-  def get_valid_mode(response)
+  def get_valid_mode(mode)
     valid_mode = ['1', '2']
-    until valid_mode.include? response
+    until valid_mode.include? mode
       puts "Invalid Selection!"
       print "1 or 2 player mode (type 1 or 2 then press enter): "
-      response = respond
+      mode = respond
     end
-    response
+    mode
   end
 
   def pick_a_column
-    response = respond
-    response = get_valid_column(response)
+    get_valid_column(respond)
   end
 
   def pick_a_mode
-    response = respond
-    response = get_valid_mode(response)
+    get_valid_mode(respond)
   end
 
   def respond
