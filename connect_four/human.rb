@@ -6,7 +6,7 @@ class Human
   end
 
   def turn
-    print "Pick a column to drop your piece (1-7) or q to quit: "
+    print " - Pick a column to drop your piece (1-7) or q to quit: "
     response = pick_a_column
     @board.add_piece_to_board(response, @piece)
   end

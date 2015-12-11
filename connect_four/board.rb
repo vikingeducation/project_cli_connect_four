@@ -10,10 +10,10 @@ class Board
     @winning_move = nil
   end
 
-  def add_piece_to_board(response, piece)
-    @grid[response - 1].each_with_index do |value, index|
+  def add_piece_to_board(column, piece)
+    @grid[column - 1].each_with_index do |value, row|
       if value == ' '
-        @grid[response - 1][index] = piece
+        @grid[column - 1][row] = piece
         break
       end
     end

@@ -9,6 +9,7 @@ class Computer
   end
 
   def turn
+    puts "'s turn:"
     @board.add_piece_to_board(find_best_move, @piece)
   end
 

@@ -44,12 +44,12 @@ attr_reader :round
   def start_game
     @board.render
     while round < 22 do
-      print "#{@player_one_name} - "
+      print "#{@player_one_name}"
       @player_one.turn
       puts ""
       @board.render
       test_for_winner(@player_one_name, @player_one_piece)
-      print "#{@player_two_name} - "
+      print "#{@player_two_name}"
       @player_two.turn
       puts ""
       @board.render
