@@ -35,10 +35,8 @@ class Board
   end
 
   def winner?(piece)
-    @answer = []
-    4.times {@answer << piece}
     @grid.each_with_index do |column, column_number|
-      return true if vertical_four?(column)
+      return true if vertical_win?(column)
       if column_number < 4
         return true if horizontal_win?(column_number)
         return true if diagonal_win?(column_number)
@@ -48,16 +46,15 @@ class Board
   end
 
   def winning_move?(piece)
-    @answer = []
-    4.times {@answer << piece}
+    set_answer(piece)
     @grid.each_with_index do |column, column_number|
-      if vertical_move?(column)
+      if vertical_winner?(column)
         @winning_move = column_number + 1
         return true
       end
       if column_number < 4
         if horizontal_move?(column_number)
-          @winning_move = winning_horizontal_position(column_number) + 1
+          winning_horizontal_position(column_number)
           return true
         end
       end
@@ -69,29 +66,33 @@ class Board
 
   def winning_horizontal_position(column)
     @grid[column].each_with_index do |value, row|
-      if valid_horizontal_finisher?
+      if one_spot_to_win?
         @horizontal_four.each_with_index do |piece, piece_location|
-          if ((piece == " ") && (row == 0 || (@grid[column + piece_location][row - 1] != " ")))
-            return column + piece_location
+          if position_below_is_not_empty?(column, row, piece, piece_location)
+            return @winning_move = column + piece_location + 1
           end
         end
       end
     end
   end
 
-  def valid_horizontal_finisher?
+  def position_below_is_not_empty?(column, row, piece, piece_location)
+    ((piece == " ") && (row == 0 || (@grid[column + piece_location][row - 1] != " ")))
+  end
+
+  def one_spot_to_win?
     @horizontal_four - @answer == [" "]
   end
 
   def horizontal_move?(column)
     @grid[column].each_with_index do |value, row|
       @horizontal_four = [@grid[column][row], @grid[column + 1][row], @grid[column + 2][row], @grid[column + 3][row]]
-        return true if valid_horizontal_finisher?
+        return true if one_spot_to_win?
     end
     false
   end
 
-  def vertical_move?(column)
+  def vertical_winner?(column)
     column.each_with_index do |value, index|
       if index < 3
         if (([column[index], column[index + 1], column[index + 2], column[index + 3]] - @answer).size == 1) && (([column[index], column[index + 1], column[index + 2], column[index + 3]] - @answer).include? " ")
@@ -137,7 +138,12 @@ class Board
     end
   end
 
-  def vertical_four?(column)
+  def set_answer(piece)
+    @answer = []
+    4.times {@answer << piece}
+  end
+
+  def vertical_win?(column)
     row = 0
     while row < 3
       return true if [column[row], column[row + 1], column[row + 2], column[row + 3]] == @answer
