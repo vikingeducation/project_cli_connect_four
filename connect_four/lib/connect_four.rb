@@ -1,3 +1,16 @@
+=begin
+  readers - :round
+
+  public methods:
+    - initialize
+    - game_intro
+
+  private methods:
+    - set_one_player_settings
+    - start_game
+    - test_for_winner(player, piece)
+=end
+
 require_relative 'board'
 require_relative 'human'
 require_relative 'computer'

@@ -1,3 +1,29 @@
+=begin
+  readers - :grid, :winning_move
+
+  public methods:
+    - initialize
+    - add_piece_to_board(column, piece)
+    - does_column_have_space?(column)
+    - render
+    - winner?(piece)
+    - winning_move?(piece)
+
+  private methods:
+    - diagonal_move?(column)
+    - winning_diagonal_position(column)
+    - winning_horizontal_position(column)
+    - position_below_is_not_empty?(column, row, piece, piece_location)
+    - one_spot_to_win?
+    - horizontal_move?(column)
+    - vertical_winner?(column)
+    - diagonal_win?(column)
+    - horizontal_win?(column)
+    - render_current_board
+    - set_answer(piece)
+    - vertical_win?(column)
+=end
+
 class Board
 
   attr_reader :grid, :winning_move

@@ -1,3 +1,17 @@
+=begin
+  public methods:
+    - initialize
+    - turn
+    - set_mode
+
+  private methods:
+    - get_valid_column(response)
+    - get_valid_mode(mode)
+    - pick_a_column
+    - pick_a_mode
+    - respond
+=end
+
 class Human
 
   def initialize(board, piece)

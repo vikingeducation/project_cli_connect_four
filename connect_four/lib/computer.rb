@@ -1,3 +1,13 @@
+=begin
+  public methods:
+    - initialize(board, piece, game)
+    - turn
+
+  private methods:
+    - get_random_valid_column
+    - find_best_move
+=end
+
 class Computer
 
   def initialize(board, piece, game)
