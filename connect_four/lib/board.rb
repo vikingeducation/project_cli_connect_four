@@ -13,6 +13,7 @@
     - diagonal_move?(column)
     - winning_diagonal_position(column)
     - winning_horizontal_position(column)
+
     - position_below_is_not_empty?(column, row, piece, piece_location)
     - one_spot_to_win?
     - horizontal_move?(column)
@@ -26,7 +27,7 @@
 
 class Board
 
-  attr_reader :grid, :winning_move
+  attr_accessor :grid, :winning_move
 
   def initialize
     @answer = []
