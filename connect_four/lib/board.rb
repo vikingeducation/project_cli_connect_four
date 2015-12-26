@@ -167,6 +167,7 @@ class Board
   end
 
   def horizontal_win?(column)
+    puts column
     row = 0
     while row < 6
       return true if [@grid[column][row], @grid[column + 1][row], @grid[column + 2][row], @grid[column + 3][row]] == @answer
