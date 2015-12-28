@@ -15,7 +15,6 @@ require_relative 'board'
 require_relative 'human'
 require_relative 'computer'
 
-
 class ConnectFour
 
 attr_reader :round
@@ -85,4 +84,4 @@ attr_reader :round
 
 end
 
-ConnectFour.new.game_intro
+# ConnectFour.new.game_intro
