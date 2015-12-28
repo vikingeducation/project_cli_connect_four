@@ -53,6 +53,7 @@ class Human
   end
 
   def pick_a_column
+    print self
     get_valid_column(respond)
   end
 
