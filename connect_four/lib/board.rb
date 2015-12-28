@@ -145,6 +145,7 @@ class Board
   end
 
   def vertical_winner?(column)
+    puts self
     column.each_with_index do |value, index|
       if index < 3 && value != " "
         return true if ([column[index], column[index + 1], column[index + 2], column[index + 3]] - @answer) == [" "]

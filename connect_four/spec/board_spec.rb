@@ -146,4 +146,38 @@ describe Board do
 
   end
 
+  describe 'winning_move?' do
+    it 'calls set_answer method' do
+      expect(board).to receive(:set_answer)
+      board.winning_move?("X")
+    end
+
+    it 'calls the vertical_winner? method' do
+      expect(board).to receive(:vertical_winner?).and_return(true)
+      board.winning_move?("X")
+    end
+
+    it 'calls the horizontal_move? method' do
+      allow(board).to receive(:vertical_winner?).and_return(false)
+      allow(board).to receive(:horizontal_move?).and_return(true)
+      expect(board).to receive(:horizontal_move?).and_return(true)
+      board.winning_move?("X")
+    end
+
+    it 'calls the diagonal_move? method' do
+      allow(board).to receive(:vertical_winner?).and_return(false)
+      allow(board).to receive(:horizontal_move?).and_return(false)
+      allow(board).to receive(:diagonal_move?).and_return(true)
+      expect(board).to receive(:diagonal_move?).and_return(true)
+      board.winning_move?("X")
+    end
+
+    it 'calls returns false if there are no winning moves' do
+      allow(board).to receive(:vertical_winner?).and_return(false)
+      allow(board).to receive(:horizontal_move?).and_return(false)
+      allow(board).to receive(:diagonal_move?).and_return(false)
+      expect(board.winning_move?("X")).to eq(false)
+    end
+  end
+
 end
