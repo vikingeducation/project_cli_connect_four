@@ -67,7 +67,8 @@ class Board
   end
 
   def diagonals
-
+    diag = []
+    
   end
 
   def verticals
