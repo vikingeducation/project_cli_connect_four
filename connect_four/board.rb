@@ -41,49 +41,58 @@ class Board
 
   def end_conditions?
     #check for full grid
-    return true if @board.grid_full?
+    return true if grid_full?
 
     #check for connect 4 along rows
     @board.each do |row|
       (0...NUM_COLS - FOUR + 1).each do |i|
-        return true if check_connect_4( row[i...i+FOUR] )
+        return true if check_connect_four?( row[i...i+FOUR] )
       end
     end
 
     #check every column for 4 vertical
     (0...NUM_COLS).each do |col|
-      (0...NUM_ROWS - 4 + 1).each do |row|
+      (0...NUM_ROWS - FOUR + 1).each do |row|
 
         col_array = []
         (0...FOUR).each do |index|
           col_array << @board[row + index][col]
         end
 
-        return true if check_connect_4(col_array)
+        return true if check_connect_four?(col_array)
       end
     end
 
     #check diagonals
 
-
-
-    #############
-    (0..NUM_ROWS + NUM_COLS - 2).each do |diagonal|
-      (0...NUM_ROWS).each do |row|
-        (0...NUM_COLS).each do |col|
-          if row + col == diagonal
-            diagonal_array << @board[row][col]
-          end
+    (0..NUM_ROWS - FOUR).each do | row |
+      (0..NUM_COLS - FOUR).each do |  col |
+        diag_array = []
+        (0...FOUR).each do |  square |
+          diag_array << @board[row + square][col + square]
         end
+        return true if check_connect_four?(diag_array)
       end
     end
 
+########
 
+   (0..NUM_ROWS - FOUR).each do | row |
+      (NUM_COLS - 1).downto ( NUM_COLS - FOUR ) do |  col |
+        diag_array = []
+        (0...FOUR).each do |  square |
+          diag_array << @board[row + square][col - square]
+        end
+        return true if check_connect_four?(diag_array)
+      end
+    end
 
+##########
+# 
     return false
   end
 
-  def check_connect_4?(arr)
+  def check_connect_four?(arr)
 
     # puts arr.inspect
     #checks for full array
@@ -101,7 +110,7 @@ class Board
   def grid_full?
     @board.each do |row|
       row.each do |square|
-        return false if square == nil?
+        return false if square == nil
       end
     end
     true
