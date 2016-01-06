@@ -8,20 +8,20 @@ class Board
     (0..6).each do |col|
       @grid[col] = []
       (0..5).each do |row|
-        @grid[col][row] = "O"
+        @grid[col][row] = "-"
       end
     end
   end
 
   def add_piece(team, col)
-    if (team == :red)
+    if (team == 'red')
       piece = 'R'
-    elsif(team == :black)
+    elsif(team == 'black')
       piece = 'B'
     end
 
     @grid[col].each_with_index do |item,index|
-      if item == "O"
+      if item == "-"
         if index == 5
           @grid[col][index] = piece
           break
@@ -39,11 +39,11 @@ class Board
   end
 
   def to_s
-    (0..5).each do |row|
-      puts
-      (0..6).each do |cols|
+    0.upto(5).each do |row|
+      0.upto(6).each do |cols|
         print @grid[cols][row]
       end
+      puts ''
     end
   end
 end

@@ -16,7 +16,12 @@ class ConnectFour
   def play
   	@players.shuffle!
     @players[0].choose_color
-  	@players[0].color == 'red' ? @players[1].color = 'black' : @players[1].color = 'red'
+    if @players[0].team_color == 'red'
+      @players[1].team_color = 'black'
+    else
+      @players[1].team_color = 'red'
+    end
+
   	index = 0
    
     while @playing 
@@ -26,12 +31,12 @@ class ConnectFour
       puts @board.to_s
       #check for a win here
       #check if board is full (draw)
-      switch_players
+      index = switch_players(index)
     end
   end
 
   def check_game_status
-
+    
   end
   
   def switch_players(players_index)
@@ -41,7 +46,6 @@ class ConnectFour
       return 0
     end
   end
-  
 end
 
 game = ConnectFour.new
