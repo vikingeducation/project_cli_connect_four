@@ -8,18 +8,32 @@ class ConnectFour
     @board = Board.new
     @player1 = Player.new
     @player2 = Player.new
+    @turn = @player1
+    @win? = false
   end
 
   def play
-  	@player1.choose_color
-  	@player1.color == 'red' ? @player2.color = 'black' : @player2.color = 'red'
-  	choose_column
+    until @win?
+
+    	@player1.choose_color
+    	@player1.color == 'x' ? @player2.color = 'o' : @player2.color = 'x'
+    	@player1.choose_column
+
+
+      if @turn == @player1
+        @turn = @player2
+      else
+        @turn = @player1
+      end
+    end
+
   end
 
-  def choose_column
-  	puts "Which column do you want to place your piece? (1-7)"
-  	column = gets.chomp.to_sym
+  # check if winning combination exists
+  def check_win
+    
   end
+  
 end
 
 game = ConnectFour.new

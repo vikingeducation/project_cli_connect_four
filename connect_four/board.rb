@@ -8,16 +8,16 @@ class Board
     (0..6).each do |col|
       @grid[col] = []
       (0..5).each do |row|
-        @grid[col][row] = 0
+        @grid[col][row] = "_ "
       end
     end
   end
 
   def add_piece(team, col)
-    if (team == :red)
-      piece = 'R'
-    elsif(team == :black)
-      piece = 'B'
+    if (team == :x)
+      piece = 'X'
+    elsif(team == :O)
+      piece = 'O'
     end
 
     @grid[col].each_with_index do |spot,index|
@@ -41,4 +41,6 @@ class Board
     end
 
   end
+
+  
 end
