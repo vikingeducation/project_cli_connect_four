@@ -4,30 +4,26 @@ class Board
   # grid is in rows and columns, beginning of a column is the "top" of the board
 
   def initialize
-    @grid = []
-    (0..6).each do |col|
-      @grid[col] = []
-      (0..5).each do |row|
-        @grid[col][row] = "_ "
+    @grid = {}
+    (0..6).each do |row|
+      @grid[row] = []
+      (0..5).each do |col|
+        @grid[row][col] = "_ "
       end
     end
   end
 
-  def add_piece(team, col)
-    if (team == :x)
+  def add_piece(sym, col)
+    if (sym == :X)
       piece = 'X'
-    elsif(team == :O)
+    elsif(sym == :O)
       piece = 'O'
     end
 
-    @grid[col].each_with_index do |spot,index|
-      if index == 5
-        @grid[col][index] = piece
-        break
-      elsif spot == 0 
-        next
-      else
-        @grid[col][index-1] = piece
+    # @grid[row][col] 
+    6.downto(0).each do |row|
+      if @grid[row][col] != '_ '
+        board[row+1][col] == piece
       end
     end
   end
@@ -55,7 +51,7 @@ class Board
   end
 
   def diagonals
-    
+
   end
 
   def verticals

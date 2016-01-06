@@ -19,13 +19,12 @@ class ConnectFour
   end
 
   def play
-    # until @game_status?
-    # 	@turn.choose_column
-    #   check_game_over
-    #   switch_players
-    # end
-    puts "player1 symbol is #{@player1.symbol}"
-    puts "player2 symbol is #{@player2.symbol}"
+    until @game_status
+    	@turn.choose_column
+      @board.add_piece(@turn.symbol, @turn.column)
+      # check_game_over
+      switch_players
+    end
   end
 
 
