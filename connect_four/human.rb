@@ -2,7 +2,7 @@ class Human < Player
 
   def select_move
     puts "Please select the column: "
-    column = gets.chomp
+    column = gets.chomp.to_i
     if validate_column?(column)
       return column
     else
@@ -12,7 +12,7 @@ class Human < Player
   end
 
   def validate_column?(column)
-    [1..7].include?(column)
+    (1..7).to_a.include?(column)
   end
 
 end

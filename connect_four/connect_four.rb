@@ -1,10 +1,14 @@
-require_relative 'board.rb', 'player.rb'
+require_relative 'board.rb' 
+require_relative 'player.rb' 
+require_relative 'human.rb' 
+require_relative 'computer.rb'
 
 class ConnectFour
 
   def initialize
     @board = Board.new
     @board.setup
+    @player_1 = Human.new
   end
 
   def play_connect_four
@@ -12,12 +16,10 @@ class ConnectFour
     opponent_prompt
     color_prompt
 
-    
-        #Render board
-        #Ask for inputs
-        #Validate
-        #Check win/draw
-      #End loop
+    until @board.win? || @board.draw? do
+      @board.render
+      @player_1.add_piece(@player_1.select_move)
+    end
   end
 
   def display_instructions
@@ -33,3 +35,7 @@ class ConnectFour
   end
 
 end
+
+game = ConnectFour.new
+
+game.play_connect_four

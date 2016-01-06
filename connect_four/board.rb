@@ -1,5 +1,6 @@
 class Board
-
+  attr_accessor :board
+  
   def initialize
     @board = {}
   end
@@ -8,6 +9,7 @@ class Board
     (1..6).each do |key|
       @board[key] = ["0", "0", "0", "0", "0", "0", "0"]
     end
+    return nil
   end
 
   def render
@@ -17,7 +19,7 @@ class Board
   end
 
   def column_full?(column)
-    self.board.each do |row_number, row|
+    @board.each do |row_number, row|
       if row[column] == "0"
         return false
       end
@@ -54,11 +56,8 @@ class Board
   end
 
   def win?
-    four_diagonal || four_vertical || four_horizontal   
+    four_diagonal? || four_vertical? || four_horizontal?   
   end
 
 end
 
-b = Board.new
-b.setup
-b.render

@@ -1,3 +1,7 @@
 Classes: Player, Board, Game
 
 6 rows, 7 columns
+
+Select color of piece based on Human or computer
+Game loop
+Game instructions

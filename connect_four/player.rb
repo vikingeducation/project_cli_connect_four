@@ -1,18 +1,21 @@
 require_relative 'board.rb'
+require 'byebug'
 
 class Player
 
+  attr_reader :color_piece
+
   def initialize
-    @color_piece = nil
-    @board = Board.new # for testing purposes
+    @color_piece = "B"
   end
 
-  def add_piece(column)
+  def add_piece(column, board)
+    byebug
     #add piece to the board
-    unless column_full?(column)
+    unless board.column_full?(column)
       6.downto(1).to_a.each do |row|
-        if position_empty(@board[row][column])
-          @board[row][column] = @color_piece
+        if board.position_empty?(board[row][column - 1])
+          board[row][column - 1] = @color_piece
           break
         end
       end
