@@ -40,10 +40,13 @@ class Board
   end
 
   def end_conditions?
+    #check for full grid
+    return true if @board.grid_full?
+
     #check for connect 4 along rows
     @board.each do |row|
       (0...NUM_COLS - FOUR + 1).each do |i|
-        return true if check_array( row[i...i+FOUR] )
+        return true if check_connect_4( row[i...i+FOUR] )
       end
     end
 
@@ -56,29 +59,52 @@ class Board
           col_array << @board[row + index][col]
         end
 
-        return true if check_array(col_array)
+        return true if check_connect_4(col_array)
       end
     end
 
     #check diagonals
-    
+
+
+
+    #############
+    (0..NUM_ROWS + NUM_COLS - 2).each do |diagonal|
+      (0...NUM_ROWS).each do |row|
+        (0...NUM_COLS).each do |col|
+          if row + col == diagonal
+            diagonal_array << @board[row][col]
+          end
+        end
+      end
+    end
+
 
 
     return false
   end
 
-  def check_array(arr)
-    
+  def check_connect_4?(arr)
+
     # puts arr.inspect
     #checks for full array
     return false if arr.any? { |square| square == nil }
-    
+
     #if array is full then check for winner
     return true if arr.all? { |square| square.owner == "1" }
     return true if arr.all? { |square| square.owner == "2" }
-    
+
     #otherwise return false
     false
+  end
+
+  #return true if grid is full, else return false on empty square
+  def grid_full?
+    @board.each do |row|
+      row.each do |square|
+        return false if square == nil?
+      end
+    end
+    true
   end
 
 end
