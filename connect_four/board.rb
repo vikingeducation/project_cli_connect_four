@@ -117,4 +117,15 @@ class Board
     true
   end
 
+  #makes a deep copy of board
+  def dup
+    copy = Array.new(NUM_ROWS) { Array.new(NUM_COLS) }
+    (0...NUM_ROWS).each do |row|
+      (0...NUM_COLS).each do |col|
+        square = @board[row][col]
+        copy[row][col] = square.dup if !square.nil?
+      end
+    end
+  end
+
 end

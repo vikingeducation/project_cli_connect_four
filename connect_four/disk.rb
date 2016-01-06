@@ -15,5 +15,11 @@ class Disk
   def self.make_player_2_disk
     new( "2" )
   end
-  
+
+  #returns a copy the object
+  def dup
+    return self.make_player_1_disk if @owner == "1"
+    return self.make_player_2_disk if @owner == "2"
+  end
+
 end
