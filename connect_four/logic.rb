@@ -36,18 +36,51 @@ class Logic
 
     backslash_options.each do |diagonal|
       # user's move is in potential diagonal
-      if diagonal.include? [2,4]  # move
-        puts "diagonal includes move"
+      arr = []
+
+      if diagonal.include? move  # move
+        #get the actual colors from the game board based on
+        #positional array
+        diagonal.each do |item|
+          arr << array[item[0]][item[1]]
+        end
+        
         # check if 4 consecutive items in diagonal are the same
-        horizontal_vertical_win?(array, color)
-        puts "if we made it here, we evaluated consecutive"
-        puts "diagonal: #{diagonal}"
+        return true if horizontal_vertical_win?(arr, color) 
       end
     end
+    return false
   end
  
+  def forwardslash_diagonals(array, color,move)
 
+    forwardslash_options = [
+      [[3,0], [2,1], [1,2], [0,3]],
+      [[4,0], [3,1], [2,2], [1,3], [0,4]],
+      [[5,0], [4,1], [3,2], [2,3], [1,4], [0,5]],
+      [[5,1], [4,2], [3,3], [2,4], [1,5], [0,6]],
+      [[5,2], [4,3], [3,4], [2,5], [1,6]],
+      [[5,3], [4,4], [3,5], [2,6]]
+    ]
 
+    forwardslash_options.each do |diagonal|
+      # user's move is in potential diagonal
+      arr = []
+
+      if diagonal.include? move  # move
+        #get the actual colors from the game board based on
+        #positional array
+        diagonal.each do |item|
+          arr << array[item[0]][item[1]]
+        end
+        
+        # check if 4 consecutive items in diagonal are the same
+        return true if horizontal_vertical_win?(arr, color) 
+      end
+    end
+    return false
+  end
+ 
 
   def straight_win?(array,user_row,user_col,color)
     # check horizontal rows
@@ -87,14 +120,14 @@ class Logic
 end
 
 move = [2,4]
-arr =   [["r","r","g","r","r","r","r"],
-         ["r","r","g","r","r","r","r"],
+arr =   [[nil,"r","g","r","r","r","r"],
+         ["r","r","g",nil,"r","r","r"],
          ["g","r","g","r","r","r","r"],
-         ["g","r","g","r","r","r","r"],
-         ["g","r","g","r","r","r","r"],
-         ["r","r","g","r","r","r","r"],
+         ["g","r","g",nil,"r","r","r"],
+         ["g","r","g","r","r",nil,"r"],
+         ["r",nil,"g","r","r","r","r"],
          ["r","r","g","r","r","r","r"],
          ["r","r","g","r","r","r","r"]]
 
 l = Logic.new
-l.backslash_diagonals(arr, "r")
+puts l.forwardslash_diagonals(arr, "r",[2,4])
