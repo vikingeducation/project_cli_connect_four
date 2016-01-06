@@ -5,8 +5,8 @@ class Board
 
   def render
 
-    @board.each do |row|
-      row.each do |square|
+    (@board.length - 1).downto 0 do | i |
+      @board[i].each do |square|
         if square.nil?
           print "o "
         else
@@ -17,4 +17,10 @@ class Board
     end
     puts
   end
+
+
+  def valid_move? (player_input)
+    true
+  end
+
 end
