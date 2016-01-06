@@ -21,6 +21,10 @@ class Board
 
   def valid_move?(move_array)
     # make sure slot is empty (nil)
+
+    if atleast_one_row_empty?
+    end
+      
     if @game_board[move_array[0]][move_array[1]] != nil
       puts "That spot is not empty, please try again."
       return false
@@ -35,9 +39,18 @@ class Board
     true
   end
 
-
-
-
+  def get_move_array(move_col)
+    # make sure slot is empty (nil)
+    (@@ROWS - 1 ).downto(0) do |row|
+    if @game_board[row][move_col] == nil
+      return [row,move_col]
+    end
+  end
+   
+  def atleast_one_row_empty?(move_col)
+    # make sure slot is empty (nil)
+    @game_board[0][move_col].nil? 
+  end 
 end	
 
 b = Board.new

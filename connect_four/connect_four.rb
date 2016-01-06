@@ -46,21 +46,21 @@ class ConnectFour
 
   def player_move(current_player)
     puts "====================================================="
-    puts "  Please enter the coordinates of your move."
-    puts "  The format should be x,y - but each row and"
-    puts "  column has a 0th item, so keep that in mind."
+    puts "  Please enter the COLUMN to drop your coin."
+    puts "  Valid columns are 0 thru 6."
     puts "  (Think like a programmer, please)"
     puts "  For example 5,0 would place a piece"
     puts "  in the bottom-left corner."
     puts "====================================================="
-    puts "#{@current_player.color} player enter your move:"
+    puts "#{@current_player.color} player enter your COLUMN:"
     
-    move = gets.chomp
-    until move =~ /[0-5].[0-6]/
-      puts "Move in invalid format!, Re-Enter: "
+    column = gets.chomp
+    until column =~ /[0-6]/
+      puts "Column in invalid format!, Re-Enter: "
       move = gets.chomp
+      column = column.to_i
     end 
-    move_array = move.split(',').collect! {|n| n.to_i}
+    
     return move_array
   end
 
