@@ -1,0 +1,3 @@
+Classes: Player, Board, Game
+
+6 rows, 7 columns
