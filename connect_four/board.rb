@@ -1,5 +1,7 @@
 class Board
   
+  attr_accessor :game_board
+
   @@COLS = 7
   @@ROWS = 6
 
@@ -10,7 +12,7 @@ class Board
   def render
 	  @game_board.each do |row|
       row.each do |piece|
-        print "  O  " if piece == nil
+         piece == nil ? (print "  O  ") : (print piece)
       end
       puts
     end

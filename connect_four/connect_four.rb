@@ -6,7 +6,7 @@ class ConnectFour
    
   def initialize
   	@player_1 = Player.build_human_player("red")
-    @game_board = Board.new
+    @board = Board.new
     @current_player = @player_1
   end
 
@@ -41,22 +41,34 @@ class ConnectFour
     puts "  For example, [5,0] would place a piece"
     puts "  in the bottom-left corner."
     puts "====================================================="
-    puts "#{current_player} enter your move:"
+    puts "#{current_player.color} player enter your move:"
+    
     move = gets.chomp
-    if move ~ /\[[0-5].[0-6]\]/
-    else
-    end
 
+    until move =~ /\[[0-5].[0-6]\]/
+      puts "Move in invalid format!, Re-Enter: "
+      move = gets.chomp
+    end 	  
+
+    return move
 
   end
 
+  def add_move(move,color)
+  	move_array = move[1..3].split(',').collect! {|n| n.to_i}
+  	
+ 	@board.game_board[move_array[0]][move_array[1]] = color
 
+  end
 
   def play
     print_instructions
     ask_player_type
-    @game_board.render
+    @board.render
 
+    move = player_move(@current_player)
+    add_move(move,@current_player.color)
+    @board.render
     # prompt player for move
     # validate_move
     # add_move
@@ -64,7 +76,6 @@ class ConnectFour
     #   quit
 
   end
-
 
   def print_instructions
     puts "====================================================="

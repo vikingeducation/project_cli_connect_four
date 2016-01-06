@@ -1,5 +1,7 @@
 class Player
   
+  attr_accessor :color
+
   def initialize(type,color)
   	@type = type
 	  @color = color
