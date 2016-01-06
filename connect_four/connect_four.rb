@@ -44,36 +44,33 @@ class ConnectFour
     puts "#{current_player.color} player enter your move:"
     
     move = gets.chomp
-
     until move =~ /\[[0-5].[0-6]\]/
       puts "Move in invalid format!, Re-Enter: "
       move = gets.chomp
     end 	  
-
     return move
-
   end
+
 
   def add_move(move,color)
   	move_array = move[1..3].split(',').collect! {|n| n.to_i}
-  	
- 	@board.game_board[move_array[0]][move_array[1]] = color
-
+ 	  @board.game_board[move_array[0]][move_array[1]] = color
   end
+
+
 
   def play
     print_instructions
     ask_player_type
     @board.render
 
-    move = player_move(@current_player)
-    add_move(move,@current_player.color)
-    @board.render
-    # prompt player for move
-    # validate_move
-    # add_move
-    # if check_winning_move
-    #   quit
+    # until someone wins?
+      move = player_move(@current_player)
+      # validate_move
+      add_move(move,@current_player.color)
+      @board.render
+      switch_player
+    # end
 
   end
 
