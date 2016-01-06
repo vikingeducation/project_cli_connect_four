@@ -12,7 +12,7 @@ class Board
   def render
 	  @game_board.each do |row|
       row.each do |piece|
-         piece == nil ? (print "  O  ") : (print piece)
+         piece == nil ? (print "  O  ") : (print "  #{piece[0,1]}  ")
       end
       puts
     end

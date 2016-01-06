@@ -82,11 +82,18 @@ class Logic
   end
  
 
-  def straight_win?(array,user_row,user_col,color)
+  def straight_win?(array,move,color)
+    user_row = move[0]
+    user_col = move[1]
+
     # check horizontal rows
-    horizontal_vertical_win?(array[user_row],color)
+    return true if horizontal_vertical_win?(array[user_row],color)
     # check vertical rows
-    horizontal_vertical_win?(array.collect {|row| row[user_col]},color)  
+    return true if horizontal_vertical_win?(array.collect {|row| row[user_col]},color)  
+    #check backslash diagonals
+    return true if backslash_diagonals(array, color, move)
+    #check forwardslash diagonals
+    return true if forwardslash_diagonals(array, color, move)
   end
     
 
@@ -106,15 +113,6 @@ class Logic
     end
     false
   end
-
-
-  def vertical
-  end
-
-
-  def diagonal
-  end
-
 
 
 end

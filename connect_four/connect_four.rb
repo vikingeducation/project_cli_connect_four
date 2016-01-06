@@ -1,5 +1,6 @@
 require_relative 'board.rb'
 require_relative 'player.rb'
+require_relative 'logic.rb'
 
 
 class ConnectFour
@@ -8,6 +9,7 @@ class ConnectFour
   	@player_1 = Player.build_human_player("red")
     @board = Board.new
     @current_player = @player_1
+    @logic = Logic.new
   end
 
 
@@ -25,9 +27,9 @@ class ConnectFour
 
   def switch_player
     if @current_player == @player_1
-      @current_player == @player_2
+      @current_player = @player_2
     else
-      @current_player == @player1
+      @current_player = @player_1
     end
   end
 
@@ -41,7 +43,7 @@ class ConnectFour
     puts "  For example 5,0 would place a piece"
     puts "  in the bottom-left corner."
     puts "====================================================="
-    # puts "#{current_player.color} player enter your move:"
+    puts "#{@current_player.color} player enter your move:"
     
     move = gets.chomp
     until move =~ /[0-5].[0-6]/
@@ -53,7 +55,7 @@ class ConnectFour
   end
 
 
-  def add_move(move,color)
+  def add_move(move_array,color)
  	  @board.game_board[move_array[0]][move_array[1]] = color
   end
 
@@ -64,13 +66,20 @@ class ConnectFour
     ask_player_type
     @board.render
 
-    # until someone wins?
+    loop do
       move = player_move(@current_player)
       # validate_move
       add_move(move,@current_player.color)
       @board.render
-      switch_player
-    # end
+
+      if @logic.straight_win?(@board.game_board,move,@current_player.color)
+        puts "Congratulations #{@current_player}, you win!"
+        break
+      end
+        
+      @current_player = switch_player
+
+    end
 
   end
 
