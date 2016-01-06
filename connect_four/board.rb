@@ -71,7 +71,19 @@ class Board
   end
 
   def four_diagonal?
-    #check for diagnol win
+    
+  end
+
+  def check_diagonal_right(row, column)
+
+  end
+
+  def get_diagonal_right(row, column)
+    column_range = (0..6).to_a
+    row_range = (0..5).to_a
+    diagonal_array = []
+
+    
   end
 
   def four_vertical?
@@ -83,12 +95,12 @@ class Board
     return false
   end
 
-  def draw?
-    !win? && board_full?
+  def draw?(row, column)
+    !win?(row, column) && board_full?
   end
 
-  def win?
-    four_diagonal? || four_vertical? || four_horizontal?   
+  def win?(row, column)
+    four_diagonal?(row, column) || four_vertical? || four_horizontal?   
   end
 
 end

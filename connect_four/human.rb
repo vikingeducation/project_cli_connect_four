@@ -5,6 +5,7 @@ class Human < Player
     puts "Please select the column: "
     column = gets.chomp.to_i
     if validate_column?(column)
+      @column = column
       return column
     else
       puts "Invalid column"

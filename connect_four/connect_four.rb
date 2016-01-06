@@ -16,13 +16,14 @@ class ConnectFour
     display_instructions
     color_prompt
     opponent_prompt(@player_1.color)
-    player = @player_1
+    player = @player_2
 
-    until @board.win? || @board.draw? do
+    until @board.win?(player.row, player.column) || @board.draw? do
       @board.render
+      player = switch_player(player)
 
       puts "It is #{player.color}'s turn"
-      if player.add_piece(player.select_move, @board)
+      if !player.add_piece(player.select_move, @board)
         player = switch_player(player)
       else
         next
@@ -57,6 +58,9 @@ class ConnectFour
     player == @player_1 ? player = @player_2 : player = @player_1
   end
   
+  def make_move
+
+  end
 
 end
 
