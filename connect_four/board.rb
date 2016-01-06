@@ -70,20 +70,90 @@ class Board
     return false
   end
 
-  def four_diagonal?
-    
+  def check_diagonal_upper_right(row, column)
+    check_array = [@board[row][column]]
+    temp_row = row
+    temp_column = column
+
+    5.times do
+
+      temp_row -= 1
+      temp_column += 1
+
+      unless temp_row < 1 || temp_column > 6
+        check_array << @board[temp_row][temp_column]
+      else
+        return check_array
+      end
+
+    end
   end
 
-  def check_diagonal_right(row, column)
+  def check_diagonal_lower_left(row, column)
+    check_array = []
+    temp_row = row
+    temp_column = column
+
+    5.times do 
+      temp_row += 1
+      temp_column -= 1
+
+      unless temp_row > 6 || temp_column < 0
+        check_array << @board[temp_row][temp_column]
+      else
+        return check_array.reverse
+      end      
+    end    
+
+  end
+
+  def check_diagonal_upper_left(row, column)
+    check_array = [@board[row][column]]
+    temp_row = row
+    temp_column = column
+
+    5.times do
+
+      temp_row -= 1
+      temp_column -= 1
+
+      unless temp_row < 1 || temp_column < 0
+        check_array << @board[temp_row][temp_column]
+      else
+        return check_array.reverse
+      end
+
+    end
+  end
+
+  def check_diagonal_lower_right(row, column)
+    check_array = []
+    temp_row = row
+    temp_column = column
+
+    5.times do 
+      temp_row += 1
+      temp_column += 1
+
+      unless temp_row > 6 || temp_column > 6
+        check_array << @board[temp_row][temp_column]
+      else
+        return check_array
+      end      
+    end    
 
   end
 
   def get_diagonal_right(row, column)
-    column_range = (0..6).to_a
-    row_range = (0..5).to_a
-    diagonal_array = []
+    diagnoal_right = check_diagonal_lower_left + check_diagonal_upper_right
+  end
 
-    
+  def get_diagonal_left(row, column)
+    diagonal_left = check_diagonal_upper_left + check_diagonal_lower_right
+  end
+
+  def four_diagonal?(row, column)
+    check_four?(get_diagonal_right(row, column)) || check_four?(get_diagonal_left(row,column))
   end
 
   def four_vertical?
