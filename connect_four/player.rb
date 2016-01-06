@@ -1,7 +1,7 @@
 class Player
 	attr_accessor :symbol
 
-  def choose_symbol(player)
+  def choose_symbol
   	puts "Do you want to be 'x' or 'o'"
   	@symbol = gets.chomp.upcase.to_sym
   end
@@ -10,5 +10,7 @@ class Player
     puts "Which column do you want to place your piece? (1-7)"
     column = gets.chomp.to_sym
   end
+
+
   
 end
