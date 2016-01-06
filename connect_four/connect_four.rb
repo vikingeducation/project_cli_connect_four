@@ -15,13 +15,14 @@ class ConnectFour
 
   def set_symbol
     @turn.choose_symbol
-    @player1.symbol == :X ? @player2.symbol = :O : @player2.symbol = :X
+    @player1.symbol == "X" ? @player2.symbol = "O" : @player2.symbol = "X"
   end
 
   def play
     until @game_status
     	@turn.choose_column
       @board.add_piece(@turn.symbol, @turn.column)
+      @board.render
       # check_game_over
       switch_players
     end
@@ -43,7 +44,7 @@ class ConnectFour
 
   # check if winning combination exists
   def check_victory
-    if winning_combination?
+    if @board.winning_combination?(@turn.symbol)
       winner = @turn
       puts "You won #{winner}!"
       @game_status = true

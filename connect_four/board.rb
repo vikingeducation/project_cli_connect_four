@@ -4,49 +4,57 @@ class Board
   # grid is in rows and columns, beginning of a column is the "top" of the board
 
   def initialize
-    @grid = {}
-    (0..6).each do |row|
+    @grid = []
+    (0..5).each do |row|
       @grid[row] = []
-      (0..5).each do |col|
+      (0..6).each do |col|
         @grid[row][col] = "_ "
       end
     end
   end
 
-  def add_piece(sym, col)
-    if (sym == :X)
-      piece = 'X'
-    elsif(sym == :O)
-      piece = 'O'
-    end
+  def add_piece(piece, col)
 
     # @grid[row][col] 
-    6.downto(0).each do |row|
-      if @grid[row][col] != '_ '
-        board[row+1][col] == piece
+    (0..6).each do |row|
+      if @grid[row][col] == "_ "
+        @grid[row][col] = "#{piece} "
+        break
       end
     end
   end
 
-  def to_s
-    (0..5).each do |row|
+  def render
+    # 6.downto(0).each do |row|
+    #   puts
+    #   (0..5).each do |cols|
+    #     print @grid[row][cols]
+    #   end
+    # end
+    5.downto(0).each do |row|
       puts
       (0..6).each do |cols|
-        print @grid[cols][row]
+        print @grid[row][cols]
       end
     end
-
   end
 
-  def winning_combination?
+  def winning_combination?(sym)
     #return true or false
     # 4 diagonal, horizontal, vertical
+    winning_diagonal?(sym) ||
+    winning_horizontal?(sym) ||
+    winning_vertical?(sym)
   end
 
   def winning_diagonal?
+
   end
+
   def winning_horizontal?
+
   end
+
   def winning_vertical?
   end
 
