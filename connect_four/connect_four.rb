@@ -13,6 +13,16 @@ class ConnectFour
   end
 
 
+  def print_instructions
+    puts "====================================================="
+    puts " Welcome to Connect Four! The object of the game"
+    puts " is to get four pieces in a row. Your pieces can"
+    puts " be vertical, horizontal, or diagonal."
+    puts "====================================================="
+  end
+
+
+
   def ask_player_type
     
     input = ""
@@ -67,12 +77,16 @@ class ConnectFour
     @board.render
 
     loop do
-      move = player_move(@current_player)
+      move_array = player_move(@current_player)
       # validate_move
-      add_move(move,@current_player.color)
+      until @board.valid_move?(move_array)
+        move_array = player_move(@current_player)
+      end
+
+      add_move(move_array,@current_player.color)
       @board.render
 
-      if @logic.straight_win?(@board.game_board,move,@current_player.color)
+      if @logic.straight_win?(@board.game_board,move_array,@current_player.color)
         puts "Congratulations #{@current_player}, you win!"
         break
       end
@@ -82,15 +96,6 @@ class ConnectFour
     end
 
   end
-
-  def print_instructions
-    puts "====================================================="
-    puts " Welcome to Connect Four! The object of the game"
-    puts " is to get four pieces in a row. Your pieces can"
-    puts " be vertical, horizontal, or diagonal."
-    puts "====================================================="
-  end
-
 
 
 end	

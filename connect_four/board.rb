@@ -6,7 +6,7 @@ class Board
   @@ROWS = 6
 
   def initialize
-    @game_board = Array.new(6){Array.new(7)}
+    @game_board = Array.new(@@ROWS){Array.new(@@COLS)}
   end
 
   def render
@@ -19,9 +19,29 @@ class Board
   end
 
 
+  def valid_move?(move_array)
+    # make sure slot is empty (nil)
+    if @game_board[move_array[0]][move_array[1]] != nil
+      puts "That spot is not empty, please try again."
+      return false
+    # make sure it's the lowest empty column (nil)
+    elsif @game_board[move_array[0]] != (@@ROWS-1)
+      if @game_board[move_array[0]+1][move_array[1]] = nil
+        puts "You must place your piece in the lowest empty position."
+        puts "Please try again."
+        return false
+      end
+    end
+    true
+  end
+
+
+
+
 end	
 
-
+b = Board.new
+b.valid_move?
 
 # 0,0   0,1   0,2   0,3   0,4   0,5    0,6
 # 1,0   1,1   1,2   1,3   1,4   1,5    1,6
