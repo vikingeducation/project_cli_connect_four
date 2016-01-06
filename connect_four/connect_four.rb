@@ -16,11 +16,14 @@ class ConnectFour
     display_instructions
     color_prompt
     opponent_prompt(@player_1.color)
-    
+    player = @player_1
 
     until @board.win? || @board.draw? do
       @board.render
-      @player_1.add_piece(@player_1.select_move, @board)
+
+      puts "It is #{player.color}'s turn"
+      player.add_piece(player.select_move, @board)
+      player = switch_player(player)    
     end
   end
 
@@ -46,6 +49,9 @@ class ConnectFour
     color == "B" ? "R" : "B"
   end
 
+  def switch_player(player)
+    player == @player_1 ? player = @player_2 : player = @player_1
+  end
   
 
 end

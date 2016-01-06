@@ -20,7 +20,7 @@ class Board
 
   def column_full?(column)
     @board.each do |row_number, row|
-      if row[column] == "0"
+      if row[column - 1] == "0"
         return false
       end
     end
