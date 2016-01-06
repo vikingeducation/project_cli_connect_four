@@ -40,11 +40,13 @@ class ConnectFour
       #process the move
       #update the gameboard
       if @current_player
-        @player_1
+        @board.place_disk( Disk.make_player_1_disk,  player_move  - 1)
       else
-
+        @board.place_disk( Disk.make_player_2_disk, player_move  - 1 )
       end
 
+      @current_player = !@current_player
+     
       #check win/draw conditions
       #break out if true otherwise continue
 

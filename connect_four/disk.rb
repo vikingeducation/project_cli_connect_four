@@ -1,4 +1,6 @@
 class Disk
+
+    attr_reader :owner
   def initialize(owner)
     @owner = owner
   end
@@ -7,11 +9,11 @@ class Disk
 
   #factory methods
   def self.make_player_1_disk
-    new( 1 )
+    new( "1" )
   end
 
   def self.make_player_2_disk
-    new( 2 )
+    new( "2" )
   end
   
 end
