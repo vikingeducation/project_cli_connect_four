@@ -17,13 +17,19 @@ class ConnectFour
   def play
     print_intro
 
-    counter = 0
+    current_player = get_current_player # initially
+
     loop do
       counter += 1
       break if counter == 3
 
       @board.render
+      gets.chomp #stop loop until user feedback given
+
       #ask for appropriate player turn
+      #should know which player turn it is
+
+      get current player (make a method)
 
       #validate the input (valid move)
       #valid the move/column
@@ -33,7 +39,12 @@ class ConnectFour
 
       #check win/draw conditions
       #break out if true otherwise continue
+
     end
+
+  end
+
+  def get_current_player
 
   end
 
