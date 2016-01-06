@@ -23,6 +23,7 @@ class ConnectFour
     	@turn.choose_column
       @board.add_piece(@turn.symbol, @turn.column)
       @board.render
+      check_game_over
       # check_game_over
       switch_players
     end
@@ -39,7 +40,7 @@ class ConnectFour
 
   def check_game_over
     check_victory
-    check_draw
+    # check_draw
   end
 
   # check if winning combination exists
