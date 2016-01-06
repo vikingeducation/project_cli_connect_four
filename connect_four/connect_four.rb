@@ -1,5 +1,3 @@
-
-
 require './player.rb'
 require './board.rb'
 require './disk.rb'
@@ -17,8 +15,10 @@ class ConnectFour
   end
 
   def print_intro
+    puts
     puts "Welcome to Connect Four!"
     puts "Enter number of players (1 or 2):"
+    puts
   end
 
   def play
@@ -28,21 +28,22 @@ class ConnectFour
 
     loop do
 
+      #prints board
       @board.render
 
-      player_move = get_user_input 
+      #obtain valid user move
+      player_move = get_user_input
       until @board.valid_move? ( player_move )
           player_move = get_user_input
-          if @current_player
-          else
-          end
-
-      #valid the move/column
       end
-      
 
       #process the move
       #update the gameboard
+      if @current_player
+        @player_1
+      else
+
+      end
 
       #check win/draw conditions
       #break out if true otherwise continue
@@ -53,12 +54,13 @@ class ConnectFour
 
   def get_user_input
     loop do
-        input = CLI.ask "enter a column 1-7 inclusive"
+        input = CLI.ask "Please enter a valid column from 1 to 7:"
         case input
-        when /[1-7]/
+        when /^[1-7]$/
             return input.to_i
         else
-            "need valid column"
+            puts "INVALID INPUT!"
+            puts
             next
         end
     end
