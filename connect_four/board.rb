@@ -37,14 +37,13 @@ class Board
         break
       end
     end
-
   end
 
   def end_conditions?
     #check for connect 4 along rows
     @board.each do |row|
       (0...NUM_COLS - FOUR + 1).each do |i|
-        return true if check_array(row[i...i+4])
+        return true if check_array( row[i...i+FOUR] )
       end
     end
 
@@ -53,7 +52,7 @@ class Board
       (0...NUM_ROWS - 4 + 1).each do |row|
 
         col_array = []
-        (0...4).each do |index|
+        (0...FOUR).each do |index|
           col_array << @board[row + index][col]
         end
 
@@ -64,15 +63,20 @@ class Board
     #check diagonals
     
 
+
     return false
   end
 
   def check_array(arr)
+    
+    # puts arr.inspect
     #checks for full array
     return false if arr.any? { |square| square == nil }
+    
     #if array is full then check for winner
-    return true if arr.all? { |square| square.owner == 1 }
-    return true if arr.all? { |square| square.owner == 2 }
+    return true if arr.all? { |square| square.owner == "1" }
+    return true if arr.all? { |square| square.owner == "2" }
+    
     #otherwise return false
     false
   end

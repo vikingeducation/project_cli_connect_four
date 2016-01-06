@@ -24,12 +24,12 @@ class ConnectFour
   def play
     print_intro
 
-    current_player = get_current_player # initially
-
     loop do
 
       #prints board
       @board.render
+
+       puts @current_player  ?  "Player 1  turn:" : "Player 2 turn:"
 
       #obtain valid user move
       player_move = get_user_input
@@ -45,11 +45,18 @@ class ConnectFour
         @board.place_disk( Disk.make_player_2_disk, player_move  - 1 )
       end
 
+
+      if @board.end_conditions?
+        if @current_player 
+            puts "Congratulations. Player 1 wins"
+        else
+            puts "Congratulations. Player 2 wins"
+        end
+        @board.render
+        break
+      end
+      
       @current_player = !@current_player
-
-      #check win/draw conditions
-      #break out if true otherwise continue
-
     end
 
   end
