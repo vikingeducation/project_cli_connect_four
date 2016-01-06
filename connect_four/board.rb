@@ -48,4 +48,28 @@ class Board
     end
     string
   end
+
+  def check_game_status
+  #player1, player2 wins, board full/draw
+    if board_full? 
+      puts "Game is a draw."
+    elsif win?('red')
+     return 'red'
+    elsif win?('black')
+     return 'black'
+    end  
+  end
+
+  end
+
+  def board_full?
+
+  end
+
+  def win?(team_color)
+
+
+  end
+
+
 end
