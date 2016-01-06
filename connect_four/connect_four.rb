@@ -25,42 +25,50 @@ class ConnectFour
     print_intro
 
     loop do
-
       #prints board
       @board.render
-
-       puts @current_player  ?  "Player 1  turn:" : "Player 2 turn:"
-
+      #prints current player turn
+      puts @current_player  ?  "Player 1  turn" : "Player 2 turn"
       #obtain valid user move
       player_move = get_user_input
       until @board.valid_move? ( player_move )
           player_move = get_user_input
       end
-
-      #process the move
-      #update the gameboard
+      #process move and update board
       if @current_player
         @board.place_disk( Disk.make_player_1_disk,  player_move  - 1)
       else
         @board.place_disk( Disk.make_player_2_disk, player_move  - 1 )
       end
-
-
-      if @board.end_conditions?
-        if @current_player 
-            puts "Congratulations. Player 1 wins"
-        else
-            puts "Congratulations. Player 2 wins"
-        end
-        @board.render
-        break
-      end
-      
+      #check end game conditions (winner or full board)
+      break if end_conditions?
+      #swap turns
       @current_player = !@current_player
     end
-
   end
 
+  #checks all end game conditions
+  def end_conditions?
+    #checks winner
+    if @board.win_conditions?
+      if @current_player
+          puts "Congratulations! Player 1 wins!!"
+      else
+          puts "Congratulations! Player 2 wins!!"
+      end
+      @board.render
+      return true
+    end
+    #return true if game over
+    if @board.grid_full?
+      puts "It's a draw! GAME OVER."
+      @board.render
+      return true
+    end
+    false
+  end
+
+  #obtain valid user move
   def get_user_input
     loop do
         input = CLI.ask "Please enter a valid column from 1 to 7:"
@@ -74,8 +82,6 @@ class ConnectFour
         end
     end
   end
-
-
 end
 
 game = ConnectFour.new
