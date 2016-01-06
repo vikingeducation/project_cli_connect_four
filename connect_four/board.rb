@@ -21,11 +21,24 @@ class Board
     end
 
     @grid[col].each_with_index do |spot,index|
-      if spot == 0
+      if index == 5
+        @grid[col][index] = piece
+        break
+      elsif spot == 0 
+        next
       else
         @grid[col][index-1] = piece
       end
     end
   end
 
+  def to_s
+    (0..5).each do |row|
+      puts
+      (0..6).each do |cols|
+        print @grid[cols][row]
+      end
+    end
+
+  end
 end
