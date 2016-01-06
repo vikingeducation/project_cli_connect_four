@@ -42,5 +42,26 @@ class Board
 
   end
 
-  
+  def winning_combination?
+    #return true or false
+    # 4 diagonal, horizontal, vertical
+  end
+
+  def winning_diagonal?
+  end
+  def winning_horizontal?
+  end
+  def winning_vertical?
+  end
+
+  def diagonals
+    
+  end
+
+  def verticals
+
+  end
+
+  def horizontals
+  end
 end

@@ -1,8 +1,9 @@
 class Player
+	attr_accessor :symbol
 
-  def choose_color(player)
+  def choose_symbol(player)
   	puts "Do you want to be 'x' or 'o'"
-  	@team = gets.chomp.upcase.to_sym
+  	@symbol = gets.chomp.upcase.to_sym
   end
 
   def choose_column

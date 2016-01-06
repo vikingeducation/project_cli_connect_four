@@ -10,28 +10,46 @@ class ConnectFour
     @player2 = Player.new
     @turn = @player1
     @win? = false
+    set_symbol
+  end
+
+  def set_symbol
+    @turn.choose_symbol
+    @turn.symbol == 'x' ? @player2.symbol = 'o' : @player2.symbol = 'x'
   end
 
   def play
     until @win?
-
-    	@player1.choose_color
-    	@player1.color == 'x' ? @player2.color = 'o' : @player2.color = 'x'
-    	@player1.choose_column
-
-
-      if @turn == @player1
-        @turn = @player2
-      else
-        @turn = @player1
-      end
+    	@turn.choose_column
+      check_game_over
+      switch_players
     end
 
   end
 
+
+  def switch_players
+    if @turn == @player1
+      @turn = @player2
+    else
+      @turn = @player1
+    end
+  end
+
+  def check_game_over
+  end
+
   # check if winning combination exists
-  def check_win
-    
+  def check_victory
+    if winning_combination?
+      winner = @turn
+    elsif player2 wins?
+    else
+      draw
+    end
+  end
+
+  def check_draw
   end
   
 end
