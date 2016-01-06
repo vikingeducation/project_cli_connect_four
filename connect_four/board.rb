@@ -4,6 +4,7 @@ require "./disk"
 class Board
   NUM_ROWS = 6
   NUM_COLS = 7
+  FOUR = 4
 
   def initialize
     @board = Array.new(NUM_ROWS) { Array.new(NUM_COLS) }
@@ -39,8 +40,41 @@ class Board
 
   end
 
-  def end_conditions?()
+  def end_conditions?
+    #check for connect 4 along rows
+    @board.each do |row|
+      (0...NUM_COLS - FOUR + 1).each do |i|
+        return true if check_array(row[i...i+4])
+      end
+    end
 
+    #check every column for 4 vertical
+    (0...NUM_COLS).each do |col|
+      (0...NUM_ROWS - 4 + 1).each do |row|
+
+        col_array = []
+        (0...4).each do |index|
+          col_array << @board[row + index][col]
+        end
+
+        return true if check_array(col_array)
+      end
+    end
+
+    #check diagonals
+    
+
+    return false
+  end
+
+  def check_array(arr)
+    #checks for full array
+    return false if arr.any? { |square| square == nil }
+    #if array is full then check for winner
+    return true if arr.all? { |square| square.owner == 1 }
+    return true if arr.all? { |square| square.owner == 2 }
+    #otherwise return false
+    false
   end
 
 end

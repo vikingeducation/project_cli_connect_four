@@ -46,7 +46,7 @@ class ConnectFour
       end
 
       @current_player = !@current_player
-     
+
       #check win/draw conditions
       #break out if true otherwise continue
 
@@ -68,11 +68,6 @@ class ConnectFour
     end
   end
 
-
-
-  def get_current_player
-
-  end
 
 end
 
