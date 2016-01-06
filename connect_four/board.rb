@@ -49,20 +49,15 @@ class Board
     return false
   end
 
-  def four_vertical?
-    6.downto(4).to_a.each do |row_number|
-      byebug
-      row = @board[row_number]
-      column_array = []
+  def check_vertical?(column)
+    column_array = []
 
-      row.each do |column|
-        column_array << column
-      end
-
+    @board.each do |row_number, row|
+      #byebug
+      column_array << row[column]
       if check_four?(column_array)
         return true
       end
-
     end
     return false
   end
@@ -77,6 +72,15 @@ class Board
 
   def four_diagonal?
     #check for diagnol win
+  end
+
+  def four_vertical?
+    6.downto(0).to_a.each do |column|
+      if check_vertical?(column)
+        return true
+      end
+    end
+    return false
   end
 
   def draw?
