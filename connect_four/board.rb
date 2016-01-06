@@ -2,7 +2,6 @@ class Board
 
   def initialize
     @board = {}
-
   end
 
   def setup
@@ -17,8 +16,25 @@ class Board
     end
   end
 
-  def column_full?
-    #checks if column is full, return true/false
+  def column_full?(column)
+    self.board.each do |row_number, row|
+      if row[column] == "0"
+        return false
+      end
+    end
+    true
+  end
+
+  def board_full?
+    (1..7).to_a.each do |column|
+      unless column_full?(column)
+        return false
+      end
+    end
+  end
+
+  def position_empty?(position)
+    position == "0" ? true : false
   end
 
   def four_horizontal?
@@ -31,6 +47,10 @@ class Board
 
   def four_diagonal?
     #check for diagnol win
+  end
+
+  def draw?
+    !win? && board_full?
   end
 
   def win?

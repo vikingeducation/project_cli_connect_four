@@ -1,26 +1,24 @@
+require_relative 'board.rb'
+
 class Player
 
   def initialize
     @color_piece = nil
+    @board = Board.new # for testing purposes
   end
 
   def add_piece(column)
     #add piece to the board
-    #iterate of hash
-    #Check if column is full
-    #if value at index is "0" (Check from bottom up)
-      #Change value to piece_color
-      #break   
+    unless column_full?(column)
+      6.downto(1).to_a.each do |row|
+        if position_empty(@board[row][column])
+          @board[row][column] = @color_piece
+          break
+        end
+      end
+    end   
   end
 
-end
-
-class Computer < Player
-
-
-end
-
-class Human < Player
 
 
 end
