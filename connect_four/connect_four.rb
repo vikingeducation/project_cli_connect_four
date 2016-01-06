@@ -29,15 +29,12 @@ class ConnectFour
       team = @players[index].team_color
       @board.add_piece(team,column)
       puts @board.to_s
-      #check for a win here
+      status = check_game_status
       #check if board is full (draw)
       index = switch_players(index)
     end
   end
 
-  def check_game_status
-    
-  end
   
   def switch_players(players_index)
     if players_index == 0

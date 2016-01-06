@@ -39,11 +39,13 @@ class Board
   end
 
   def to_s
+    string = ""   
     0.upto(5).each do |row|
       0.upto(6).each do |cols|
-        print @grid[cols][row]
+        string << "#{@grid[cols][row]}"
       end
-      puts ''
+      string << "\n"
     end
+    string
   end
 end
