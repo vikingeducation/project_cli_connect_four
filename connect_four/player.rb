@@ -5,13 +5,13 @@ class Player
     @team_color = choose_color
   end
 
-  def choose_color(player)
+  def choose_color
   	puts "Do you want to be red or black?"
-  	gets.chomp.to_sym
+  	gets.chomp
   end
 
   def choose_column
-    puts "Which column do you want to place your piece? (1-7)"
-    column = gets.chomp.to_sym
+    puts "#{@team_color.to_s.capitalize}, which column do you want to place your piece? (1-7)"
+    column = gets.chomp.to_i
   end
 end
