@@ -22,9 +22,13 @@ class ConnectFour
       @board.render
 
       puts "It is #{player.color}'s turn"
-      player.add_piece(player.select_move, @board)
-      player = switch_player(player)    
+      if player.add_piece(player.select_move, @board)
+        player = switch_player(player)
+      else
+        next
+      end
     end
+    puts "Congratulations, you win!"
   end
 
   def display_instructions

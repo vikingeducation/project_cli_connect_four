@@ -24,7 +24,6 @@ class Board
         return false
       end
     end
-    puts "Column full"
     true
   end
 
@@ -41,11 +40,39 @@ class Board
   end
 
   def four_horizontal?
-    #check for horizontal win
+    @board.each do |row_number, row|
+      # byebug
+      if check_four?(row)
+        return true
+      end
+    end
+    return false
   end
 
   def four_vertical?
-    #check for vertical win
+    6.downto(4).to_a.each do |row_number|
+      byebug
+      row = @board[row_number]
+      column_array = []
+
+      row.each do |column|
+        column_array << column
+      end
+
+      if check_four?(column_array)
+        return true
+      end
+
+    end
+    return false
+  end
+
+  def check_four?(array)
+    check_string = array.join("")
+    if check_string.include?("RRRR") || check_string.include?("BBBB")
+      return true
+    end
+    return false
   end
 
   def four_diagonal?
