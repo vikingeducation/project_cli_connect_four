@@ -1,14 +1,14 @@
 class Board
   attr_accessor :grid
 
-  # grid is in rows and columns, beginning of a column is the "top" of the board
+  # grid is in rows and columns, beginning (index 0) of a column is the "top" of the board
 
   def initialize
     @grid = []
     (0..6).each do |col|
       @grid[col] = []
       (0..5).each do |row|
-        @grid[col][row] = 0
+        @grid[col][row] = "O"
       end
     end
   end
@@ -20,14 +20,20 @@ class Board
       piece = 'B'
     end
 
-    @grid[col].each_with_index do |spot,index|
-      if index == 5
-        @grid[col][index] = piece
-        break
-      elsif spot == 0 
-        next
+    @grid[col].each_with_index do |item,index|
+      if item == "O"
+        if index == 5
+          @grid[col][index] = piece
+          break
+        else
+          next
+        end
       else
-        @grid[col][index-1] = piece
+        if index == 0
+          return false
+        else
+          @grid[col][index-1] = piece
+        end
       end
     end
   end
@@ -39,6 +45,5 @@ class Board
         print @grid[cols][row]
       end
     end
-
   end
 end
