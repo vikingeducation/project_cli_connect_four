@@ -28,7 +28,7 @@ class ConnectFour
       #prints board
       @board.render
       #prints current player turn
-      puts @current_player  ?  "Player 1  turn" : "Player 2 turn"
+      puts @current_player  ?  "Player 1's  turn" : "Player 2's turn"
       #obtain valid user move
       player_move = get_user_input
       until @board.valid_move? ( player_move )
@@ -44,6 +44,8 @@ class ConnectFour
       break if end_conditions?
       #swap turns
       @current_player = !@current_player
+      #clear screen
+      system("clear")
     end
   end
 

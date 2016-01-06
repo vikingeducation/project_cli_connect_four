@@ -16,7 +16,7 @@ class Board
     (NUM_ROWS - 1).downto 0 do | i |
       @board[i].each do |square|
         if square.nil?
-          print "o "
+          print "- "
         else
           print "#{square.owner} "
         end
