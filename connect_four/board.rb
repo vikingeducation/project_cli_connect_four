@@ -24,6 +24,7 @@ class Board
         return false
       end
     end
+    puts "Column full"
     true
   end
 

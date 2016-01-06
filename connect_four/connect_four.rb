@@ -8,17 +8,19 @@ class ConnectFour
   def initialize
     @board = Board.new
     @board.setup
-    @player_1 = Human.new
+    @player_1 = nil
+    @player_2 = nil
   end
 
   def play_connect_four
     display_instructions
-    opponent_prompt
     color_prompt
+    opponent_prompt(@player_1.color)
+    
 
     until @board.win? || @board.draw? do
       @board.render
-      @player_1.add_piece(@player_1.select_move)
+      @player_1.add_piece(@player_1.select_move, @board)
     end
   end
 
@@ -26,13 +28,25 @@ class ConnectFour
 
   end
 
-  def opponent_prompt
-
-  end
-
   def color_prompt
-
+    puts "Please select a color, R for red and B for black: "
+    color = gets.chomp.upcase
+    @player_1 = Human.new(color)
   end
+
+  def opponent_prompt(color)
+    puts "Please select your opponent (type 1 for human, 2 for computer): "
+    opponent = gets.chomp
+    if opponent == "1" || opponent == "2"
+      opponent == "1" ? @player_2 = Human.new(opponent_color(color)) : @player_2 = Computer.new(opponent_color(color))
+    end
+  end
+
+  def opponent_color(color)
+    color == "B" ? "R" : "B"
+  end
+
+  
 
 end
 

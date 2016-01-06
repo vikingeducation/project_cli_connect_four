@@ -1,5 +1,6 @@
 class Human < Player
 
+
   def select_move
     puts "Please select the column: "
     column = gets.chomp.to_i
