@@ -7,3 +7,4 @@ Game loop
 Game instructions
 
 Note which methods should be private
+Fix "unless each" loops

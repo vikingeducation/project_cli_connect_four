@@ -7,7 +7,8 @@ class ConnectFour
 
   def initialize
     @board = Board.new
-    @board.setup
+    # @board.setup
+    @board.test
     @player_1 = nil
     @player_2 = nil
   end
@@ -18,7 +19,7 @@ class ConnectFour
     opponent_prompt(@player_1.color)
     player = @player_2
 
-    until @board.win?(player.row, player.column) || @board.draw? do
+    until @board.win?(player.row, player.column) || @board.draw?(player.row, player.column) do
       @board.render
       player = switch_player(player)
 

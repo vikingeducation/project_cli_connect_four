@@ -8,8 +8,8 @@ class Player
 
   def initialize(color)
     @color = color
-    @column = nil
-    @row = nil
+    @column = 3
+    @row = 3
   end
 
   def add_piece(column, board)

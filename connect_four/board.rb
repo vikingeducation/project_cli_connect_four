@@ -12,6 +12,15 @@ class Board
     return nil
   end
 
+  def test
+    @board[1] = ["0", "0", "0", "0", "0", "0", "0"]
+    @board[2] = ["0", "0", "0", "0", "0", "0", "0"]
+    @board[3] = ["0", "0", "0", "0", "0", "0", "0"]
+    @board[4] = ["0", "0", "R", "B", "0", "0", "0"]
+    @board[5] = ["0", "R", "B", "B", "0", "0", "0"]
+    @board[6] = ["R", "B", "B", "B", "0", "0", "0"]
+  end
+
   def render
     @board.each do |key, value|
       print "#{value}\n"
@@ -53,7 +62,6 @@ class Board
     column_array = []
 
     @board.each do |row_number, row|
-      #byebug
       column_array << row[column]
       if check_four?(column_array)
         return true
@@ -87,6 +95,7 @@ class Board
       end
 
     end
+    check_array
   end
 
   def check_diagonal_lower_left(row, column)
@@ -104,7 +113,7 @@ class Board
         return check_array.reverse
       end      
     end    
-
+    check_array
   end
 
   def check_diagonal_upper_left(row, column)
@@ -124,9 +133,11 @@ class Board
       end
 
     end
+    check_array
   end
 
   def check_diagonal_lower_right(row, column)
+    #byebug
     check_array = []
     temp_row = row
     temp_column = column
@@ -141,15 +152,16 @@ class Board
         return check_array
       end      
     end    
-
+    check_array
   end
 
   def get_diagonal_right(row, column)
-    diagnoal_right = check_diagonal_lower_left + check_diagonal_upper_right
+    # byebug
+    diagonal_right = check_diagonal_lower_left(row, column) + check_diagonal_upper_right(row, column)
   end
 
   def get_diagonal_left(row, column)
-    diagonal_left = check_diagonal_upper_left + check_diagonal_lower_right
+    diagonal_left = check_diagonal_upper_left(row, column) + check_diagonal_lower_right(row, column)
   end
 
   def four_diagonal?(row, column)
