@@ -101,6 +101,7 @@ Human
 
     try invalid input, make sure we do not get an integer back
       HAVING PROBLEM WITH INFINITE LOOP
+      ask different question, you would have to do it with stubs
 
 ======================================  
 Player
