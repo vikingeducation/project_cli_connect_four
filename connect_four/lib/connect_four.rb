@@ -6,6 +6,7 @@ require "highline"
 CLI = HighLine.new
 
 class ConnectFour
+
   def initialize
     @board = Board.new
     @current_player = true
@@ -100,5 +101,5 @@ class ConnectFour
   end
 end
 
-game = ConnectFour.new
-game.play
+# game = ConnectFour.new
+# game.play

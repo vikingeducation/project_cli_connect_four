@@ -15,11 +15,9 @@ class Computer
 
    def move
     check_win = @board.winning_move
-    puts check_win.inspect
+    #puts check_win.inspect
     return check_win if check_win
     random_move
    end
-
-
 
 end
