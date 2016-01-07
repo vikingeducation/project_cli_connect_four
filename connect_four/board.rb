@@ -123,7 +123,7 @@ class Board
 
   #makes a deep copy of board
   def dup
-    copy = empty_board
+    copy = Board.new
     (0...NUM_ROWS).each do |row|
       (0...NUM_COLS).each do |col|
         square = @board[row][col]
@@ -131,5 +131,16 @@ class Board
       end
     end
   end
+
+   def winning_move
+      (0..6).each do | col |
+        copy_board = @board.dup
+        copy_board.place_disk(  Disk.make_player_2_disk, col )
+        return col if copy_board.win_conditions? 
+      end
+
+      return nil
+   end 
+
 
 end
