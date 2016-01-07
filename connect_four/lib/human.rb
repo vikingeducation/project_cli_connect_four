@@ -1,5 +1,6 @@
-class Human < Player
+require_relative 'player.rb'
 
+class Human < Player
 
   def select_move
     puts "Please select the column: "
