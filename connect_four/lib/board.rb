@@ -88,7 +88,21 @@ class Board
 
 
   def check_board_full?
+
+
+
+
     @game_board.any?(&:nil?) # may be backwards
+  end
+
+
+  def check_board_empty?
+    @game_board.each do |row|
+      unless row.all?(&:nil?)
+        return false
+      end
+    end
+    true
   end
     
 

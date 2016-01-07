@@ -28,8 +28,8 @@ describe Human do
     end
 
     it "does not return invalid input" do
-      allow(human).to receive(:gets).and_return("A", "1")
-      expect(human.player_move).to be_an_instance_of(NilClass)
+      allow(human).to receive(:gets).and_return("A", "6")
+      expect(human.player_move).to be_an_instance_of(Fixnum)
     end
   end
 end

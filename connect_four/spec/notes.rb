@@ -100,13 +100,15 @@ Human
     make sure we get an integer back
 
     try invalid input, make sure we do not get an integer back
-      HAVING PROBLEM WITH INFINITE LOOP
+  
 
 ======================================  
 Player
   initialize
   self.build_human_player
   self.build_computer_player
+
+  test attr_accessor :color
 
   test initialize
     not pass a color returns an ArgumentError
