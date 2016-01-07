@@ -68,6 +68,7 @@ class ConnectFour
     end
   end
 
+  # Sets opponent color to opposite of player's
   def opponent_color(color)
     color == "B" ? "R" : "B"
   end

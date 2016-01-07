@@ -13,8 +13,6 @@ class Player
   end
 
   def add_piece(column, board)
-    # byebug
-    #add piece to the board
     if board.column_full?(column)
       return false
     else
