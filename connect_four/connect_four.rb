@@ -31,12 +31,10 @@ class ConnectFour
       column = @players[index].choose_column
       team = @players[index].team_color
       @board.add_piece(team,column)
+
+      puts @board.to_s
       
-      status = check_game_status
-
-      # stop playing if status is anything but false
-      @playing = !status
-
+      status = @board.check_game_status
       case status
       when 'red'
         puts "Red wins!"
@@ -46,7 +44,8 @@ class ConnectFour
         puts "Game ends in a draw!"
       end
 
-      puts @board.to_s
+      # stop playing if status is anything but false
+      @playing = !status
 
       index = switch_players(index)
     end

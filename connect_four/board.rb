@@ -22,7 +22,7 @@ class Board
   end
 
   def add_piece(team, col)
-    piece = team_to_piece
+    piece = team_to_piece(team)
 
     @grid[col].each_with_index do |item,index|
       if item == "-"
@@ -58,11 +58,11 @@ class Board
   def check_game_status
     #player1, player2 wins, board full/draw
     if board_full? 
-      return 'draw'
+      'draw'
     elsif win?('red')
-      return 'red'
+      'red'
     elsif win?('black')
-      return 'black'
+      'black'
     else
       false
     end  
@@ -73,27 +73,20 @@ class Board
   end
 
   def win?(team_color)
-    if  horizontal_win?(team_color) ||
-        vertical_win?(team_color) ||
-        diagonal_win?(team_color)
-      true
-    else
-      false
-    end
+    horizontal_win?(team_color) ||
+    vertical_win?(team_color) ||
+    diagonal_win?(team_color)
   end
 
   def horizontal_win?(team_color)
-    piece = team_to_piece(team_color)
     0.upto(5).each do |row|
-      connected_pieces = 0
+      row_pieces = []
       0.upto(6).each do |col|
-        if @board[col][row] == piece
-          connected_pieces += 1
-        else
-          connected_pieces = 0
-        end
+        row_pieces << @grid[col][row]
       end
-      if connected_pieces == 4
+      
+      connections = check_connections(row_pieces, team_color)
+      if connections
         return true
       end
     end
@@ -102,15 +95,8 @@ class Board
 
   def vertical_win?(team_color)
     0.upto(6).each do |col|
-      connected_pieces = 0
-      0.upto(5).each do |row|
-        if @board[col][row] == piece
-          connected_pieces += 1
-        else
-          connected_pieces = 0
-        end
-      end
-      if connected_pieces == 4
+      connections = check_connections(@grid[col], team_color)
+      if connections
         return true
       end
     end
@@ -123,17 +109,17 @@ class Board
 
     up_starting_spots.each do |spot|
       diagonal_up = gen_diagonal_up(spot[0], spot[1])
-      check_connections(diagonal_up, team_color)
-      if check_connections
-        true
+      connections = check_connections(diagonal_up, team_color)
+      if connections 
+        return true
       end
     end 
 
     down_starting_spots.each do |spot|
       diagonal_down = gen_diagonal_down(spot[0], spot[1])
-      check_connections(diagonal_down, team_color)
-      if check_connections
-        true
+      connections = check_connections(diagonal_down, team_color)
+      if connections
+        return true
       end
     end
 
@@ -142,7 +128,7 @@ class Board
 
   def check_connections(array, team_color) 
     connected_pieces = 0
-    piece = team_to_piece (team_color)
+    piece = team_to_piece(team_color)
     array.each do |item|
       if item == piece
         connected_pieces += 1
@@ -150,28 +136,33 @@ class Board
         connected_pieces = 0
       end
     end
-    if connected_pieces == 4
-      return true
-    else 
-      return false
-    end
+    connected_pieces >= 4
   end
+
   #takes in coordinates, translates them to diagonals
-  #returns an array of diagonal_up locations on board
+  #returns an array of diagonal_up locations on grid
   def gen_diagonal_up(row,col)
     array_diagonals =[]
     0.upto(5).each do |num|
+      if ( row - num < 0 || col + num > 6)
+        break
+      end
+
       array_diagonals << [row-num, col+num] 
     end
-    array_diagonals.map{|coordinates| @board[coordinates[1]][coordinates[0]]}
+    array_diagonals.map{|coordinates| @grid[coordinates[1]][coordinates[0]]}
   end
 
   def gen_diagonal_down(row,col)
     array_diagonals =[]
     0.upto(5).each do |num|
+      if ( row - num > 5 || col + num > 6)
+        break
+      end
+
       array_diagonals << [row+num, col+num] 
     end
-    array_diagonals.map{|coordinates| @board[coordinates[1]][coordinates[0]]}
+    array_diagonals.map{|coordinates| @grid[coordinates[1]][coordinates[0]]}
   end
 
 
