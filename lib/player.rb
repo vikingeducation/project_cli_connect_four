@@ -10,6 +10,6 @@ class Player
   end
 
   def choose_column
-    
+
   end
 end

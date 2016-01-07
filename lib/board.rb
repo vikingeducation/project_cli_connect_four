@@ -1,20 +1,28 @@
 class Board
-  attr_accessor :grid, :piece_count
+  attr_reader :grid, :piece_count
 
   MAX_PIECE_COUNT = 42
+  TOP_ROW = 0
+  BOTTOM_ROW = 5
+  LEFT_COL = 0
+  RIGHT_COL = 6
 
   # grid is in rows and columns, beginning (index 0) of a column is the "top" of the board
 
   def initialize
     @piece_count = 0
+    @grid = empty_grid
+  end
 
-    @grid = []
-    (0..6).each do |col|
-      @grid[col] = []
-      (0..5).each do |row|
-        @grid[col][row] = "-"
+  def empty_grid
+    blank_grid = []
+    (LEFT_COL..RIGHT_COL).each do |col|
+      blank_grid[col] = []
+      (TOP_ROW..BOTTOM_ROW).each do |row|
+        blank_grid[col][row] = "-"
       end
     end
+    blank_grid
   end
 
   def team_to_piece(team)
@@ -26,15 +34,15 @@ class Board
 
     @grid[col].each_with_index do |item,index|
       if item == "-"
-        if index == 5
+        if index == BOTTOM_ROW
           @grid[col][index] = piece
           @piece_count += 1
           break
         else
           next
         end
-      else
-        if index == 0
+      else # item is anything but "blank" (-)
+        if index == TOP_ROW
           return false
         else
           @grid[col][index-1] = piece
@@ -46,8 +54,8 @@ class Board
 
   def to_s
     string = ""
-    0.upto(5).each do |row|
-      0.upto(6).each do |col|
+    TOP_ROW.upto(BOTTOM_ROW).each do |row|
+      LEFT_COL.upto(RIGHT_COL).each do |col|
         string << "#{@grid[col][row]}"
       end
       string << "\n"
@@ -79,9 +87,9 @@ class Board
   end
 
   def horizontal_win?(team_color)
-    0.upto(5).each do |row|
+    TOP_ROW.upto(BOTTOM_ROW).each do |row|
       row_pieces = []
-      0.upto(6).each do |col|
+      LEFT_COL.upto(RIGHT_COL).each do |col|
         row_pieces << @grid[col][row]
       end
 
@@ -94,7 +102,7 @@ class Board
   end
 
   def vertical_win?(team_color)
-    0.upto(6).each do |col|
+    LEFT_COL.upto(RIGHT_COL).each do |col|
       connections = check_connections(@grid[col], team_color)
       if connections
         return true
@@ -104,7 +112,7 @@ class Board
   end
 
   def diagonal_win?(team_color)
-    up_starting_spots = [[5,0],[5,1],[5,2],[5,3],[4,0],[3,0]]
+    up_starting_spots = [[BOTTOM_ROW,0],[BOTTOM_ROW,1],[BOTTOM_ROW,2],[BOTTOM_ROW,3],[4,0],[3,0]]
     down_starting_spots = [[0,0],[0,1],[0,2],[0,3],[1,2],[2,0]]
 
     up_starting_spots.each do |spot|
@@ -142,8 +150,8 @@ class Board
   #returns an array of diagonal_up locations on grid
   def gen_diagonal_up(row,col)
     array_diagonals =[]
-    0.upto(5).each do |num|
-      if ( row - num < 0 || col + num > 6)
+    0.upto(BOTTOM_ROW).each do |num|
+      if ( row - num < 0 || col + num > RIGHT_COL)
         break
       end
 
@@ -154,8 +162,8 @@ class Board
 
   def gen_diagonal_down(row,col)
     array_diagonals =[]
-    0.upto(5).each do |num|
-      if ( row - num > 5 || col + num > 6)
+    0.upto(BOTTOM_ROW).each do |num|
+      if ( row - num > BOTTOM_ROW || col + num > RIGHT_COL)
         break
       end
 

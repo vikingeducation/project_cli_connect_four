@@ -61,4 +61,4 @@ class ConnectFour
   end
 end
 
-game = ConnectFour.new
+ConnectFour.new
