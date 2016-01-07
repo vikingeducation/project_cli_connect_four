@@ -24,6 +24,10 @@ class ConnectFour
     draw_message = "It is a draw. Nobody wins"
 
     until @board.win?(player.row, player.column) || @board.draw?(player.row, player.column) do
+
+      if player_2.is_a? Computer
+        player_2.board.board = @board.board
+      end
       system("clear")
       @board.render
       (puts "Column is full") if @board.column_full?(player.column)
