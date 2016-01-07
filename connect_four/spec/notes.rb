@@ -100,7 +100,7 @@ Human
     make sure we get an integer back
 
     try invalid input, make sure we do not get an integer back
-  
+      ask different question, you would have to do it with stubs
 
 ======================================  
 Player
