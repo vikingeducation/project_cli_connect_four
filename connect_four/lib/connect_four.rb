@@ -21,6 +21,7 @@ require_relative 'human.rb'
 require_relative 'computer.rb'
 
 class ConnectFour
+  attr_accessor :player_1, :player_2
 
   def initialize
     @board = Board.new
