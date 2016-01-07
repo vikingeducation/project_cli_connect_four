@@ -1,3 +1,6 @@
+require 'rainbow'
+
+
 class Board
 
   COLS = 7
@@ -30,18 +33,24 @@ class Board
   end
 
 
-
+  
   def render
 	  @game_board.each do |row|
       row.each do |piece|
-         piece.nil? ? (print "  O  ") : (print "  #{piece[0,1].upcase}  ")
+        if piece.nil? 
+          print "  0  "
+        elsif piece == "red"
+          print Rainbow("  #{piece[0,1].upcase}  ").red
+        else
+          print Rainbow("  #{piece[0,1].upcase}  ").green
+        end
       end
       puts
     end
   end
 
 
-
+  
   def get_move_array(move_col)
     # make sure slot is empty (nil)
     (ROWS - 1 ).downto(0) do |row|
@@ -60,6 +69,34 @@ class Board
 
 
 
+  def straight_win?(array,move,color)
+    
+    user_row = move[0]
+    user_col = move[1]
+
+    # check horizontal rows
+    return true if horizontal_vertical_win?(array[user_row],color)
+    # check vertical rows
+    return true if horizontal_vertical_win?(array.collect {|row| row[user_col]},color)  
+    #check backslash diagonals
+    return true if check_diagonals(BACKWARD_DIAGONALS,array, color, move)
+    #check forwardslash diagonals
+    return true if check_diagonals(FORWARD_DIAGONALS,array, color, move)
+  end
+
+
+  # TODO: make this .all? check work for nested arrays
+  def check_board_full?
+    print @game_board
+    @game_board.each do |row|
+      row.all?{|item| !item.nil?} 
+    end
+  end
+    
+
+
+
+  private
   def check_diagonals(diagonal_array,array,color,move)
 
     diagonal_array.each do |diagonal|
@@ -83,26 +120,9 @@ class Board
 
 
 
-  def straight_win?(array,move,color)
-    
-    user_row = move[0]
-    user_col = move[1]
-
-    # check horizontal rows
-    return true if horizontal_vertical_win?(array[user_row],color)
-    # check vertical rows
-    return true if horizontal_vertical_win?(array.collect {|row| row[user_col]},color)  
-    #check backslash diagonals
-    return true if check_diagonals(BACKWARD_DIAGONALS,array, color, move)
-    #check forwardslash diagonals
-    return true if check_diagonals(FORWARD_DIAGONALS,array, color, move)
-  end
-    
-
-
   def horizontal_vertical_win?(array, color)
     consecutive = 0
-    array.each_with_index do |column, index|
+    array.each_with_index do |coin, index|
       if array[index] == color
         consecutive += 1
         return true if consecutive == 4

@@ -7,6 +7,7 @@ class Player
   end
 
 
+
   def self.build_human_player(color)
 	  Human.new(color)
   end

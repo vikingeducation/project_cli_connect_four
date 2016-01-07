@@ -1,6 +1,6 @@
 class Human < Player
 
-
+  
   def player_move
     puts "====================================================="
     puts "  Please enter the COLUMN to drop your coin."
