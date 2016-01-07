@@ -104,10 +104,10 @@ class Board
       temp_row -= 1
       temp_column += 1
 
-      unless temp_row < 1 || temp_column > 6
-        check_array << @board[temp_row][temp_column]
-      else
+      if temp_row < 1 || temp_column > 6
         return check_array
+      else
+        check_array << @board[temp_row][temp_column]
       end
 
     end
@@ -123,10 +123,10 @@ class Board
       temp_row += 1
       temp_column -= 1
 
-      unless temp_row > 6 || temp_column < 0
-        check_array << @board[temp_row][temp_column]
-      else
+      if temp_row > 6 || temp_column < 0
         return check_array.reverse
+      else
+        check_array << @board[temp_row][temp_column]
       end      
     end    
     check_array
@@ -142,10 +142,10 @@ class Board
       temp_row -= 1
       temp_column -= 1
 
-      unless temp_row < 1 || temp_column < 0
-        check_array << @board[temp_row][temp_column]
-      else
+      if temp_row < 1 || temp_column < 0
         return check_array.reverse
+      else
+        check_array << @board[temp_row][temp_column]
       end
 
     end
@@ -161,10 +161,10 @@ class Board
       temp_row += 1
       temp_column += 1
 
-      unless temp_row > 6 || temp_column > 6
-        check_array << @board[temp_row][temp_column]
-      else
+      if temp_row > 6 || temp_column > 6
         return check_array
+      else
+        check_array << @board[temp_row][temp_column]
       end      
     end    
     check_array
