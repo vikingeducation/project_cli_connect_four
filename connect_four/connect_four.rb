@@ -33,12 +33,15 @@ class ConnectFour
       puts @current_player  ?  "Player 1's  turn" : "Player 2's turn"
       #obtain valid user move
 
-      if @current_player || @opponent == "2" 
+      if @current_player || @opponent == "2"
           player_move = get_user_input
           until @board.valid_move? ( player_move )
               player_move = get_user_input
           end
       else
+          #sends board state to computer instance
+          @opponent.board = @board
+          #computer makes move
           player_move = @opponent.move
           until @board.valid_move? ( player_move )
               player_move = @opponent.move
@@ -56,7 +59,7 @@ class ConnectFour
       #swap turns
       @current_player = !@current_player
       #clear screen
-      system("clear")
+      #system("clear")
     end
   end
 

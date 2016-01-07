@@ -6,6 +6,8 @@ class Board
   NUM_COLS = 7
   FOUR = 4
 
+  attr_accessor :board
+
   def initialize
     @board = empty_board
   end
@@ -121,26 +123,31 @@ class Board
     true
   end
 
-  #makes a deep copy of board
+  #return a board object
   def dup
     copy = Board.new
     (0...NUM_ROWS).each do |row|
       (0...NUM_COLS).each do |col|
         square = @board[row][col]
-        copy[row][col] = square.dup if !square.nil?
+        if !square.nil? && square.owner == "1"
+          copy.board[row][col] = Disk.make_player_1_disk
+        elsif !square.nil? && square.owner == "2"
+          copy.board[row][col] = Disk.make_player_2_disk
+        end
       end
     end
+    copy
   end
 
-   def winning_move
-      (0..6).each do | col |
-        copy_board = @board.dup
-        copy_board.place_disk(  Disk.make_player_2_disk, col )
-        return col if copy_board.win_conditions? 
-      end
+  def winning_move
+    (0..6).each do | col |
+      copy_board = self.dup
+      copy_board.place_disk(  Disk.make_player_2_disk, col )
+      return col+1 if copy_board.win_conditions?
+    end
 
-      return nil
-   end 
+    return nil
+  end
 
 
 end
