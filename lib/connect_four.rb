@@ -1,9 +1,9 @@
 require_relative "./board.rb"
-require_relative "./player.rb"
+require_relative "./human.rb"
+require_relative "./computer.rb"
 
 class ConnectFour
-	attr_accessor :board
-
+	
   def initialize
     @board = Board.new
     player1 = Human.new
