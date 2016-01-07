@@ -1,12 +1,14 @@
 require_relative 'board.rb'
 require_relative 'player.rb'
 require_relative 'logic.rb'
+require_relative 'computer.rb'
+require_relative 'human.rb'
 
 
 class ConnectFour
    
   def initialize
-  	@player_1 = Player.build_human_player("red")
+  	@player_1 = Human.new("red")  # always human
     @board = Board.new
     @current_player = @player_1
     @logic = Logic.new
@@ -30,7 +32,7 @@ class ConnectFour
     	print "Second player is human or computer? :"
     	input = gets.chomp
 
-    	input == "computer"? (@player_2 = Player.build_computer_player("green")): (@player_2 = Player.build_human_player("green"))               
+    	input == "computer"? (@player_2 = Computer.new("green")): (@player_2 = Human.new("green"))               
     end
   end
 
@@ -43,26 +45,6 @@ class ConnectFour
     end
   end
 
-
-  def player_move(current_player)
-    puts "====================================================="
-    puts "  Please enter the COLUMN to drop your coin."
-    puts "  Valid columns are 0 thru 6."
-    puts "  (Think like a programmer, please)"
-    puts "  For example 5,0 would place a piece"
-    puts "  in the bottom-left corner."
-    puts "====================================================="
-    puts "#{@current_player.color} player enter your COLUMN:"
-    
-    column = gets.chomp
-    until column =~ /[0-6]/
-      puts "Column in invalid format!, Re-Enter: "
-      move = gets.chomp
-      column = column.to_i
-    end 
-    
-    return move_array
-  end
 
 
   def add_move(move_array,color)
@@ -77,20 +59,25 @@ class ConnectFour
     @board.render
 
     loop do
-      move_array = player_move(@current_player)
+      # get column from user
+      column = @current_player.player_move
       # validate_move
-      until @board.valid_move?(move_array)
-        move_array = player_move(@current_player)
+      until @board.atleast_one_row_empty?(column)
+        puts "That column is full, please try again."
+        column = @current_player.player_move
       end
-
+      # combine column with correct row
+      move_array = @board.get_move_array(column)
+      # make move
       add_move(move_array,@current_player.color)
+      # show board
       @board.render
-
+      # see if player has won
       if @logic.straight_win?(@board.game_board,move_array,@current_player.color)
-        puts "Congratulations #{@current_player}, you win!"
+        puts "Congratulations #{@current_player.color}, you win!"
         break
       end
-        
+      # switch players
       @current_player = switch_player
 
     end

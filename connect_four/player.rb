@@ -2,12 +2,12 @@ class Player
   
   attr_accessor :color
 
-  def initialize(type,color)
-  	@type = type
+  def initialize(color)
+  	# @type = type
 	  @color = color
   end
 
-  private_class_method :new
+  # private_class_method :new
 
   def self.build_human_player(color)
 	  new(:human,color)
