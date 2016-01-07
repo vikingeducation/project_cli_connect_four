@@ -1,3 +1,20 @@
+=begin
+
+play_connect_four
+display_instructions
+color_prompt
+opponent_prompt
+opponent_color
+switch_player
+
+expect(color_prompt) to set player.color
+expect(opponent_prompt) to instantiate player2
+  if player chooses #1 instantiate human else computer
+expect(opponent_color) to set opponent color opposite of player
+expect
+
+=end
+
 require_relative 'board.rb' 
 require_relative 'player.rb' 
 require_relative 'human.rb' 
@@ -8,6 +25,7 @@ class ConnectFour
   def initialize
     @board = Board.new
     @board.setup
+    #@board.test_left
     @player_1 = nil
     @player_2 = nil
   end
