@@ -31,5 +31,16 @@ describe 'player' do
 	end
 
 	describe '#choose_column' do
+    it 'stores a column if given an integer between 1 and 7' do
+			allow(player).to receive(:gets).and_return('1')
+      player.choose_column
+      expect(player.column).to eq 0
+    end
+
+    it 'asks until input is between 1 and 7' do
+			allow(player).to receive(:gets).and_return('0','34','3')
+      player.choose_column
+      expect(player.column).to eq 2
+    end
 	end
 end
