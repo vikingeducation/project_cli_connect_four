@@ -103,6 +103,6 @@ class ConnectFour
 
 end
 
-game = ConnectFour.new
+# game = ConnectFour.new
 
-game.play_connect_four
+# game.play_connect_four
