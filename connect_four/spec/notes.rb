@@ -27,7 +27,7 @@ Board
 
   test get_move_array(move_col)
     if move_col column is full
-      it should return nil
+      it should return false
     if move_col column is not full
       it should return[row, move_col]
 

@@ -59,6 +59,7 @@ class Board
         return [row,move_col]
       end
     end
+    false
   end
    
 
