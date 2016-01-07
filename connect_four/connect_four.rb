@@ -20,14 +20,15 @@ class ConnectFour
     opponent_prompt(@player_1.color)
 
     player = @player_2
-    win_message = "Congratulations, #{switch_player(player.color).color} wins!"
+    win_message = "Congratulations!"
     draw_message = "It is a draw. Nobody wins"
 
     until @board.win?(player.row, player.column) || @board.draw?(player.row, player.column) do
 
-      if player_2.is_a? Computer
-        player_2.board.board = @board.board
+      if @player_2.is_a? Computer
+        @player_2.board.board = @board.board
       end
+
       system("clear")
       @board.render
       (puts "Column is full") if @board.column_full?(player.column)

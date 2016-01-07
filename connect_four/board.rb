@@ -37,6 +37,15 @@ class Board
     return nil
   end
 
+  def test_horizontal_ai
+    @board[1] = ["0", "0", "0", "0", "0", "0", "0"]
+    @board[2] = ["0", "0", "0", "0", "0", "0", "0"]
+    @board[3] = ["0", "0", "0", "0", "0", "0", "0"]
+    @board[4] = ["0", "0", "R", "B", "0", "0", "0"]
+    @board[5] = ["0", "R", "B", "B", "0", "0", "0"]
+    @board[6] = ["R", "B", "B", "B", "0", "0", "0"]
+  end
+
   def render
     @board.each do |key, value|
       print "#{value}\n"
@@ -93,7 +102,7 @@ class Board
     check_string = array.join("")
     win_conditions.each_with_index do |win_string, index|
       if check_string.include?(win_string)
-        if index.is_even? 2
+        if index.even?
           zero_index = check_string.index(win_string) + 3
         else
           zero_index = check_string.index(win_string)
@@ -226,15 +235,6 @@ class Board
 
   def win?(row, column)
     four_diagonal?(row, column) || four_vertical? || four_horizontal?   
-  end
-
-  # =======================================================
-
-  def find_horizontal_win(array)
-    @board.each do |row_number, row|
-      if check_three?(row)
-
-    end
   end
 
 end
