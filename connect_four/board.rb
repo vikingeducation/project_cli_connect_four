@@ -88,14 +88,20 @@ class Board
 
   # Checks for 3 in a row so computer can see possible wins
   def check_three?(array)
+    zero_index = nil   
     win_conditions = ["RRR0", "0RRR", "BBB0", "0BBB"]
     check_string = array.join("")
     win_conditions.each_with_index do |win_string, index|
       if check_string.include?(win_string)
-        return 
+        if index.is_even? 2
+          zero_index = check_string.index(win_string) + 3
+        else
+          zero_index = check_string.index(win_string)
+        end
+        return zero_index
       end
     end
-    return false
+    false
   end
 
   # This returns the values to the upper right of the move coordinates.
