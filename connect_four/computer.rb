@@ -10,11 +10,7 @@ class Computer < Player
   end
 
   def select_move
-    if find_horizontal_win
-      find_horizontal_win
-    else
-      (1..7).to_a.sample
-    end
+    find_horizontal_win || (1..7).to_a.sample
   end
 
   def find_horizontal_win
