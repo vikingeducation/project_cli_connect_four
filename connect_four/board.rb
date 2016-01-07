@@ -12,13 +12,29 @@ class Board
     return nil
   end
 
-  def test
+  def test_right
     @board[1] = ["0", "0", "0", "0", "0", "0", "0"]
     @board[2] = ["0", "0", "0", "0", "0", "0", "0"]
     @board[3] = ["0", "0", "0", "0", "0", "0", "0"]
     @board[4] = ["0", "0", "R", "B", "0", "0", "0"]
     @board[5] = ["0", "R", "B", "B", "0", "0", "0"]
     @board[6] = ["R", "B", "B", "B", "0", "0", "0"]
+  end
+
+  def test_left
+    @board[1] = ["0", "0", "0", "0", "0", "0", "0"]
+    @board[2] = ["0", "0", "0", "0", "0", "0", "0"]
+    @board[3] = ["0", "0", "0", "0", "0", "0", "0"].reverse
+    @board[4] = ["0", "0", "R", "B", "0", "0", "0"].reverse
+    @board[5] = ["0", "R", "B", "B", "0", "0", "0"].reverse
+    @board[6] = ["R", "B", "B", "B", "0", "0", "0"].reverse   
+  end
+
+  def test_draw
+    (1..6).each do |key|
+      @board[key] = ["T", "T", "T", "T", "T", "T", "T"]
+    end
+    return nil
   end
 
   def render
@@ -79,9 +95,9 @@ class Board
   end
 
   def check_diagonal_upper_right(row, column)
-    check_array = [@board[row][column]]
+    check_array = [@board[row][column - 1]]
     temp_row = row
-    temp_column = column
+    temp_column = column - 1
 
     5.times do
 
@@ -101,7 +117,7 @@ class Board
   def check_diagonal_lower_left(row, column)
     check_array = []
     temp_row = row
-    temp_column = column
+    temp_column = column - 1
 
     5.times do 
       temp_row += 1
@@ -117,9 +133,9 @@ class Board
   end
 
   def check_diagonal_upper_left(row, column)
-    check_array = [@board[row][column]]
+    check_array = [@board[row][column - 1]]
     temp_row = row
-    temp_column = column
+    temp_column = column - 1
 
     5.times do
 
@@ -137,10 +153,9 @@ class Board
   end
 
   def check_diagonal_lower_right(row, column)
-    #byebug
     check_array = []
     temp_row = row
-    temp_column = column
+    temp_column = column - 1
 
     5.times do 
       temp_row += 1
@@ -165,6 +180,7 @@ class Board
   end
 
   def four_diagonal?(row, column)
+    # byebug
     check_four?(get_diagonal_right(row, column)) || check_four?(get_diagonal_left(row,column))
   end
 

@@ -7,20 +7,26 @@ class ConnectFour
 
   def initialize
     @board = Board.new
-    # @board.setup
-    @board.test
+    @board.setup
     @player_1 = nil
     @player_2 = nil
   end
 
   def play_connect_four
+
+    system("clear")
     display_instructions
     color_prompt
     opponent_prompt(@player_1.color)
+
     player = @player_2
+    win_message = "Congratulations, #{switch_player(player.color).color} wins!"
+    draw_message = "It is a draw. Nobody wins"
 
     until @board.win?(player.row, player.column) || @board.draw?(player.row, player.column) do
+      system("clear")
       @board.render
+      (puts "Column is full") if @board.column_full?(player.column)
       player = switch_player(player)
 
       puts "It is #{player.color}'s turn"
@@ -30,11 +36,22 @@ class ConnectFour
         next
       end
     end
-    puts "Congratulations, you win!"
+
+    if @board.win?(player.row, player.column)
+      puts win_message
+    elsif @board.draw?(player.row, player.column)
+      puts draw_message
+    end
+
   end
 
   def display_instructions
-
+    puts "==========================================================="
+    puts "Welcome to Connect four!"
+    puts "The objective is to get four pieces in a row."
+    puts "You can get them horizontally, vertically, or diagonally."
+    puts "The columns are labeled 1-7 starting from the left."
+    puts "==========================================================="
   end
 
   def color_prompt
@@ -59,9 +76,6 @@ class ConnectFour
     player == @player_1 ? player = @player_2 : player = @player_1
   end
   
-  def make_move
-
-  end
 
 end
 
