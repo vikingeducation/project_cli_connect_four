@@ -112,5 +112,62 @@ class Board
   end
 
   def diagonal_win?(team_color)
+    up_starting_spots = [[5,0],[5,1],[5,2], [5,3],[4,0],[3,0]]
+    down_starting_spots = [[0,0],[0,1],[0,2],[0,3],[1,2],[2,0]]
+
+    up_starting_spots.each do |spot|
+      diagonal_up = gen_diagonal_up(spot[0], spot[1])
+      check_connections(diagonal_up, team_color)
+      if check_connections
+        true
+      end
+     end 
+
+
+    down_starting_spots.each do |spot|
+      diagonal_down = gen_diagonal_down(spot[0], spot[1])
+      check_connections(diagonal_down, team_color)
+      if check_connections
+        true
+      end
+     end 
+
+    
   end
+
+  def check_connections(array, team_color) 
+    connected_pieces = 0
+    piece = team_to_piece (team_color)
+    array.each do |item|
+      if item == piece
+        connected_pieces += 1
+      else
+        connected_pieces = 0
+      end
+    end
+    if connected_pieces == 4
+      return true
+    else 
+      return false
+    end
+  end
+  #takes in coordinates, translates them to diagonals
+  #returns an array of diagonal_up locations on board
+  def gen_diagonal_up(row,col)
+    array_diagonals =[]
+    0.upto(5).each do |num|
+      array_diagonals << [row-num, col+num] 
+    end
+    array_diagonals.map{|coordinates| @board[coordinates[1]][coordinates[0]]}
+  end
+
+  def gen_diagonal_down(row,col)
+    array_diagonals =[]
+    0.upto(5).each do |num|
+      array_diagonals << [row+num, col+num] 
+    end
+    array_diagonals.map{|coordinates| @board[coordinates[1]][coordinates[0]]}
+  end
+
+
 end
