@@ -45,7 +45,7 @@ class Board
   end
 
   def to_s
-    string = ""   
+    string = ""
     0.upto(5).each do |row|
       0.upto(6).each do |col|
         string << "#{@grid[col][row]}"
@@ -57,7 +57,7 @@ class Board
 
   def check_game_status
     #player1, player2 wins, board full/draw
-    if board_full? 
+    if board_full?
       'draw'
     elsif win?('red')
       'red'
@@ -65,7 +65,7 @@ class Board
       'black'
     else
       false
-    end  
+    end
   end
 
   def board_full?
@@ -84,7 +84,7 @@ class Board
       0.upto(6).each do |col|
         row_pieces << @grid[col][row]
       end
-      
+
       connections = check_connections(row_pieces, team_color)
       if connections
         return true
@@ -104,21 +104,20 @@ class Board
   end
 
   def diagonal_win?(team_color)
-    up_starting_spots = [[5,0],[5,1],[5,2], [5,3],[4,0],[3,0]]
+    up_starting_spots = [[5,0],[5,1],[5,2],[5,3],[4,0],[3,0]]
     down_starting_spots = [[0,0],[0,1],[0,2],[0,3],[1,2],[2,0]]
 
     up_starting_spots.each do |spot|
       diagonal_up = gen_diagonal_up(spot[0], spot[1])
-      connections = check_connections(diagonal_up, team_color)
-      if connections 
+      if check_connections(diagonal_up, team_color)
         return true
       end
-    end 
+    end
 
     down_starting_spots.each do |spot|
       diagonal_down = gen_diagonal_down(spot[0], spot[1])
-      connections = check_connections(diagonal_down, team_color)
-      if connections
+
+      if check_connections(diagonal_down, team_color)
         return true
       end
     end
@@ -126,7 +125,7 @@ class Board
     false
   end
 
-  def check_connections(array, team_color) 
+  def check_connections(array, team_color)
     connected_pieces = 0
     piece = team_to_piece(team_color)
     array.each do |item|
@@ -148,7 +147,7 @@ class Board
         break
       end
 
-      array_diagonals << [row-num, col+num] 
+      array_diagonals << [row-num, col+num]
     end
     array_diagonals.map{|coordinates| @grid[coordinates[1]][coordinates[0]]}
   end
@@ -160,10 +159,8 @@ class Board
         break
       end
 
-      array_diagonals << [row+num, col+num] 
+      array_diagonals << [row+num, col+num]
     end
     array_diagonals.map{|coordinates| @grid[coordinates[1]][coordinates[0]]}
   end
-
-
 end

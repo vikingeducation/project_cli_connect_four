@@ -6,8 +6,8 @@ class ConnectFour
 
   def initialize
     @board = Board.new
-    player1 = Player.new
-    player2 = Player.new
+    player1 = Human.new
+    player2 = Human.new
     @players = [player1, player2]
     @playing = true
     play
@@ -21,7 +21,7 @@ class ConnectFour
     else
       @players[1].team_color = 'red'
     end
-   
+
     game_loop
   end
 
@@ -33,7 +33,7 @@ class ConnectFour
       @board.add_piece(team,column)
 
       puts @board.to_s
-      
+
       status = @board.check_game_status
       case status
       when 'red'
@@ -51,16 +51,14 @@ class ConnectFour
     end
   end
 
-  
+
   def switch_players(players_index)
     if players_index == 0
       return 1
-    else 
+    else
       return 0
     end
   end
 end
 
 game = ConnectFour.new
-
-
