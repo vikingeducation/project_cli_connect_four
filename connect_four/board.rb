@@ -58,11 +58,13 @@ class Board
   def check_game_status
     #player1, player2 wins, board full/draw
     if board_full? 
-      puts "Game is a draw."
+      return 'draw'
     elsif win?('red')
-     return 'red'
+      return 'red'
     elsif win?('black')
-     return 'black'
+      return 'black'
+    else
+      false
     end  
   end
 
@@ -71,9 +73,13 @@ class Board
   end
 
   def win?(team_color)
-    
-
-    
+    if  horizontal_win?(team_color) ||
+        vertical_win?(team_color) ||
+        diagonal_win?(team_color)
+      true
+    else
+      false
+    end
   end
 
   def horizontal_win?(team_color)
@@ -121,8 +127,7 @@ class Board
       if check_connections
         true
       end
-     end 
-
+    end 
 
     down_starting_spots.each do |spot|
       diagonal_down = gen_diagonal_down(spot[0], spot[1])
@@ -130,9 +135,9 @@ class Board
       if check_connections
         true
       end
-     end 
+    end
 
-    
+    false
   end
 
   def check_connections(array, team_color) 

@@ -21,16 +21,33 @@ class ConnectFour
     else
       @players[1].team_color = 'red'
     end
-
-  	index = 0
    
-    while @playing 
+    game_loop
+  end
+
+  def game_loop
+    index = 0
+    while @playing
       column = @players[index].choose_column
       team = @players[index].team_color
       @board.add_piece(team,column)
-      puts @board.to_s
+      
       status = check_game_status
-      #check if board is full (draw)
+
+      # stop playing if status is anything but false
+      @playing = !status
+
+      case status
+      when 'red'
+        puts "Red wins!"
+      when 'black'
+        puts "Black wins!"
+      when 'draw'
+        puts "Game ends in a draw!"
+      end
+
+      puts @board.to_s
+
       index = switch_players(index)
     end
   end
