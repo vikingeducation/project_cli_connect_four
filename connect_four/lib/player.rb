@@ -1,3 +1,14 @@
+
+# Class: Player
+# symbol
+# symbol=
+# column
+# column=
+# name
+# initialize
+# choose_symbol
+# choose_column
+
 class Player
   attr_accessor :symbol, :column
   attr_reader :name

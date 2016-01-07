@@ -1,6 +1,20 @@
 require_relative "./board.rb"
 require_relative "./player.rb"
 
+# Class: ConnectFour
+#   initialize
+#   welcome
+#   set_symbol
+#   play
+#   get_input
+#   make_move
+#   valid_input?
+#   switch_players
+#   check_game_over
+#   check_victory
+#   check_draw
+
+
 class ConnectFour
 
   def initialize

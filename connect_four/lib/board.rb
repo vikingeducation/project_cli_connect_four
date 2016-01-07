@@ -1,7 +1,28 @@
+# Class: Board
+  # grid
+  # grid=
+  # initialize
+  # column_full?
+  # full?
+  # add_piece
+  # render
+  # winning_combination?
+  # four_in_row
+  # winning_diagonal
+  # winning_horizontal
+  # winning_vertical
+  # diagonals
+  # up_down_diag
+  # down_up_diag
+  # verticals
+  # horizontals
+
+
 class Board
   attr_accessor :grid
 
   # grid is in rows and columns, beginning of a column is the "top" of the board
+
 
   def initialize
     @grid = []
