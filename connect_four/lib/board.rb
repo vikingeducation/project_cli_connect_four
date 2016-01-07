@@ -88,7 +88,7 @@ class Board
 
 
   def check_board_full?
-    @game_board.any?(&:nil?)
+    @game_board.any?(&:nil?) # may be backwards
   end
     
 
