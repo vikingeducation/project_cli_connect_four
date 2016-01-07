@@ -7,7 +7,11 @@ class Board
   FOUR = 4
 
   def initialize
-    @board = Array.new(NUM_ROWS) { Array.new(NUM_COLS) }
+    @board = empty_board
+  end
+
+  def empty_board
+    Array.new(NUM_ROWS) { Array.new(NUM_COLS) }
   end
 
   #prints board
@@ -119,7 +123,7 @@ class Board
 
   #makes a deep copy of board
   def dup
-    copy = Array.new(NUM_ROWS) { Array.new(NUM_COLS) }
+    copy = empty_board
     (0...NUM_ROWS).each do |row|
       (0...NUM_COLS).each do |col|
         square = @board[row][col]

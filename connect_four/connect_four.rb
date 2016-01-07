@@ -1,4 +1,4 @@
-require './player.rb'
+require './computer.rb'
 require './board.rb'
 require './disk.rb'
 
@@ -10,12 +10,16 @@ class ConnectFour
     @board = Board.new
     @current_player = true
     #true = player 1 turn, false = player 2 turn
+    @opponent = "2"
   end
 
   def print_intro
-    puts
-    puts "Welcome to Connect Four!"
-    puts "Enter number of players (1 or 2):"
+
+      input = CLI.ask "Welcome to Connect Four!\nDo you wish to play the computer or another human ( 1 = computer, 2  = human)?\n"
+      until input == "1" || input == "2"
+            input = CLI.ask "Invalid choice.  Do you wish to play the computer or another human ( 1 = computer, 2  = human)?\n"
+      end
+    @opponent = Computer.new if input == "1"
     puts
   end
 
@@ -28,10 +32,19 @@ class ConnectFour
       #prints current player turn
       puts @current_player  ?  "Player 1's  turn" : "Player 2's turn"
       #obtain valid user move
-      player_move = get_user_input
-      until @board.valid_move? ( player_move )
+
+      if @current_player || @opponent == "2" 
           player_move = get_user_input
-      end
+          until @board.valid_move? ( player_move )
+              player_move = get_user_input
+          end
+      else
+          player_move = @opponent.move
+          until @board.valid_move? ( player_move )
+              player_move = @opponent.move
+          end
+       end
+
       #process move and update board
       if @current_player
         @board.place_disk( Disk.make_player_1_disk,  player_move  - 1)
