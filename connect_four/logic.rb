@@ -2,39 +2,30 @@ require_relative 'board.rb'
 
 class Logic
 
+  @@BACKWARD_DIAGONALS = [
+    [[2,0], [3,1], [4,2], [5,3]],
+    [[1,0], [2,1], [3,2], [4,3], [5,4]],
+    [[0,0], [1,1], [2,2], [3,3], [4,4], [5,5]],
+    [[0,1], [1,2], [2,3], [3,4], [4,5], [5,6]],
+    [[0,2], [1,3], [2,4], [3,5], [3,6]],
+    [[0,3], [1,4], [2,5], [3,6]]
+  ]
+
+  @@FORWARD_DIAGONALS = [
+    [[3,0], [2,1], [1,2], [0,3]],
+    [[4,0], [3,1], [2,2], [1,3], [0,4]],
+    [[5,0], [4,1], [3,2], [2,3], [1,4], [0,5]],
+    [[5,1], [4,2], [3,3], [2,4], [1,5], [0,6]],
+    [[5,2], [4,3], [3,4], [2,5], [1,6]],
+    [[5,3], [4,4], [3,5], [2,6]]
+ ]
   def initialize
     @board = Board.new
   end
 
+  def check_diagonals(diagonal_array,array, color, move)
 
-# 0,0   0,1   0,2   0,3   0,4   0,5    0,6
-
-# 1,0   1,1   1,2   1,3   1,4   1,5    1,6
-
-# 2,0   2,1   2,2   2,3   2,4   2,5    2,6
-
-# 3,0   3,1   3,2   3,3   3,4   3,5    3,6
-
-# 4,0   4,1   4,2   4,3   4,4   4,5    4,6
-
-# 5,0   5,1   5,2   5,3   5,4   5,5    5,6
-
-
-
-# user move: [2,4]
-
-  def backslash_diagonals(array, color, move)
-
-    backslash_options = [
-      [[2,0], [3,1], [4,2], [5,3]],
-      [[1,0], [2,1], [3,2], [4,3], [5,4]],
-      [[0,0], [1,1], [2,2], [3,3], [4,4], [5,5]],
-      [[0,1], [1,2], [2,3], [3,4], [4,5], [5,6]],
-      [[0,2], [1,3], [2,4], [3,5], [3,6]],
-      [[0,3], [1,4], [2,5], [3,6]]
-    ]
-
-    backslash_options.each do |diagonal|
+    diagonal_array.each do |diagonal|
       # user's move is in potential diagonal
       arr = []
 
@@ -50,39 +41,11 @@ class Logic
       end
     end
     return false
+  
   end
- 
-  def forwardslash_diagonals(array, color,move)
-
-    forwardslash_options = [
-      [[3,0], [2,1], [1,2], [0,3]],
-      [[4,0], [3,1], [2,2], [1,3], [0,4]],
-      [[5,0], [4,1], [3,2], [2,3], [1,4], [0,5]],
-      [[5,1], [4,2], [3,3], [2,4], [1,5], [0,6]],
-      [[5,2], [4,3], [3,4], [2,5], [1,6]],
-      [[5,3], [4,4], [3,5], [2,6]]
-    ]
-
-    forwardslash_options.each do |diagonal|
-      # user's move is in potential diagonal
-      arr = []
-
-      if diagonal.include? move  # move
-        #get the actual colors from the game board based on
-        #positional array
-        diagonal.each do |item|
-          arr << array[item[0]][item[1]]
-        end
-        
-        # check if 4 consecutive items in diagonal are the same
-        return true if horizontal_vertical_win?(arr, color) 
-      end
-    end
-    return false
-  end
- 
 
   def straight_win?(array,move,color)
+    
     user_row = move[0]
     user_col = move[1]
 
@@ -91,9 +54,9 @@ class Logic
     # check vertical rows
     return true if horizontal_vertical_win?(array.collect {|row| row[user_col]},color)  
     #check backslash diagonals
-    return true if backslash_diagonals(array, color, move)
+    return true if check_diagonals(@@BACKWARD_DIAGONALS,array, color, move)
     #check forwardslash diagonals
-    return true if forwardslash_diagonals(array, color, move)
+    return true if check_diagonals(@@FORWARD_DIAGONALS,array, color, move)
   end
     
 
@@ -127,5 +90,3 @@ arr =   [[nil,"r","g","r","r","r","r"],
          ["r","r","g","r","r","r","r"],
          ["r","r","g","r","r","r","r"]]
 
-l = Logic.new
-puts l.forwardslash_diagonals(arr, "r",[2,4])

@@ -8,22 +8,24 @@ require_relative 'human.rb'
 class ConnectFour
    
   def initialize
-  	@player_1 = Human.new("red")  # always human
+
+  	@player_1 = Player.build_human_player("red")  # always human
     @board = Board.new
     @current_player = @player_1
     @logic = Logic.new
+
   end
 
 
   def print_instructions
+
     puts "====================================================="
     puts " Welcome to Connect Four! The object of the game"
     puts " is to get four pieces in a row. Your pieces can"
     puts " be vertical, horizontal, or diagonal."
     puts "====================================================="
+
   end
-
-
 
   def ask_player_type
     
@@ -32,12 +34,13 @@ class ConnectFour
     	print "Second player is human or computer? :"
     	input = gets.chomp
 
-    	input == "computer"? (@player_2 = Computer.new("green")): (@player_2 = Human.new("green"))               
+    	input == "computer"? (@player_2 = Player.build_computer_player("green")) : (@player_2 = Player.build_human_player("green"))
     end
+
   end
 
-
   def switch_player
+
     if @current_player == @player_1
       @current_player = @player_2
     else
@@ -46,14 +49,15 @@ class ConnectFour
   end
 
 
-
   def add_move(move_array,color)
+
  	  @board.game_board[move_array[0]][move_array[1]] = color
+
   end
 
 
-
   def play
+
     print_instructions
     ask_player_type
     @board.render
@@ -83,7 +87,6 @@ class ConnectFour
     end
 
   end
-
 
 end	
 
