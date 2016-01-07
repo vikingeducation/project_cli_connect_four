@@ -81,7 +81,11 @@ class ConnectFour
   def color_prompt
     puts "Please select a color, R for red and B for black: "
     color = gets.chomp.upcase
-    @player_1 = Human.new(color)
+    if color == "R" || color == "B"
+      @player_1 = Human.new(color)
+    else
+      color_prompt
+    end
   end
 
   def opponent_prompt(color)
@@ -89,6 +93,8 @@ class ConnectFour
     opponent = gets.chomp
     if opponent == "1" || opponent == "2"
       opponent == "1" ? @player_2 = Human.new(opponent_color(color)) : @player_2 = Computer.new(opponent_color(color))
+    else
+      opponent_prompt(color)
     end
   end
 
