@@ -1,4 +1,4 @@
-require 'rainbow'
+# require 'rainbow'
 
 
 class Board
@@ -70,7 +70,7 @@ class Board
   end 
 
 
-
+  # TODO: refactor this method to be better, and to return false if there's no win
   def straight_win?(array,move,color)
     
     user_row = move[0]
@@ -89,11 +89,12 @@ class Board
 
 
   def check_board_full?
-
-
-
-
-    @game_board.any?(&:nil?) # may be backwards
+    game_board.each do |row|
+      unless row.any?(&:nil?)
+        return true
+      end
+    end
+    false
   end
 
 

@@ -46,14 +46,6 @@ Board
       it should return true
     if array does not have a win on red
       it should return false
-    if array has diagonal win on green
-      it should return true
-    if array has horizontal win on green
-      it should return true
-    if array has vertical win on green
-      it should return true
-    if array does not have a win on green
-      it should return false
 
     test check_board_full?
       if array is full
