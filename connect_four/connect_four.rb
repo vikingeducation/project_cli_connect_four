@@ -7,8 +7,6 @@ CLI = HighLine.new
 
 class ConnectFour
   def initialize
-    @player_1 = Player.new
-    @player_2 = Player.new
     @board = Board.new
     @current_player = true
     #true = player 1 turn, false = player 2 turn
