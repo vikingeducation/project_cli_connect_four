@@ -49,8 +49,7 @@ class Board
 
   #return true if connect 4 exists and game ends
   def win_conditions?
-    return true if check_rows || check_cols || check_diagonals
-    return false
+    check_rows || check_cols || check_diagonals
   end
 
   #check for connect 4 along rows
@@ -105,7 +104,7 @@ class Board
   #checks array for connect 4
   def check_connect_four?(arr)
     #checks for full array
-    return false if arr.any? { |square| square == nil }
+    return false if arr.any? (& :nil)   
     #if array is full then check for winner
     return true if arr.all? { |square| square.owner == "1" }
     return true if arr.all? { |square| square.owner == "2" }

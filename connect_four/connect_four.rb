@@ -59,7 +59,7 @@ class ConnectFour
       #swap turns
       @current_player = !@current_player
       #clear screen
-      #system("clear")
+      system("clear")
     end
   end
 
