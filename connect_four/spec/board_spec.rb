@@ -77,4 +77,78 @@ describe Board do
       expect(board.grid).to eq result_grid
     end
   end
+
+  describe '#render' do
+    it 'displays the board' do
+      output_string = 
+"=============
+_ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ 
+_ _ _ _ _ _ _ 
+=============
+"
+      expect{ board.render }.to output(output_string).to_stdout
+    end
+  end
+
+  describe '#winning_combination?' do
+    it 'checks for diagonal wins' do
+      board.grid = [
+        ["_ ","_ ","_ ","_ ","_ ","_ ","_ "],
+        ["_ ","_ ","_ ","_ ","_ ","_ ","_ "],
+        ["_ ","X ","_ ","_ ","_ ","_ ","_ "],
+        ["_ ","_ ","X ","_ ","_ ","_ ","_ "],
+        ["_ ","_ ","_ ","X ","_ ","_ ","_ "],
+        ["_ ","_ ","_ ","_ ","X ","_ ","_ "],
+        ["_ ","_ ","_ ","_ ","_ ","_ ","_ "],
+      ]
+
+      expect(board.winning_combination?('X')).to eq true
+    end
+
+    it 'checks for horizontal wins' do
+      board.grid = [
+        ["_ ","_ ","_ ","_ ","_ ","_ ","_ "],
+        ["_ ","_ ","_ ","_ ","_ ","_ ","_ "],
+        ["_ ","X ","X ","X ","X ","_ ","_ "],
+        ["_ ","_ ","_ ","_ ","_ ","_ ","_ "],
+        ["_ ","_ ","_ ","_ ","_ ","_ ","_ "],
+        ["_ ","_ ","_ ","_ ","_ ","_ ","_ "],
+        ["_ ","_ ","_ ","_ ","_ ","_ ","_ "],
+      ]
+
+      expect(board.winning_combination?('X')).to eq true
+    end
+
+    it 'checks for vertical wins' do
+      board.grid = [
+        ["_ ","_ ","_ ","_ ","_ ","_ ","_ "],
+        ["_ ","_ ","_ ","_ ","_ ","_ ","_ "],
+        ["_ ","X ","X ","_ ","_ ","_ ","_ "],
+        ["_ ","X ","_ ","_ ","_ ","_ ","_ "],
+        ["_ ","X ","_ ","_ ","_ ","_ ","_ "],
+        ["_ ","X ","_ ","_ ","_ ","_ ","_ "],
+        ["_ ","_ ","_ ","_ ","_ ","_ ","_ "],
+      ]
+
+      expect(board.winning_combination?('X')).to eq true
+    end
+
+    it 'returns false if no winning moves' do
+      board.grid = [
+        ["_ ","_ ","_ ","_ ","_ ","_ ","_ "],
+        ["_ ","_ ","_ ","_ ","_ ","_ ","_ "],
+        ["_ ","X ","X ","_ ","_ ","_ ","_ "],
+        ["_ ","X ","_ ","_ ","_ ","_ ","_ "],
+        ["_ ","_ ","_ ","_ ","_ ","_ ","_ "],
+        ["_ ","X ","_ ","_ ","_ ","_ ","_ "],
+        ["_ ","_ ","_ ","_ ","_ ","_ ","_ "],
+      ]
+
+      expect(board.winning_combination?('X')).to eq false
+    end
+  end
 end

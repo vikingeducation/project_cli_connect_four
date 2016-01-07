@@ -16,6 +16,7 @@ require_relative "./player.rb"
 
 
 class ConnectFour
+  attr_reader :player1, :player2, :board, :game_status
 
   def initialize
     @board = Board.new
@@ -96,6 +97,6 @@ class ConnectFour
   end
 end
 
-game = ConnectFour.new
-game.play
+# game = ConnectFour.new
+# game.play
 

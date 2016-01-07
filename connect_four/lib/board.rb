@@ -69,6 +69,8 @@ class Board
     winning_vertical?(sym)
   end
 
+private
+
   def four_in_row?(sym, possible_solutions)
     solution = "#{sym} "*4
     possible_solutions.each do |group_of_four|
@@ -78,7 +80,7 @@ class Board
     end
     false
   end
-  
+
   def winning_diagonal?(sym)
     possible_solutions = diagonals
     four_in_row?(sym, possible_solutions)
