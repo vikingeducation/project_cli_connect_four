@@ -1,5 +1,5 @@
 
-require "./disk"
+require "disk"
 
 class Board
   NUM_ROWS = 6
