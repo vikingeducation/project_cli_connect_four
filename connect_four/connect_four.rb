@@ -14,6 +14,7 @@ class ConnectFour
 
 
   def play
+    system("clear")
     print_instructions
     ask_player_type
     @board.render
@@ -43,9 +44,9 @@ class ConnectFour
       if @board.straight_win?(@board.game_board,move_array,@current_player.color)
         puts "Congratulations #{@current_player.color}, you win!"
         break
-      # elsif @board.check_board_full?
-      #   puts "It's a tie! Thanks for playing."
-      #   break
+      elsif @board.check_board_full?
+        puts "It's a tie! Thanks for playing."
+        break
       end
 
 

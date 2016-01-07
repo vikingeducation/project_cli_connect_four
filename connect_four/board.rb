@@ -38,11 +38,11 @@ class Board
 	  @game_board.each do |row|
       row.each do |piece|
         if piece.nil? 
-          print "  0  "
+          print " 0 "
         elsif piece == "red"
-          print Rainbow("  #{piece[0,1].upcase}  ").red
+          print Rainbow(" #{piece[0,1].upcase} ").red
         else
-          print Rainbow("  #{piece[0,1].upcase}  ").green
+          print Rainbow(" #{piece[0,1].upcase} ").green
         end
       end
       puts
@@ -85,15 +85,11 @@ class Board
   end
 
 
-  # TODO: make this .all? check work for nested arrays
+
   def check_board_full?
-    print @game_board
-    @game_board.each do |row|
-      row.all?{|item| !item.nil?} 
-    end
+    @game_board.any?(&:nil?)
   end
     
-
 
 
   private
