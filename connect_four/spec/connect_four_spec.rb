@@ -28,8 +28,16 @@ describe 'ConnectFour' do
 			game_status = game.game_status
 			expect(game_status).to eq false
 		end
-
 	end
+
+  describe '#play' do
+    it 'starts the game loop' do
+      allow(game.player1).to receive(:gets).and_return('x','1','1','1','1','1','1','1','1','1','1')
+      allow(game.player2).to receive(:gets).and_return('2','2','2','2','2','2','2','2','2','2')
+
+      expect{game.play}.to output(/You won Player1/).to_stdout
+    end
+  end
 end
 
 
