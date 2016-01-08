@@ -5,6 +5,9 @@ require_relative 'human.rb'
 
 
 class ConnectFour
+
+  attr_reader :player_1, :board, :player_2
+  attr_accessor :current_player
    
   def initialize
   	@player_1 = Player.build_human_player("red")  # always human
@@ -58,7 +61,7 @@ class ConnectFour
 
 
 
-  private
+  # private
   def print_instructions
     puts "====================================================="
     puts " Welcome to Connect Four! The object of the game"
@@ -97,6 +100,3 @@ class ConnectFour
 
 
 end	
-
-game = ConnectFour.new
-game.play

@@ -109,7 +109,7 @@ class Board
     
 
 
-  private
+  # private
   def check_diagonals(diagonal_array,array,color,move)
 
     diagonal_array.each do |diagonal|
@@ -131,7 +131,7 @@ class Board
   
   end
 
-
+  
 
   def horizontal_vertical_win?(array, color)
     consecutive = 0

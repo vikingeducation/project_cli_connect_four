@@ -1,5 +1,4 @@
 require 'board'
-require 'rainbow'
 
 
 describe Board do
@@ -140,6 +139,30 @@ describe Board do
     it "returns true if forward diagonal victory" do
       expect(forward_diagonal_board.check_diagonals(Board::FORWARD_DIAGONALS, forward_diagonal_board.game_board, "R", [4,1])).to be true
 
+    end
+
+    it "returns true if backward diagonal victory" do
+      expect(backwards_diagonal_board.check_diagonals(Board::BACKWARD_DIAGONALS, backwards_diagonal_board.game_board, "R", [5,6])).to be true
+
+    end
+
+    it "returns false if no diagonal victory" do
+      expect(empty_board.check_diagonals(Board::FORWARD_DIAGONALS, empty_board.game_board, "R", [4,1])).to be false
+    end
+
+  end
+
+  describe "#horizontal_vertical_win?" do
+    it "returns true if there are 4 in a row horizontally" do
+      expect(horizontal_board.horizontal_vertical_win?(horizontal_board.game_board[5], "R")).to be true
+    end
+
+    it "returns true if there are 4 in a row vertically" do
+      expect(vertical_board.horizontal_vertical_win?(vertical_board.game_board.collect {|row| row[3]}, "R")).to be true
+    end
+
+    it "returns false if there are not 4 in a row" do
+      expect(empty_board.horizontal_vertical_win?(empty_board.game_board[5], "R")).to be false
     end
 
 
