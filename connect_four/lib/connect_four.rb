@@ -1,9 +1,8 @@
-require './computer.rb'
-require './board.rb'
-require './disk.rb'
+require 'computer'
+require 'board'
+require 'disk'
 
 require "highline"
-CLI = HighLine.new
 
 class ConnectFour
 
@@ -16,9 +15,11 @@ class ConnectFour
 
   def print_intro
 
-      input = CLI.ask "Welcome to Connect Four!\nDo you wish to play the computer or another human ( 1 = computer, 2  = human)?\n"
+      puts "Welcome to Connect Four!\nDo you wish to play the computer or another human ( 1 = computer, 2  = human)?\n"
+      input = gets.chomp
       until input == "1" || input == "2"
-            input = CLI.ask "Invalid choice.  Do you wish to play the computer or another human ( 1 = computer, 2  = human)?\n"
+            puts "Invalid choice.  Do you wish to play the computer or another human ( 1 = computer, 2  = human)?\n"
+            input = gets.chomp
       end
     @opponent = Computer.new if input == "1"
     puts
@@ -88,7 +89,8 @@ class ConnectFour
   #obtain valid user move
   def get_user_input
     loop do
-        input = CLI.ask "Please enter a valid column from 1 to 7:"
+        puts "Please enter a valid column from 1 to 7:"
+        input = gets.chomp
         case input
         when /^[1-7]$/
             return input.to_i

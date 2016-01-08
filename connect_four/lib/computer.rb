@@ -1,5 +1,5 @@
 
-require "./board.rb"
+require "board"
 
 class Computer
 
@@ -17,6 +17,7 @@ class Computer
     check_win = @board.winning_move
     #puts check_win.inspect
     return check_win if check_win
+
     random_move
    end
 
