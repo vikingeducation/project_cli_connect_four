@@ -67,6 +67,7 @@ class Board
         return false
       end
     end
+    true
   end
 
   def position_empty?(position)
