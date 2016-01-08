@@ -18,12 +18,15 @@ describe Player do
     end
   end
 
+  # TODO: color should be a string
+
+
   describe '#attr_accessor' do
     it 'should respond to color attribute' do
       expect(player).to respond_to :color
     end
   end
-  
+
 
   describe '#.build_human_player' do
     it "creates instance of human class" do
