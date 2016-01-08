@@ -1,4 +1,4 @@
-# require 'rainbow'
+require 'rainbow'
 
 
 class Board
