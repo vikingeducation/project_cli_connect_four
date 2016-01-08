@@ -56,7 +56,7 @@ class Board
   def check_rows
     @board.each do |row|
       (0...NUM_COLS - FOUR + 1).each do |i|
-        return true if check_connect_four?( row[i...i+FOUR] )
+        return check_connect_four?( row[i...i+FOUR] )
       end
     end
     false
