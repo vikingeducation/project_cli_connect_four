@@ -60,6 +60,7 @@ class Board
           return false
         else
           @grid[col][index-1] = piece
+          break
         end
       end
     end
@@ -138,8 +139,8 @@ class Board
   end
 
   def check_connections(array, team_color)
-    connected_pieces = 0
     piece = team_to_piece(team_color)
+    connected_pieces = 0
     array.each do |item|
       if item == piece
         connected_pieces += 1

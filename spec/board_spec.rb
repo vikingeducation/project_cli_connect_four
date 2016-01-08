@@ -62,19 +62,19 @@ describe "Board" do
 
   let(:black_diagonal) { Board.new(   [ ["-","-","-","-","-","R"],
                                         ["-","-","-","-","-","B"],
-                                        ["-","-","-","-","B","R"],
+                                        ["-","-","B","R","R","R"],
                                         ["-","-","-","B","R","B"],
-                                        ["-","-","B","R","B","R"],
+                                        ["-","-","-","-","B","R"],
                                         ["-","-","-","-","-","B"],
                                         ["-","-","-","-","-","R"] ] ) }
 
-describe "#initialize" do
+  describe "#initialize" do
     it "creates a board" do
-      expect(board).to be_a(Board)
+      expect(Board.new).to be_a(Board)
     end
 
     it "initializes grid to an empty grid" do
-      expect(board.instance_variable_get(:@grid)).to eq(empty_grid)
+      expect(Board.new.instance_variable_get(:@grid)).to eq(empty_grid)
     end
   end
 
@@ -230,11 +230,15 @@ describe "#initialize" do
       expect(board.check_connections(["B","B","B","B"], "black")).to eq(true)
     end
 
+    it "returns true if the given array contains 5 in a row" do
+      expect(board.check_connections(["B","B","B","B","B"], "black")).to eq(true)
+    end
+
     it "returns false if the given array has 4 empty spots" do
       expect(board.check_connections(["-","-","-","-"], "black")).to eq(false)
     end
 
-    it "returns false if the given array has 3 in a row" do
+    it "returns false if the given array has only 3 in a row" do
       expect(board.check_connections(["R","B","B","B"], "black")).to eq(false)
     end
 

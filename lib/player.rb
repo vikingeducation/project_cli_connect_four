@@ -1,6 +1,9 @@
 class Player
-  attr_accessor :team_color
+
+  attr_accessor :name, :team_color
+
   COLOR_OPTIONS = {r:'red',red:'red',b:'black',black: 'black'}
+  
   def initialize
 
   end
