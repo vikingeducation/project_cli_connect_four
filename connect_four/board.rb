@@ -72,7 +72,7 @@ class Board
   end
 
   def horizontal? (col, row, sym)
-    return true if @board_game[row].join("").include?(sym*4)
+    @board_game[row].join("").include?(sym*4)
   end
 
 
@@ -83,7 +83,7 @@ class Board
         column << @board_game[row][col-1]
       end
     end
-    return true if column.include?(sym*4)
+    column.include?(sym*4)
   end
 
 
@@ -100,7 +100,7 @@ class Board
       temp_col += 1
       temp_row -= 1
     end
-    return true if str.include?(sym*4)
+    str.include?(sym*4)
   end
 
 
@@ -117,7 +117,7 @@ class Board
       temp_col -= 1
       temp_row -= 1
     end
-    return true if str.include?(sym*4)
+    str.include?(sym*4)
   end
 
 end

@@ -1,6 +1,7 @@
 
 require_relative "board"
 require_relative "player"
+require_relative "human"
 require_relative "ai"
 
 class ConnectFour
@@ -38,18 +39,17 @@ class ConnectFour
   end
 
   def create_game type
+    @player1 = Human.new 'Player1', :X
     if type == 1
-      @player1 = Player.new 'Player1', :X
       @player2 = Ai.new 'Player2', :O
     else
-      @player1 = Player.new 'Player1', :X
-      @player2 = Player.new 'Player2', :O
+      @player2 = Human.new 'Player2', :O
     end
   end
 
 
   def loop_game current_player
-    while !@board.full?
+    until @board.full?
       @board.render
       instruction
       puts "#{current_player.name}, it's your turn !\n"
