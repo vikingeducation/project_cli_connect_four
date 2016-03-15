@@ -1,3 +1,7 @@
+=begin
+  public : make_move
+=end
+
 class Human < Player
   def make_move
     loop do

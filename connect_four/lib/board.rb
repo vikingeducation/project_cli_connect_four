@@ -1,8 +1,18 @@
+=begin
+  public : create_board, render, move, full?, victory?
+  private : make_move, move_possible?, find_row, horizontal?, vertical?, diagonal_left?, diagonal_right?
+            @board_game
+=end
+
 
 class Board
-  def initialize
-    @board_game = {}
-    create_board
+  def initialize (board = nil)
+    if board == nil
+      @board_game = {}
+      create_board
+    else
+      @board_game = board
+    end
   end
 
   def create_board
@@ -22,6 +32,36 @@ class Board
     print "|1||2||3||4||5||6||7|\n"
   end
 
+  def move( move, symbol )
+    if move_possible? move
+      make_move( move, symbol )
+      return true
+    end
+    false
+  end
+
+
+  def full?
+    @board_game.values.each do |row|
+      if row.include?(" ")
+        return false
+      end
+    end
+    puts "\nThe Board is Full ! It's a Tie !"
+    true
+  end
+
+  def victory?( col, symbol )
+    sym = symbol.to_s
+    row_number = find_row col
+    exit if full?
+    return true if horizontal?(col, row_number, sym)
+    return true if vertical?(col, row_number, sym)
+    return true if diagonal_right?(col, row_number, sym)
+    return true if diagonal_left?(col, row_number, sym)
+  end
+
+private
   def make_move( move, symbol )
     6.downto(1).each do |row|
       if @board_game[row][move-1] == " "
@@ -42,24 +82,6 @@ class Board
   end
 
 
-  def full?
-    @board_game.values.each do |row|
-      if row.include?(" ")
-        return false
-      end
-    end
-    true
-  end
-
-  def victory?( col, symbol )
-    sym = symbol.to_s
-    row_number = find_row col
-    return true if horizontal?(col, row_number, sym)
-    return true if vertical?(col, row_number, sym)
-    return true if diagonal_right?(col, row_number, sym)
-    return true if diagonal_left?(col, row_number, sym)
-  end
-
   def find_row move
     row_number  = 0
     (1..6).each do |row|
@@ -70,6 +92,7 @@ class Board
     end
     row_number
   end
+
 
   def horizontal? (col, row, sym)
     @board_game[row].join("").include?(sym*4)

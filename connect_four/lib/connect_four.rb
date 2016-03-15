@@ -1,3 +1,7 @@
+=begin
+ public : play, 
+ private : @board, introduction, instruction, type_of_game, create_game, loop_game
+=end
 
 require_relative "board"
 require_relative "player"
@@ -22,7 +26,7 @@ class ConnectFour
     puts "\nIt's a Tie ! The board is full !\n\n"
   end
 
-
+private
   def introduction
     puts "
     =====================================================
@@ -49,24 +53,28 @@ class ConnectFour
 
 
   def loop_game current_player
-    until @board.full?
+    loop do 
       @board.render
       instruction
       puts "#{current_player.name}, it's your turn !\n"
 
-      move = current_player.make_move
-      if @board.move_possible? move
-
-        @board.make_move( move, current_player.symbol )
-
-        if @board.victory?( move, current_player.symbol )
-          @board.render
-          puts "#{current_player.name}, You Just Won !\n\n"
-          exit
-        end
-        current_player = switch_player current_player
+      move = 0
+      loop do 
+        move = current_player.make_move
+        break if @board.move( move, current_player.symbol )
       end
+
+      if @board.victory?( move, current_player.symbol )
+        victory current_player
+      end
+      current_player = switch_player current_player
     end
+  end
+
+  def victory current_player
+    @board.render
+      puts "#{current_player.name}, You Just Won !\n\n"
+      exit
   end
 
 
@@ -88,5 +96,5 @@ class ConnectFour
 end
 
 
-game = ConnectFour.new
-game.play
+#game = ConnectFour.new
+#game.play
