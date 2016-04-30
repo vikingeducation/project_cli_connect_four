@@ -22,7 +22,7 @@ class Game
 
       break if check_win
 
-      #check_full_board
+      break if check_full_board
 
       switch_player
 
@@ -40,6 +40,17 @@ class Game
     else
       @board.columns[move] << @current_player.piece
     end
+  end
+
+  def check_full_board
+    @board.columns.each do |column, value|
+      if @board.columns[column].count < 7
+        return false
+      end
+    end
+    @board.render
+    puts "Game Over! No winners. The board is full!"
+    return true
   end
 
   def check_win
