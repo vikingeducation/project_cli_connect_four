@@ -1,26 +1,26 @@
 class Game
 
   def initialize(num_of_players=1)
-    @player1 = Player.new("X")
+    @player1 = Player.new("X", "Player 1")
     @board = Board.new
 
     if num_of_players == 1
-      @player2 = Computer.new("O")
+      @player2 = Computer.new("O", "The Computer")
     else
-      @player2 = Player.new("O")
+      @player2 = Player.new("O", "Player 2")
     end
 
     @current_player = @player1
   end
 
   def play
-    until over?
+    loop do
 
       @board.render
 
       check_move(@current_player.get_move)
 
-      #check_win
+      break if check_win
 
       #check_full_board
 
@@ -42,6 +42,29 @@ class Game
     end
   end
 
+  def check_win
+    if horizontal_win?
+      @board.render
+      puts "#{@current_player.title} has won the game!"
+      return true
+    else
+      return false
+    end
+  end
+
+  def horizontal_win?
+    (0..2).each do |offset|
+      (0..6).each do |row|
+        tile1 = @board.columns[1 + offset][row]
+        tile2 = @board.columns[2 + offset][row]
+        tile3 = @board.columns[3 + offset][row]
+        tile4 = @board.columns[4 + offset][row]
+        return true if [tile1, tile2, tile3, tile4].count(@current_player.piece) == 4
+      end
+    end
+    return false
+  end
+
   def switch_player
     if @current_player == @player1
       @current_player = @player2
@@ -51,17 +74,22 @@ class Game
   end
 
   def over?
-    false
+    if horizontal_win?
+      return true
+    else
+      return false
+    end
   end
 
 end
 
 class Player
 
-  attr_reader :piece
+  attr_reader :piece, :title
 
-  def initialize(piece)
+  def initialize(piece, title)
     @piece = piece
+    @title = title
   end
 
   def get_move
@@ -74,8 +102,11 @@ end
 
 class Computer
 
-  def initialize(piece)
+  attr_reader :piece, :title
+
+  def initialize(piece, title)
     @piece = piece
+    @title = title
   end
 
 end
