@@ -99,14 +99,6 @@ class Game
     end
   end
 
-  def over?
-    if horizontal_win?
-      return true
-    else
-      return false
-    end
-  end
-
 end
 
 class Player
