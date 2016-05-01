@@ -1,4 +1,3 @@
-# TODO: investigate bug in check_move
 # TODO: DRY up [tile1, tile2, tile3, tile4].count(@current_player.piece) == 4
 
 class Game
@@ -149,13 +148,15 @@ class Player
 
 end
 
-class Computer
-
-  attr_reader :piece, :title
+class Computer < Player
 
   def initialize(piece, title)
-    @piece = piece
-    @title = title
+    super(piece, title)
+  end
+
+  def get_move      
+    move = rand(1..6)
+    return move
   end
 
 end
