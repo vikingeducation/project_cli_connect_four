@@ -34,7 +34,7 @@ class Game
 
   def check_move(move)
     puts move
-    if move > 7 || move < 1
+    if move > 6 || move < 1
       puts "Invalid move! It is out of bounds."
       check_move(@current_player.get_move)
     elsif @board.columns[move].length == 7
