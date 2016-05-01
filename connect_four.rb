@@ -1,4 +1,5 @@
 # TODO: investigate bug in check_move
+# TODO: DRY up [tile1, tile2, tile3, tile4].count(@current_player.piece) == 4
 
 class Game
 
@@ -56,13 +57,43 @@ class Game
   end
 
   def check_win
-    if horizontal_win? || vertical_win?
+    if horizontal_win? || vertical_win? || diagonal_win?
       @board.render
       puts "#{@current_player.title} has won the game!"
       return true
     else
       return false
     end
+  end
+
+  def diagonal_win?
+    left_to_right_diagonal? || right_to_left_diagonal?
+  end
+
+  def left_to_right_diagonal?
+    (0..2).each do |offset|
+      (0..3).each do |tile|
+        tile1 = @board.columns[1 + offset][0 + tile]
+        tile2 = @board.columns[2 + offset][1 + tile]
+        tile3 = @board.columns[3 + offset][2 + tile]
+        tile4 = @board.columns[4 + offset][3 + tile]
+        return true if [tile1, tile2, tile3, tile4].count(@current_player.piece) == 4
+      end
+    end
+    return false
+  end
+
+  def right_to_left_diagonal?
+    (0..2).each do |offset|
+      (0..3).each do |tile|
+        tile1 = @board.columns[6 - offset][0 + tile]
+        tile2 = @board.columns[5 - offset][1 + tile]
+        tile3 = @board.columns[4 - offset][2 + tile]
+        tile4 = @board.columns[3 - offset][3 + tile]
+        return true if [tile1, tile2, tile3, tile4].count(@current_player.piece) == 4
+      end
+    end
+    return false
   end
 
   def vertical_win?
