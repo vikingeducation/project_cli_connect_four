@@ -1,3 +1,5 @@
+# TODO: investigate bug in check_move
+
 class Game
 
   def initialize(num_of_players=1)
@@ -54,13 +56,26 @@ class Game
   end
 
   def check_win
-    if horizontal_win?
+    if horizontal_win? || vertical_win?
       @board.render
       puts "#{@current_player.title} has won the game!"
       return true
     else
       return false
     end
+  end
+
+  def vertical_win?
+    (0..3).each do |offset|
+      (1..6).each do |column|
+        tile1 = @board.columns[column][0 + offset]
+        tile2 = @board.columns[column][1 + offset]
+        tile3 = @board.columns[column][2 + offset]
+        tile4 = @board.columns[column][3 + offset]
+        return true if [tile1, tile2, tile3, tile4].count(@current_player.piece) == 4
+      end
+    end
+    return false
   end
 
   def horizontal_win?
