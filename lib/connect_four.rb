@@ -154,7 +154,7 @@ class Computer < Player
     super(piece, title)
   end
 
-  def get_move      
+  def get_move
     move = rand(1..6)
     return move
   end
@@ -182,7 +182,10 @@ class Board
 
 end
 
-puts "Welcome to Connect 4!\n1 or 2 Players?"
-num_of_players = gets.chomp
-game = Game.new(num_of_players.to_i)
-game.play
+### Commented out below because
+### it interferes with Rspec testing
+
+#puts "Welcome to Connect 4!\n1 or 2 Players?"
+#num_of_players = gets.chomp
+#game = Game.new(num_of_players.to_i)
+#game.play
