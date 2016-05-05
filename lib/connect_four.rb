@@ -1,5 +1,3 @@
-# TODO: DRY up [tile1, tile2, tile3, tile4].count(@current_player.piece) == 4
-
 class Game
 
   attr_reader :current_player, :player1, :player2, :board

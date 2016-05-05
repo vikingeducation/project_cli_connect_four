@@ -30,8 +30,6 @@ describe "Game" do
       expect(game.board.columns[1].length).to eq(1)
     end
 
-    it "pending checks invalid moves"
-
   end
 
 end
@@ -84,6 +82,8 @@ end
 
 describe "Player" do
 
+  let(:player) { Player.new("X", "Player1") }
+
   describe "#new method" do
 
     it "raises an error if no arguments provided" do
@@ -94,7 +94,10 @@ describe "Player" do
 
   describe "#get_move" do
 
-    it "pending validates moves"
+    it "validates move from human player" do
+      allow(player).to receive(:gets).and_return("2")
+      expect(player.get_move).to be <= 6
+    end
 
   end
 
