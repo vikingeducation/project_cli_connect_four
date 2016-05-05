@@ -1,5 +1,41 @@
 require 'connect_four'
 
+describe "Game" do
+
+  let(:game) { Game.new(1) }
+
+  describe "#switch_player method" do
+
+    it "switches players properly" do
+      if game.current_player == game.player1
+        game.switch_player
+        expect(game.current_player).to eq(game.player2)
+      end
+    end
+
+  end
+
+  describe "#check_full_board" do
+
+    it "checks if a board is full or not" do
+      expect(game.check_full_board).to be(false)
+    end
+
+  end
+
+  describe "#check_move" do
+
+    it "adds piece after valid move" do
+      game.check_move(1)
+      expect(game.board.columns[1].length).to eq(1)
+    end
+
+    it "pending checks invalid moves"
+
+  end
+
+end
+
 describe "Board" do
 
   let(:board){ Board.new }
@@ -24,16 +60,41 @@ describe "Board" do
 
 end
 
-describe "Game Class" do
+describe "Computer" do
 
-  let(:game_1_player){ Game.new(1) }
-  let(:game_2_player){ Game.new(2) }
+  describe "#get_move method" do
 
-  describe "new game" do
+    let(:computer){ Computer.new("X", "The Computer") }
 
-    it "starts with an empty board" do
-      expect(game_1_player.check_full_board).to be(false)
+    it "chooses a number between 1 and 6" do
+      expect(computer.get_move).to be <= (6)
     end
+
+  end
+
+  describe "#new method" do
+
+    it "raises an error if no arguments provided" do
+      expect {Computer.new}.to raise_error(ArgumentError)
+    end
+
+  end
+
+end
+
+describe "Player" do
+
+  describe "#new method" do
+
+    it "raises an error if no arguments provided" do
+      expect {Player.new}.to raise_error(ArgumentError)
+    end
+
+  end
+
+  describe "#get_move" do
+
+    it "pending validates moves"
 
   end
 

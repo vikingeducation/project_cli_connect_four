@@ -2,6 +2,8 @@
 
 class Game
 
+  attr_reader :current_player, :player1, :player2, :board
+
   def initialize(num_of_players=1)
     @player1 = Player.new("X", "Player 1")
     @board = Board.new
