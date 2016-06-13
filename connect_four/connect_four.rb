@@ -30,12 +30,12 @@ module ConnectFour
       loop do
         2.times do
           col_index = @current_player.insert_disk(@board)
-          @winner = @board.check_winner(col_index) if col_index
+          @winner = @board.check_winner(col_index, true) if col_index
+          render(clear: false)
           winner_msg if @winner
           game_over if @board.full?
           switch_player
         end
-        render(clear: false)
       end
     end
 
