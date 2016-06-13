@@ -26,20 +26,31 @@ module ConnectFour
 
     def play
       welcome_msg
-      render(clear: false)
+      render
       loop do
         2.times do
+          # insert disk into a column
           col_index = @current_player.insert_disk(@board)
+
+          # render the board
+          render
+
+          # check if we have a winner
           @winner = @board.check_winner(col_index, true) if col_index
-          render(clear: false)
+
+          # if we have a winner, display the winning message
           winner_msg if @winner
+
+          # if the board is full, diplay the gameover message and exit
           game_over if @board.full?
+
+          # if game not over, it's other player's turn
           switch_player
         end
       end
     end
 
-    def render(opts = {clear: true})
+    def render(opts = {clear: false})
       @board.render opts
     end
 
