@@ -12,5 +12,4 @@ include ConnectFour
 
 # Play!
 game = Game.new
-game.render
 game.play

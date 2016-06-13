@@ -21,6 +21,7 @@ module ConnectFour
           puts "Please enter a valid input for disk '#{marker}' >"
         end
       end
+      puts "#{@name} with marker '#{@marker}' chose column #{input}"
       input.to_i
     end
 
@@ -39,4 +40,27 @@ module ConnectFour
       true if Float(string) rescue false
     end
   end
+
+  class AI < Player
+
+    def initialize(marker = "O")
+      super
+      @name = "AI"
+    end
+
+    def insert_disk(board)
+      puts "Enter the column index to insert disk '#{marker}' into"
+      input = nil
+      loop do
+        input = (0..6).to_a.sample
+        if valid?(input, board)
+          stack = board.grid[input.to_i]
+          break if stack.insert_disk(@marker)
+        end
+      end
+      puts "#{@name} with marker '#{@marker}' chose column #{input}"
+      input
+    end
+  end
+
 end

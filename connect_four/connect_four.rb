@@ -18,8 +18,8 @@ module ConnectFour
       # Instantiate the game with
       # a new board
       @board = Board.new(7, 6)
-      @player1 = Player.new("x")
-      @player2 = Player.new("o")
+      @player1 = Player.new("X")
+      @player2 = AI.new("O")
       @current_player = @player1
       @winner = nil
     end
@@ -30,12 +30,12 @@ module ConnectFour
       loop do
         2.times do
           col_index = @current_player.insert_disk(@board)
-          render(clear: col_index)
           @winner = @board.check_winner(col_index) if col_index
           winner_msg if @winner
           game_over if @board.full?
           switch_player
         end
+        render(clear: false)
       end
     end
 
