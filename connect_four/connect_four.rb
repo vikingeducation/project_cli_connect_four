@@ -9,11 +9,8 @@
 # 2. Board  - Has list of stacks aligned next to each other to form a grid
 # 3. Stack  - Array of Disks (either "x", "o" or nil)
 # 4. Disk   - belongs to a player, which has a unique marker/player.
-
-require 'pry'
 module ConnectFour
   class Game
-
     def initialize
       # Instantiate the game with
       # a new board
@@ -50,7 +47,7 @@ module ConnectFour
       end
     end
 
-    def render(opts = {clear: false})
+    def render(opts = { clear: false })
       @board.render opts
     end
 

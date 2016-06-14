@@ -1,13 +1,13 @@
 module ConnectFour
   class Board
-    DIRECTIONS = {up:         {stack:  0, index:  1},
-                  down:       {stack:  0, index: -1},
-                  up_left:    {stack:  1, index: -1},
-                  down_right: {stack: -1, index: -1},
-                  up_right:   {stack:  1, index:  1},
-                  down_left:  {stack: -1, index: -1},
-                  left:       {stack: -1, index:  0},
-                  right:      {stack:  1, index:  0}}
+    DIRECTIONS = { up:         { stack:  0, index:  1 },
+                   down:       { stack:  0, index: -1 },
+                   up_left:    { stack:  1, index: -1 },
+                   down_right: { stack: -1, index: -1 },
+                   up_right:   { stack:  1, index:  1 },
+                   down_left:  { stack: -1, index: -1 },
+                   left:       { stack: -1, index:  0 },
+                   right:      { stack:  1, index:  0 } }.freeze
 
     attr_accessor :cols, :grid
     def initialize(cols, rows)
@@ -17,16 +17,16 @@ module ConnectFour
       cols.times { @grid << Stack.new(rows) }
     end
 
-    def render(opts = {clear: true})
+    def render(opts = { clear: false })
       system "clear" if opts[:clear]
       puts
-      (0..@rows - 1).to_a.reverse.each do |i|
+      (0..@rows - 1).to_a.reverse_each do |i|
         @grid.each do |col|
           print col.stack[i]
         end
         print "\n"
       end
-      puts "-----------"*10
+      puts "-----------" * 10
       (0..@cols - 1).each do |j|
         print "\tColumn #{j}"
       end
@@ -34,11 +34,11 @@ module ConnectFour
     end
 
     def check_winner(col_idx, disk_inserted, marker = nil)
-      if disk_inserted
-        new_disk_pos = { stack: col_idx, index: @grid[col_idx].tos - 1 }
-      else
-        new_disk_pos = { stack: col_idx, index: @grid[col_idx].tos }
-      end
+      new_disk_pos = if disk_inserted
+                       { stack: col_idx, index: @grid[col_idx].tos - 1 }
+                     else
+                       { stack: col_idx, index: @grid[col_idx].tos }
+                     end
       count_4_dir(new_disk_pos, marker).values.any? { |v| v == 4 }
     end
 
@@ -65,16 +65,13 @@ module ConnectFour
     end
 
     def count(dir_sym, disk_pos, marker)
-      pos_stack = disk_pos[:stack]
-      pos_index = disk_pos[:index]
+      stack = disk_pos[:stack]
+      index = disk_pos[:index]
       stack_incr = DIRECTIONS[dir_sym][:stack]
       index_incr = DIRECTIONS[dir_sym][:index]
       count = 0
-      cur_disk = @grid[pos_stack].stack[pos_index]
-      stack = pos_stack
-      index = pos_index
+      cur_disk = @grid[stack].stack[index]
       3.times do
-        # binding.pry
         stack += stack_incr
         index += index_incr
         # Break if out of bounds

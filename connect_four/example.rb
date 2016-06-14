@@ -4,7 +4,6 @@ require_relative  'player'
 require_relative  'stack'
 require_relative  'disk'
 
-
 # Includes the ConnectFour
 # module into the global
 # namespace
