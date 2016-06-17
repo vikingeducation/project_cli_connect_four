@@ -1,20 +1,20 @@
-
+require 'pry'
 class ConnectFour
 
 
 
 def initialize
 
-	@board = default_state
+	@board = Board.new
 	# get num_players
 	# creating the player and/or CPU
 	if num_players == 1
-		@player1 = Player.new( "Player 1", :R )
-		@player2 = CPU.new( "Computer", :B )
+		@player1 = Player.new( "Player 1", :R, @board )
+		@player2 = CPU.new( "Computer", :B, @board)
 	# call
 	else
-		@player1 = Player.new( "Player 1", :R )
-		@player2 = Player.new( "Player 2", :B )
+		@player1 = Player.new( "Player 1", :R, @board )
+		@player2 = Player.new( "Player 2", :B, @board )
 	end
 
 
@@ -28,7 +28,7 @@ def num_players
 	# prompt to start games and generate player/cpu
 	begin
 
-		Board.message(%q(How many players? Enter: 1 or 2))
+		@board.message(%q(How many players? Enter: 1 or 2))
 		input = gets.strip.to_i
 
   end until input == 1 || input == 2
@@ -40,20 +40,16 @@ end
 
 def run
 
-	Board.render( @board )
+	begin
+		@board.render
 
-	@current_player.get_move
+		@current_player.get_move
+
+	end until draw? || victory?
 
 end
 # the game will handle
 
-# setting up the game board
-def default_state
-
-	# hash for the rows
-	return { 1 => ["[", "O", "O", "O", "O", "O", "O", "O", "]"						], 2 => ["[", "O", "O", "O", "O", "O", "O", "O", "]"					  ], 3 => ["[", "O", "O", "O", "O", "O", "O", "O", "]"						], 4 => ["[", "O", "O", "O", "O", "O", "O", "O", "]"						], 5 => ["[", "O", "O", "O", "O", "O", "O", "O", "]"						], 6 => ["[", "O", "O", "O", "O", "O", "O", "O", "]"				    ], 7 => ["-",  1,   2,   3,   4,   5,   6,   7,  "-"				    ]	}
-
-end
 
 
 
@@ -67,16 +63,7 @@ end
 
 
 # checking if there's room to drop the piece
-def valid_placement?
 
-end
-
-# dropping pieces
-def drop_piece
-
-	# place in the desired column
-
-end
 
 
 # tracking pieces

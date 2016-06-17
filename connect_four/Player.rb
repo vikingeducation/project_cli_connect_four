@@ -29,13 +29,13 @@ attr_accessor :board, :name, :piece
 
 		loop do
 
-			move = ask_for_move
+			column = ask_for_move
 
 			# validate correct column
-			if valid_column?( move )
+			if valid_column?( column )
 
 				# then validate column is not full
-				if @board.valid_placement?( move, @piece )
+				if @board.prepare_to_drop( column, @piece )
 					break
 				end
 
@@ -46,9 +46,9 @@ attr_accessor :board, :name, :piece
 	end
 	# unless the move is invalid
 
-	def valid_column?( move )
+	def valid_column?( column )
 
-	  (1..7) === move
+	  (1..7) === column
 
 	end
 
@@ -58,10 +58,11 @@ attr_accessor :board, :name, :piece
 
 	def ask_for_move
 
-		Board.message("#{@name}#{piece}, enter which column number to place your piece")
+		@board.message("#{@name}#{piece}, enter which column number to place your piece")
 		return gets.strip.to_i
 
 	end
+
 
 
 
