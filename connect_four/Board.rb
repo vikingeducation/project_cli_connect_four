@@ -13,6 +13,7 @@ class Board
 	# setting up the game board
 	def default_state
 
+		# change to array
 		# hash for the board
 		return { 1 => ["[", "O", "O", "O", "O", "O", "O", "O", "]"					], 2 => ["[", "O", "O", "O", "O", "O", "O", "O", "]"					], 3 => ["[", "O", "O", "O", "O", "O", "O", "O", "]"					], 4 => ["[", "O", "O", "O", "O", "O", "O", "O", "]"					], 5 => ["[", "O", "O", "O", "O", "O", "O", "O", "]"					], 6 => ["[", "O", "O", "O", "O", "O", "O", "O", "]"				  ], 7 => ["-",  1,   2,   3,   4,   5,   6,   7,  "-"				  ]	}
 

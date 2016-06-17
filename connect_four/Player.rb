@@ -49,13 +49,11 @@ attr_accessor :board, :name, :piece
 
 
 
-
-
 	def ask_for_move
 
 		@board.message("#{@name}#{piece}, enter which column number to place your piece")
 
-		@name == "Computer" ? generate_move : gets.strip.to_i
+		gets.strip.to_i
 
 	end
 

@@ -21,7 +21,11 @@ class CPU < Player
 
   end
 
+  def ask_for_move
 
+  	generate_move
+
+  end
 
   def get_move
 
