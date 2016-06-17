@@ -15,11 +15,6 @@ attr_accessor :board, :name, :piece
 
 	end
 
-
-
-
-
-
 	# player one will get Red
 	# player 2 will get Blue
 
@@ -29,10 +24,7 @@ attr_accessor :board, :name, :piece
 
 		loop do
 
-			if @name == "Player 1" || @name == "Player 2"
-				column = ask_for_move
-			end
-
+			column = ask_for_move
 
 			# validate correct column
 			if valid_column?( column )
@@ -62,7 +54,8 @@ attr_accessor :board, :name, :piece
 	def ask_for_move
 
 		@board.message("#{@name}#{piece}, enter which column number to place your piece")
-		return gets.strip.to_i
+
+		@name == "Computer" ? generate_move : gets.strip.to_i
 
 	end
 

@@ -13,7 +13,7 @@ class Board
 	# setting up the game board
 	def default_state
 
-		# hash for the rows
+		# hash for the board
 		return { 1 => ["[", "O", "O", "O", "O", "O", "O", "O", "]"					], 2 => ["[", "O", "O", "O", "O", "O", "O", "O", "]"					], 3 => ["[", "O", "O", "O", "O", "O", "O", "O", "]"					], 4 => ["[", "O", "O", "O", "O", "O", "O", "O", "]"					], 5 => ["[", "O", "O", "O", "O", "O", "O", "O", "]"					], 6 => ["[", "O", "O", "O", "O", "O", "O", "O", "]"				  ], 7 => ["-",  1,   2,   3,   4,   5,   6,   7,  "-"				  ]	}
 
 	end
@@ -40,11 +40,6 @@ class Board
 	end
 
 
-	def board_full?
-
-	end
-
-
 	# determining victory
 	def victory?
 
@@ -55,6 +50,7 @@ class Board
 
 	def draw?
 
+		# determine if all positions are filled
 		arr = []
 		@board.each do |k, row|
 			row.each { | col | arr << col }
@@ -63,6 +59,10 @@ class Board
 		arr.any? { | x | x == "O" } ?  false : true
 
 	end
+
+
+
+
 	def column_has_room?( column )
 
 		# checks if the top row is filled
@@ -96,6 +96,8 @@ class Board
 			if @board[ row ][ column ] == "O"
 				@board[row][ column ] = piece
 				# after piece dropped should check victory
+
+
 				break
 			end
 
