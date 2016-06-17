@@ -19,17 +19,20 @@ attr_accessor :board, :name, :piece
 
 
 
-	# each player will have 21 pieces
+
 	# player one will get Red
 	# player 2 will get Blue
 
 	# the board will be displayed
 	# player one will make their first move
-	def get_move
+	def get_move( column = nil )
 
 		loop do
 
-			column = ask_for_move
+			if @name == "Player 1" || @name == "Player 2"
+				column = ask_for_move
+			end
+
 
 			# validate correct column
 			if valid_column?( column )

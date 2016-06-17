@@ -45,6 +45,24 @@ class Board
 	end
 
 
+	# determining victory
+	def victory?
+
+		#find if 4 colors are in a row
+
+	end
+	# determining a draw
+
+	def draw?
+
+		arr = []
+		@board.each do |k, row|
+			row.each { | col | arr << col }
+		end
+
+		arr.any? { | x | x == "O" } ?  false : true
+
+	end
 	def column_has_room?( column )
 
 		# checks if the top row is filled
@@ -62,6 +80,7 @@ class Board
 			drop_piece( column, piece )
 			true
 		else
+			draw?
 			false
 		end
 
@@ -76,11 +95,15 @@ class Board
 			row -= 1
 			if @board[ row ][ column ] == "O"
 				@board[row][ column ] = piece
+				# after piece dropped should check victory
 				break
 			end
 
 		end
 
 	end
+
+
+
 
 end
