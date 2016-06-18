@@ -15,18 +15,28 @@ class Board
 
 		# change to array
 		# hash for the board
-		return { 1 => ["[", "O", "O", "O", "O", "O", "O", "O", "]"					], 2 => ["[", "O", "O", "O", "O", "O", "O", "O", "]"					], 3 => ["[", "O", "O", "O", "O", "O", "O", "O", "]"					], 4 => ["[", "O", "O", "O", "O", "O", "O", "O", "]"					], 5 => ["[", "O", "O", "O", "O", "O", "O", "O", "]"					], 6 => ["[", "O", "O", "O", "O", "O", "O", "O", "]"				  ], 7 => ["-",  1,   2,   3,   4,   5,   6,   7,  "-"				  ]	}
-
+		return [
+						 "[", "O", "O", "O", "O", "O", "O", "O", "]",
+	 				   "[", "O", "O", "O", "O", "O", "O", "O", "]",
+	 				   "[", "O", "O", "O", "O", "O", "O", "O", "]",
+	 				   "[", "O", "O", "O", "O", "O", "O", "O", "]",
+	 				   "[", "O", "O", "O", "O", "O", "O", "O", "]",
+	 				   "[", "O", "O", "O", "O", "O", "O", "O", "]",
+	 				   "-",  1,   2,   3,   4,   5,   6,   7,  "-"
+	 				 ]
 	end
 
 
 	# the board will only display the current status
 	def render
 
-		@board.each do |k, row| print "#{k}--"
-			row.each { | col | print col }
-			puts ""
-
+		@board.each_with_index do | row, index |
+			if index % 9 == 0 && index != 0
+				puts ""
+				print row
+			else
+				print row
+			end
 		end
 
 	end
@@ -52,12 +62,7 @@ class Board
 	def draw?
 
 		# determine if all positions are filled
-		arr = []
-		@board.each do |k, row|
-			row.each { | col | arr << col }
-		end
-
-		arr.any? { | x | x == "O" } ?  false : true
+		@board.any? { | x | x == "O" } ?  false : true
 
 	end
 
@@ -67,7 +72,7 @@ class Board
 	def column_has_room?( column )
 
 		# checks if the top row is filled
-		@board[1][ column ] == "O" ? true : false
+		@board[ column ] == "O" ? true : false
 
 	end
 
@@ -90,18 +95,20 @@ class Board
 
 	def drop_piece( column, piece )
 
-		row = 7
+		# goes to the 'bottom row' of the array which is 45 + column #
+		index = ( column + 45 )
 		loop do
 
-			row -= 1
-			if @board[ row ][ column ] == "O"
-				@board[row][ column ] = piece
+			if @board[ index ] == "O"
+				@board[ index ] = piece
 				# after piece dropped should check victory
 
 
 				break
 			end
 
+			# jump to the row above for next check
+			index -= 9
 		end
 
 	end
