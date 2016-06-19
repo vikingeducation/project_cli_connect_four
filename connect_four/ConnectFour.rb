@@ -45,31 +45,43 @@ attr_accessor :current_player
 
 	def run
 
-		begin
+		loop do
+
 			@board.render
 
 			@current_player.get_move
 
-			display_result if @board.victory?( @current_player.piece )
+			display_win if @board.victory?( @current_player.piece )
+
+			display_draw if @board.draw?
 
 			change_turns( @current_player )
 
-		end until @board.draw? #|| @board.victory?( @current_player.piece )
-
-			@board.render
+		end
 
 	end
 
-	def display_result
 
-		@board.message("#{current_player} wins!")
+	def display_win
+
+		@board.message("#{current_player.name} wins!")
+		@board.render
+		game_reset
+
+	end
+
+	def display_draw
+
+		@board.message("It's a draw! Let's play again!")
 		@board.render
 		game_reset
 
 	end
 
 
+
 	def game_reset
+		ConnectFour.new
 	end
 
 

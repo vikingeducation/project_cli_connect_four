@@ -64,13 +64,13 @@ class Board
 	def four_in_a_row( piece )
 		# sets starting index to middle of top row
 		mid_index = 4
-		piece_string = piece.to_s
+		piece_string = piece.to_s * 4
 		begin
 		# the middle index in a row must must have something for there to be a possible win
 			if @board[ mid_index ] != "O"
 				row = @board[ (mid_index - 3)..(mid_index + 3) ].join
-				row.include?( piece )
-				return true
+
+				return true if row.include?( piece_string )
 			end
 
 		mid_index += 9

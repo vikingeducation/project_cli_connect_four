@@ -59,8 +59,6 @@ attr_accessor :board, :name, :piece
 
 
 
-
-
 	def process_move
 	# the piece is dropped
 
