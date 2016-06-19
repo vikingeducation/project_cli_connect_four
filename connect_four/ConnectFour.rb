@@ -6,15 +6,17 @@ attr_accessor :current_player
 	def initialize
 
 		@board = Board.new
-		# get num_players
-		# creating the player and/or CPU
+
 		if num_players == 1
+
 			@player1 = Player.new( "Player 1", :R, @board )
 			@player2 = CPU.new( "Computer", :B, @board)
-		# call
+
 		else
+
 			@player1 = Player.new( "Player 1", :R, @board )
 			@player2 = Player.new( "Player 2", :B, @board )
+
 		end
 
 
@@ -23,6 +25,9 @@ attr_accessor :current_player
 		run
 
 	end
+
+
+
 
 	def num_players
 		# prompt to start games and generate player/cpu
@@ -47,12 +52,12 @@ attr_accessor :current_player
 
 			change_turns( @current_player )
 
-		end until @board.draw? || @board.victory?
+		end until @board.draw? || @board.victory?( @current_player.piece )
 
 			@board.render
 
 	end
-	# the game will handle
+
 
 
 
@@ -68,16 +73,9 @@ attr_accessor :current_player
 
 
 
-	# checking if there's room to drop the piece
 
 
 
-	# tracking pieces
-	def pieces_left
-
-		# may not need -- board full can be the determining factor
-
-	end
 
 # ending the game
 

@@ -51,13 +51,34 @@ class Board
 	end
 
 
-	# determining victory
-	def victory?
 
-		#find if 4 colors are in a row
+	def victory?( piece )
+
+		# find if 4 colors are in a row
+		# call each method (row/diagonal)
 
 	end
-	# determining a draw
+
+
+	def four_in_a_row
+		# the middle index in a row must must have something for there to be a possible win
+		# if there isn't  something return false
+
+	end
+
+
+	def four_in_a_column
+		# the 3rd and 4th indexes in a column must have something for a 4 in a row to be possible
+		# return false
+
+	end
+
+
+	def four_in_a_diagonal
+		# have to check every number since all possible combos
+	end
+
+
 
 	def draw?
 
