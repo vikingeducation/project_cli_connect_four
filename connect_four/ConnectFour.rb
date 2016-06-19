@@ -50,15 +50,27 @@ attr_accessor :current_player
 
 			@current_player.get_move
 
+			display_result if @board.victory?( @current_player.piece )
+
 			change_turns( @current_player )
 
-		end until @board.draw? || @board.victory?( @current_player.piece )
+		end until @board.draw? #|| @board.victory?( @current_player.piece )
 
 			@board.render
 
 	end
 
+	def display_result
 
+		@board.message("#{current_player} wins!")
+		@board.render
+		game_reset
+
+	end
+
+
+	def game_reset
+	end
 
 
 

@@ -55,13 +55,27 @@ class Board
 	def victory?( piece )
 
 		# find if 4 colors are in a row
+		four_in_a_row( piece )
 		# call each method (row/diagonal)
 
 	end
 
 
-	def four_in_a_row
+	def four_in_a_row( piece )
+		# sets starting index to middle of top row
+		mid_index = 4
+		piece_string = piece.to_s
+		begin
 		# the middle index in a row must must have something for there to be a possible win
+			if @board[ mid_index ] != "O"
+				row = @board[ (mid_index - 3)..(mid_index + 3) ].join
+				row.include?( piece )
+				return true
+			end
+
+		mid_index += 9
+
+		end until mid_index > 49
 		# if there isn't  something return false
 
 	end
