@@ -55,7 +55,11 @@ class Board
 	def victory?( piece )
 
 		# find if 4 colors are in a row
-		four_in_a_row( piece )
+		return true if four_in_a_row( piece )
+
+		return true if four_in_a_column( piece )
+
+		#return true if four_in_a_diagonal( piece )
 		# call each method (row/diagonal)
 
 	end
@@ -81,9 +85,47 @@ class Board
 	end
 
 
-	def four_in_a_column
+	def four_in_a_column( piece )
+
+		# start of the first indexes of row 3 and 4
+		third_row_start_index = 19
+		fourth_row_start_index = 28
+
+		piece_string = piece.to_s * 4
+
+		begin
 		# the 3rd and 4th indexes in a column must have something for a 4 in a row to be possible
+			if @board[ third_row_start_index ] == piece &&
+				 @board[ fourth_row_start_index ] == piece
+
+				column = get_column_string( third_row_start_index )
+
+				return true if column.include?( piece_string )
+			end
+
+		third_row_start_index += 1
+		fourth_row_start_index += 1
+
+		end until third_row_start_index > 25
 		# return false
+
+	end
+
+	def get_column_string( index )
+
+		# starts the top of the column
+		board_index = index - 18
+		arr = []
+
+		6.times do
+
+			arr << @board[ board_index ]
+
+			board_index += 9
+
+		end
+
+		return arr.join
 
 	end
 
