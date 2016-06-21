@@ -85,21 +85,6 @@ class Board
 
 	end
 
-=begin
-	  until index > 25
-
-	  	if (1..3) ===  index || index == 10 || index == 19
-	  		return true if process_diagonal( index, "right" ).include?( row_of_four )
-	  	elsif (5..7) === index || index == 16 || index == 25
-	  		return true if process_diagonal( index, "left" ).include?( row_of_four )
-	  	elsif index == 4
-	  		return true if
-	  			process_diagonal( index, "right" ).include?( row_of_four )|| process_diagonal( index, "left" ).include?( row_of_four )
-	  	end
-	  	index += 1
-
-	  end
-=end
 
 	def board_as_string_diagonal
 
