@@ -59,7 +59,7 @@ class Board
 
 		return true if four_in_a_column( piece )
 
-		#return true if four_in_a_diagonal( piece )
+		return true if four_in_a_diagonal( piece )
 		# call each method (row/diagonal)
 
 	end
@@ -80,7 +80,6 @@ class Board
 		mid_index += 9
 
 		end until mid_index > 49
-		# if there isn't  something return false
 
 	end
 
@@ -91,6 +90,7 @@ class Board
 		third_row_start_index = 19
 		fourth_row_start_index = 28
 
+		# refactor
 		piece_string = piece.to_s * 4
 
 		begin
@@ -130,9 +130,42 @@ class Board
 	end
 
 
-	def four_in_a_diagonal
-		# have to check every number since all possible combos
+	def four_in_a_diagonal( piece )
+
+		piece_string = piece.to_s * 4
+	  # there are 6 left-to-right diags to check who's array indices are separated by 10
+	  index = 1
+	  until index > 25
+
+	  	if (1..3) ===  index || index == 10 || index == 19
+	  		return true if process_diagonal( index, "right" ).include?( piece_string )
+	  	elsif (5..7) === index || index == 16 || index == 25
+	  		return true if process_diagonal( index, "left" ).include?( piece_string )
+	  	elsif index == 4
+	  		return true if
+	  			process_diagonal( index, "right" ).include?( piece_string )|| process_diagonal( index, "left" ).include?( piece_string )
+	  	end
+	  	index += 1
+
+	  end
+
+
 	end
+
+
+	def process_diagonal( index, direction )
+
+		arr = []
+		until @board[ index ] == nil || @board[ index ].is_a?( Fixnum )
+			arr << @board[ index ]
+			direction == "right" ? index += 10 : index += 8
+		end
+
+		return arr.join
+
+	end
+
+
 
 
 
@@ -178,9 +211,6 @@ class Board
 
 			if @board[ index ] == "O"
 				@board[ index ] = piece
-				# after piece dropped should check victory
-
-
 				break
 			end
 
