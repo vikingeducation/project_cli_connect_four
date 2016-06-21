@@ -1,5 +1,6 @@
-class CPU < Player
+require 'pry'
 
+class CPU < Player
 
 		# the CPU will be generated only if 1 player is selected
 		# the CPU will be able to evaluate the board

@@ -64,17 +64,24 @@ class Board
 
 	end
 
+	def player_pieces_as_string( piece )
+
+		return piece.to_s * 4
+
+	end
+
+
 
 	def four_in_a_row( piece )
 		# sets starting index to middle of top row
 		mid_index = 4
-		piece_string = piece.to_s * 4
+		four_in_a_row = player_pieces_as_string( piece )
 		begin
 		# the middle index in a row must must have something for there to be a possible win
 			if @board[ mid_index ] != "O"
 				row = @board[ (mid_index - 3)..(mid_index + 3) ].join
 
-				return true if row.include?( piece_string )
+				return true if row.include?( four_in_a_row )
 			end
 
 		mid_index += 9
@@ -91,7 +98,7 @@ class Board
 		fourth_row_start_index = 28
 
 		# refactor
-		piece_string = piece.to_s * 4
+		row_of_four = player_pieces_as_string( piece )
 
 		begin
 		# the 3rd and 4th indexes in a column must have something for a 4 in a row to be possible
@@ -100,7 +107,7 @@ class Board
 
 				column = get_column_string( third_row_start_index )
 
-				return true if column.include?( piece_string )
+				return true if column.include?( row_of_four )
 			end
 
 		third_row_start_index += 1
@@ -132,18 +139,18 @@ class Board
 
 	def four_in_a_diagonal( piece )
 
-		piece_string = piece.to_s * 4
+		four_in_a_row = player_pieces_as_string( piece )
 	  # there are 6 left-to-right diags to check who's array indices are separated by 10
 	  index = 1
 	  until index > 25
 
 	  	if (1..3) ===  index || index == 10 || index == 19
-	  		return true if process_diagonal( index, "right" ).include?( piece_string )
+	  		return true if process_diagonal( index, "right" ).include?( four_in_a_row )
 	  	elsif (5..7) === index || index == 16 || index == 25
-	  		return true if process_diagonal( index, "left" ).include?( piece_string )
+	  		return true if process_diagonal( index, "left" ).include?( four_in_a_row )
 	  	elsif index == 4
 	  		return true if
-	  			process_diagonal( index, "right" ).include?( piece_string )|| process_diagonal( index, "left" ).include?( piece_string )
+	  			process_diagonal( index, "right" ).include?( four_in_a_row )|| process_diagonal( index, "left" ).include?( four_in_a_row )
 	  	end
 	  	index += 1
 
