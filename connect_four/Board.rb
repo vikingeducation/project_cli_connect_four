@@ -50,6 +50,11 @@ class Board
 
 	end
 
+	def board_as_string
+
+		return @board.join
+
+	end
 
 
 	def victory?( piece )
@@ -74,21 +79,13 @@ class Board
 
 	def four_in_a_row( piece )
 		# sets starting index to middle of top row
-		mid_index = 4
 		four_in_a_row = player_pieces_as_string( piece )
-		begin
-		# the middle index in a row must must have something for there to be a possible win
-			if @board[ mid_index ] != "O"
-				row = @board[ (mid_index - 3)..(mid_index + 3) ].join
 
-				return true if row.include?( four_in_a_row )
-			end
+		return true if board_as_string.include?( four_in_a_row )
 
-		mid_index += 9
-
-		end until mid_index > 49
 
 	end
+
 
 
 	def four_in_a_column( piece )

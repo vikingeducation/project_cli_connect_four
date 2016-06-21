@@ -59,14 +59,4 @@ attr_accessor :board, :name, :piece
 
 
 
-	def process_move
-	# the piece is dropped
-
-	end
-	# then turns will change
-
-	# play will continue with each each move being
-	# checked for validitity and if there are 4 in a row
-	# A draw will happen if the board is full
-
 end
