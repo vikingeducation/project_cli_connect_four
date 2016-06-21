@@ -95,15 +95,10 @@ attr_accessor :current_player
 
 	end
 
-
-
-
-
-
-
 # ending the game
 
 
 
 
 end
+
