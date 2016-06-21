@@ -7,10 +7,10 @@ class CPU < Player
 	def evaluate_board
 		# want to place next to own piece
 		# or to win
-		three_pieces = @piece.to_s * 3
-		row_arr = @board.board_as_string
+		#three_pieces = @piece.to_s * 3
+		#row_arr = @board.board_as_string_row
 
-		binding.pry
+		#binding.pry
 		# check for 3 in a row of its color
 		# check rows
 		# check columns
@@ -19,8 +19,8 @@ class CPU < Player
 		# place where 1 or 2 of CPU color
 		# eval the entire array?
 		# check for 3 of the CPU's piece
-		binding.pry
-		return column
+		#binding.pry
+		#return column
   end
 
 
@@ -28,8 +28,8 @@ class CPU < Player
 	# CPU will generate a move
   def generate_move
 
-  	return evaluate_board
-  	#return rand(1..7)
+  	#return evaluate_board
+  	return rand(1..7)
 
   end
 

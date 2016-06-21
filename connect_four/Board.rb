@@ -30,6 +30,7 @@ class Board
 	# the board will only display the current status
 	def render
 
+		puts ""
 		@board.each_with_index do | row, index |
 			if index % 9 == 0 && index != 0
 				puts ""
@@ -50,11 +51,37 @@ class Board
 
 	end
 
-	def board_as_string
+
+
+	# generate a string to check rows
+	def board_as_string_row
 
 		return @board.join
 
 	end
+
+	#generate a string to check columns
+	def board_as_string_col
+
+		board_col_array = []
+
+		@board.each_with_index do | e, i |
+			# means to separate the columns in the string
+			board_col_array << "-"
+			# grab column 1 through 7
+			if (1..7) === i
+				until i > 52
+					board_col_array << @board[i]
+					i += 9
+				end
+			end
+		end
+
+		return board_col_array.join
+
+
+	end
+
 
 
 	def victory?( piece )
@@ -69,6 +96,9 @@ class Board
 
 	end
 
+
+
+
 	def player_pieces_as_string( piece )
 
 		return piece.to_s * 4
@@ -79,41 +109,27 @@ class Board
 
 	def four_in_a_row( piece )
 		# sets starting index to middle of top row
-		four_in_a_row = player_pieces_as_string( piece )
+		row_of_four = player_pieces_as_string( piece )
 
-		return true if board_as_string.include?( four_in_a_row )
+		return true if board_as_string_row.include?( row_of_four )
 
 
 	end
+
+
 
 
 
 	def four_in_a_column( piece )
 
-		# start of the first indexes of row 3 and 4
-		third_row_start_index = 19
-		fourth_row_start_index = 28
-
-		# refactor
 		row_of_four = player_pieces_as_string( piece )
 
-		begin
-		# the 3rd and 4th indexes in a column must have something for a 4 in a row to be possible
-			if @board[ third_row_start_index ] == piece &&
-				 @board[ fourth_row_start_index ] == piece
-
-				column = get_column_string( third_row_start_index )
-
-				return true if column.include?( row_of_four )
-			end
-
-		third_row_start_index += 1
-		fourth_row_start_index += 1
-
-		end until third_row_start_index > 25
-		# return false
+		return true if board_as_string_col.include?( row_of_four )
 
 	end
+
+
+
 
 	def get_column_string( index )
 
