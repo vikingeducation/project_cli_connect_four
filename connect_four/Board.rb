@@ -60,14 +60,17 @@ class Board
 
 	end
 
-	#generate a string to check columns
+
+
+
+	# generate a string to check columns
 	def board_as_string_col
 
 		board_col_array = []
 
 		@board.each_with_index do | e, i |
 			# means to separate the columns in the string
-			board_col_array << "-"
+			board_col_array << "."
 			# grab column 1 through 7
 			if (1..7) === i
 				until i > 52
@@ -81,6 +84,71 @@ class Board
 
 
 	end
+
+=begin
+	  until index > 25
+
+	  	if (1..3) ===  index || index == 10 || index == 19
+	  		return true if process_diagonal( index, "right" ).include?( row_of_four )
+	  	elsif (5..7) === index || index == 16 || index == 25
+	  		return true if process_diagonal( index, "left" ).include?( row_of_four )
+	  	elsif index == 4
+	  		return true if
+	  			process_diagonal( index, "right" ).include?( row_of_four )|| process_diagonal( index, "left" ).include?( row_of_four )
+	  	end
+	  	index += 1
+
+	  end
+=end
+
+	def board_as_string_diagonal
+
+		board_diag_array = []
+
+		@board.each_with_index do | e, i |
+
+
+				if (1..3) === i || i == 10 || i == 19
+			 		board_diag_array << process_diagonal( i, "right" )
+
+				elsif (5..7) === i || i == 16 || i == 25
+
+	  		  board_diag_array << process_diagonal( i, "left" )
+
+	  		elsif i == 4
+
+	  			board_diag_array << process_diagonal( i, "right" )
+	  			board_diag_array << process_diagonal( i, "left" )
+
+	  		end
+				board_diag_array << "."
+	  end
+
+
+	  return board_diag_array.join
+
+
+
+	end
+
+
+
+
+	def process_diagonal( index, direction )
+
+		arr = []
+		until @board[ index ] == nil || @board[ index ] == "]" || @board[ index ] == "[" || @board[ index ] == "-" || board[ index ].is_a?( Fixnum )
+
+			arr << @board[ index ]
+			direction == "right" ? index += 10 : index += 8
+
+		end
+
+		return arr.join
+
+	end
+
+
 
 
 
@@ -131,6 +199,18 @@ class Board
 
 
 
+
+	def four_in_a_diagonal( piece )
+
+		row_of_four = player_pieces_as_string( piece )
+
+	  return true if board_as_string_diagonal.include?( row_of_four )
+
+	end
+
+
+
+
 	def get_column_string( index )
 
 		# starts the top of the column
@@ -148,43 +228,6 @@ class Board
 		return arr.join
 
 	end
-
-
-	def four_in_a_diagonal( piece )
-
-		four_in_a_row = player_pieces_as_string( piece )
-	  # there are 6 left-to-right diags to check who's array indices are separated by 10
-	  index = 1
-	  until index > 25
-
-	  	if (1..3) ===  index || index == 10 || index == 19
-	  		return true if process_diagonal( index, "right" ).include?( four_in_a_row )
-	  	elsif (5..7) === index || index == 16 || index == 25
-	  		return true if process_diagonal( index, "left" ).include?( four_in_a_row )
-	  	elsif index == 4
-	  		return true if
-	  			process_diagonal( index, "right" ).include?( four_in_a_row )|| process_diagonal( index, "left" ).include?( four_in_a_row )
-	  	end
-	  	index += 1
-
-	  end
-
-
-	end
-
-
-	def process_diagonal( index, direction )
-
-		arr = []
-		until @board[ index ] == nil || @board[ index ].is_a?( Fixnum )
-			arr << @board[ index ]
-			direction == "right" ? index += 10 : index += 8
-		end
-
-		return arr.join
-
-	end
-
 
 
 
