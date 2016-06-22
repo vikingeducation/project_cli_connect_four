@@ -9,6 +9,8 @@ class CPU < Player
 		row = @board.board.join
 		column = @board.board_as_string_col
 
+		diag = @board.board_as_string_diagonal
+
 		if column.include?( @piece.to_s * 3 )
 
 			return move_for_column_win( column )
@@ -24,7 +26,7 @@ class CPU < Player
 		end
 
 
-		diag = @board.board_as_string_diagonal
+
 
 
   end
@@ -32,8 +34,9 @@ class CPU < Player
 
   def move_for_row_win( string )
 
+
   	# generate 6 rows as an array
-  	row_arr = string.split("]")
+  	row_arr = string.split("-")
   	bobb = "BOBB"
   	bbob = "BBOB"
   	bb   = "BB"
@@ -42,38 +45,48 @@ class CPU < Player
 
   		if x.include?( @piece.to_s * 3 )
   			# then need to go through that row to determine where the winning combo is based on the index = column
+
   			column = x.index( @piece.to_s * 3 )
-  			if x[ column - 1 ] == "O"
+  			if x[ column - 1 ] == "O" && column != 0
 
   				# return the column before the BBB
-  				return column - 1
+  				return column
+
+  			elsif x[ column + 3 ] == "O"
+  				# return column after the BBB
+  				return column + 2
 
   			else
 
-  				# return column after the BBB
-  				return column + 3
+  				return rand(1..7)
 
   			end
   		elsif x.include?( bbob )
 
-  			return ( x.index( bbob ) + 2 )
+
+  			return ( x.index( bbob ) + 3 )
 
   		elsif x.include?( bobb )
 
-  			return ( x.index( bobb ) + 1 )
+  			return ( x.index( bobb ) + 2 )
 
   		elsif x.include?( bb )
 
-  			column = x.index( bb )
-  			if x[ column - 1 ] == "O"
 
-  				# return the column before the BBB
-  				return column - 1
+  			column = x.index( bb )
+  			if x[ column - 1 ] == "O" && column != 0
+
+  				# return the column before the BB
+  				return column
+
+  			elsif x[ column + 2 ] == "O"
+binding.pry
+  				# return column after the BB
+  				return column + 3
 
   			else
 
-  				# return column after the BBB
-  				return column + 2
+  				return rand(1..7)
 
   			end
 
@@ -104,6 +117,19 @@ class CPU < Player
 
 
   end
+
+
+  def move_for_diagonal_win( string )
+
+  	arr = @board.join
+
+
+
+
+  end
+
+
+
 
 
   def place_win

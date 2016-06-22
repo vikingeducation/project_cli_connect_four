@@ -16,13 +16,12 @@ class Board
 		# change to array
 		# hash for the board
 		return [
-						 "[", "O", "O", "O", "O", "O", "O", "O", "]",
-	 				   "[", "O", "O", "O", "O", "O", "O", "O", "]",
-	 				   "[", "O", "O", "O", "O", "O", "O", "O", "]",
-	 				   "[", "O", "O", "O", "O", "O", "O", "O", "]",
-	 				   "[", "O", "O", "O", "O", "O", "O", "O", "]",
-	 				   "[", "O", "O", "O", "O", "O", "O", "O", "]",
-	 				   "-",  1,   2,   3,   4,   5,   6,   7,  "-"
+						 "-", "O", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-"
 	 				 ]
 	end
 
@@ -39,6 +38,11 @@ class Board
 				print row
 			end
 		end
+		puts ""
+
+		print "-1234567-"
+
+		puts ""
 
 	end
 	# display messages to the user
