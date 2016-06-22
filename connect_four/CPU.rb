@@ -12,23 +12,59 @@ class CPU < Player
 		#binding.pry
 		# check for 3 in a row of its color
 		# check rows
+		row = @board.board.join
+		column = @board.board_as_string_col
+
+		if column.include?( @piece.to_s * 3 )
+
+			return move_for_column_win( column )
+
+		else
+			return rand(1..7)
+		end
+
+		diag = @board.board_as_string_diagonal
 		# check columns
 		# check diagonal
 		# if no options
 		# place where 1 or 2 of CPU color
 		# eval the entire array?
 		# check for 3 of the CPU's piece
-		#binding.pry
 		#return column
+
   end
 
+  def move_for_column_win( string )
+
+  	# split the string to resemble index = column number
+  	col_arr = string.split("-")
+
+  	col_arr.each_with_index do | x, i |
+
+  		if x.include?( @piece.to_s * 3 )
+
+  			return i
+
+  		end
+
+  	end
+
+
+  end
+
+
+  def place_win
+
+
+
+  end
 
 
 	# CPU will generate a move
   def generate_move
 
-  	#return evaluate_board
-  	return rand(1..7)
+  	return evaluate_board
+  	#return rand(1..7)
 
   end
 

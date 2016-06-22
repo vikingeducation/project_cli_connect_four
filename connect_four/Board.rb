@@ -70,16 +70,16 @@ class Board
 
 		@board.each_with_index do | e, i |
 			# means to separate the columns in the string
-			board_col_array << "."
+
 			# grab column 1 through 7
 			if (1..7) === i
+				board_col_array << "-"
 				until i > 52
 					board_col_array << @board[i]
 					i += 9
 				end
 			end
 		end
-
 		return board_col_array.join
 
 
