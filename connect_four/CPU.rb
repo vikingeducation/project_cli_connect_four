@@ -9,7 +9,7 @@ class CPU < Player
 		# or to win
 		#three_pieces = @piece.to_s * 3
 		#row_arr = @board.board_as_string_row
-
+		
 		#binding.pry
 		# check for 3 in a row of its color
 		# check rows

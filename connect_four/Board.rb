@@ -196,25 +196,6 @@ class Board
 
 
 
-	def get_column_string( index )
-
-		# starts the top of the column
-		board_index = index - 18
-		arr = []
-
-		6.times do
-
-			arr << @board[ board_index ]
-
-			board_index += 9
-
-		end
-
-		return arr.join
-
-	end
-
-
 
 
 	def draw?
