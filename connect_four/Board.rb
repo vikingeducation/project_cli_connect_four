@@ -106,11 +106,11 @@ class Board
 	  			board_diag_array << process_diagonal( i, "left" )
 
 	  		end
-				board_diag_array << "."
+
 	  end
 
 
-	  return board_diag_array.join
+	  return board_diag_array.join("-")
 
 
 
