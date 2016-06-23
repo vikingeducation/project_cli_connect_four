@@ -13,8 +13,6 @@ class Board
 	# setting up the game board
 	def default_state
 
-		# change to array
-		# hash for the board
 		return [
 						 "-", "O", "O", "O", "O", "O", "O", "O", "-",
 	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
@@ -30,14 +28,22 @@ class Board
 	def render
 
 		puts ""
+
 		@board.each_with_index do | row, index |
+
 			if index % 9 == 0 && index != 0
+
 				puts ""
 				print row
+
 			else
+
 				print row
+
 			end
+
 		end
+
 		puts ""
 
 		print "-1234567-"
@@ -45,7 +51,7 @@ class Board
 		puts ""
 
 	end
-	# display messages to the user
+
 
 	def message( message )
 
@@ -73,11 +79,13 @@ class Board
 		board_col_array = []
 
 		@board.each_with_index do | e, i |
-			# means to separate the columns in the string
 
 			# grab column 1 through 7
 			if (1..7) === i
+
+				# '-' separates each column to check for win
 				board_col_array << "-"
+
 				until i > 52
 					board_col_array << @board[i]
 					i += 9
@@ -96,7 +104,7 @@ class Board
 
 		@board.each_with_index do | e, i |
 
-
+				# each possible diagonal starts at the index number below
 				if (1..3) === i || i == 10 || i == 19
 			 		board_diag_array << process_diagonal( i, "right" )
 
@@ -125,10 +133,14 @@ class Board
 
 	def process_diagonal( index, direction )
 
+		# stores an array of each diagnoal string we can check
 		arr = []
+
 		until @board[ index ] == nil || @board[ index ] == "]" || @board[ index ] == "[" || @board[ index ] == "-" || board[ index ].is_a?( Fixnum )
 
 			arr << @board[ index ]
+
+			# depending on the direction of the diagnoal the index increments either 8 or 10
 			direction == "right" ? index += 10 : index += 8
 
 		end
@@ -220,17 +232,20 @@ class Board
 	end
 
 
-	# dropping pieces
 	def prepare_to_drop( column, piece )
 
-		# place in the desired column
 		if column_has_room?( column )
-			# drop the piece
+
 			drop_piece( column, piece )
+
 			true
+
 		else
+
 			draw?
+
 			false
+
 		end
 
 	end
@@ -243,12 +258,16 @@ class Board
 		loop do
 
 			if @board[ index ] == "O"
+
 				@board[ index ] = piece
+
 				break
+
 			end
 
 			# jump to the row above for next check
 			index -= 9
+
 		end
 
 	end
@@ -266,9 +285,10 @@ class Board
 				# replace the dropped piece to try again
 				@board[ index ] = "O"
 				break
+
 			end
 
-			# jump to the row above for next check
+			# jump to the next row down for next check
 			index += 9
 		end
 

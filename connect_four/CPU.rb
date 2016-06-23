@@ -2,22 +2,27 @@ require 'pry'
 
 class CPU < Player
 
-		# the CPU will be generated only if 1 player is selected
-		# the CPU will be able to evaluate the board
 	def evaluate_board
 
-    # need to start with a column that sends a piece to the row, column and diagonal
+    # CPU goes through each column to test for a win and returns that column for its move if a winning placement
     column_to_try = 1
 
     until column_to_try == 8
 
       if @board.column_has_room?( column_to_try )
+
         @board.drop_piece( column_to_try, @piece )
 
         if @board.victory?( @piece )
+
+          # remove the piece before sending the move
           @board.remove_piece( column_to_try, @piece )
+
           return column_to_try
+
         else
+
+          # removes the non-winning drop to try a new one
           @board.remove_piece( column_to_try, @piece )
 
         end
@@ -32,13 +37,6 @@ class CPU < Player
 
   end
 
-
-	# CPU will generate a move
-  def generate_move
-
-
-
-  end
 
 
 

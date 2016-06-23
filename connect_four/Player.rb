@@ -3,6 +3,7 @@ require 'pry'
 
 class Player
 
+QUIT = "q", "exit", "quit"
 
 attr_accessor :board, :name, :piece
 
@@ -15,23 +16,21 @@ attr_accessor :board, :name, :piece
 
 	end
 
-	# player one will get Red
-	# player 2 will get Blue
 
-	# the board will be displayed
-	# player one will make their first move
 	def get_move( column = nil )
 
 		loop do
 
 			column = ask_for_move
 
-			# validate correct column
+			exit?( column )
+
 			if valid_column?( column )
 
-				# then validate column is not full
 				if @board.prepare_to_drop( column, @piece )
+
 					break
+
 				end
 
 			end
@@ -39,7 +38,8 @@ attr_accessor :board, :name, :piece
 		end
 
 	end
-	# unless the move is invalid
+
+
 
 	def valid_column?( column )
 
@@ -53,10 +53,17 @@ attr_accessor :board, :name, :piece
 
 		@board.message("#{@name}#{piece}, enter which column number to place your piece")
 
-		gets.strip.to_i
+		input = gets.strip
+		exit?( input )
+
+		return input.to_i
 
 	end
 
+	def exit?( input )
 
+		exit if QUIT.include?( input )
+
+	end
 
 end

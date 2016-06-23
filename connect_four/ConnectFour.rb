@@ -30,10 +30,11 @@ attr_accessor :current_player
 
 
 	def num_players
-		# prompt to start games and generate player/cpu
+
 		begin
 
 			@board.message(%q(How many players? Enter: 1 or 2))
+
 			input = gets.strip.to_i
 
 	  end until input == 1 || input == 2
@@ -81,21 +82,21 @@ attr_accessor :current_player
 
 
 	def game_reset
+
 		ConnectFour.new
+
 	end
 
 
 
-	#taking turns
+
 	def change_turns( current_player )
 
-		# alternate p1/p2
 		current_player == @player1 ? @current_player = @player2 : 																 @current_player = @player1
-
 
 	end
 
-# ending the game
+
 
 
 
