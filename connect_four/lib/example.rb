@@ -7,7 +7,6 @@ require_relative  'disk'
 # Includes the ConnectFour
 # module into the global
 # namespace
-include ConnectFour
 
 # Play!
 game = Game.new
