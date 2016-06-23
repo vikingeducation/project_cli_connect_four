@@ -6,135 +6,29 @@ class CPU < Player
 		# the CPU will be able to evaluate the board
 	def evaluate_board
 
-		row = @board.board.join
-		column = @board.board_as_string_col
+    # need to start with a column that sends a piece to the row, column and diagonal
+    column_to_try = 1
 
-		diag = @board.board_as_string_diagonal
+    until column_to_try == 8
 
-		if column.include?( @piece.to_s * 3 )
+      if @board.column_has_room?( column_to_try )
+        @board.drop_piece( column_to_try, @piece )
 
-			return move_for_column_win( column )
+        if @board.victory?( @piece )
+          @board.remove_piece( column_to_try, @piece )
+          return column_to_try
+        else
+          @board.remove_piece( column_to_try, @piece )
 
-		elsif row.include?( @piece.to_s * 2)
-
-			return move_for_row_win( row )
-
-		else
-
-			return rand(1..7)
-
-		end
-
-
-
-
-
-  end
-
-
-  def move_for_row_win( string )
-
-
-  	# generate 6 rows as an array
-  	row_arr = string.split("-")
-  	bobb = "BOBB"
-  	bbob = "BBOB"
-  	bb   = "BB"
-
-  	row_arr.each_with_index do | x, i |
-
-  		if x.include?( @piece.to_s * 3 )
-  			# then need to go through that row to determine where the winning combo is based on the index = column
-
-  			column = x.index( @piece.to_s * 3 )
-  			if x[ column - 1 ] == "O" && column != 0
-
-  				# return the column before the BBB
-  				return column
-
-  			elsif x[ column + 3 ] == "O"
-  				# return column after the BBB
-  				return column + 2
-
-  			else
-
-  				return rand(1..7)
-
-  			end
-  		elsif x.include?( bbob )
-
-
-  			return ( x.index( bbob ) + 3 )
-
-  		elsif x.include?( bobb )
-
-  			return ( x.index( bobb ) + 2 )
-
-  		elsif x.include?( bb )
-
-
-  			column = x.index( bb )
-  			if x[ column - 1 ] == "O" && column != 0
-
-  				# return the column before the BB
-  				return column
-
-  			elsif x[ column + 2 ] == "O"
-binding.pry
-  				# return column after the BB
-  				return column + 3
-
-  			else
-
-  				return rand(1..7)
-
-  			end
+        end
 
       end
 
+      column_to_try += 1
+
     end
 
-
-  end
-
-
-
-
-  def move_for_column_win( string )
-
-  	# split the string to resemble index = column number
-  	col_arr = string.split("-")
-
-  	col_arr.each_with_index do | x, i |
-
-  		if x.include?( @piece.to_s * 3 )
-
-  			return i
-
-  		end
-
-  	end
-
-
-  end
-
-
-  def move_for_diagonal_win( string )
-
-  	arr = @board.join
-
-
-
-
-  end
-
-
-
-
-
-  def place_win
-
-
+    return rand(1..7)
 
   end
 
@@ -142,22 +36,19 @@ binding.pry
 	# CPU will generate a move
   def generate_move
 
-  	return evaluate_board
-  	#return rand(1..7)
+
 
   end
+
+
 
   def ask_for_move
 
-  	generate_move
+    return evaluate_board
 
   end
 
-  def get_move
 
-  	super
-
-  end
 
 
 

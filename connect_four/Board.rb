@@ -255,5 +255,24 @@ class Board
 
 
 
+	def remove_piece( column, piece )
+
+		# goes to the 'top row' of the array which is 45 + column #
+		index = column
+		loop do
+
+			if @board[ index ] == piece
+
+				# replace the dropped piece to try again
+				@board[ index ] = "O"
+				break
+			end
+
+			# jump to the row above for next check
+			index += 9
+		end
+
+	end
+
 
 end
