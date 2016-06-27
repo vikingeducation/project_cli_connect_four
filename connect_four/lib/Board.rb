@@ -290,23 +290,16 @@ def player_pieces_as_string( piece )
 
 
 	def four_in_a_row( piece )
-		# sets starting index to middle of top row
-		row_of_four = player_pieces_as_string( piece )
 
-		return true if board_as_string_row.include?( row_of_four )
-
+		return true if board_as_string_row.include?( player_pieces_as_string( piece ))
 
 	end
 
 
 
-
-
 	def four_in_a_column( piece )
 
-		row_of_four = player_pieces_as_string( piece )
-
-		return true if board_as_string_col.include?( row_of_four )
+		return true if board_as_string_col.include?( player_pieces_as_string( piece ) )
 
 	end
 
@@ -316,9 +309,7 @@ def player_pieces_as_string( piece )
 
 	def four_in_a_diagonal( piece )
 
-		row_of_four = player_pieces_as_string( piece )
-
-	  return true if board_as_string_diagonal.include?( row_of_four )
+	  return true if board_as_string_diagonal.include?( player_pieces_as_string( piece ) )
 
 	end
 
