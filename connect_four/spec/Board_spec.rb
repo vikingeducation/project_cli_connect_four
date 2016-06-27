@@ -38,6 +38,13 @@ describe '.Board' do
 	end
 
 
+	describe "#four_in_a_row"
+
+		it "should return true if there is 4 in a row"
+
+	end
+
+
 
 
 end
