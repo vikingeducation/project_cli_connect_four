@@ -24,13 +24,14 @@ describe '.Board' do
 
 	end
 
+
 	describe '#player_pieces_as_string' do
 
-		it 'returns the passed piece as a string of 4 chars' do
+		it 'returns a passed piece as a string of 4 chars' do
 
-			string = board.four_in_a_row( :B )
+			string = board.player_pieces_as_string( :B )
 
-			expect( string ).to eq( "RRRR" )
+			expect( string ).to eq( "BBBB" )
 
 		end
 
