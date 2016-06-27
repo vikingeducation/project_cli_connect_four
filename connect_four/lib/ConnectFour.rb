@@ -57,7 +57,7 @@ attr_accessor :current_player
 	end
 
 
-private
+#private
 
 	def num_players
 

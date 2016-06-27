@@ -82,7 +82,7 @@ attr_accessor :board, :name, :piece
 	end
 
 
-private
+#private
 
 	def valid_column?( column )
 

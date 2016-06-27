@@ -87,13 +87,11 @@ class Board
 
 	def victory?( piece )
 
-		# find if 4 colors are in a row
 		return true if four_in_a_row( piece )
 
 		return true if four_in_a_column( piece )
 
 		return true if four_in_a_diagonal( piece )
-		# call each method (row/diagonal)
 
 	end
 
@@ -181,7 +179,7 @@ class Board
 	end
 
 
-private
+#private
 
 	# setting up the game board
 	def default_state

@@ -10,7 +10,7 @@ class CPU < Player
   end
 
 
-private
+#private
 
   def evaluate_board
 
