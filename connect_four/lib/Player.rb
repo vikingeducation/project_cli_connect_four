@@ -1,6 +1,36 @@
 
 require 'pry'
 
+
+=begin
+
+
+	public stuff:
+		attr_accessors : :board, :name, :piece
+
+		initialize (3 parameters [name default])
+			@name
+			@board
+			@piece
+
+		get move
+		aske for move
+
+	private
+
+		valid column?
+		exit?
+
+
+
+
+
+
+=end
+
+
+
+
 class Player
 
 QUIT = "q", "exit", "quit"

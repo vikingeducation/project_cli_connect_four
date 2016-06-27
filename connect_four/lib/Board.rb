@@ -1,3 +1,40 @@
+=begin
+
+	public
+
+		attr accessor board
+
+		initialize
+
+			@board
+
+		render
+		message( message )
+		victory?
+		draw?
+		column has room?
+		prepare to drop
+		drop piece
+		remove piece
+
+	private
+
+		default state
+		board as string row
+		" column
+		" diagonal
+	  process_diagonal( index, direction )
+    player_pieces_as_string( piece )
+		four_in_a_row( piece )
+		four_in_a_column( piece )
+		four_in_a_diagonal( piece )
+
+
+
+
+=end
+
+
 class Board
 
 	attr_accessor :board
@@ -7,9 +44,6 @@ class Board
 		@board = default_state
 
 	end
-
-
-
 
 
 
@@ -62,52 +96,6 @@ class Board
 		# call each method (row/diagonal)
 
 	end
-
-
-
-
-	def player_pieces_as_string( piece )
-
-		return piece.to_s * 4
-
-	end
-
-
-
-	def four_in_a_row( piece )
-		# sets starting index to middle of top row
-		row_of_four = player_pieces_as_string( piece )
-
-		return true if board_as_string_row.include?( row_of_four )
-
-
-	end
-
-
-
-
-
-	def four_in_a_column( piece )
-
-		row_of_four = player_pieces_as_string( piece )
-
-		return true if board_as_string_col.include?( row_of_four )
-
-	end
-
-
-
-
-
-	def four_in_a_diagonal( piece )
-
-		row_of_four = player_pieces_as_string( piece )
-
-	  return true if board_as_string_diagonal.include?( row_of_four )
-
-	end
-
-
 
 
 
@@ -291,6 +279,48 @@ private
 		end
 
 		return arr.join
+
+	end
+
+
+def player_pieces_as_string( piece )
+
+		return piece.to_s * 4
+
+	end
+
+
+
+	def four_in_a_row( piece )
+		# sets starting index to middle of top row
+		row_of_four = player_pieces_as_string( piece )
+
+		return true if board_as_string_row.include?( row_of_four )
+
+
+	end
+
+
+
+
+
+	def four_in_a_column( piece )
+
+		row_of_four = player_pieces_as_string( piece )
+
+		return true if board_as_string_col.include?( row_of_four )
+
+	end
+
+
+
+
+
+	def four_in_a_diagonal( piece )
+
+		row_of_four = player_pieces_as_string( piece )
+
+	  return true if board_as_string_diagonal.include?( row_of_four )
 
 	end
 
