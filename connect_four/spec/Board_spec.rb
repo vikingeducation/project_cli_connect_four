@@ -91,6 +91,38 @@ describe '.Board' do
 	end
 
 
+	describe '#board_as_string_col' do
+
+		it 'should generate the board as a string of columns'
+
+
+	end
+
+
+	describe '#four_in_a_column' do
+
+		it 'should return true if four in a column'
+		it 'should return false if no four in a column'
+
+	end
+
+
+
+	describe '#board_as_string_diag' do
+
+		it 'should generate the board as a string of diagonals'
+
+
+	end
+
+
+	describe '#four_in_a_diagonal' do
+
+		it 'should return true if four in a diagonal'
+		it 'should return false if no four in a diagonal'
+
+	end
+
 
 
 	describe '#draw?' do
