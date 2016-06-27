@@ -2,7 +2,17 @@ require 'pry'
 
 class CPU < Player
 
-	def evaluate_board
+
+  def ask_for_move
+
+    return evaluate_board
+
+  end
+
+
+private
+
+  def evaluate_board
 
     # CPU goes through each column to test for a win and returns that column for its move if a winning placement
     column_to_try = 1
@@ -36,18 +46,6 @@ class CPU < Player
     return rand(1..7)
 
   end
-
-
-
-
-  def ask_for_move
-
-    return evaluate_board
-
-  end
-
-
-
 
 
 

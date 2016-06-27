@@ -40,15 +40,6 @@ attr_accessor :board, :name, :piece
 	end
 
 
-
-	def valid_column?( column )
-
-	  (1..7) === column
-
-	end
-
-
-
 	def ask_for_move
 
 		@board.message("#{@name}#{piece}, enter which column number to place your piece")
@@ -57,6 +48,15 @@ attr_accessor :board, :name, :piece
 		exit?( input )
 
 		return input.to_i
+
+	end
+
+
+private
+
+	def valid_column?( column )
+
+	  (1..7) === column
 
 	end
 
