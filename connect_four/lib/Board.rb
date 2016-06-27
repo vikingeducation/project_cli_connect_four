@@ -10,18 +10,7 @@ class Board
 
 
 
-	# setting up the game board
-	def default_state
 
-		return [
-						 "-", "O", "O", "O", "O", "O", "O", "O", "-",
-	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
-	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
-	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
-	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
-	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-"
-	 				 ]
-	end
 
 
 	# the board will only display the current status
@@ -60,97 +49,6 @@ class Board
 		puts ""
 
 	end
-
-
-
-	# generate a string to check rows
-	def board_as_string_row
-
-		return @board.join
-
-	end
-
-
-
-
-	# generate a string to check columns
-	def board_as_string_col
-
-		board_col_array = []
-
-		@board.each_with_index do | e, i |
-
-			# grab column 1 through 7
-			if (1..7) === i
-
-				# '-' separates each column to check for win
-				board_col_array << "-"
-
-				until i > 52
-					board_col_array << @board[i]
-					i += 9
-				end
-			end
-		end
-		return board_col_array.join
-
-
-	end
-
-
-	def board_as_string_diagonal
-
-		board_diag_array = []
-
-		@board.each_with_index do | e, i |
-
-				# each possible diagonal starts at the index number below
-				if (1..3) === i || i == 10 || i == 19
-			 		board_diag_array << process_diagonal( i, "right" )
-
-				elsif (5..7) === i || i == 16 || i == 25
-
-	  		  board_diag_array << process_diagonal( i, "left" )
-
-	  		elsif i == 4
-
-	  			board_diag_array << process_diagonal( i, "right" )
-	  			board_diag_array << process_diagonal( i, "left" )
-
-	  		end
-
-	  end
-
-
-	  return board_diag_array.join("-")
-
-
-
-	end
-
-
-
-
-	def process_diagonal( index, direction )
-
-		# stores an array of each diagnoal string we can check
-		arr = []
-
-		until @board[ index ] == nil || @board[ index ] == "]" || @board[ index ] == "[" || @board[ index ] == "-" || board[ index ].is_a?( Fixnum )
-
-			arr << @board[ index ]
-
-			# depending on the direction of the diagnoal the index increments either 8 or 10
-			direction == "right" ? index += 10 : index += 8
-
-		end
-
-		return arr.join
-
-	end
-
-
-
 
 
 	def victory?( piece )
@@ -294,5 +192,106 @@ class Board
 
 	end
 
+
+private
+
+	# setting up the game board
+	def default_state
+
+		return [
+						 "-", "O", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-"
+	 				 ]
+	end
+
+	# generate a string to check rows
+	def board_as_string_row
+
+		return @board.join
+
+	end
+
+
+
+
+	# generate a string to check columns
+	def board_as_string_col
+
+		board_col_array = []
+
+		@board.each_with_index do | e, i |
+
+			# grab column 1 through 7
+			if (1..7) === i
+
+				# '-' separates each column to check for win
+				board_col_array << "-"
+
+				until i > 52
+					board_col_array << @board[i]
+					i += 9
+				end
+			end
+		end
+		return board_col_array.join
+
+
+	end
+
+
+	def board_as_string_diagonal
+
+		board_diag_array = []
+
+		@board.each_with_index do | e, i |
+
+				# each possible diagonal starts at the index number below
+				if (1..3) === i || i == 10 || i == 19
+			 		board_diag_array << process_diagonal( i, "right" )
+
+				elsif (5..7) === i || i == 16 || i == 25
+
+	  		  board_diag_array << process_diagonal( i, "left" )
+
+	  		elsif i == 4
+
+	  			board_diag_array << process_diagonal( i, "right" )
+	  			board_diag_array << process_diagonal( i, "left" )
+
+	  		end
+
+	  end
+
+
+	  return board_diag_array.join("-")
+
+
+
+	end
+
+
+
+
+	def process_diagonal( index, direction )
+
+		# stores an array of each diagnoal string we can check
+		arr = []
+
+		until @board[ index ] == nil || @board[ index ] == "]" || @board[ index ] == "[" || @board[ index ] == "-" || board[ index ].is_a?( Fixnum )
+
+			arr << @board[ index ]
+
+			# depending on the direction of the diagnoal the index increments either 8 or 10
+			direction == "right" ? index += 10 : index += 8
+
+		end
+
+		return arr.join
+
+	end
 
 end

@@ -4,7 +4,23 @@ require 'pry'
 
 accessors : current_player
 
+public methods:
+	initialize:
+		@num_players method returns num
+		@player1 works
+		@player2 works
+		@CPU works
+		@board gets passed
 
+private methods:
+	num players
+		happy = entering 1 or 2 works
+		sad = any other value doesn't work
+	run
+	display win
+	display draw
+	game reset
+	change turns
 
 
 
