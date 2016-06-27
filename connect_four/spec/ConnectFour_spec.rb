@@ -1,7 +1,6 @@
 require 'spec_helper'
 require 'ConnectFour'
 
-
 describe '.ConnectFour' do
 
 	it "pending creates a new object"

@@ -1,4 +1,18 @@
 require 'pry'
+
+=begin
+
+accessors : current_player
+
+
+
+
+
+
+=end
+
+
+
 class ConnectFour
 
 attr_accessor :current_player
