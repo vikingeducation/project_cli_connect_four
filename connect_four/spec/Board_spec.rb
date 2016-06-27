@@ -57,14 +57,14 @@ describe '.Board' do
 
 		it 'should return false if there is not four in a row' do
 
-			board.board = [
+			board.board = ([
 						 "-", "O", "O", "O", "O", "O", "O", "O", "-",
 	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
 	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
 	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
 	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
 	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-"
-	 				 ]
+	 				 ])
 
 			expect( board.four_in_a_row( :B )).to be false
 
@@ -155,5 +155,25 @@ describe '.Board' do
 
  	end
 
+ 	describe '#drop_piece' do
+
+ 		it 'should place the piece in the selected column' do
+
+ 			board.drop_piece( 1 , :B )
+
+			dropped_piece = [
+						 "-", "O", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", :B , "O", "O", "O", "O", "O", "O", "-"
+	 				 ]
+
+			expect(board.board).to eq( dropped_piece )
+
+		end
+
+	end #/.drop_piece
 
 end

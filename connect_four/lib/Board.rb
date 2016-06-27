@@ -39,9 +39,9 @@ class Board
 
 	attr_accessor :board
 
-	def initialize
+	def initialize( board = nil )
 
-		@board = default_state
+		@board = default_state if board == nil
 
 	end
 
