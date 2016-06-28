@@ -33,7 +33,7 @@ class ConnectFour
 
 attr_accessor :current_player
 
-	def initialize
+	def initialize( num_players )
 
 		@board = Board.new
 
@@ -59,17 +59,17 @@ attr_accessor :current_player
 
 #private
 
-	def num_players
+	def self.num_players
 
 		begin
 
-			@board.message(%q(How many players? Enter: 1 or 2))
+			puts %q(How many players? Enter: 1 or 2)
 
 			input = gets.strip.to_i
 
 	  end until input == 1 || input == 2
 
-		return input
+		ConnectFour.new( input )
 
 	end
 
@@ -113,7 +113,7 @@ attr_accessor :current_player
 
 	def game_reset
 
-		ConnectFour.new
+		ConnectFour.num_players
 
 	end
 

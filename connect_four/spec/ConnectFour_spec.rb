@@ -9,12 +9,14 @@ describe '.ConnectFour' do
 
 	let( :connect_four ) { ConnectFour.new }
 	let( :board ) { Board.new }
+	let( :player1 ) { Player.new( 'Player 1', :R, board )}
 
-	describe '#initialize' do
+	describe '#num_players' do
 
-		it 'should create an instance of Board class' do
 
-			allow(connect_four).to receive(:num_players)
+		it 'should call the num_players and return a value' do
+
+			 expect(player1).to eq(Player.new( 'Player 1', :R, board ))
 
 		end
 

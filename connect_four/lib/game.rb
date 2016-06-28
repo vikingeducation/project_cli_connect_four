@@ -3,4 +3,4 @@ require_relative 'Player'
 require_relative 'CPU'
 require_relative 'Board'
 
-ConnectFour.new
+ConnectFour.num_players
