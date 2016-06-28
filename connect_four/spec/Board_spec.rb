@@ -56,9 +56,9 @@ describe '.Board' do
 
 	describe '#four_in_a_row' do
 
-		it 'should return nil if there is not four in a row' do
+		it 'should return falsy if there is not four in a row' do
 
-			expect( board.four_in_a_row( piece )).to be nil
+			expect( board.four_in_a_row( piece )).to be_falsy
 
 		end
 
@@ -118,9 +118,9 @@ describe '.Board' do
 
 
 
-		it 'should return nil if no four in a column' do
+		it 'should return falsy if no four in a column' do
 
-			expect( board.four_in_a_column( piece ) ).to be nil
+			expect( board.four_in_a_column( piece ) ).to be_falsy
 
 		end
 
@@ -162,9 +162,9 @@ describe '.Board' do
 
 
 
-		it 'should return nil if no four in a diagonal' do
+		it 'should return falsy if no four in a diagonal' do
 
-			expect( board.four_in_a_diagonal( piece )).to be nil
+			expect( board.four_in_a_diagonal( piece )).to be_falsy
 
 		end
 
@@ -306,9 +306,9 @@ describe '.Board' do
 		end
 
 
-		it 'should return nil if there is are no wins' do
+		it 'should return falsy if there is are no wins' do
 
-			expect( board.victory?( piece )).to be nil
+			expect( board.victory?( piece )).to be_falsy
 
 		end
 
