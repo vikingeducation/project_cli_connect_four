@@ -85,7 +85,9 @@ describe '.Player' do
 
 
 	describe '#exit?' do
+
 		it 'should exit if the input is one of the exit CMDs'
+
 	end
 
 
@@ -98,6 +100,12 @@ describe '.Player' do
 			expect( player.ask_for_move ).to eq(4)
 
 		end
+
+	end
+
+	describe '#get_move' do
+
+		it 'should return true when valid column selected'
 
 	end
 
