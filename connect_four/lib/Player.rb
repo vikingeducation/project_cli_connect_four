@@ -36,6 +36,7 @@ class Player
 QUIT = "q", "exit", "quit"
 
 attr_accessor :board, :name, :piece
+#attr_reader :board
 
 	def initialize( name = "Joe", piece, board )
 

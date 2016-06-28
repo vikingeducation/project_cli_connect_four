@@ -5,43 +5,58 @@ require 'Board'
 
 
 
-describe '#initilaize' do
+describe '.Player' do
 
-	let( :board ) { Board.new }
-	let( :piece ) { :R }
-	let( :player ) { Player.new( 'Player 1', piece, board )}
+	describe '#initilaize' do
 
-	it 'should create an instance of player' do
-
-		player1 = player
-
-		expect( player1 ).to be_an_instance_of( Player )
-
-	end
-
-	it 'should only accept 3 parameters' do
-
-		expect{ Player.new( "bob", :R, :B , Board.new )}.to raise_error( ArgumentError)
+		let( :board ) { Board.new }
+		let( :piece ) { :R }
+		let( :player ) { Player.new( 'Player 1', piece, board )}
 
 
-	end
 
-	it 'should initialize name' do
+		it 'should create an instance of player' do
 
-		expect( player.name ).to eq( "Player 1")
+			player1 = player
 
-	end
+			expect( player1 ).to be_an_instance_of( Player )
 
-	it 'should initialize board' do
+		end
 
-		expect( player.board ).to eq( board )
 
-	end
 
-	it 'should initialize piece' do
 
-		expect( player.piece ).to eq( piece )
+		it 'should only accept 3 parameters' do
 
-	end
+			expect{ Player.new( "bob", :R, :B , Board.new )}.to raise_error( ArgumentError)
 
-end
+
+		end
+
+
+
+		it 'should initialize name' do
+
+			expect( player.name ).to eq( "Player 1")
+
+		end
+
+
+
+		it 'should initialize board' do
+
+			expect( player.board ).to eq( board )
+
+		end
+
+
+
+		it 'should initialize piece' do
+
+			expect( player.piece ).to eq( piece )
+
+		end
+
+	end #/.initialize
+
+end #/.Player
