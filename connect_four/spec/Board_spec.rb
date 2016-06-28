@@ -5,15 +5,7 @@ require 'pry'
 describe '.Board' do
 
 	let( :board ) { Board.new }
-	let( :board_array ) { [
-						 "-", "O", "O", "O", "O", "O", "O", "O", "-",
-	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
-	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
-	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
-	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
-	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-"
-	 				 ] }
-
+  let( :piece ) { :B }
 
 
 
@@ -21,7 +13,16 @@ describe '.Board' do
 
 		it "should create a @board from the default state" do
 
-			expect(board.board).to eq( board_array )
+			default = [
+						 "-", "O", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-"
+	 				 ]
+
+			expect(board.board).to eq( default )
 
 		end
 
@@ -32,7 +33,7 @@ describe '.Board' do
 
 		it 'returns a passed piece as a string of 4 chars' do
 
-			string = board.player_pieces_as_string( :B )
+			string = board.player_pieces_as_string( piece )
 
 			expect( string ).to eq( "BBBB" )
 
@@ -55,22 +56,11 @@ describe '.Board' do
 
 	describe '#four_in_a_row' do
 
-		it 'should return false if there is not four in a row' do
+		it 'should return nil if there is not four in a row' do
 
-			board.board = ([
-						 "-", "O", "O", "O", "O", "O", "O", "O", "-",
-	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
-	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
-	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
-	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
-	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-"
-	 				 ])
-
-			expect( board.four_in_a_row( :B )).to be false
+			expect( board.four_in_a_row( piece )).to be nil
 
 		end
-
-
 
 
 		it 'should return true if there is 4 in a row' do
@@ -84,16 +74,25 @@ describe '.Board' do
 	 				   "-", "B", "B", "B", "B", "O", "O", "O", "-"
 	 				 ]
 
-			expect( board.four_in_a_row( :B )).to be true
+			expect( board.four_in_a_row( piece )).to be true
 
 		end
 
 	end
 
 
+
+
 	describe '#board_as_string_col' do
 
-		it 'should generate the board as a string of columns'
+		it 'should create all columns in one string' do
+
+			column_string = "-OOOOOO-OOOOOO-OOOOOO-OOOOOO-OOOOOO-OOOOOO-OOOOOO"
+
+			expect( board.board_as_string_col ).to eq( column_string )
+
+
+		end
 
 
 	end
@@ -101,8 +100,29 @@ describe '.Board' do
 
 	describe '#four_in_a_column' do
 
-		it 'should return true if four in a column'
-		it 'should return false if no four in a column'
+
+		it 'should return true if four in a column' do
+
+			board.board = [
+						 "-", "O", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "B", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "B", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "B", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "B", "B", "B", "O", "O", "O", "O", "-"
+	 				 ]
+
+			expect( board.four_in_a_column( piece ) ).to be true
+
+		end
+
+
+
+		it 'should return nil if no four in a column' do
+
+			expect( board.four_in_a_column( piece ) ).to be nil
+
+		end
 
 	end
 
@@ -110,7 +130,14 @@ describe '.Board' do
 
 	describe '#board_as_string_diag' do
 
-		it 'should generate the board as a string of diagonals'
+		it 'should generate the board as a string of diagonals' do
+
+			diag = "OOOOOO-OOOOOO-OOOOO-OOOO-OOOO-OOOOO-OOOOOO-OOOOOO-OOOOO-OOOOO-OOOO-OOOO"
+
+
+			expect( board.board_as_string_diagonal ).to eq( diag )
+
+		end
 
 
 	end
@@ -118,8 +145,30 @@ describe '.Board' do
 
 	describe '#four_in_a_diagonal' do
 
-		it 'should return true if four in a diagonal'
-		it 'should return false if no four in a diagonal'
+		it 'should return true if four in a diagonal' do
+
+			board.board = [
+						 "-", "O", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "B", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "B", "B", "O", "O", "O", "O", "O", "-",
+	 				   "-", "B", "O", "B", "O", "O", "O", "O", "-",
+	 				   "-", "B", "O", "B", "B", "O", "O", "O", "-"
+	 				 ]
+
+	 		expect( board.four_in_a_diagonal( piece )).to be true
+
+		end
+
+
+
+		it 'should return nil if no four in a diagonal' do
+
+			expect( board.four_in_a_diagonal( piece )).to be nil
+
+		end
+
+
 
 	end
 
@@ -164,8 +213,6 @@ describe '.Board' do
 
  		it 'should return true if the top row has O ' do
 
- 			board.board = board_array
-
  			expect( board.column_has_room?( 1 )).to be true
 
  		end
@@ -191,7 +238,7 @@ describe '.Board' do
 
  		it 'should place the piece in the selected column' do
 
- 			board.drop_piece( 1 , :B )
+ 			board.drop_piece( 1 , piece )
 
 			dropped_piece = [
 						 "-", "O", "O", "O", "O", "O", "O", "O", "-",
@@ -207,5 +254,65 @@ describe '.Board' do
 		end
 
 	end #/.drop_piece
+
+
+
+	describe '#victory?' do
+
+
+		it 'should return true if there is a winning column' do
+
+			board.board = [
+						 "-", "O", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "B", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "B", "B", "O", "O", "O", "O", "O", "-",
+	 				   "-", "B", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "B", "B", "O", "B", "O", "O", "O", "-"
+	 				 ]
+
+			expect( board.victory?( piece )).to be true
+
+		end
+
+		it 'should return true if there is a winning row' do
+
+			board.board = [
+						 "-", "O", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "B", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "O", "B", "O", "O", "O", "O", "O", "-",
+	 				   "-", "B", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "B", "B", "B", "B", "O", "O", "O", "-"
+	 				 ]
+
+			expect( board.victory?( piece )).to be true
+
+		end
+
+		it 'should return true if there is a winning diag' do
+
+			board.board = [
+						 "-", "O", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "B", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "B", "B", "O", "O", "O", "O", "O", "-",
+	 				   "-", "O", "O", "B", "O", "O", "O", "O", "-",
+	 				   "-", "B", "B", "O", "B", "O", "O", "O", "-"
+	 				 ]
+
+			expect( board.victory?( piece )).to be true
+
+		end
+
+
+		it 'should return nil if there is are no wins' do
+
+			expect( board.victory?( piece )).to be nil
+
+		end
+
+
+	end
 
 end

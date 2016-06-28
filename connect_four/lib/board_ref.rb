@@ -175,12 +175,12 @@ class Board
 	def default_state
 
 		return [
-						 ["-", "O", "O", "O", "O", "O", "O", "O", "-"],
-	 				   ["-", "O", "O", "O", "O", "O", "O", "O", "-"],
-	 				   ["-", "O", "O", "O", "O", "O", "O", "O", "-"],
-	 				   ["-", "O", "O", "O", "O", "O", "O", "O", "-"],
-	 				   ["-", "O", "O", "O", "O", "O", "O", "O", "-"],
-	 				   ["-", "O", "O", "O", "O", "O", "O", "O", "-"]
+						 "-", "O", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
+	 				   "-", "O", "O", "O", "O", "O", "O", "O", "-"
 	 				 ]
 	end
 
@@ -303,7 +303,7 @@ class Board
 
 
 	def four_in_a_row( piece )
-
+binding.pry
 		return true if board_as_string_row.include?( player_pieces_as_string( piece ))
 
 	end
