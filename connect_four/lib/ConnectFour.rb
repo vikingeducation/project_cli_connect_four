@@ -33,7 +33,7 @@ class ConnectFour
 
 attr_accessor :current_player
 
-	def initialize( num_players )
+	def initialize( num_players = 1 )
 
 		@board = Board.new
 
@@ -52,7 +52,6 @@ attr_accessor :current_player
 
 		@current_player = @player1
 
-		run
 
 	end
 
@@ -70,6 +69,7 @@ attr_accessor :current_player
 	  end until input == 1 || input == 2
 
 		ConnectFour.new( input )
+		run
 
 	end
 
