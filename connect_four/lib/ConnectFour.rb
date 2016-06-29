@@ -52,6 +52,7 @@ attr_accessor :current_player
 
 		@current_player = @player1
 
+		run
 
 	end
 
@@ -69,7 +70,7 @@ attr_accessor :current_player
 	  end until input == 1 || input == 2
 
 		ConnectFour.new( input )
-		run
+
 
 	end
 
