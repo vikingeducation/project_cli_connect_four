@@ -257,6 +257,39 @@ describe '.Board' do
 
 
 
+	describe '#remove_piece(column, piece)' do
+
+		it 'should remove the piece on the column selected' do
+
+			board.board = [
+							 "-", "O", "O", "O", "O", "O", "O", "O", "-",
+		 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
+		 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
+		 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
+		 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
+		 				   "-", :B , "O", "O", "O", "O", "O", "O", "-"
+		 				 ]
+
+		 	board.remove_piece( 1, :B )
+
+		 	removed_piece = [
+							 "-", "O", "O", "O", "O", "O", "O", "O", "-",
+		 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
+		 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
+		 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
+		 				   "-", "O", "O", "O", "O", "O", "O", "O", "-",
+		 				   "-", "O", "O", "O", "O", "O", "O", "O", "-"
+		 				 ]
+
+		 	expect( board.board ).to eq( removed_piece )
+
+		end
+
+	end
+
+
+
+
 	describe '#victory?' do
 
 

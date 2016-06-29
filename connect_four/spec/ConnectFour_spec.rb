@@ -48,7 +48,6 @@ describe '.ConnectFour' do
 
 
 		end
-			#expect(@board).to be_an_instance_of(connect_four)
 
 
 	end
