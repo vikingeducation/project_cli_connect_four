@@ -3,12 +3,12 @@ require 'ConnectFour'
 require 'Board'
 require 'Player'
 require 'CPU'
-
+require 'pry'
 
 describe '.ConnectFour' do
 
-	let( :connect_four_1 ) { ConnectFour.new( 1 ) }
-	let( :connect_four_2 ) { ConnectFour.new( 2 ) }
+	let(:connect_four) { ConnectFour.new }
+
 	describe '#num_players' do
 
 
@@ -23,12 +23,36 @@ describe '.ConnectFour' do
 
 	describe '#initialize' do
 
-		it 'should initialize board'
+		it 'should initialize board' do
 
+			game = ConnectFour.new( 1 )
+			board = game.instance_variable_get(:@board)
+			expect( game.instance_variable_get(:@board)).to eq(board)
+
+		end
+
+
+		it 'should initialize player'
+		it 'should initialize cpu' do
+
+			game = ConnectFour.new( 1 )
+			cpu = game.instance_variable_get(:@player2)
+			expect( game.instance_variable_get(:@player2)).to eq(cpu)
+
+		end
+
+		it 'should initialize current player' do
+
+			ConnectFour.new
+			expect( @current_player ).to eq( @player1 )
+
+
+		end
 			#expect(@board).to be_an_instance_of(connect_four)
 
 
 	end
+
 
 	describe '#change_turns' do
 
@@ -36,7 +60,7 @@ describe '.ConnectFour' do
 
 			ConnectFour.new(1)
 			@current_player = @player2
-			connect_four_1.change_turns( @current_player )
+			connect_four.change_turns( @current_player )
 
 			expect( @current_player ).to eq( @player1 )
 
@@ -44,6 +68,8 @@ describe '.ConnectFour' do
 
 
 	end
+
+
 
 
 
