@@ -22,11 +22,21 @@ class Board
     end
   end
 
-  def game_over?(piece)
-    check_winner?(piece)
+  def check_winner?(piece)
+    check_columns?(piece) || 
+    check_rows?(piece)
+    # check_lr_diagonals?
+    # check_rl_diagonals?
   end
 
-
+  def tie?
+    board.each do |column|
+      if column.any? { |piece| piece == "_" }
+        return false
+      end
+    end
+    true
+  end
 
   private
 
@@ -44,15 +54,6 @@ class Board
     board[column].any? { |item| item == "_" }
   end
 
-  def check_winner?(piece)
-    check_columns?(piece) || 
-    check_rows?(piece)
-    # check_lr_diagonals?
-    # check_rl_diagonals?
-  end
-
-  def check_tie?
-  end
 
   def check_columns?(piece)
     board.each do |column|
