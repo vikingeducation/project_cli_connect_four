@@ -46,112 +46,38 @@ class Game
   end
 
   def win?
-    @board.any_winning_rows? ||
-    @board.any_winning_cols? ||
-    @board.any_winning_diagonals?
+    #@board.any_winning_rows? ||
+    #@board.any_winning_cols? ||
+    #@board.any_winning_diagonals?
+    @board.check_for_wins
   end
 
 end
 
-
-# DIAGONAL GENERATOR FOR CHECKING BOARD STATE
-class DirectionGenerator
-
-  attr_reader :combinations
-
-  DIRECTIONS = [
-    :n,
-    :s,
-    :e,
-    :w,
-    :nw,
-    :ne,
-    :sw,
-    :se
-  ]
-
-  class << self
-
-    def generate_directions(row, col, limit)
-      DIRECTIONS.map do |direction| 
-        dispatch(direction, row, col)
-      end.select do |row|
-        row.flatten.none? do |v| 
-          v > limit || v < 0
-        end 
-      end
-    end
-
-    def dispatch(direction,row,col)
-      case direction
-      when :nw
-        generate_diagonal(row,col,:-,:-)
-      when :ne
-        generate_diagonal(row,col,:-,:+)
-      when :sw
-        generate_diagonal(row,col,:+,:-)
-      when :se
-        generate_diagonal(row,col,:+,:-)
-      when :n
-        generate_cardinal(row,col,:row,:-)
-      when :s
-        generate_cardinal(row,col,:row,:+)
-      when :e
-        generate_cardinal(row,col,:col,:+)
-      when :w
-        generate_cardinal(row,col,:col,:-)
-      end
-    end
-
-    def generate_cardinal(row,col,changing, op)
-      return_array = []
-      if changing == :row
-        if op == :+
-          (row..(row+3)).to_a.each do |row_num|
-            return_array << [row_num, col]
-          end
-        elsif op == :-
-          ((row-3)..row).to_a.each do |row_num|
-            return_array << [row_num, col]
-          end
-        end
-      elsif changing == :col
-        if op == :+
-          (col..(col+3)).to_a.each do |col_num|
-            return_array << [row, col_num]
-          end
-
-        elsif op == :-
-          ((col-3)..col).to_a.each do |col_num|
-            return_array << [row, col_num]
-          end
-        end
-      end
-      return_array
-    end
-
-    def generate_diagonal(row,col,op,op2)
-      return_array = [[row,col]]
-      (1..3).to_a.each do |term|
-        return_array << [(row.send(op,term)),(col.send(op2,term))]
-      end
-      return_array
-    end
-
-  end
-end
 
 class Board
 
   def initialize
     @state = [
-      ["o","o","o","o","o","o"]
-      ["o","o","o","o","o","o"]
+      ["o","o","o","o","o","o"],
+      ["o","o","o","o","o","o"],
       ["o","o","o","o","o","o"],
       ["o","o","o","o","o","o"],
       ["o","o","o","o","o","o"],
       ["o","o","o","o","o","o"]
     ]
+  end
+
+  def check_for_wins
+    0.upto(5) do |row|
+      0.upto(6) do |col|
+        DirectionGenerator.generate_directions(row,col,[6,5]).each do |combo|
+          #combo.map{ |item| @state[item[0]][item[1]] }
+          return true if winning_combination?(combo)
+        end
+      end
+    end
+    false
   end
 
   def render
@@ -214,10 +140,6 @@ class Board
   end
 
   def any_winning_diagonals?
-    # Diagonal 1
-    # i = 0; j = 0
-    # i++ j++
-
     diagonal_1 = [@state[0][0],
                   @state[1][1],
                   @state[2][2],
@@ -228,13 +150,6 @@ class Board
                   @state[3][0]]
     winning_combination?(diagonal_1) || winning_combination?(diagonal_2)
   end
-
-  # diagonal_generator based on place
-  # e.g. place == [0,0] => all four directions
-  # valid diagonal? (i.e. range within board)
-  # iterate through each row; iterate through each col
-  # throw the places into diagonal_generator, generator spits out diagonals
-  # check diagonals for valid diagonal
 
 end
 
@@ -262,9 +177,91 @@ class Player
 
 end
 
+class DirectionGenerator
+  attr_reader :combinations
 
-# def test
-#   Game.new
-# end
+  DIRECTIONS = [
+    :n,
+    :s,
+    :e,
+    :w,
+    :nw,
+    :ne,
+    :sw,
+    :se
+  ]
 
-# test
+  class << self
+
+    def generate_directions(row, col, limit)
+      DIRECTIONS.map do |direction| 
+        dispatch(direction, row, col)
+      end.select do |row|
+        row.any? do |coord|
+          !bad_coord?(coord, limit)
+        end
+      end
+    end
+
+    def bad_coord?(coord, limit)
+      coord[0] > limit[0] || coord[0] < 0 || coord[1] > limit[1] || coord[1] < 0
+    end
+
+    def dispatch(direction,row,col)
+      case direction
+      when :nw
+        generate_diagonal(row,col,:-,:-)
+      when :ne
+        generate_diagonal(row,col,:-,:+)
+      when :sw
+        generate_diagonal(row,col,:+,:-)
+      when :se
+        generate_diagonal(row,col,:+,:-)
+      when :n
+        generate_cardinal(row,col,:row,:-)
+      when :s
+        generate_cardinal(row,col,:row,:+)
+      when :e
+        generate_cardinal(row,col,:col,:+)
+      when :w
+        generate_cardinal(row,col,:col,:-)
+      end
+    end
+
+    def generate_cardinal(row,col,changing, op)
+      return_array = []
+      if changing == :row
+        if op == :+
+          (row..(row+3)).to_a.each do |row_num|
+            return_array << [row_num, col]
+          end
+        elsif op == :-
+          ((row-3)..row).to_a.each do |row_num|
+            return_array << [row_num, col]
+          end
+        end
+      elsif changing == :col
+        if op == :+
+          (col..(col+3)).to_a.each do |col_num|
+            return_array << [row, col_num]
+          end
+
+        elsif op == :-
+          ((col-3)..col).to_a.each do |col_num|
+            return_array << [row, col_num]
+          end
+        end
+      end
+      return_array
+    end
+
+    def generate_diagonal(row,col,op,op2)
+      return_array = [[row,col]]
+      (1..3).to_a.each do |term|
+        return_array << [(row.send(op,term)),(col.send(op2,term))]
+      end
+      return_array
+    end
+
+  end
+end
