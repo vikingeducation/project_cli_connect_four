@@ -56,30 +56,32 @@ class Board
       puts
     end
 
-    @NUM_COLS.times do |col|
-      print " #{col + 1}  "
-    end
+    @NUM_COLS.times { |col| print " #{col + 1}  " }
     puts
-    # each hash
-     # loop through value
-     # print each symbols hash string value
-    # print the column numbers
   end
 
   def add_piece(column, piece)
-    # check if column is not full
-    # if valid
-    # find the first empty spot and change to player's hash
-      # true
-    # else
-      # false
+    return false if column_full?(column)
+
+    row = nil
+
+    @game_board[column].each_index do |index|
+      row ||= index if @game_board[column][index] == :clear  
+    end
+    
+    @game_board[column][row] = piece
+    true
   end
 
   def column_full?(column)
-    # return column top empty?
+    @game_board[column][-1] != :clear
   end
 
   def full?
+    # @game_board.game_board.each_key do |key|
+    #   return false if column_full?[key-1]
+    # end
+    # true
     # each column
     # all full?
   end
