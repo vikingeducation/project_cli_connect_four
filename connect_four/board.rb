@@ -20,21 +20,41 @@ class Board
 
   def diagonalize(grid)
     copy = fill_copy(grid)
+    diagonals = half_diags(copy) + half_diags(copy.reverse)
+    diagonals
+  end
+
+  def half_diags(copy)
     arr = []
-
-
-
+    (1..2).each do |y|
+      arr.push([])
+      x = 0
+      until x == 7 || y ==6
+        arr[-1] << copy[x][y]
+        x+=1
+        y+=1
+      end
+    end
+    (0..3).each do |x|
+      arr.push([])
+      y = 0
+      until x==7 || y==6
+        arr[-1] << copy[x][y]
+        x+=1
+        y+=1
+      end
+    end
+    arr
   end
 
   def fill_copy(grid)
     copy = grid
     copy.length.times do |x|
-      until copy[x].length == 7
-        x << "x"
+      until copy[x].length == 6
+        copy[x] << x.to_s
       end
     end
     copy
   end
-
 
 end
