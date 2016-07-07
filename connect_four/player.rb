@@ -1,9 +1,8 @@
 class Player
 
 
-  def iniatialize(name, color)
+  def iniatialize(color)
     @color = color
-    @name = name
   end
 
   def get_move
