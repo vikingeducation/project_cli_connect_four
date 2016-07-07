@@ -20,7 +20,7 @@ class Board
 # Array[column number][row number]
 # Array[0][0] left hand bottom corner
 
-  def put_piece(column, color)
+  def update_board(column, color)
     @grid[column][bottom(column)] = Piece.new(color)
   end
 

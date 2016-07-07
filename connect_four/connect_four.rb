@@ -22,10 +22,10 @@ class ConnectFour
   end
 
   def get_players_names
-    puts "player 1 name?"
-      player1_name = gets.chomp
-    puts "player 2 name?"
-      player2_name = gets.chomp
+    puts "What is your name, player 1?"
+    player1_name = gets.chomp
+    puts "What is your name, player 2?"
+    player2_name = gets.chomp
     [player1_name, player2_name]
   end
 
@@ -43,6 +43,10 @@ class ConnectFour
   def winning_message(player)
     puts "You win #{player.name}! Thanks for playing."
     exit
+  end
+
+  def player_moves
+    
   end
 
 
