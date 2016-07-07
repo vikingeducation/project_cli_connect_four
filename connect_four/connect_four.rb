@@ -11,3 +11,19 @@
 # Board: render, add_piece(location)
 # Column: initialize, show
 
+
+$LOAD_PATH << __dir__
+
+require 'column'
+require 'board'
+require 'game'
+require 'player'
+require 'human'
+require 'computer'
+
+module ConnectFour
+
+game=ConnectFour::Game.new(7,6)
+game.play
+
+end

@@ -1,5 +1,8 @@
 module ConnectFour
   class Player
-    # pass in a player number in initialization
+    def initialize(player_num)
+      @player_num=player_num
+      @piece = player_num==1 ? :X : :O
+    end
   end  
 end
