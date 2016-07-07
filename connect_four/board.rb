@@ -1,6 +1,7 @@
 
 class Board
-  attr_reader :grid
+  attr_accessor :grid
+
   def initialize
     @grid = Array.new(7){[]}
   end
@@ -50,11 +51,15 @@ class Board
   def fill_copy(grid)
     copy = grid
     copy.length.times do |x|
-      until copy[x].length == 6
-        copy[x] << x.to_s
       end
     end
     copy
   end
 
 end
+
+board = Board.new
+p board
+board.grid=Array.new(7){["a"]}
+p board
+p board.vertical_win?(board.grid)
