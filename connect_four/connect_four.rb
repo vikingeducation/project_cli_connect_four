@@ -10,7 +10,7 @@ require_relative "player"
 require_relative "piece"
 require_relative "human"
 
-class Connect_four
+class ConnectFour
 
   def initialize
     names = get_players_names
@@ -29,16 +29,13 @@ class Connect_four
 
   def play
     until win?
-      @player1.make_move
-      @player2.make_move
+      p @player1.make_move
+      p @player2.make_move
     end
   end
 
   def win?
     check_win(@board.horizontals)
-    check_win(@board.verticals)
-    check_win(@board.rising_diagonals)
-    check_win(@board.falling_diagonals)
   end
 
   def full_board?
@@ -57,25 +54,39 @@ class Connect_four
   def turn_over
   end
 
+  # def check_win(arrays)
+  #   counter = 0
+  #   arrays.each do |array|
+  #     i = 0
+  #     if !array[i+1]
+  #       break
+  #     elsif array[i].empty?
+  #       counter = 0
+  #     elsif array[i].color == array[i + 1].color
+  #       i += 1
+  #       counter += 1
+  #     end
+  #     counter == 3 ? true : false
+  #   end
+  # end
+
   def check_win(arrays)
-    counter = 0
     arrays.each do |array|
-      i = 0
-      if !array[i+1]
-        break
-      elsif array[i].empty?
-        counter = 0
-      elsif array[i].color == array[i + 1].color
-        i += 1
-        counter += 1
+      counter = 0
+      array.each do |space|
+        if space.empty?
+          counter = 0
+        else
+          counter += 1
+        end
       end
-      counter == 3 ? true : false
+      return true if counter == 4
     end
+    return false
   end
+  
 
 end
-
-
 
 
 # Your code here!

@@ -21,7 +21,7 @@ class Board
 # Array[0][0] left hand bottom corner
 
   def put_piece(column, color)
-    @board[column][bottom(column)] = Piece.new(color)
+    @board[column][bottom(column)] = [Piece.new(color)]
   end
 
 

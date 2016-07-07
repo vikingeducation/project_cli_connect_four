@@ -5,5 +5,9 @@ class Piece
     @color = color
   end
 
+  def empty?
+    return false
+  end
+
 
 end
