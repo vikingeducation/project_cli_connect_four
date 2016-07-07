@@ -6,18 +6,25 @@ module ConnectFour
       @rows = rows     
     end
 
-    def add_piece(col_num, player_color)
-      unless col_full?(col_num)
-        column(col_num).pieces.push(player_color)
-      end
+    def add_piece(col_num, player_piece)
+      column(col_num).pieces.push(player_piece)
     end
 
     def column(n)
-      @board[n-1]
+      @board[n.to_i-1]
     end
 
     def col_full?(col_num)
-      column(col_num).pieces.length == @rows
+      if column(col_num).pieces.length == @rows
+        full_col_error
+        return true
+      else
+        return false
+      end
+    end
+
+    def full_col_error
+      puts "That column is full!"
     end
 
     def render

@@ -27,11 +27,19 @@ module ConnectFour
     def play
       until game_over?
         @board.render
-        @player_1.turn
+        p1_move=@player_1.turn
+        until valid_move?(p1_move) && !@board.col_full?(p1_move)
+          p1_move=@player_1.turn
+        end
+        @board.add_piece(p1_move,@player1.piece)
         break if game_over?
         @player_2.turn
         break if game_over?
       end
+    end
+
+    def valid_move?(move)
+      Array("0".."6").include?(move)
     end
 
     def game_over?
