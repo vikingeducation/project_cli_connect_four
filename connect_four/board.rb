@@ -1,19 +1,19 @@
 class Board
 
   def initialize
-   @board = Array.new(7){Array.new(6){[]}}
+   @grid = Array.new(7){Array.new(6){[]}}
   end
 
   def render_board
-
-    @board.horizontals.reverse.each do |rows|
+    @grid.transpose.reverse.each do |rows|
       rows.each do |space|
         if space.empty?
-          p "   "
+          print "|___|"
         else
-          p space.color.center(3, " ")
+          print "|#{space.color.center(3, '_')}|"
         end
       end
+      puts
     end
   end
 
@@ -21,21 +21,21 @@ class Board
 # Array[0][0] left hand bottom corner
 
   def put_piece(column, color)
-    @board[column][bottom(column)] = [Piece.new(color)]
+    @grid[column][bottom(column)] = Piece.new(color)
   end
 
 
   # tells you the bottom of the column
   def bottom(column)
-    @board[column].index([])
+    @grid[column].index([])
   end
 
   def horizontals
-    @board.transpose
+    @grid.transpose
   end
 
   def verticals
-    @board
+    @grid
   end
 
   def rising_diagonals
@@ -44,7 +44,7 @@ class Board
       col = 0
       diagonals = []
       (start..5).each do |row|
-        diagonals << @board[col][row]
+        diagonals << @grid[col][row]
         col += 1
       end
       rising_diagonals << diagonals
@@ -53,7 +53,7 @@ class Board
       row = 0
       diagonals = []
       (start..6).each do |col|
-        diagonals << @board[col][row]
+        diagonals << @grid[col][row]
         row += 1
       end
       rising_diagonals << diagonals
@@ -68,7 +68,7 @@ class Board
       col = 0
       diagonals = []
       start.downto(0) do |row|
-        diagonals << @board[col][row]
+        diagonals << @grid[col][row]
         col += 1
       end
       falling_diagonals << diagonals
@@ -77,7 +77,7 @@ class Board
       row = 5
       diagonals = []
       (start..6).each do |col|
-        diagonals << @board[col][row]
+        diagonals << @grid[col][row]
         row -= 1
       end
       falling_diagonals << diagonals
@@ -85,5 +85,8 @@ class Board
     falling_diagonals
 
   end
+
+
+# [validate that move is legal method]
 
 end

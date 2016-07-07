@@ -17,6 +17,8 @@ class ConnectFour
     @board = Board.new
     @player1 = Human.new(names[0], "R", @board)
     @player2 = Human.new(names[1], "B", @board)
+    @current_player = @player1
+    play
   end
 
   def get_players_names
@@ -28,14 +30,27 @@ class ConnectFour
   end
 
   def play
-    until win?
+    loop do
       p @player1.make_move
+      @board.render_board
+      winning_message(@player1) if win?
       p @player2.make_move
+      @board.render_board
+      winning_message(@player2) if win?
     end
   end
 
+  def winning_message(player)
+    puts "You win #{player.name}! Thanks for playing."
+    exit
+  end
+
+
   def win?
-    check_win(@board.horizontals)
+    check_win(@board.horizontals) ||
+    check_win(@board.verticals) ||
+    check_win(@board.rising_diagonals) ||
+    check_win(@board.falling_diagonals)
   end
 
   def full_board?
@@ -47,9 +62,6 @@ class ConnectFour
     return true
   end
 
-
-  def switch_players
-  end
 
   def turn_over
   end
@@ -72,19 +84,22 @@ class ConnectFour
 
   def check_win(arrays)
     arrays.each do |array|
-      counter = 0
+      counter_r = 0
+      counter_b = 0
       array.each do |space|
         if space.empty?
           counter = 0
-        else
-          counter += 1
+        elsif space.color == "R"
+          counter_r += 1
+        elsif space.color == "B"
+          counter_b += 1
         end
       end
-      return true if counter == 4
+      return true if (counter_r == 4 || counter_b == 4)
     end
     return false
   end
-  
+
 
 end
 
