@@ -4,6 +4,5 @@ class Player
 
   def initialize(color)
     @color = color
-    @move = {col:nil, color:@color}
   end
 end

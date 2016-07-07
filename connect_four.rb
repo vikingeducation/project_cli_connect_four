@@ -1,3 +1,8 @@
+require_relative 'board'
+require_relative 'player'
+require_relative 'human'
+require_relative 'computer'
+
 class Game
 
   def initialize
@@ -10,8 +15,7 @@ class Game
   def play
     until game_over?
       @board.render
-      @current_player.make_move
-      next unless @board.add_to_col?(@current_player.move)
+      next unless @current_player.make_move(@board)
       switch_player
     end
     @board.render
@@ -22,7 +26,7 @@ class Game
   end
 
   def game_over?
-    @board.tie? || @board.full?
+    false #|| @board.full?
   end
 
   def display_winner_message
@@ -34,3 +38,6 @@ class Game
   end
 
 end
+
+g = Game.new
+g.play
