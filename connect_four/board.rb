@@ -27,8 +27,8 @@ class Board
   def check_winner?(piece)
     # check_columns?(piece) || 
     # check_rows?(piece) ||
-    check_lr_diagonals?(piece)
-    # check_rl_diagonals?
+    # check_up_diagonals?(piece)
+    check_down_diagonals?(piece)
   end
 
   def tie?
@@ -84,17 +84,34 @@ class Board
     false
   end
 
- def check_lr_diagonals?(piece)
+ def check_up_diagonals?(piece)
     3.times do |row|
       4.times do |column|
         diagonal_array = []
         4.times do |index|
           diagonal_array << board[column + index][row + index]
         end
-        if diagonal_array.all? { |element| element == piece}
+        if diagonal_array.all? { |element| element == piece }
           return true
         end
       end
+    end
+    false
+  end
+
+  def check_down_diagonals?(piece)
+    row_index = 3
+    while row_index <= 5
+      4.times do |column|
+      diagonal_array = []
+        4.times do |index|
+          diagonal_array << board[column + index][row_index - index]
+        end
+        if diagonal_array.all? { |element| element == piece }
+          return true
+        end
+      end
+      row_index += 1
     end
     false
   end
