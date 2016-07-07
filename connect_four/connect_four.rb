@@ -70,11 +70,17 @@ class DirectionGenerator
     :se
   ]
 
-  def initialize
-    @combinations = []
-  end
-
   class << self
+
+    def generate_directions(row, col, limit)
+      DIRECTIONS.map do |direction| 
+        dispatch(direction, row, col)
+      end.select do |row|
+        row.flatten.none? do |v| 
+          v > limit || v < 0
+        end 
+      end
+    end
 
     def dispatch(direction,row,col)
       case direction
@@ -125,31 +131,11 @@ class DirectionGenerator
     end
 
     def generate_diagonal(row,col,op,op2)
-      return_array = []
+      return_array = [[row,col]]
       (1..3).to_a.each do |term|
         return_array << [(row.send(op,term)),(col.send(op2,term))]
       end
       return_array
-    end
-
-    def generate_directions(row, col)
-      DIRECTIONS.map { |direction| dispatch(direction, row, col)}
-    end
-
-    def any_winning_diagonals?
-      # Diagonal 1
-      # i = 0; j = 0
-      # i++ j++
-
-      diagonal_1 = [@state[0][0],
-                    @state[1][1],
-                    @state[2][2],
-                    @state[3][3]]
-      diagonal_2 = [@state[0][3],
-                    @state[1][2],
-                    @state[2][1],
-                    @state[3][0]]
-      winning_combination?(diagonal_1) || winning_combination?(diagonal_2)
     end
 
   end
@@ -159,10 +145,12 @@ class Board
 
   def initialize
     @state = [
-      ["o","o","o","o"],
-      ["o","o","o","o"],
-      ["o","o","o","o"],
-      ["o","o","o","o"]
+      ["o","o","o","o","o","o"]
+      ["o","o","o","o","o","o"]
+      ["o","o","o","o","o","o"],
+      ["o","o","o","o","o","o"],
+      ["o","o","o","o","o","o"],
+      ["o","o","o","o","o","o"]
     ]
   end
 
@@ -223,6 +211,22 @@ class Board
       return true if winning_combination? get_col(i)
     end
     false
+  end
+
+  def any_winning_diagonals?
+    # Diagonal 1
+    # i = 0; j = 0
+    # i++ j++
+
+    diagonal_1 = [@state[0][0],
+                  @state[1][1],
+                  @state[2][2],
+                  @state[3][3]]
+    diagonal_2 = [@state[0][3],
+                  @state[1][2],
+                  @state[2][1],
+                  @state[3][0]]
+    winning_combination?(diagonal_1) || winning_combination?(diagonal_2)
   end
 
   # diagonal_generator based on place
