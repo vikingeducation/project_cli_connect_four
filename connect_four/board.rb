@@ -74,7 +74,6 @@ class Board
       falling_diagonals << diagonals
     end
     falling_diagonals
-
   end
 
 end
