@@ -84,6 +84,9 @@ class Board
     false
   end
 
+  def check_lr_diagonals?(piece)
+
+  end
 
 
 end
