@@ -3,7 +3,7 @@ class Board
   attr_accessor :display_board
 
   def initialize
-    @display_board = [[],[],[],[],[],[],[]]
+    @display_board = [[],[],[],[],[],[],[],[1,2,3,4,5,6],["C","E","N","N","O","C"],["R","U","O","F","*","T"]]
   end
 
   def enter_pick(place, piece)
