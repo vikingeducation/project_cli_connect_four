@@ -42,10 +42,11 @@ class Board
   end
 
   def four_vertical(color)
-    !(1..7).to_a.select{ |num| get_column(num).count(color) == 4 }.any?
+    ("1".."7").to_a.select{ |num| get_column(num).count(color) == 4 }.any?
   end
 
-  def four_horizontal
+  def four_horizontal(color)
+    ("A".."F").to_a.select{ |letter| get_row(letter).count(color) == 4 }.any?
   end
 
   def four_diagonal
@@ -55,8 +56,8 @@ class Board
     @board.keys.select{ |coord| coord[1] == column_num }
   end
 
-  def get_row
-    @board.keys.select{ |coord| coord[1] == column_num }
+  def get_row(row_letter)
+    @board.keys.select{ |coord| coord[0] == row_letter }
   end
 
   def get_diagonal
