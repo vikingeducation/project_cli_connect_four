@@ -1,6 +1,8 @@
 module ConnectFour
   class Board
 
+    attr_accessor :board
+
     def initialize(rows,columns)
       @board = Array.new(columns) { Column.new(rows) } 
       @rows = rows     
@@ -37,7 +39,7 @@ module ConnectFour
       i=@board[0].max_length
       while i>=0
         @board.each do |column|
-          print (column.pieces[i]||"_")+"|"
+          print "#{(column.pieces[i]||"_")}|"
         end
         puts
         i-=1

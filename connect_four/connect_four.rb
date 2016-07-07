@@ -14,6 +14,7 @@
 
 $LOAD_PATH << __dir__
 
+require 'pry'
 require 'column'
 require 'board'
 require 'game'

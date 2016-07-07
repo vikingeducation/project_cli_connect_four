@@ -16,7 +16,7 @@ module ConnectFour
     end
 
     def prompt
-      puts "Enter a column."
+      puts "Player #{@player_num}: Enter a column."
     end
 
     def valid_move?(move)

@@ -17,7 +17,7 @@ module ConnectFour
         @player2 = Computer.new(2)
       elsif input == "2"
         @player1 = Human.new(1)
-        @player1 = Human.new(2)
+        @player2 = Human.new(2)
       else
         puts "Please enter '1' or '2'."
         initialize_players
@@ -28,12 +28,12 @@ module ConnectFour
       loop do
 
         @board.render
-
         turn(@player1)
-    
 
+        @board.render
         turn(@player2)
-    
+
+        game_over?
 
       end
     end
@@ -44,7 +44,6 @@ module ConnectFour
         p_move = player.move
       end
       @board.add_piece(p_move, player.piece)
-      game_over if game_over?
     end
 
     def game_over
@@ -57,28 +56,47 @@ module ConnectFour
     end
 
     def win?
+      #binding.pry 
       verticals || horizontals || diagonals
     end
 
     def verticals
-      @board.each do |column|
+      @board.board.each do |column|
         idx=0
-        while idx<column.max_length-3
-          sub_arr=column.pieces[idx,4] #create a subarray starting at idx with length 4
-          return true if sub_arr.all? {|e|e==sub_arr[0]} #check if all four elements in the subarray are the same
+        while idx < column.max_length - 3
+          #create a subarray starting at idx with length 4
+          sub_arr = column.pieces[idx, 4] 
+          #check if all four elements in the subarray are the same
+          return true if sub_arr.all? {|e| e == sub_arr[0] } 
           idx+=1
         end
       end
     end
 
     def horizontals
+      make_horizontals
+
+    end
+
+    def make_horizontals
+      horizontals = [] # array of arrays of horizontals
+      index = 0
+      while index < @board.board[0].max_length
+        row = []
+        @board.board.each do |column|
+          row.push(column.pieces[index])
+        end
+        horizontals.push(row)
+        index += 1
+      end
+      horizontals
     end
 
     def diagonals
     end
 
     def full?
-      @board.all?{|column|column.full?}
+      @board.board.all?{|column|column.full?}
     end
 
 # Classes: Player, Human, Computer, Game, Board, Column
@@ -95,5 +113,5 @@ module ConnectFour
 
 
 
-  end
+end
 end
