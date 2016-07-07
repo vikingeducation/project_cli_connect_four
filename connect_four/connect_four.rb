@@ -6,11 +6,11 @@ class Game
   def initialize(num_of_players)
     @board = Board.new
     if num_of_players == 1
-      @player1 = Human.new("(-B-)")
-      @player2 = Computer.new("(-R-)")
+      @player1 = Human.new("B")
+      @player2 = Computer.new("R")
     elsif num_of_players == 2
-      @player1 = Human.new("(-B-)")
-      @player2 = Human.new("(-R-)")
+      @player1 = Human.new("B")
+      @player2 = Human.new("R")
     end
     @current_player = @player1
   end
