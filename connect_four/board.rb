@@ -1,4 +1,3 @@
-
 # Pseudocode
   # Set up the game initially 
   #     Create a game board
@@ -96,23 +95,40 @@ class Board
   end
 
   def diagonals
-    # return array of diagnols
+    diagonals_array = []
+    # x,y 
+    # [0,0] [1,1] [2,2]
+    # [1,0] [2,1] [3,2]
+    
+    @NUM_COLS.times do |col_num|
+        count = 0
+        diag = []
+        until col_num + count > @NUM_COL || count > @NUM_ROWS
+          diag << @game_board[col_num+count][count]
+          count += 1
+        end 
+      end
+    end
   end
 
   def verticals
-    @game_board.
+    verticals_array = []
+    @NUM_COLS.times do |col|
+      verticals_array << @game_board[col+1]
+    end
+    verticals_array
   end
 
   def horizontals
-    horizontals = []
+    horizontals_array = []
     @NUM_ROWS.downto(1) do |row|
       row_array = []
       @NUM_COLS.times do |col|
         row_array << @game_board[col + 1][row - 1]
       end
-      horizontals << row_array
+      horizontals_array << row_array
     end
-    horizontals
+    horizontals_array
   end
 
   def create_board_structure
@@ -127,5 +143,3 @@ class Board
   attr_reader :game_board
   
 end
-
-
