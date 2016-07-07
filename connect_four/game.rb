@@ -25,34 +25,60 @@ module ConnectFour
     end
 
     def play
-      until game_over?
+      loop do
 
         @board.render
 
-        p1_move = @player_1.move
-        while @board.col_full?(p1_move)
-          p1_move = @player_1.move
-        end
+        turn(@player1)
+    
 
-        @board.add_piece(p1_move, @player1.piece)
-        break if game_over?
-
-        @player_2.move
-        break if game_over?
+        turn(@player2)
+    
 
       end
     end
 
-    
+    def turn(player)
+      p_move = player.move
+      while @board.col_full?(p_move)
+        p_move = player.move
+      end
+      @board.add_piece(p_move, player.piece)
+      game_over if game_over?
+    end
+
+    def game_over
+      puts "Game over"
+      exit
+    end
 
     def game_over?
       win? || full?
     end
 
     def win?
+      verticals || horizontals || diagonals
+    end
+
+    def verticals
+      @board.each do |column|
+        idx=0
+        while idx<column.max_length-3
+          sub_arr=column.pieces[idx,4] #create a subarray starting at idx with length 4
+          return true if sub_arr.all? {|e|e==sub_arr[0]} #check if all four elements in the subarray are the same
+          idx+=1
+        end
+      end
+    end
+
+    def horizontals
+    end
+
+    def diagonals
     end
 
     def full?
+      @board.all?{|column|column.full?}
     end
 
 # Classes: Player, Human, Computer, Game, Board, Column
