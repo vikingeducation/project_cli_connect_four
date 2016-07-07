@@ -46,37 +46,63 @@ class Board
 
   def render
     # loop through data structure
-    #set up an empty board
+    # each hash
+     # loop through value
+     # print each symbols hash string value
+    # print the column numbers
   end
 
-  def add_piece
-
+  def add_piece(column, piece)
+    # check if column is not full
+    # if valid
+    # find the first empty spot and change to player's hash
+      # true
+    # else
+      # false
   end
 
-  def piece_location_valid?
+  def column_full?(column)
+    # return column top empty?
   end
 
   def full?
+    # each column
+    # all full?
   end
 
   def winning_combination?
+    winning_diagonal? ||
+    winning_vertical? ||
+    winning_horizontal?
+  end
+
+  def four_in_a_row?
   end
 
   def winning_diagonal?
+    # get diagonals
+    # four in a row?
   end
 
   def winning_vertical?
+    # get verticals
+    # four in a row?
   end
 
   def winning_horizontal?
+    # get horizontals
+    # four in a row?
   end
 
   def diagonals
+    # return array of diagnols
   end
 
   def verticals
+    # return array of vertical slots
   end
 
   def horizontals
+    # return array of rows
   end
 end
