@@ -2,8 +2,8 @@ class Game
 
   def initialize
     @board = Board.new
-    @player1 = Human.new
-    @player2 = Human.new
+    @player1 = Human.new('r')
+    @player2 = Human.new('b')
     @current_player = @player1
   end
 
