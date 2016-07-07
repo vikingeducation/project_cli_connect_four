@@ -79,26 +79,61 @@ class DirectionGenerator
     def dispatch(direction,row,col)
       case direction
       when :nw
-        generate(row,col,:+,:-)
+        generate_diagonal(row,col,:-,:-)
       when :ne
-        generate(row,col,:+,:+)
+        generate_diagonal(row,col,:-,:+)
       when :sw
-        generate(row,col,:-,:-)
+        generate_diagonal(row,col,:+,:-)
       when :se
-        generate(row,col,:-,:-)
+        generate_diagonal(row,col,:+,:-)
+      when :n
+        generate_cardinal(row,col,:row,:-)
+      when :s
+        generate_cardinal(row,col,:row,:+)
+      when :e
+        generate_cardinal(row,col,:col,:+)
+      when :w
+        generate_cardinal(row,col,:col,:-)
       end
     end
 
-    def generate_directions
-      DIRECTIONS.map
+    def generate_cardinal(row,col,changing, op)
+      return_array = []
+      if changing == :row
+        if op == :+
+          (row..(row+3)).to_a.each do |row_num|
+            return_array << [row_num, col]
+          end
+        elsif op == :-
+          ((row-3)..row).to_a.each do |row_num|
+            return_array << [row_num, col]
+          end
+        end
+      elsif changing == :col
+        if op == :+
+          (col..(col+3)).to_a.each do |col_num|
+            return_array << [row, col_num]
+          end
+
+        elsif op == :-
+          ((col-3)..col).to_a.each do |col_num|
+            return_array << [row, col_num]
+          end
+        end
+      end
+      return_array
     end
 
-    def generate_diagonals(row,col,op,op2)
+    def generate_diagonal(row,col,op,op2)
       return_array = []
       (1..3).to_a.each do |term|
         return_array << [(row.send(op,term)),(col.send(op2,term))]
       end
       return_array
+    end
+
+    def generate_directions(row, col)
+      DIRECTIONS.map { |direction| dispatch(direction, row, col)}
     end
 
     def any_winning_diagonals?
