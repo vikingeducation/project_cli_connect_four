@@ -8,5 +8,6 @@
 # Human: valid_move? prompt
 # Computer: print_choice
 # Game: Initialize, play, win?, full?
-# Board: render
+# Board: render, add_piece(location)
 # Column: initialize, show
+
