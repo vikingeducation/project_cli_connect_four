@@ -23,7 +23,7 @@ class Game
   end
 
   def gameover?
-    @board.winning_combo? || @board.board_full?
+    @board.winning_combo?(@current_player.color) || @board.board_full?
   end
 
   def switch_player
