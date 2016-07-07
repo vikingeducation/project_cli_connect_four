@@ -5,6 +5,7 @@ class Game
 
   def initialize(num_of_players)
     @board = Board.new
+    @view = @board.display_board
     if num_of_players == 1
       @player1 = Human.new("B")
       @player2 = Computer.new("R")
@@ -17,7 +18,7 @@ class Game
 
   def game_loop
     welcome
-    until game_over?
+    until horizontal_win?
       turn
       assign_player
     end
@@ -59,9 +60,45 @@ class Game
   end
 
   def win?
+    if horizontal_win? || vertical_win? || diagonal_win?
+      true
+    else
+      false
+    end
+  end
+
+  def horizontal_win?
+    @view.each do |column|
+      column.each_with_index do |spot, index|
+        if [spot, column[index+1], column[index+2], column[index+3]] == ["B","B","B","B"] ||
+          [spot, column[index+1], column[index+2], column[index+3]] == ["R","R","R","R"]
+          true
+        else
+          false
+        end
+      end
+    end
+  end
+
+  def vertical_win?
+    @view.each_with_index do |column, col_index|
+      column.each_with_index do |spot, index|
+        if [@view[col_index+1][index], @view[col_index+2][index], @view[col_index+3][index], spot] == ["B","B","B","B"] ||
+          [@view[col_index+1][index], @view[col_index+2][index], @view[col_index+3][index], spot] == ["R","R","R","R"]
+          true
+        else
+          false
+        end
+      end
+    end
+  end
+
+  def diagonal_win?
+    false
   end
 
   def tie?
+    false
   end
 
 
