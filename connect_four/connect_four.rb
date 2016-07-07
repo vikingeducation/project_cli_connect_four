@@ -1,4 +1,4 @@
-
+require 'pry'
 class Game
 
   def initialize
@@ -11,8 +11,9 @@ class Game
       @player1.ask_move
       @player2.ask_move
       [@player1, @player2].each_with_index do |player, index| 
-        @board.add_piece(player, index)
+        @board.add_piece(player.move, index)
       end
+      @board.render
     end
   end
 
@@ -34,7 +35,7 @@ class Game
       puts "Enter Player 1's name."
       @player1 = Player.new(gets.chomp)
       puts "Enter Player 2's name."
-      @player = Player.new(gets.chomp)
+      @player2 = Player.new(gets.chomp)
     when :computer
       puts "Enter Player 1's name."
       @player1 = Player.new(gets.chomp)
@@ -44,8 +45,8 @@ class Game
   end
 
   def win?
-    @board.any_winning_rows?
-    @board.any_winning_cols?
+    @board.any_winning_rows? ||
+    @board.any_winning_cols? ||
     @board.any_winning_diagonals?
   end
 
@@ -60,6 +61,12 @@ class Board
       ["o","o","o","o"],
       ["o","o","o","o"]
     ]
+  end
+
+  def render
+    @state.each do |row|
+      p row
+    end
   end
 
   def get_col(col)
@@ -96,22 +103,23 @@ class Board
   end
 
   def winning_combination?(combination)
-    if combination.all? { |peg| peg == "+" } || combination.all? { |peg| peg == "=" }
-      return true
-    end
+    combination.all? { |peg| peg == "+" } || combination.all? { |peg| peg == "=" }
   end
 
   #Winning conditionals
   def any_winning_rows?
+    binding.pry
     @state.each do |row|
-      winning_combination? row
+      return true if winning_combination? row
     end
+    false
   end
 
   def any_winning_cols?
     (0..@state.first.length).each do |i|
-      winning_combination? get_col(i)
+      return true if winning_combination? get_col(i)
     end
+    false
   end
 
   def any_winning_diagonals?
@@ -141,12 +149,12 @@ class Player
   end
 
   def ask_move
-    case @move
+    case @mode
     when :human
       puts "Which column would you like to place your peg in?"
-      gets.chomp.to_i - 1
+      @move = gets.chomp.to_i - 1
     when :computer
-      (0..3).sample
+      @move = rand(4)
     end
   end
 
