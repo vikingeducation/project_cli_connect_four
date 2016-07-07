@@ -3,9 +3,14 @@
 class Player
   attr_reader :name, :piece
 
-  def initialize(name, piece)
-    @name = name
+  def initialize(piece)
+    @name = get_name
     @piece = piece
+  end
+
+  def get_name
+    puts "Please enter your name:"
+    gets.chomp
   end
 
   def move
@@ -16,7 +21,7 @@ class Player
 
   def get_move
     begin
-      puts 'Please enter your next move.'
+      puts "Please enter your next move, #{name}"
       response = gets.chomp.to_i
     end until (1..7).include?(response)
     [response - 1, piece]
