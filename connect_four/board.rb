@@ -1,18 +1,18 @@
 # class Board
   def intialize
-    @board = {1 => Array.new(7),
-              2 => Array.new(7),
-              3 => Array.new(7),
-              4 => Array.new(7),
-              5 => Array.new(7),
-              6 => Array.new(7)}
+    @board = (0..6).to_a.each.do ||
+    @board = {[0,0] => nil,
+              [0,1] => nil}
+  end
+
+  def at
   end
 
   def populate_board
   end
 
   def winning_combo?
-    
+
   end
 
   def board_full?
