@@ -1,5 +1,7 @@
 class Player
 
+  VALID_PICKS = (1..7).to_a
+
   attr_accessor :pick, :piece
 
   def initialize(piece)
@@ -7,9 +9,7 @@ class Player
   end
 
   def valid_turn?(value)
-    valid_picks = [1,2,3,4,5,6,7]
-    return false unless valid_picks.include?(value)
-    true
+    VALID_PICKS.include?(value)
   end
 
 end
@@ -19,18 +19,22 @@ end
 class Human < Player
 
   def pick
-    puts "Please enter your coin (1-7): "
+    ask_input
     @pick = get_pick
   end
 
+  def ask_input
+    puts "Please enter your coin (1-7): "
+  end
+
   def get_pick
-    value = nil
-    loop do
-      value = gets.chomp
-      break if valid_turn?(value)
-      puts "That wasn't a valid choice! Enter between 1 and 7."
+    value = gets.chomp.to_i
+    if valid_turn?(value)
+      value
+    else
+      puts "That was not a correct choice. Please try again."
+      get_pick
     end
-    value
   end
 
 end

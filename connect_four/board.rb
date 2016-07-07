@@ -7,7 +7,7 @@ class Board
   end
 
   def enter_pick(place, piece)
-    @display_board[place] << piece
+    @display_board[place-1] << piece
   end
 
   def render
