@@ -2,11 +2,22 @@ module ConnectFour
   class Board
 
     def initialize(rows,columns)
-      @board = Array.new(columns) { Column.new(rows) }      
+      @board = Array.new(columns) { Column.new(rows) } 
+      @rows = rows     
     end
 
-    def add_piece(column_num, player_color)
-      @board[column_num].pieces.push(player_color)
+    def add_piece(col_num, player_color)
+      unless col_full?(col_num)
+        column(col_num).pieces.push(player_color)
+      end
+    end
+
+    def column(n)
+      @board[n-1]
+    end
+
+    def col_full?(col_num)
+      column(col_num).pieces.length == @rows
     end
 
     def render

@@ -4,5 +4,10 @@ module ConnectFour
       @player_num=player_num
       @piece = player_num==1 ? :X : :O
     end
+
+    def turn
+      
+    end
+
   end  
 end
