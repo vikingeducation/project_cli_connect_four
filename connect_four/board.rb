@@ -35,7 +35,6 @@ class Board
 #data = {  1 => [ :o, :o, :clear ,  :clear,  _ , _  ] ,  2 => [].... }
 
   def initialize
-    @render_hash = { :o => "[o]", :x => "[x]", :clear => "[_]" }
     #set up data structure
     # set up hash for player pieces (which_user: string_visual )
     # set up a hash (keys: 1-7) to contain arrays
@@ -45,6 +44,7 @@ class Board
   end
 
   def render
+    render_hash = { :o => "[o]", :x => "[x]", :clear => "[_]" }
     # loop through data structure
     # each hash
      # loop through value
