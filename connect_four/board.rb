@@ -38,7 +38,7 @@ class Board
   end
 
   def board_full?
-    @board.any? { |key, value| value.nil? }
+    @board.any?{ |key, value| !value.nil? }
   end
 
   def four_vertical(color)
@@ -64,3 +64,10 @@ class Board
   end
 
 end
+
+# ("A".."C").to_a.each do |letter|
+#   ("1".."4").to_a.each do |num|
+#       board[[letter, num]] = "X"
+#       3.times { board[[letter.next, num.next ]] ||= "X"}
+#   end
+# end
