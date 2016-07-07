@@ -40,10 +40,10 @@ class Board
   end
 
   def draw?
-    full = false
+    full = true
     @grid.length.times do |col|
-       if column_full?(col)
-         full = true
+       if !column_full?(col)
+         full = false
        end
     end
     full

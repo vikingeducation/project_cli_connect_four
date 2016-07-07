@@ -1,16 +1,20 @@
 require_relative 'board'
 require_relative 'display'
 require_relative 'player'
+require_relative 'computer'
 
 class ConnectFour
   attr_reader :game_board, :current_player
 
-  def initialize
+  def initialize(type = :player)
     @player1 = Player.new("Player 1", "O")
-    @player2 = Player.new("Player 2", "X")
+    @player2 = type == :computer ? Computer.new("Player 2", "X") : Player.new("Player 2", "X") 
+    #@player2 = Player.new("Player 2", "X")
     @game_board = Board.new
     @current_player = @player1
   end
+
+  
 
   def play
     Display.welcome
