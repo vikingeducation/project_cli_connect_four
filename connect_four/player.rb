@@ -8,7 +8,7 @@ class Player
 
   def valid_turn?(value)
     valid_picks = [1,2,3,4,5,6,7]
-    return false unless valid_picks.include?(value) && hash[is this value taken?] == false
+    return false unless valid_picks.include?(value)
     true
   end
 
@@ -26,8 +26,8 @@ class Human < Player
   def get_pick
     value = nil
     loop do
-      value = gets.chomp.upcase
-      break if valid_pick?(value)
+      value = gets.chomp
+      break if valid_turn?(value)
       puts "That wasn't a valid choice! Enter between 1 and 7."
     end
     value
