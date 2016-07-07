@@ -31,7 +31,6 @@ def Connect_four
   end
 
 
-
 end
 
 

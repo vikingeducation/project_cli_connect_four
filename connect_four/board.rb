@@ -19,13 +19,29 @@ class Board
 
   # tells you the bottom of the column
   def bottom(column)
-    Array[column].length.each do |i|
-      next until Array[column].empty?
-      i
+    @board[column].index([])
+  end
+
+  def horizontals
+    @board.transpose
+  end
+
+  def verticals
+    @board
+  end
+
+  def rising_diagonals
+    diagonals = []
+    (0..2).each do |start|
+      i = start
+      while i < 6
+        diagonals << @board[0][i]
+        i += 1
+      end
     end
   end
 
-
-
+  def falling_diagonals
+  end
 
 end
