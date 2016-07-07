@@ -1,5 +1,10 @@
+require_relative 'board'
+require_relative 'display'
+require_relative 'player'
 
 class ConnectFour
+  attr_reader :game_board
+  include Display
 
   def initialize
     @player1 = Player.new("Player 1", "O")
@@ -13,6 +18,7 @@ class ConnectFour
 
     loop do
       ## render Board  (Display)
+      Display.render(game_board)
 
       ## get move from player   (Player method)
 
