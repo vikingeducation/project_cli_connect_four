@@ -1,9 +1,10 @@
 class Player
 
-  attr_accessor :pick :piece
+  attr_accessor :pick, :piece
 
   def initialize(piece)
     @piece = piece
+  end
 
   def valid_turn?(value)
     valid_picks = [1,2,3,4,5,6,7]
@@ -44,3 +45,5 @@ class Computer < Player
 
   def get_pick
   end
+
+end
