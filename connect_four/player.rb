@@ -10,16 +10,21 @@ class Player
   def get_input(board)
     loop do 
       input = ask_for_input
-      return input if valid_input?(input, board)
+      if valid_input?(input, board)
+        return input
+        break
+      end
+      puts "Invalid Input"
     end
   end
 
   def ask_for_input
-    puts "Where do you want to move your piece (columns 1-7) ?"
+    puts "Where do you want to move your piece #{name} (columns 1-7) ?"
     gets.chomp.to_i
   end
 
   def valid_input?(input, board)
+    binding.pry
     !board.column_full?(input)
   end
 

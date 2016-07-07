@@ -43,6 +43,7 @@ class ConnectFour
       puts "#{@curent_player.name} Wins!!!"
     else
       puts "It's a Draw!!"
+    end
   end
 
 

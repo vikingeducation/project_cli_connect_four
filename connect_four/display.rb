@@ -1,13 +1,14 @@
 class Display
 
   def self.render(grid)
-    copy = fill(grid)
-    render_grid(grid)
+    copy = grid.dup
+    copy = fill(copy)
+    render_grid(copy)
     render_column_numbers
   end
 
-  def self.fill(grid)
-    copy = grid
+  def self.fill(arr)
+    copy = arr
     copy.each do |x|
       until x.length == 6
         x << "-"
@@ -16,10 +17,10 @@ class Display
     copy
   end
 
-  def self.render_grid(grid)
+  def self.render_grid(arr)
     (0..5).to_a.reverse.each do |y|
       (0..6).to_a.each do |x|
-        print grid[x][y] + " "
+        print arr[x][y] + " "
       end
       print "\n"
     end
