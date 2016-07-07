@@ -30,15 +30,16 @@ class Game
 
   def turn
     @board.render
-    @current_player.pick
-    @board.enter_pick(@current_player.pick, @current_player.piece)
+    player_pick = @current_player.pick
+    @board.enter_pick(player_pick, @current_player.piece)
   end
 
   def assign_player
     if @current_player == @player1
       @current_player = @player2
+    else
+      @current_player = @player1
     end
-    @current_player = @player1
   end
 
   def game_over?
