@@ -15,7 +15,7 @@ class Game
   def play
     until game_over?
       @board.render
-      next unless @current_player.make_move(@board)
+      @current_player.make_move(@board)
       switch_player
     end
     @board.render
@@ -26,7 +26,7 @@ class Game
   end
 
   def game_over?
-    false #|| @board.full?
+    @board.win? #|| @board.full?
   end
 
   def display_winner_message

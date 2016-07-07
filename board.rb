@@ -1,26 +1,33 @@
 class Board
   def initialize
-    @board = Array.new(7, [])
+    @board = []
+    7.times do |col|
+      @board << []
+    end
   end
 
-  # def add_to_col?(move)
-  #   unless col_full?
-  #     @board[move[:col]] << @player.move[:color]
-  #   else
-  #     false
-  #   end
-  # end
+  def add_piece(color, column)
+    unless col_full?(column)
+      @board[column] << color
+    else
+      false
+    end
+  end
+
+  def col_full?(column)
+    @board[column].length >= 7
+  end
 
   def win?
     check_lines?
   end
 
   def verticals
-    self
+    @board
   end
 
   def horizontals
-    self.transpose
+    @board.transpose
   end
 
   def diagonals
@@ -28,7 +35,7 @@ class Board
   end
 
   def check_lines?
-    lines = verticals #+ horizontals + diagonals # line is an array upto size 7
+    lines = verticals + horizontals #+ diagonals # line is an array upto size 7
     lines.each do |line|
       return true if has_four_in_a_row?(line)
     end
