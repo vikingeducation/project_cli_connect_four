@@ -78,36 +78,21 @@ class Board
   end
 
   def full?
-    # @game_board.game_board.each_key do |key|
-    #   return false if column_full?[key-1]
-    # end
-    # true
-    # each column
-    # all full?
+    @NUM_COLS.times do |col|
+      return false unless column_full?(col + 1)
+    end
+
+    true
   end
 
   def winning_combination?
-    winning_diagonal? ||
-    winning_vertical? ||
-    winning_horizontal?
+    four_in_a_row?(diagonals) ||
+    four_in_a_row?(verticals) ||
+    four_in_a_row?(horizontals)
   end
 
-  def four_in_a_row?
-  end
+  def four_in_a_row?(sequences)
 
-  def winning_diagonal?
-    # get diagonals
-    # four in a row?
-  end
-
-  def winning_vertical?
-    # get verticals
-    # four in a row?
-  end
-
-  def winning_horizontal?
-    # get horizontals
-    # four in a row?
   end
 
   def diagonals
@@ -115,11 +100,19 @@ class Board
   end
 
   def verticals
-    # return array of vertical slots
+    @game_board.
   end
 
   def horizontals
-    # return array of rows
+    horizontals = []
+    @NUM_ROWS.downto(1) do |row|
+      row_array = []
+      @NUM_COLS.times do |col|
+        row_array << @game_board[col + 1][row - 1]
+      end
+      horizontals << row_array
+    end
+    horizontals
   end
 
   def create_board_structure
@@ -128,3 +121,11 @@ class Board
     end
   end
 end
+
+#### testing
+class Board
+  attr_reader :game_board
+  
+end
+
+
