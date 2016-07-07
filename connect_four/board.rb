@@ -22,7 +22,7 @@ class Board
   end
 
   def horizontal_win?(grid)
-    vertical_win?(grid.transpose)
+    vertical_win?(fill_copy(grid).transpose)
   end
 
   def diagonal_win?(grid)
@@ -40,7 +40,13 @@ class Board
   end
 
   def draw?
-    grid.all? {|col| column_full?(col)}
+    full = false
+    @grid.length.times do |col|
+       if column_full?(col)
+         full = true
+       end
+    end
+    full
   end
 
   def game_over?
@@ -48,10 +54,10 @@ class Board
   end
 
   def column_full?(column)
-    @grid[column-1].length == 6
+    @grid[column].length == 6
   end
 
-  
+
 
   def half_diags(copy)
     arr = []
@@ -77,7 +83,7 @@ class Board
   end
 
   def fill_copy(grid)
-    copy = grid
+    copy = grid.dup.map! {|x| x.dup}
     copy.length.times do |x|
       until copy[x].length == 6
         copy[x] << x.to_s
@@ -87,5 +93,3 @@ class Board
   end
 
 end
-
-

@@ -8,7 +8,7 @@ class Player
   end
 
   def get_input(board)
-    loop do 
+    loop do
       input = ask_for_input
       if valid_input?(input, board)
         return input
@@ -24,9 +24,9 @@ class Player
   end
 
   def valid_input?(input, board)
-    binding.pry
-    !board.column_full?(input)
+
+    !board.column_full?(input-1)
   end
 
-  
+
 end

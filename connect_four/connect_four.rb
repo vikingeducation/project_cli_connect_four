@@ -3,7 +3,7 @@ require_relative 'display'
 require_relative 'player'
 
 class ConnectFour
-  attr_reader :game_board
+  attr_reader :game_board, :current_player
 
   def initialize
     @player1 = Player.new("Player 1", "O")
@@ -13,12 +13,12 @@ class ConnectFour
   end
 
   def play
-    puts "Welcome to Connect Four!"
+    Display.welcome
 
     loop do
 
       Display.render(game_board.grid)
-      @current_player.get_input(game_board)
+      @game_board.move(@current_player.get_input(game_board),@current_player.piece)
       break if game_board.game_over?
       switch_player
 
@@ -26,7 +26,7 @@ class ConnectFour
 
     Display.render(game_board.grid)
 
-    end_message
+    end_message(@current_player)
 
   end
 
@@ -38,9 +38,9 @@ class ConnectFour
     end
   end
 
-  def end_message
+  def end_message(player)
     if game_board.victory?
-      puts "#{@curent_player.name} Wins!!!"
+      puts "#{player.name} Wins!!!"
     else
       puts "It's a Draw!!"
     end
