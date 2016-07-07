@@ -3,6 +3,9 @@ require_relative "board.rb"
 
 class Game
 
+  BWIN = ["B","B","B","B"]
+  RWIN = ["R","R","R","R"]
+
   def initialize(num_of_players)
     @board = Board.new
     @view = @board.display_board
@@ -14,14 +17,17 @@ class Game
       @player2 = Human.new("R")
     end
     @current_player = @player1
+    @turn_counter = 0
   end
 
-  def game_loop
+  def play
     welcome
-    until horizontal_win?
+    until win? == true
       turn
       assign_player
+      @turn_counter += 1
     end
+    @board.render
     final_message
   end
 
@@ -44,10 +50,10 @@ class Game
   end
 
   def game_over?
-    if win? || tie?
-      true
+    if win? == true || tie? == true
+      return true
     else
-      false
+      return false
     end
   end
 
@@ -60,45 +66,58 @@ class Game
   end
 
   def win?
-    if horizontal_win? || vertical_win? || diagonal_win?
-      true
+    if horizontal_win? == true || vertical_win? == true || diagonal_win? == true
+      return true
     else
-      false
-    end
-  end
-
-  def horizontal_win?
-    @view.each do |column|
-      column.each_with_index do |spot, index|
-        if [spot, column[index+1], column[index+2], column[index+3]] == ["B","B","B","B"] ||
-          [spot, column[index+1], column[index+2], column[index+3]] == ["R","R","R","R"]
-          true
-        else
-          false
-        end
-      end
+      return false
     end
   end
 
   def vertical_win?
-    @view.each_with_index do |column, col_index|
+    @view.each do |column|
       column.each_with_index do |spot, index|
-        if [@view[col_index+1][index], @view[col_index+2][index], @view[col_index+3][index], spot] == ["B","B","B","B"] ||
-          [@view[col_index+1][index], @view[col_index+2][index], @view[col_index+3][index], spot] == ["R","R","R","R"]
-          true
-        else
-          false
+        if [spot, column[index+1], column[index+2], column[index+3]] == BWIN ||
+          [spot, column[index+1], column[index+2], column[index+3]] == RWIN
+          return true
         end
       end
     end
   end
 
+  def horizontal_win?
+    counter = 0
+    while counter <= 6
+      @view[counter].each_with_index do |spot, index|
+        if [@view[counter+1][index], @view[counter+2][index], @view[counter+3][index], spot] == BWIN ||
+          [@view[counter+1][index], @view[counter+2][index], @view[counter+3][index], spot] == RWIN
+          return true
+        end
+      end
+      counter += 1
+    end
+  end
+
   def diagonal_win?
-    false
+    counter = 0
+    while counter <= 6
+      @view[counter].each_with_index do |spot, index|
+        if [@view[counter+1][index+1], @view[counter+2][index+2], @view[counter+3][index+3], spot] == BWIN ||
+          [@view[counter+1][index+1], @view[counter+2][index+2], @view[counter+3][index+3], spot] == RWIN ||
+          [@view[counter+1][index-1], @view[counter+2][index-2], @view[counter+3][index-3], spot] == BWIN ||
+          [@view[counter+1][index-1], @view[counter+2][index-2], @view[counter+3][index-3], spot] == RWIN
+          return true
+        end
+      end
+      counter += 1
+    end
   end
 
   def tie?
-    false
+    if @turn_counter >= 42
+      return true
+    else
+      false
+    end
   end
 
 
