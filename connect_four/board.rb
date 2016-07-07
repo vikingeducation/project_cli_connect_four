@@ -6,9 +6,19 @@ class Board
     @grid = Array.new(7){[]}
   end
 
+  def move(column, piece)
+    grid[column-1].push(piece)
+  end
 
   def vertical_win?(grid)
-    grid.chunk { |piece| piece }.map{|a,b| b}.any? { |arr| arr.count >= 4 }
+    status = false
+    grid.each do |column|
+      if column.chunk { |piece| piece }.map{|a,b| b}.any? { |arr| arr.count >= 4 }
+        status = true
+        break
+      end
+    end
+    status
   end
 
   def horizontal_win?(grid)
@@ -24,6 +34,24 @@ class Board
     diagonals = half_diags(copy) + half_diags(copy.reverse)
     diagonals
   end
+
+  def victory?
+    horizontal_win?(grid) || vertical_win?(grid) || diagonal_win?(grid)
+  end
+
+  def draw?
+    grid.all? {|col| column_full?(col)}
+  end
+
+  def game_over?
+    victory? || draw?
+  end
+
+  def column_full?(column)
+    @grid[column-1].length == 6
+  end
+
+  
 
   def half_diags(copy)
     arr = []
@@ -51,6 +79,8 @@ class Board
   def fill_copy(grid)
     copy = grid
     copy.length.times do |x|
+      until copy[x].length == 6
+        copy[x] << x.to_s
       end
     end
     copy
@@ -58,8 +88,4 @@ class Board
 
 end
 
-board = Board.new
-p board
-board.grid=Array.new(7){["a"]}
-p board
-p board.vertical_win?(board.grid)
+

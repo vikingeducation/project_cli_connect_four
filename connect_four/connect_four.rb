@@ -19,6 +19,7 @@ class ConnectFour
     loop do
       ## render Board  (Display)
       Display.render(game_board)
+      @current_player.get_input(game_board)
 
       ## get move from player   (Player method)
 
