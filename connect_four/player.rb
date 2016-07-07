@@ -7,7 +7,7 @@ module ConnectFour
       @piece = player_num==1 ? :X : :O
     end
 
-    def turn
+    def move
       
     end
 

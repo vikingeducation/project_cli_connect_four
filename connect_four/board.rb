@@ -16,7 +16,7 @@ module ConnectFour
 
     def col_full?(col_num)
       if column(col_num).pieces.length == @rows
-        full_col_error
+        # full_col_error
         return true
       else
         return false
