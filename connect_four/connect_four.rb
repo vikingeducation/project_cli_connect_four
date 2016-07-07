@@ -1,10 +1,4 @@
 
-
-#loop until gameover?
-  #get move
-  #display board
-#end
-
 # class Game
 
   # intialize(num_players)
@@ -17,6 +11,10 @@
   #end
 
   #def play
+    #loop until gameover?
+      #get move
+      #display board
+    #end
   #end
 
   #gameover
@@ -50,4 +48,9 @@
   #end
 
 # class Human
-# class Display
+  #get_input
+  #end
+
+# module Display
+  #display messages
+  #rendering board
