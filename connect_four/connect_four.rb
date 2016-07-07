@@ -15,6 +15,7 @@ class Game
       end
       @board.render
     end
+    puts "Congratulations! Game over."
   end
 
   def welcome
@@ -50,6 +51,73 @@ class Game
     @board.any_winning_diagonals?
   end
 
+end
+
+
+# DIAGONAL GENERATOR FOR CHECKING BOARD STATE
+class DirectionGenerator
+
+  attr_reader :combinations
+
+  DIRECTIONS = [
+    :n,
+    :s,
+    :e,
+    :w,
+    :nw,
+    :ne,
+    :sw,
+    :se
+  ]
+
+  def initialize
+    @combinations = []
+  end
+
+  class << self
+
+    def dispatch(direction,row,col)
+      case direction
+      when :nw
+        generate(row,col,:+,:-)
+      when :ne
+        generate(row,col,:+,:+)
+      when :sw
+        generate(row,col,:-,:-)
+      when :se
+        generate(row,col,:-,:-)
+      end
+    end
+
+    def generate_directions
+      DIRECTIONS.map
+    end
+
+    def generate_diagonals(row,col,op,op2)
+      return_array = []
+      (1..3).to_a.each do |term|
+        return_array << [(row.send(op,term)),(col.send(op2,term))]
+      end
+      return_array
+    end
+
+    def any_winning_diagonals?
+      # Diagonal 1
+      # i = 0; j = 0
+      # i++ j++
+
+      diagonal_1 = [@state[0][0],
+                    @state[1][1],
+                    @state[2][2],
+                    @state[3][3]]
+      diagonal_2 = [@state[0][3],
+                    @state[1][2],
+                    @state[2][1],
+                    @state[3][0]]
+      winning_combination?(diagonal_1) || winning_combination?(diagonal_2)
+    end
+
+  end
 end
 
 class Board
@@ -108,7 +176,7 @@ class Board
 
   #Winning conditionals
   def any_winning_rows?
-    binding.pry
+    # binding.pry
     @state.each do |row|
       return true if winning_combination? row
     end
@@ -122,17 +190,12 @@ class Board
     false
   end
 
-  def any_winning_diagonals?
-    diagonal_1 = [@state[0][0],
-                  @state[1][1],
-                  @state[2][2],
-                  @state[3][3]]
-    diagonal_2 = [@state[0][3],
-                  @state[1][2],
-                  @state[2][1],
-                  @state[3][0]]
-    winning_combination?(diagonal_1) || winning_combination?(diagonal_2)
-  end
+  # diagonal_generator based on place
+  # e.g. place == [0,0] => all four directions
+  # valid diagonal? (i.e. range within board)
+  # iterate through each row; iterate through each col
+  # throw the places into diagonal_generator, generator spits out diagonals
+  # check diagonals for valid diagonal
 
 end
 
@@ -161,8 +224,8 @@ class Player
 end
 
 
-def test
-  Game.new
-end
+# def test
+#   Game.new
+# end
 
-test
+# test
