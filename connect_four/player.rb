@@ -21,7 +21,7 @@ class Player
 
   def get_move
     begin
-      puts "Please enter your next move, #{name}"
+      puts "Please place your next #{piece}, #{name}"
       response = gets.chomp.to_i
     end until (1..7).include?(response)
     [response - 1, piece]
