@@ -6,14 +6,22 @@ class Board
 
   def render_board
 
-
+    @board.horizontals.reverse.each do |rows|
+      rows.each do |space|
+        if space.empty?
+          p "   "
+        else
+          p space.color.center(3, " ")
+        end
+      end
+    end
   end
 
 # Array[column number][row number]
 # Array[0][0] left hand bottom corner
 
-  def put_piece(column)
-    @board[column,bottom(column)]
+  def put_piece(column, color)
+    @board[column][bottom(column)] = Piece.new(color)
   end
 
 
@@ -53,6 +61,7 @@ class Board
     rising_diagonals
   end
 
+
   def falling_diagonals
     falling_diagonals = []
     (3..5).each do |start|
@@ -65,15 +74,16 @@ class Board
       falling_diagonals << diagonals
     end
     (1..3).each do |start|
-      row = 0
+      row = 5
       diagonals = []
-      start.downto(0) do |col|
+      (start..6).each do |col|
         diagonals << @board[col][row]
-        row += 1
+        row -= 1
       end
       falling_diagonals << diagonals
     end
     falling_diagonals
+
   end
 
 end
