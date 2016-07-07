@@ -37,7 +37,7 @@ class Board
 
   def create_horizontal(n)
     row = []
-      verticals.each do |vertical|
+      @board.each do |vertical|
         break if (n+1) > vertical.length
         row << vertical[n] 
       end
@@ -49,11 +49,29 @@ class Board
   end
 
   def left_diagonals
-    diagonal = []
+    diagonals = []
     7.times do |n|
+      diagonals << create_left_diagonal(n)
+      diagonals << create_right_diagonal(n)
       
     end
     
+  end
+
+  def create_right_diagonal(n)
+    diagonal = []
+    row_i = 0
+    #col_i = 0
+ 
+
+    while row_i < 6 && col_i < 6
+      diagonal << @board[n][row_i]
+      row_i += 1
+      col_i += 1
+    end
+
+      
+  
   end
 
   def check_lines?
