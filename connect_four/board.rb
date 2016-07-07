@@ -1,5 +1,5 @@
 
-#Pseudocode
+# Pseudocode
   # Set up the game initially 
   #     Create a game board
   #     Create Players(2)
