@@ -8,7 +8,9 @@ class Board
   end
 
   def render
+    puts
     puts render_board
+    puts
   end
 
   def receive_move?(move)
@@ -46,7 +48,8 @@ class Board
       board.each { |column| output << " #{column[index]} |" } 
       output << "\n"
     end
-    output
+    7.times { |column_number| output << " #{column_number + 1}  " }
+    output << "\n"
   end
 
   def available?(move)
