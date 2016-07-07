@@ -27,11 +27,33 @@ class Board
   end
 
   def horizontals
-    @board.transpose
+
+    horizontals = []
+    7.times do |n|
+      horizontals << create_horizontal(n)
+    end
+    horizontals
   end
 
-  def diagonals
+  def create_horizontal(n)
+    row = []
+      verticals.each do |vertical|
+        break if (n+1) > vertical.length
+        row << vertical[n] 
+      end
+      row
+    end
 
+  def diagonals
+    diagonals = left_diagonals + right_diagonals
+  end
+
+  def left_diagonals
+    diagonal = []
+    7.times do |n|
+      
+    end
+    
   end
 
   def check_lines?
