@@ -45,8 +45,8 @@ class Board
   end
 
   def check_winner?(piece)
-    check_columns?(piece)
-    # check_rows?
+    check_columns?(piece) || 
+    check_rows?(piece)
     # check_lr_diagonals?
     # check_rl_diagonals?
   end
@@ -64,6 +64,22 @@ class Board
     end
     false
   end
+
+  def check_rows?(piece)
+    6.times do |row|
+      4.times do |column|
+        row_array = []
+        4.times do |index|
+          row_array << board[column + index][row]
+        end
+        if row_array.all? { |element| element == piece }
+          return true
+        end
+      end
+    end
+    false
+  end
+
 
 
 end
