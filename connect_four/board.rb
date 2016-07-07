@@ -35,8 +35,11 @@ class Board
 #data = {  1 => [ :o, :o, :clear ,  :clear,  _ , _  ] ,  2 => [].... }
 
   def initialize
+    @NUM_ROWS = 6
+    @NUM_COLS = 7
     #set up data structure
-    # set up hash for player pieces (which_user: string_visual )
+    @game_board = {}
+    create_board_structure
     # set up a hash (keys: 1-7) to contain arrays
     # assign 7 arrays of length 6 into hash
     #   fill the array with key:value ( clear => [_] )
@@ -46,6 +49,17 @@ class Board
   def render
     render_hash = { :o => "[o]", :x => "[x]", :clear => "[_]" }
     # loop through data structure
+    @NUM_ROWS.downto(1) do |row|
+      @NUM_COLS.times do |col|
+        print "#{render_hash[ @game_board[col + 1][row - 1] ]} "
+      end
+      puts
+    end
+
+    @NUM_COLS.times do |col|
+      print " #{col + 1}  "
+    end
+    puts
     # each hash
      # loop through value
      # print each symbols hash string value
@@ -104,5 +118,11 @@ class Board
 
   def horizontals
     # return array of rows
+  end
+
+  def create_board_structure
+    7.times do |count|
+      @game_board[count + 1] = Array.new(6, :clear)
+    end
   end
 end

@@ -25,31 +25,52 @@
 class ConnectFour
 
   def initialize 
-    #set up board
-    #set up player
-    #assign the current player
     @game_board = Board.new
     @player_one =  Human.new("Phillip", :x)
     @player_two = Human.new("Adrian", :o)
+    @current_player = @player_one
   end
 
   def play
     #Render the board
-    #Ask for and validate current player move
-    #Update board 
-    #Check for game over conditions
-    #if the game should end 
-    #   Display the proper victory/loss message
-    #   break looping
-    #else
-    #    Switch to the next player and keep looping
+    @game_board.render
+
+    loop
+      #Ask for and validate current player move
+      column_num = 0
+      loop
+        column_num = @current_player.take_turn
+        if @game_board.column_full?(column_num)
+          puts "That column is already full. Please enter a new one."
+        else
+          break
+        end
+      end
+
+      #Update board
+      @game_board.add_piece(column_num, @current_player.piece)
+      @game_board.render
+      
+
+      #Check for game over conditions
+      if game_over?
+        display_game_over_message
+        break
+      else
+        next_player
+      end
+    end
+
+    
+    puts "Thanks for player! Goodbye!"
+
   end
 
   def next_player
     #switches player from current player
   end
 
-  def check_game_over
+  def game_over?
     #check_victory
     #check_draw
   end
