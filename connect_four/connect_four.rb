@@ -29,8 +29,8 @@ class ConnectFour
     #set up player
     #assign the current player
     @game_board = Board.new
-    @player_one =  Human.new("Phillip")
-    @player_two = Human.new("Adrian")
+    @player_one =  Human.new("Phillip", :x)
+    @player_two = Human.new("Adrian", :o)
   end
 
   def play
