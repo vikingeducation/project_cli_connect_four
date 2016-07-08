@@ -1,3 +1,27 @@
+=begin
+Public-facing interface
+initialize
+grid
+move
+game_over?
+victory?
+
+
+Private Methods
+vertical_win?
+horizontal_win?
+diagonal_win?
+diagonalize
+victory?
+draw?
+game_over?
+column_full?
+
+
+
+
+=end
+
 class Board
   attr_accessor :grid
 
@@ -8,6 +32,16 @@ class Board
   def move(column, piece)
     grid[column-1].push(piece)
   end
+
+  def victory?
+    horizontal_win?(grid) || vertical_win?(grid) || diagonal_win?(grid)
+  end
+
+  def game_over?
+    victory? || draw?
+  end
+
+  private
 
   def vertical_win?(grid)
     status = false
@@ -34,10 +68,6 @@ class Board
     diagonals
   end
 
-  def victory?
-    horizontal_win?(grid) || vertical_win?(grid) || diagonal_win?(grid)
-  end
-
   def draw?
     full = true
     @grid.length.times do |col|
@@ -48,15 +78,9 @@ class Board
     full
   end
 
-  def game_over?
-    victory? || draw?
-  end
-
   def column_full?(column)
     @grid[column].length == 6
   end
-
-
 
   def half_diags(copy)
     arr = []
