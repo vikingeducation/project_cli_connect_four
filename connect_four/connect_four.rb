@@ -51,7 +51,6 @@ class ConnectFour
       @game_board.add_piece(column_num, @current_player.piece)
       @game_board.render
       
-
       #Check for game over conditions
       if game_over?
         display_game_over_message
@@ -67,12 +66,12 @@ class ConnectFour
   end
 
   def next_player
-    #switches player from current player
+    @current_player = @player_two if @current_player == @player_one
+    @current_player = @player_one
   end
 
   def game_over?
-    #check_victory
-    #check_draw
+    check_victory || check_draw
   end
 
   def check_victory

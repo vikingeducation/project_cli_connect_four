@@ -42,7 +42,6 @@ class Board
     # set up a hash (keys: 1-7) to contain arrays
     # assign 7 arrays of length 6 into hash
     #   fill the array with key:value ( clear => [_] )
-   
   end
 
   def render
@@ -93,18 +92,27 @@ class Board
   def four_in_a_row?(sequences)
     sequences.each do |sequence|
       count = 0
-      current_piece = nil
-      sequence.each do |piece|
-        # check for sequence of four
-        current_piece ||= piece
-
+      current_piece = sequence[0]
+      sequence.each_index do |index|
+#skip first iteration
+        next if index == 0
+# check for sequence of four
+        if current_piece == sequence[index]
+          count += 1
+        else 
+          current_piece = sequence[index]
+          count = 0
+        end
+        return true if count == 3
       end
     end
+    false
   end
 
   def diagonals
     diagonals_array = []
     
+    #first half diagonal
     @NUM_COLS.times do |col_num|
         count = 0
         diag = []
@@ -114,7 +122,7 @@ class Board
         end 
         diagonals_array << diag
     end
-
+    #second half diagonal
     (@NUM_ROWS - 1).times do |row_num|
       count = 0
       diag = []
