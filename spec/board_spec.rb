@@ -47,4 +47,49 @@ RSpec.describe Board do
 
   end
 
+  describe "#horizontals" do
+    it "should return an array of all the rows" do
+      expect(board.horizontals).to eq(Array.new(6){Array.new(7){[]}})
+    end
+
+    it "should not return an array of columns" do
+      expect(board.horizontals).to_not eq(Array.new(7){Array.new(6){[]}})
+    end
+  end
+
+  describe '#rising_diagonals' do
+    it 'should return an array # of rising diagonals' do
+        expect(board.rising_diagonals.length).to eq(6)
+    end
+
+    it 'should return an array' do
+        expect(board.rising_diagonals).to be_a(Array)
+    end
+
+    it 'should return an array of arrays' do
+        expect(board.rising_diagonals[0]).to be_a(Array)
+    end
+
+    it 'should produce an array of length six for rising diagonal array' do
+      expect(board.rising_diagonals[0].length).to eq(6)
+    end
+  end
+
+  describe 'falling_diagonals' do
+    it 'should return an array # of falling diagonals' do
+        expect(board.falling_diagonals.length).to eq(6)
+    end
+
+    it 'should return an array' do
+        expect(board.falling_diagonals).to be_a(Array)
+    end
+
+    it 'should return an array of arrays' do
+        expect(board.falling_diagonals[0]).to be_a(Array)
+    end
+
+    it 'should produce an array of length six for rising diagonal array' do
+      expect(board.falling_diagonals[0].length).to eq(4)
+    end
+  end
 end
