@@ -1,25 +1,3 @@
-# Pseudocode
-  # Set up the game initially 
-  #     Create a game board
-  #     Create Players(2)
-  # Start the game loop
-  #     Render the board
-  #     Ask for and validate current player move
-  #     Update board 
-  #     Check for game over conditions
-  #       if the game should end 
-  #         Display the proper victory/loss message
-  #         break looping
-  #       else
-  #           Switch to the ne[_]t player and keep looping
-
-  # Classes:
-  #     1. Game (itself)
-  #     2. Player 
-  #         2.5.  Human < Player
-  #         2.6.  Computer < Player
-  #     3. Board
-
 #board.rb
 class Board
 
@@ -30,30 +8,25 @@ class Board
  #   [o] [_] [_] [_] [_] [_] [_] 
  #   [o] [_] [_] [_] [_] [_] [_] 
  #    1   2   3   4   5   6   7    
-
 #data = {  1 => [ :o, :o, :clear ,  :clear,  _ , _  ] ,  2 => [].... }
 
   def initialize
     @NUM_ROWS = 6
     @NUM_COLS = 7
-    #set up data structure
     @game_board = {}
     create_board_structure
-    # set up a hash (keys: 1-7) to contain arrays
-    # assign 7 arrays of length 6 into hash
-    #   fill the array with key:value ( clear => [_] )
+
   end
 
   def render
     render_hash = { :o => "[o]", :x => "[x]", :clear => "[_]" }
-    # loop through data structure
     @NUM_ROWS.downto(1) do |row|
       @NUM_COLS.times do |col|
         print "#{render_hash[ @game_board[col + 1][row - 1] ]} "
       end
       puts
     end
-
+    
     @NUM_COLS.times { |col| print " #{col + 1}  " }
     puts
   end
@@ -88,7 +61,7 @@ class Board
     four_in_a_row?(verticals) ||
     four_in_a_row?(horizontals)
   end
-# [ [:o, :x, :o, :x, :x, :x, :x] ]
+
   def four_in_a_row?(sequences)
     sequences.each do |sequence|
       count = 0
@@ -96,6 +69,11 @@ class Board
       sequence.each_index do |index|
 #skip first iteration
         next if index == 0
+#return if empty slot
+        if sequence[index] == :clear
+          current_piece = :empty
+          count = 0
+        end
 # check for sequence of four
         if current_piece == sequence[index]
           count += 1
@@ -138,9 +116,7 @@ class Board
 
   def verticals
     verticals_array = []
-    @NUM_COLS.times do |col|
-      verticals_array << @game_board[col+1]
-    end
+    @NUM_COLS.times { |col| verticals_array << @game_board[col+1] }
     verticals_array
   end
 
@@ -148,9 +124,7 @@ class Board
     horizontals_array = []
     @NUM_ROWS.downto(1) do |row|
       row_array = []
-      @NUM_COLS.times do |col|
-        row_array << @game_board[col + 1][row - 1]
-      end
+      @NUM_COLS.times { |col| row_array << @game_board[col + 1][row - 1] }
       horizontals_array << row_array
     end
     horizontals_array

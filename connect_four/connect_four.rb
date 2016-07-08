@@ -21,6 +21,10 @@
   #         2.6.  Computer < Player
   #     3. Board
 
+require_relative "board" 
+require_relative "player" 
+require_relative "human" 
+
 #connect_four.rb
 class ConnectFour
 
@@ -28,17 +32,18 @@ class ConnectFour
     @game_board = Board.new
     @player_one =  Human.new("Phillip", :x)
     @player_two = Human.new("Adrian", :o)
-    @current_player = @player_one
+    @current_player = Human.new("Phillip", :x)
   end
 
   def play
+    puts "\n#{@current_player.name} is current player represented by piece: #{@current_player.piece} "
     #Render the board
     @game_board.render
 
-    loop
+    loop do
       #Ask for and validate current player move
       column_num = 0
-      loop
+      loop do
         column_num = @current_player.take_turn
         if @game_board.column_full?(column_num)
           puts "That column is already full. Please enter a new one."
@@ -56,18 +61,26 @@ class ConnectFour
         display_game_over_message
         break
       else
+        puts "next player ahoy"
         next_player
       end
     end
 
-    
-    puts "Thanks for player! Goodbye!"
-
+    puts "Thanks for playing! Goodbye!"
   end
 
   def next_player
-    @current_player = @player_two if @current_player == @player_one
-    @current_player = @player_one
+    puts @current_player.info
+    puts @player_one.info
+    puts @player_two.info
+
+    if @current_player.equals?(@player_one)
+      @current_player.to(@player_two)
+    else
+      @current_player.to(@player_one)
+    end
+
+    puts "#{@current_player.name} is now the current player"
   end
 
   def game_over?
@@ -75,20 +88,16 @@ class ConnectFour
   end
 
   def check_victory
-    #if board says current winner has winning combo
-    #    return true
-    #else return false
+    @game_board.winning_combination?
   end
 
   def check_draw
-    #if the board is full return true
+    @game_board.full?
   end
 
   def display_game_over_message
-    #if victory
-    #    display victory message (current player wins)
-    #else
-    #    display tie message (no player wins)
+    puts "#{@current_player.name} wins the game, congratulations!" if check_victory 
+    puts "It's a tie, you're all losers!!" if check_draw
   end
 
 end 
