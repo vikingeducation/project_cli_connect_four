@@ -1,3 +1,30 @@
+=begin
+
+class player
+  pick
+  pick = 
+  piece
+  piece =
+  new(piece)
+  valid_turn?(value)
+
+class human
+  pick
+  ask_input
+  get_pick
+
+
+class computer
+  pick
+  get_pick
+
+=end
+
+
+
+
+
+
 class Player
 
   VALID_PICKS = (1..7).to_a

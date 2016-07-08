@@ -1,3 +1,32 @@
+=begin 
+
+class connect_four
+    
+  new(num_of_players)
+  play
+  welcome
+  turn
+  assign_player
+  game_over?
+  final_message
+  win?
+  vertical_win?
+  horizontal_win?
+  diagonal_win?
+  tie?
+-------------------
+
+  test if initialize creates a new board(if board has something)
+  does view have the board in it
+  tests number of players to see if it makes a computer or human
+  test that it sets current player
+  initiates a turn counter
+
+
+=end
+
+
+
 require_relative "player.rb"
 require_relative "board.rb"
 
