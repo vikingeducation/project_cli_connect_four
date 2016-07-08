@@ -171,4 +171,64 @@ describe Board do
 
   end
 
+  describe '#receive_move?' do
+
+    it 'returns true if move is available' do
+      expect(b.receive_move?([1,"X"])).to be true
+    end
+
+    it 'returns false if move is unavailable' do
+      new_board = [["X", "O", "X", "O", "X", "O"], 
+                   ["O", "X", "X", "X", "X", "O"], 
+                   ["X", "X", "X", "O", "X", "O"], 
+                   ["O", "X", "O", "X", "O", "X"],  
+                   ["O", "O", "O", "X", "O", "O"], 
+                   ["O", "X", "O", "O", "O", "X"],  
+                   ["X", "O", "X", "X", "X", "O"]]
+      b.instance_variable_set( :@board, new_board)
+      expect(b.receive_move?([3,"X"])).to be false
+    end
+
+  end
+
+  describe '#check_winner?' do
+
+    it 'will return false if no win condition exists on board' do
+      new_board = [["X", "O", "O", "O", "X", "O"], 
+                   ["O", "X", "X", "X", "O", "X"], 
+                   ["X", "X", "O", "O", "X", "O"], 
+                   ["O", "X", "X", "O", "O", "X"],  
+                   ["X", "O", "X", "X", "X", "O"], 
+                   ["O", "X", "O", "O", "O", "X"],  
+                   ["X", "O", "X", "X", "X", "O"]]
+      b.instance_variable_set(:@board, new_board)
+      expect(b.check_winner?("X")).to be false
+    end
+
+    it "will return false if win condition for 'O' but check for 'X'" do
+      new_board = [["X", "O", "O", "O", "X", "O"], 
+                   ["O", "X", "X", "X", "O", "X"], 
+                   ["X", "X", "O", "O", "X", "O"], 
+                   ["O", "X", "O", "O", "O", "X"],  
+                   ["X", "O", "X", "X", "X", "O"], 
+                   ["O", "X", "O", "O", "O", "X"],  
+                   ["X", "O", "X", "X", "X", "O"]]
+      b.instance_variable_set(:@board, new_board)
+      expect(b.check_winner?("X")).to be false
+    end
+
+    it 'will return true for win condition' do
+      new_board = [["X", "O", "X", "O", "X", "O"], 
+                   ["O", "X", "X", "X", "X", "O"], 
+                   ["X", "X", "X", "O", "X", "O"], 
+                   ["O", "X", "O", "X", "O", "X"],  
+                   ["O", "O", "O", "X", "O", "O"], 
+                   ["O", "X", "O", "O", "O", "X"],  
+                   ["X", "O", "X", "X", "X", "O"]]
+      b.instance_variable_set( :@board, new_board)
+      expect(b.check_winner?("X")).to be true
+    end
+
+  end
+
 end

@@ -1,22 +1,5 @@
 require 'game'
 
-
-=begin
-
-  initialize
-  - a new game is has a class of game
-  - a new game creates a new board
-  - a new game creates player1
-  - a new game creates player2
-  - a new game creates a current player
-
-  switch player
-  - if current player is player1, make current player player 2
-  - if current player is player2, make current player player1
-
-
-=end
-
 describe Game do
 
   before do
@@ -38,16 +21,5 @@ describe Game do
     end
 
   end
-
-
-
-
-
-
-
-
-
-
-
 
 end

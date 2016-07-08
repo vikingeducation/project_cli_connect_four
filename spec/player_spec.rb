@@ -1,29 +1,10 @@
 require 'player'
 
-=begin
-
-  initialize
-  - new Player made with two arguments is a Player
-  - new Player made with one argument returns ArgumentError
-  - new Player made with three arguments returns ArgumentError
-
-  piece
-  - Player's piece is readable
-
-  position
-  - Player's position is readable
-
-
-
-
-
-=end
-
-
-
-
-
 describe Player do
+
+  before do
+    allow_any_instance_of(Player).to receive :puts
+  end
 
   let(:p){Player.new("X", "player1")}
 
@@ -66,6 +47,13 @@ describe Player do
 
   end
 
+  describe '#get_name' do
 
+    it 'will return the name "Mike" for the get_name method' do
+      allow(p).to receive(:gets).and_return("Mike")
+      expect(p.get_name("X")).to eq("Mike")
+    end
+
+  end
 
 end

@@ -5,8 +5,8 @@ require 'pry'
 class Board
   attr_reader :board
 
-  def initialize
-    @board = Array.new(7) { Array.new(6, "_") }
+  def initialize(board = nil)
+    @board = board || Array.new(7) { Array.new(6, "_") }
   end
 
   def render

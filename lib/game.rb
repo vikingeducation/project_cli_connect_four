@@ -1,9 +1,7 @@
 # game.rb
-require "board"
-require "player"
-require "computer"
-
-
+require_relative 'board'
+require_relative 'player'
+require_relative 'computer'
 
 class Game
   def initialize
@@ -61,6 +59,3 @@ class Game
     puts "Here's the board"
   end
 end
-
-# Game object
-
