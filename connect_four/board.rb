@@ -88,8 +88,7 @@ class Board
   end
 
   def diagonals
-    diagonals_array = []
-    diagonals_array << diagonals_up << diagonals_down
+    diagonals_down + diagonals_up
   end
 
   def diagonals_up
