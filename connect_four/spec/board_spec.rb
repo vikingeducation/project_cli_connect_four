@@ -7,9 +7,12 @@ describe Board do
   let(:diaganol_win_board) do 
     Board.new( [ ["O"], ["X", "O"], ["X","X","O"], ["X", "O", "X", "O"],[],[],[] ] ) 
   end
+  let(:full_board) do
+    Board.new([%w[O X X O O O],%w[X O O X X O],%w[X X O X O X], %w[X O X X X O],%w[O O X O O X],%w[X X O O X O],%w[O O X X O X]])
+  end
 
-  describe '#grid' do
-    it "returns the grid" do
+  describe '#initialize' do 
+    it "creates an empty grid" do
       expect(board.grid).to eq(Array.new(7){[]})
     end
   end
@@ -42,7 +45,11 @@ describe Board do
 
   describe "#game_over?" do 
     it "should return true if a player has won the game" do 
+      expect(diaganol_win_board.game_over?).to be true
+    end
 
+    it "should return true if the board is full" do
+      expect(full_board.game_over?).to be true
     end
 
   end
