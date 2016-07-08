@@ -93,14 +93,14 @@ class Board
     false
   end
 
-  def render
-
+  def fill_board
+    #initialize board
     full_board = []
-
     7.times do
       full_board << []
     end
 
+    #build board
     7.times do |col|
       6.times do |row|
         if @board[col][row]
@@ -110,8 +110,14 @@ class Board
         end
       end
     end
-    
+    full_board
+  end
 
+  def render
+
+    full_board = fill_board
+
+    #transpose_board(full_board)
     full_board.transpose.reverse.each do |row|
       puts "|" + row.join(" ") + "|"
     end
