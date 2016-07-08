@@ -1,4 +1,3 @@
-
 class Player
   attr_reader :name, :piece
 
@@ -30,3 +29,4 @@ class Player
 
 
 end
+
