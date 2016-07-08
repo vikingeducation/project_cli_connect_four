@@ -57,7 +57,7 @@ class ConnectFour
 
   def ask_for_and_validate_move
     loop do
-      column_num = @current_player.take_turn
+      column_num = @current_player.get_column
       if @game_board.column_full?(column_num)
         puts "That column is already full. Please enter a new one."
       else
