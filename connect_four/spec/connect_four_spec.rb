@@ -4,21 +4,12 @@ require 'board'
 
 
 describe Game do 
-  let(:g){ Game.new(1) }
+  let(:g){ Game.new(2) }
   let(:b){ Board.new}
-  let(:win_horizontal) {[
-    ["B","B","B","B"],
-    ["B"],
-    ["B"],
-    ["B"],
-    [],
-    [],
-    [],
-    [1,2,3,4,5,6],
-    ["C","E","N","N","O","C"],
-    ["R","U","O","F","*","T"]] }
+  let(:win_horizontal) {
+    [["B"],["B"],["B"],["B"]] }
 
-  describe "#win?" do
+  describe "#horizontal_win?" do
     it "correctly identifies a board with a winning horizontal row" do
       g.board.display_board = win_horizontal
       expect(g.win?).to eq(true)
