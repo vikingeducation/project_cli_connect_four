@@ -17,17 +17,18 @@ class AI < Player
   end
 
 
-  def close_wins(array)
+  def close_wins(arrays)
 
     arrays.each do |array|
       counter_r = 0
       counter_b = 0
       array.each do |space|
         if space.empty?
-          counter = 0
+          counter_r = 0
+          counter_b = 0
         elsif space.color == "R"
           counter_r += 1
-          if counter_r > 2 
+          if counter_r > 2
             #returns location to input piece
         elsif space.color == "B"
           counter_b += 1
