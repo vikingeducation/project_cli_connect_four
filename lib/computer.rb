@@ -1,4 +1,4 @@
-# computer.rb
+require 'player'
 
 class Computer < Player
 
@@ -12,7 +12,7 @@ class Computer < Player
     "Hal"
   end
 
-  private
+  # private
 
   def get_move
     [(0..6).to_a.sample, piece]

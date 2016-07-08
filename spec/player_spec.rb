@@ -56,8 +56,13 @@ describe Player do
 
   describe '#position' do
 
-    it ''
+    it 'is a position that can be read' do
+      expect(p.position).to eq("player1")
+    end
 
+    it 'only gives the correct game position' do
+      expect(p.position == "player2").to be false
+    end
 
   end
 
