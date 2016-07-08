@@ -8,16 +8,21 @@ describe Display do
     end
   end
 
-  describe ".render_grid" do
-    it "puts 6 rows of 14 characters (excluding \\n)" do
-      expect(STDOUT).to receive(:puts).with()
+
+
+  describe ".fill" do 
+    let(:arr){Array.new(8) { [] }}
+    it "requires exactly one argument" do 
+      expect{Display.fill("a", "b")}.to raise_error(ArgumentError)
     end
 
-    it "takes exactly 1 argument"
+    it "output has elements, which contain at least six elements" do
+      expect(Display.fill(arr)[1].length).to be >= 6
+    end
 
-    it "requires the argument to be an array of 7 arrays"
+    it "fills non-full arrays with hyphens" do 
+      expect(Display.fill(arr)[1][rand(5)]).to eq("-")
+    end
 
-
-
-  end
+  end  
 end
