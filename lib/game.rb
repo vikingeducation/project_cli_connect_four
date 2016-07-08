@@ -3,6 +3,8 @@ require "./board.rb"
 require "./player.rb"
 require "./computer.rb"
 
+
+
 class Game
   def initialize
     print_instructions
