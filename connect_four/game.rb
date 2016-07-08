@@ -51,26 +51,28 @@ module ConnectFour
     end
 
     def game_over?
-      win? || full?
+      win? # || full?
     end
 
     def win? 
-      verticals || horizontals || diagonals
+      verticals # || horizontals || diagonals
     end
 
     def verticals
+      # iterate through each column
+      # if there are four of any one symbol in a row in a column, return true
+      # else, return false
       @board.board.each do |column|
-        idx=0
-        while idx < column.max_length - 3
-          #create a subarray starting at idx with length 4
-          sub_arr = column.pieces[idx, 4] 
-          #check if all four elements in the subarray are the same
-          return true if sub_arr.all? {|e| e == :X} || sub_arr.all?{|e| e==:O} 
-          idx+=1
-        end
+        column = column.join('')
+        x = Array(4) {|i| i = :X}
+        binding.pry
       end
-      return false
     end
+
+    def four_in_a_row?(pieces, player_piece)
+      
+
+    end 
 
     def horizontals
       make_horizontals
