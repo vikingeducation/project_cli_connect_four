@@ -89,26 +89,43 @@ class Board
     four_in_a_row?(verticals) ||
     four_in_a_row?(horizontals)
   end
-
+# [ [:o, :x, :o, :x, :x, :x, :x] ]
   def four_in_a_row?(sequences)
+    sequences.each do |sequence|
+      count = 0
+      current_piece = nil
+      sequence.each do |piece|
+        # check for sequence of four
+        current_piece ||= piece
 
+      end
+    end
   end
 
   def diagonals
     diagonals_array = []
-    # x,y 
-    # [0,0] [1,1] [2,2]
-    # [1,0] [2,1] [3,2]
     
     @NUM_COLS.times do |col_num|
         count = 0
         diag = []
-        until col_num + count > @NUM_COL || count > @NUM_ROWS
-          diag << @game_board[col_num+count][count]
+        until col_num + count >= @NUM_COLS || count >= @NUM_ROWS
+          diag << @game_board[col_num + count + 1][count]
           count += 1
         end 
-      end
+        diagonals_array << diag
     end
+
+    (@NUM_ROWS - 1).times do |row_num|
+      count = 0
+      diag = []
+      until row_num + count >= @NUM_ROWS || count + 1 >= @NUM_COLS
+          diag << @game_board[count + 1][row_num + count]
+          count += 1
+        end 
+        diagonals_array << diag
+    end
+
+    diagonals_array
   end
 
   def verticals
@@ -138,8 +155,3 @@ class Board
   end
 end
 
-#### testing
-class Board
-  attr_reader :game_board
-  
-end
