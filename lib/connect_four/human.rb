@@ -1,3 +1,7 @@
+=begin
+make_move check_move_valid
+=end
+
 class Human < Player
 
   def make_move

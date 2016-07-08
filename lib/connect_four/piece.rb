@@ -1,3 +1,8 @@
+=begin
+  color initialize
+  empty
+=end
+
 class Piece
   attr_reader :color
 

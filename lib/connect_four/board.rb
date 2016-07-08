@@ -1,7 +1,21 @@
+=begin
+initialize render_board
+update_board bottom
+horizontals verticals
+rising_diagonals falling_diagonals
+
+- Test initialize to make sure that it instatiates a board
+
+=end
+
 class Board
 
-  def initialize
-   @grid = Array.new(7){Array.new(6){[]}}
+  def initialize(board = nil)
+    if board.nil?
+      @grid = Array.new(7){Array.new(6){[]}}
+    else
+      @grid = board
+    end
   end
 
   def render_board
