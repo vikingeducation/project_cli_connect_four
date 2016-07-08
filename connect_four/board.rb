@@ -1,5 +1,8 @@
+require_relative "display"
 class Board
   attr_accessor :board
+
+  include Display
 
   def initialize
     @board = build_board
@@ -7,16 +10,17 @@ class Board
 
   def build_board
     board_temp = {}
-    ("A".."F").to_a.each do |row|
-      ("1".."7").to_a.each do |column|
+    (1..6).to_a.each do |row|
+      (1..7).to_a.each do |column|
         board_temp[[row, column]] = nil
       end
     end
     board_temp
   end
 
-  def at(row, column)
-    @board[[row, column]]
+  def show(move, color)
+    populate_board(move, color)
+    display_board
   end
 
   def populate_board(column, color)
@@ -25,8 +29,8 @@ class Board
   end
 
   def open_row(column_num)
-    single_column = get_column(column_num).select{ |space| space.nil? }
-    single_column[0][0]
+    single_column = get_column(column_num).select{ |key, value| value.nil? }
+    single_column.keys.empty? ? false : single_column.keys[0][0]
   end
 
   def legal_move?(column_num)
@@ -38,30 +42,64 @@ class Board
   end
 
   def board_full?
-    @board.any?{ |key, value| !value.nil? }
+    @board.all?{ |key, value| !value.nil? }
   end
 
-  def four_vertical(color)
-    ("1".."7").to_a.select{ |num| get_column(num).count(color) == 4 }.any?
+  def four_vertical?(color)
+    (1..7).to_a.select{ |col| get_column(col).values.each_cons(4).any? { |s,t,r,p| s == t && r == p && t == r && s == color}}.any?
   end
 
-  def four_horizontal(color)
-    ("A".."F").to_a.select{ |letter| get_row(letter).count(color) == 4 }.any?
+  def four_horizontal?(color)
+    (1..6).to_a.select{ |row| get_row(row).values.each_cons(4).any? { |s,t,r,p| s == t && r == p && t == r && s == color}}.any?
   end
 
-  def four_diagonal
+  def four_diagonal?(color)
+    get_diagonal.any? { |array| array.count(color) == 4}
   end
 
   def get_column(column_num)
-    @board.keys.select{ |coord| coord[1] == column_num }
+    @board.select { |key, value| key[1] == column_num }
   end
 
   def get_row(row_letter)
-    @board.keys.select{ |coord| coord[0] == row_letter }
+    @board.select { |key, value| key[0] == row_letter }
   end
 
   def get_diagonal
+    front_diag + back_diag
   end
+
+  def front_diag
+    diagonal_array = []
+    temp_array = []
+    (1..3).to_a.each do |row|
+      (1..4).to_a.each do |col|
+        4.times do |index|
+           @board.each{ |key, value| temp_array << value if key == [row + index, col + index] }
+        end
+        diagonal_array << temp_array
+        temp_array = []
+      end
+    end
+    diagonal_array
+  end
+
+  def back_diag
+    diagonal_array = []
+    temp_array = []
+    (1..3).to_a.each do |row|
+      (4..7).to_a.reverse.each do |col|
+        4.times do |index|
+           @board.each{ |key, value| temp_array << value if key == [row + index, col - index] }
+        end
+        diagonal_array << temp_array
+        temp_array = []
+      end
+    end
+    diagonal_array
+  end
+
+
 
 end
 
@@ -72,4 +110,3 @@ end
       board[[letter.next.next, num.next.next ]] = "X"
       board[[letter.next.next.next, num.next.next.next ]] = "X"
   end
-end

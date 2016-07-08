@@ -1,7 +1,8 @@
 class Computer < Player
+  attr_reader :name, :color
 
   def initialize(color)
-    super
+    @color = color
     @name = "Computer"
   end
 
