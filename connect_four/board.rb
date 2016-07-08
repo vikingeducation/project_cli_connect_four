@@ -26,7 +26,7 @@ class Board
       end
       puts
     end
-    
+
     @NUM_COLS.times { |col| print " #{col + 1}  " }
     puts
   end
@@ -49,15 +49,13 @@ class Board
   end
 
   def full?
-    @NUM_COLS.times do |col|
-      return false unless column_full?(col + 1)
-    end
-
+    @NUM_COLS.times {|col| return false unless column_full?(col + 1)}
     true
   end
 
   def winning_combination?
-    four_in_a_row?(diagonals) ||
+    four_in_a_row?(diagonals_up) ||
+    four_in_a_row?(diagonals_down) ||
     four_in_a_row?(verticals) ||
     four_in_a_row?(horizontals)
   end
@@ -67,14 +65,11 @@ class Board
       count = 0
       current_piece = sequence[0]
       sequence.each_index do |index|
-#skip first iteration
-        next if index == 0
-#return if empty slot
+        next if index == 0 
         if sequence[index] == :clear
           current_piece = :empty
           count = 0
         end
-# check for sequence of four
         if current_piece == sequence[index]
           count += 1
         else 
@@ -87,10 +82,20 @@ class Board
     false
   end
 
-  def diagonals
+  def diagonals_up
+    diagonals_array_up = to_the_right_diagonals_up
+    diagonals_array_up << to_the_left_diagonals_up
+    diagonals_array_up
+  end
+
+  def diagonals_down
+    diagonals_array_down = to_the_right_diagonals_down
+    diagonals_array_down << to_the_left_diagonals_down
+    diagonals_array_down
+  end
+
+  def to_the_right_diagonals_up
     diagonals_array = []
-    
-    #first half diagonal
     @NUM_COLS.times do |col_num|
         count = 0
         diag = []
@@ -100,17 +105,50 @@ class Board
         end 
         diagonals_array << diag
     end
-    #second half diagonal
+    diagonals_array
+  end
+
+  def to_the_left_diagonals_up
+    diagonals_array = []
     (@NUM_ROWS - 1).times do |row_num|
       count = 0
       diag = []
       until row_num + count >= @NUM_ROWS || count + 1 >= @NUM_COLS
           diag << @game_board[count + 1][row_num + count]
           count += 1
+      end 
+      diagonals_array << diag
+    end
+    diagonals_array
+  end
+
+  def to_the_right_diagonals_down
+    diagonals_array = []
+    @NUM_COLS.times do |col_num|
+        count = 0
+        diag = []
+        until col_num + count >= @NUM_COLS || count >= @NUM_ROWS
+          diag << @game_board[col_num + count + 1][@NUM_ROWS - count - 1]
+          count += 1
         end 
         diagonals_array << diag
     end
+    diagonals_array
+  end
 
+  def to_the_left_diagonals_down
+    diagonals_array = []
+    (@NUM_ROWS - 1).times do |row_num|
+      count = 0
+      diag = []
+      starting_row = 0
+      until row_num + count + starting_row >= @NUM_ROWS || count >= @NUM_COLS
+          diag << @game_board[count + 1][@NUM_ROWS - starting_row - count - 1]
+          count += 1
+      end
+      starting_row += 1      
+      diagonals_array << diag
+    end
     diagonals_array
   end
 
