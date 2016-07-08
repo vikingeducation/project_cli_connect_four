@@ -44,7 +44,7 @@ class ConnectFour
       user_input_col = ask_for_and_validate_move
       @game_board.add_piece(user_input_col, @current_player.piece)
       
-      next_player
+      next_player if !game_over?
     end
     @game_board.render
     display_end_of_game_message
@@ -52,7 +52,7 @@ class ConnectFour
 
   def setup_game
     puts "\n#{@current_player.name} is the Current player represented by piece: #{@current_player.piece} "
-    puts "\n#{@player_two.name} is the AI player represented by piece: #{@current_player.piece} \n"
+    puts "#{@player_two.name} is the AI player represented by piece: #{@current_player.piece} \n\n"
   end
 
   def ask_for_and_validate_move
