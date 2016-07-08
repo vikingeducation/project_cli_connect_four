@@ -33,8 +33,6 @@ module ConnectFour
         @board.render
         turn(@player2)
 
-        game_over?
-
       end
     end
 
@@ -44,6 +42,7 @@ module ConnectFour
         p_move = player.move
       end
       @board.add_piece(p_move, player.piece)
+      game_over if game_over?
     end
 
     def game_over
@@ -55,8 +54,7 @@ module ConnectFour
       win? || full?
     end
 
-    def win?
-      #binding.pry 
+    def win? 
       verticals || horizontals || diagonals
     end
 
@@ -67,10 +65,11 @@ module ConnectFour
           #create a subarray starting at idx with length 4
           sub_arr = column.pieces[idx, 4] 
           #check if all four elements in the subarray are the same
-          return true if sub_arr.all? {|e| e == sub_arr[0] } 
+          return true if sub_arr.all? {|e| e == :X} || sub_arr.all?{|e| e==:O} 
           idx+=1
         end
       end
+      return false
     end
 
     def horizontals
