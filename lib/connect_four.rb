@@ -7,11 +7,11 @@ class ConnectFour
 
   def initialize
     names = get_players_names
+    # names = ["J", "D"]
     @board = Board.new
     @player1 = Human.new(names[0], "R", @board)
     @player2 = Human.new(names[1], "B", @board)
     @current_player = @player1
-    play
   end
 
   def get_players_names
