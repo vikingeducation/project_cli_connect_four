@@ -98,11 +98,8 @@ class Game
   end
 
   def win?
-    if horizontal_win? == true || vertical_win? == true || diagonal_win? == true
-      return true
-    else
-      return false
-    end
+    binding.pry
+    horizontal_win? || vertical_win? || diagonal_win?
   end
 
   def vertical_win?
@@ -114,6 +111,7 @@ class Game
         end
       end
     end
+    false
   end
 
   def horizontal_win?
@@ -127,6 +125,7 @@ class Game
       end
       counter += 1
     end
+    false
   end
 
   def diagonal_win?
@@ -142,6 +141,7 @@ class Game
       end
       counter += 1
     end
+    false
   end
 
   def tie?
