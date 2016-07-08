@@ -1,33 +1,5 @@
 require 'board'
 
-=begin
-
-
-
-
-
-
-
-  check_rows?
-    - check to see if non-winning conditions return false
-    - check to see if winning conditions return true
-
-  check_up_diagonals?
-    - check to see if non-winning conditions return false
-    - check to see if winning conditions return true
-
-  check_down_diagonals?
-    - check to see if non-winning conditions return false
-    - check to see if winning conditions return true    
-
-  check_array_for_match
-    - return true if all items in array match piece
-    - return false if any item in array does not match piece
-
-=end
-
-
-
 describe Board do
 
   let(:b){Board.new}
@@ -81,31 +53,122 @@ describe Board do
   describe '#check_columns?' do
 
     it 'returns false for non-winning condition' do
+      new_board = [["X", "O", "X", "O", "X", "O"], 
+                   ["O", "X", "O", "X", "O", "X"], 
+                   ["X", "X", "X", "O", "X", "O"], 
+                   ["O", "X", "O", "X", "O", "X"],  
+                   ["X", "O", "X", "X", "X", "O"], 
+                   ["O", "X", "O", "O", "O", "X"],  
+                   ["X", "O", "X", "X", "X", "O"]]
+      b.instance_variable_set( :@board, new_board)
       expect(b.send(:check_columns?, "X")).to be false
     end
 
     it 'returns true for winning condition' do
-
+      new_board = [["X", "O", "X", "O", "X", "O"], 
+                   ["O", "X", "X", "X", "X", "O"], 
+                   ["X", "X", "X", "O", "X", "O"], 
+                   ["O", "X", "O", "X", "O", "X"],  
+                   ["X", "O", "X", "X", "X", "O"], 
+                   ["O", "X", "O", "O", "O", "X"],  
+                   ["X", "O", "X", "X", "X", "O"]]
+      b.instance_variable_set( :@board, new_board)
       expect(b.send(:check_columns?, "X")).to be true
+    end
+  
+  end
+
+  describe '#check_rows?' do
+
+    it 'returns false for non-winning condition' do
+      new_board = [["X", "O", "X", "O", "X", "O"], 
+                   ["O", "X", "O", "X", "O", "X"], 
+                   ["X", "X", "X", "O", "X", "O"], 
+                   ["O", "X", "O", "X", "O", "X"],  
+                   ["X", "O", "X", "X", "X", "O"], 
+                   ["O", "X", "O", "O", "O", "X"],  
+                   ["X", "O", "X", "X", "X", "O"]]
+      b.instance_variable_set( :@board, new_board)
+      expect(b.send(:check_rows?, "X")).to be false
+    end
+
+    it 'returns true for winning condition' do
+      new_board = [["X", "O", "X", "O", "X", "O"], 
+                   ["O", "X", "X", "O", "X", "O"], 
+                   ["X", "X", "X", "O", "X", "O"], 
+                   ["O", "X", "O", "O", "O", "X"],  
+                   ["X", "O", "X", "X", "X", "O"], 
+                   ["O", "X", "O", "O", "O", "X"],  
+                   ["X", "O", "X", "X", "X", "O"]]
+      b.instance_variable_set( :@board, new_board)
+      expect(b.send(:check_rows?, "O")).to be true
     end
   end
 
+  describe '#check_up_diagonals?' do
 
- # check_columns?
- #    - check to see if non-winning conditions return false
- #    - check to see if winning conditions return true
+    it 'returns false for non-winning condition' do
+      new_board = [["X", "O", "O", "O", "X", "O"], 
+                   ["O", "X", "X", "X", "O", "X"], 
+                   ["X", "X", "X", "X", "X", "O"], 
+                   ["O", "X", "O", "X", "O", "X"],  
+                   ["X", "O", "X", "X", "X", "O"], 
+                   ["O", "X", "O", "O", "O", "X"],  
+                   ["X", "O", "X", "X", "X", "O"]]
+      b.instance_variable_set( :@board, new_board)
+      expect(b.send(:check_up_diagonals?, "O")).to be false
+    end
 
+    it 'returns true for winning condition' do
+      new_board = [["X", "O", "X", "O", "X", "O"], 
+                   ["O", "X", "X", "O", "X", "O"], 
+                   ["X", "X", "X", "O", "X", "O"], 
+                   ["O", "X", "O", "X", "O", "X"],  
+                   ["X", "O", "X", "X", "O", "O"], 
+                   ["O", "X", "O", "O", "O", "X"],  
+                   ["X", "O", "X", "X", "X", "O"]]
+      b.instance_variable_set( :@board, new_board)
+      expect(b.send(:check_up_diagonals?, "X")).to be true
+    end
+  end
 
+  describe '#check_down_diagonals?' do
 
+    it 'returns false for non-winning condition' do
+      new_board = [["X", "O", "O", "O", "X", "O"], 
+                   ["O", "X", "X", "X", "O", "X"], 
+                   ["X", "X", "X", "X", "X", "O"], 
+                   ["O", "X", "O", "X", "O", "X"],  
+                   ["X", "O", "X", "X", "X", "O"], 
+                   ["O", "X", "O", "O", "O", "X"],  
+                   ["X", "O", "X", "X", "X", "O"]]
+      b.instance_variable_set( :@board, new_board)
+      expect(b.send(:check_down_diagonals?, "O")).to be false
+    end
 
+    it 'returns true for winning condition' do
+      new_board = [["X", "O", "X", "O", "X", "O"], 
+                   ["O", "X", "X", "X", "X", "O"], 
+                   ["X", "X", "X", "O", "X", "O"], 
+                   ["O", "X", "O", "X", "O", "X"],  
+                   ["O", "O", "O", "X", "O", "O"], 
+                   ["O", "X", "O", "O", "O", "X"],  
+                   ["X", "O", "X", "X", "X", "O"]]
+      b.instance_variable_set( :@board, new_board)
+      expect(b.send(:check_down_diagonals?, "X")).to be true
+    end
+  end
 
+  describe '#check_array_for_match' do
 
+    it 'returns true if all items in array match piece' do
+      expect(b.send(:check_array_for_match, [1,1,1,1], 1)).to be true
+    end
 
+    it 'returns false if any item in array does not match piece' do
+      expect(b.send(:check_array_for_match, [1,1,2,1], 1)).to be false
+    end
 
-
-
-
-
-
+  end
 
 end
