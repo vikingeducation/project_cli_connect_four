@@ -24,6 +24,7 @@
 require_relative "board" 
 require_relative "player" 
 require_relative "human" 
+require_relative "computer"
 
 #connect_four.rb
 class ConnectFour
@@ -36,57 +37,42 @@ class ConnectFour
   end
 
   def play
-    puts "\n#{@player_one.name} is current player represented by piece: #{@current_player.piece} "
-    puts "\n#{@player_two.name} is current player represented by piece: #{@current_player.piece} "
-    #Render the board
-    @game_board.render
+      setup_game
 
-    loop do
-      #Ask for and validate current player move
-      column_num = 0
-      loop do
-        column_num = @current_player.take_turn
-        if @game_board.column_full?(column_num)
-          puts "That column is already full. Please enter a new one."
-        else
-          break
-        end
-      end
-
-      #Update board
-      @game_board.add_piece(column_num, @current_player.piece)
+    while !game_over?
       @game_board.render
+      user_input_col = ask_for_and_validate_move
+      @game_board.add_piece(user_input_col, @current_player.piece)
       
-      #Check for game over conditions
-      if game_over?
-        display_game_over_message
-        break
+      next_player if !game_over?
+    end
+    @game_board.render
+    display_end_of_game_message
+  end
+
+  def setup_game
+    puts "\n#{@player_one.name} is represented by piece: #{@player_one.piece} "
+    puts "\n#{@player_two.name} is represented by piece: #{@player_two.piece} \n"
+  end
+
+  def ask_for_and_validate_move
+    loop do
+      column_num = @current_player.take_turn
+      if @game_board.column_full?(column_num)
+        puts "That column is already full. Please enter a new one."
       else
-        puts "next player ahoy"
-        next_player
+        return column_num
       end
     end
-
-    puts "Thanks for playing! Goodbye!"
   end
 
   def next_player
-    # puts @current_player.info
-    # puts @player_one.info
-    # puts @player_two.info
 
-    # if @current_player.equals?(@player_one)
-    #   @current_player.to(@player_two)
-    # else
-    #   @current_player.to(@player_one)
-    # end
     if @current_player == @player_one
       @current_player = @player_two
     else
       @current_player = @player_one
     end
-
-    puts "#{@current_player.name} is now the current player"
   end
 
   def game_over?
@@ -101,11 +87,11 @@ class ConnectFour
     @game_board.full?
   end
 
-  def display_game_over_message
+  def display_end_of_game_message
     puts "#{@current_player.name} wins the game, congratulations!" if check_victory 
     puts "It's a tie, you're all losers!!" if check_draw
+    puts "Thanks for playing! Goodbye!"
   end
-
 end 
 
 game = ConnectFour.new

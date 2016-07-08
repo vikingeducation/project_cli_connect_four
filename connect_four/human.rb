@@ -1,3 +1,4 @@
+#human.rb
 class Human < Player
 
   def get_column
