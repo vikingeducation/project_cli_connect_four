@@ -10,6 +10,8 @@ class Board
  #    1   2   3   4   5   6   7    
 #data = {  1 => [ :o, :o, :clear ,  :clear,  _ , _  ] ,  2 => [].... }
 
+  attr_reader :game_board
+
   def initialize
     @NUM_ROWS = 6
     @NUM_COLS = 7
