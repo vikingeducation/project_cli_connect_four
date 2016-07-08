@@ -5,17 +5,21 @@ horizontals verticals
 rising_diagonals falling_diagonals
 
 - Test initialize to make sure that it instatiates a board
+- Test initialize with an input
+- Test to see if update board adds a piece
+- Test to see if bottom gives bottom of column
+- Test to see if horizontals returns an array of horizontals
+- Test to see if verticals returns an array of verticals
+- Test to see if rising_diagonals returns an array of rising_diagonals
+- Test to see if falling_diagonals returns an array of falling_diagonals
+
 
 =end
 
 class Board
 
   def initialize(board = nil)
-    if board.nil?
-      @grid = Array.new(7){Array.new(6){[]}}
-    else
-      @grid = board
-    end
+    @grid = board || Array.new(7){Array.new(6){[]}}
   end
 
   def render_board
