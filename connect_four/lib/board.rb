@@ -148,7 +148,7 @@ class Board
           diag << @game_board[count + 1][@NUM_ROWS - starting_row - count - 1]
           count += 1
       end
-      starting_row += 1      
+      starting_row += 1
       diagonals_array << diag
     end
     diagonals_array

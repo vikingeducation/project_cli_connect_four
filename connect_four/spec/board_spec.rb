@@ -78,12 +78,12 @@ describe Board do
     it 'returns an array of diagonal arrays' do
       d.game_board.each_key do |key|
         2.times do
-         d.add_piece(key, :x) 
+         d.add_piece(key, :x)
          d.add_piece(key, :o)
          d.add_piece(key, :clear)
         end
       end
-      
+
       expect(d.to_the_left_diagonals_up[0]).to match_array([:x,:o,:clear,:x,:o,:clear])
       expect(d.to_the_left_diagonals_up[1]).to match_array([:o,:clear,:x,:o,:clear])
     end
@@ -93,30 +93,38 @@ describe Board do
     it 'returns an array of diagonal arrays' do
       d.game_board.each_key do |key|
         2.times do
-         d.add_piece(key, :x) 
+         d.add_piece(key, :x)
          d.add_piece(key, :o)
          d.add_piece(key, :clear)
         end
       end
-      
-      expect(d.to_the_right_diagonals_down[0]).to match_array([:x,:o,:clear,:x,:o,:clear])
-      expect(d.to_the_right_diagonals_down[1]).to match_array([:o,:clear,:x,:o,:clear])
+
+      expect(d.to_the_right_diagonals_down[0]).to match_array([:clear,:o,:x,:clear,:o,:x])
+      expect(d.to_the_right_diagonals_down[2]).to match_array([:clear,:o,:x,:clear,:o])
     end
   end
 
-  # describe '#to_the_left_diagonals_up' do
-  #   it 'returns an array of diagonal arrays' do
-  #     d.game_board.each_key do |key|
-  #       2.times do
-  #        d.add_piece(key, :x) 
-  #        d.add_piece(key, :o)
-  #        d.add_piece(key, :clear)
-  #       end
-  #     end
-      
-  #     expect(d.to_the_left_diagonals_up[0]).to match_array([:x,:o,:clear,:x,:o,:clear])
-  #     expect(d.to_the_left_diagonals_up[1]).to match_array([:o,:clear,:x,:o,:clear])
-  #   end
-  # end
+  describe '#to_the_left_diagonals_down' do
+    it 'returns an array of diagonal arrays' do
+      d.game_board.each_key do |key|
+        2.times do
+          d.add_piece(key, :x)
+          d.add_piece(key, :o)
+          d.add_piece(key, :clear)
+        end
+      end
 
+      expect(d.to_the_left_diagonals_down[0]).to match_array([:clear,:o,:x,:clear,:o,:x])
+      #expect(d.to_the_left_diagonals_down[2]).to match_array([:x,:clear,:o,:x])
+    end
+  end
+
+  describe '#verticals' do
+    it 'returns all vertical arrays' do
+      d.game_board.each_key do |key|
+        (d.game_board[key].length).times { d.add_piece(key, :x) }
+      end
+      expect(d.verticals[0]).to match_array([:x, :x, :x, :x, :x, :x])
+    end
+  end
 end
