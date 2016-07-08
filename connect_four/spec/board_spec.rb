@@ -38,7 +38,22 @@ describe Board do
   end
 
   describe "#victory?" do
+    it "doesn't take any arguments" do
+      expect{b.victory?("foo", "bar")}.to raise_error(ArgumentError)
+      expect{b.victory?("foo")}.to raise_error(ArgumentError)
+    end
 
+    it "returns a boolean" do
+      expect(Board.new.victory?).to be_falsey
+    end
+
+
+    it "returns true when the board has a vertical win" do 
+      b.grid = [ %w(X X X X) ] 
+      expect(b.victory?).to be_truthy
+    end
+    # array of 7 arrays. each array is a column. start out empty. 
+    # 
   end
 
   describe "#draw?" do
