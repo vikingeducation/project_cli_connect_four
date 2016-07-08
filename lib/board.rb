@@ -23,11 +23,30 @@ class Board
     false
   end
 
+  def full?
+    @board.all? { |col| col.length == 6 }
+  end
+
+    def render
+
+    full_board = fill_board
+
+    #transpose_board(full_board)
+    full_board.transpose.reverse.each do |row|
+      puts "|" + row.join(" ") + "|"
+    end
+     puts "+- - - - - - -+"
+     puts " 1 2 3 4 5 6 7 "
+
+  end
+  
   private
 
   def col_full?(column)
     @board[column].length >= 6
   end
+
+
 
   def verticals
     @board
@@ -114,16 +133,5 @@ class Board
     full_board
   end
 
-  def render
 
-    full_board = fill_board
-
-    #transpose_board(full_board)
-    full_board.transpose.reverse.each do |row|
-      puts "|" + row.join(" ") + "|"
-    end
-     puts "+- - - - - - -+"
-     puts " 1 2 3 4 5 6 7 "
-
-  end
 end
