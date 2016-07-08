@@ -51,8 +51,8 @@ class ConnectFour
   end
 
   def setup_game
-    puts "\n#{@player_one.name} is represented by piece: #{@player_one.piece} "
-    puts "\n#{@player_two.name} is represented by piece: #{@player_two.piece} \n"
+    puts "\n#{@player_one.name} is the Current player represented by piece: #{@player_one.piece} "
+    puts "#{@player_two.name} is the AI player represented by piece: #{@player_two.piece} \n\n"
   end
 
   def ask_for_and_validate_move
