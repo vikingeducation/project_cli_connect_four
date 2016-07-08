@@ -1,4 +1,5 @@
 require "board"
+require 'piece'
 require "spec_helper"
 
 RSpec.describe Board do
@@ -23,7 +24,26 @@ RSpec.describe Board do
     end
   end
 
-  describe 'subject' do
+
+  describe "#bottom(column)" do
+    it "should return an empty array" do
+      expect(board.bottom(0)).to eq(0)
+    end
+  end
+
+  describe "#verticals" do
+    it "should return an array of all the columns" do
+      expect(board.verticals).to eq(Array.new(7){Array.new(6){[]}})
+    end
+  end
+
+
+  describe '#update_board(column, color)' do
+    let(:red_piece) {Piece.new("R")}
+
+    it "should should update the board with a placed piece" do
+      expect(board.update_board(0, red_piece.color)).to eq(board.instance_variable_get(:@grid)[0][0])
+    end
 
   end
 
