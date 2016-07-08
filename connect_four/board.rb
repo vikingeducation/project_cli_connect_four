@@ -1,5 +1,21 @@
 # board.rb
 
+=begin
+Class: Board
+  render
+  receive_move?
+  check_winner?
+  tie?
+
+  private:
+  render_board
+  available?
+  check_columns?
+  check_rows?
+  check_up_diagonals?
+  check_down_diagonals?
+=end
+
 class Board
   attr_reader :board
 
@@ -97,7 +113,7 @@ class Board
       end
     end
     false
-  end
+ end
 
   def check_down_diagonals?(piece)
     row_index = 3

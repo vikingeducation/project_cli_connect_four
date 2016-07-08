@@ -1,5 +1,13 @@
 # computer.rb
 
+=begin
+Class: Computer < Player
+  get_name
+
+  private:
+  get_move
+=end
+
 class Computer < Player
 
   def get_name

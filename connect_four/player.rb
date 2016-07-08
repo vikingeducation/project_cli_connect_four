@@ -1,5 +1,19 @@
 # player.rb
 
+=begin
+Class: Player
+  name      # attr_reader
+  piece     # attr_reader
+  get_name
+  move
+
+  class method:
+  create_player
+
+  private:
+  get_move
+=end
+
 class Player
   attr_reader :name, :piece
 

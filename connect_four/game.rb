@@ -1,4 +1,15 @@
 # game.rb
+
+=begin
+Class: Game
+  play
+  make_next_move
+  check_if_game_over
+  switch_players
+  print_instructions
+  print_who_goes_first
+=end
+
 require "./board.rb"
 require "./player.rb"
 require "./computer.rb"
