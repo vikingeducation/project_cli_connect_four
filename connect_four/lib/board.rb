@@ -32,8 +32,8 @@ column_full?
 class Board
   attr_accessor :grid
 
-  def initialize
-    @grid = Array.new(7){[]}
+  def initialize(grid = nil)
+    @grid = grid || Array.new(7){[]}
   end
 
   def move(column, piece)
