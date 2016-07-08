@@ -1,7 +1,7 @@
 # game.rb
-require "./board.rb"
-require "./player.rb"
-require "./computer.rb"
+require "board"
+require "player"
+require "computer"
 
 
 
@@ -63,5 +63,4 @@ class Game
 end
 
 # Game object
-g = Game.new
-g.play
+
