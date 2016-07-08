@@ -59,7 +59,64 @@ describe Board do
     end
   end
 
-  describe '#diagonals_up' do
-
+  describe '#to_the_right_diagonals_up' do
+    it 'returns an array of diagonal arrays' do
+      d.game_board.each_key do |key|
+        2.times do
+         d.add_piece(key, :x) 
+         d.add_piece(key, :o)
+         d.add_piece(key, :clear)
+        end
+      end
+      
+      expect(d.to_the_right_diagonals_up[0]).to match_array([:x,:o,:clear,:x,:o,:clear])
+      expect(d.to_the_right_diagonals_up[2]).to match_array([:x,:o,:clear,:x,:o])
+    end
   end
+
+  describe '#to_the_left_diagonals_up' do
+    it 'returns an array of diagonal arrays' do
+      d.game_board.each_key do |key|
+        2.times do
+         d.add_piece(key, :x) 
+         d.add_piece(key, :o)
+         d.add_piece(key, :clear)
+        end
+      end
+      
+      expect(d.to_the_left_diagonals_up[0]).to match_array([:x,:o,:clear,:x,:o,:clear])
+      expect(d.to_the_left_diagonals_up[1]).to match_array([:o,:clear,:x,:o,:clear])
+    end
+  end
+
+  describe '#to_the_right_diagonals_down' do
+    it 'returns an array of diagonal arrays' do
+      d.game_board.each_key do |key|
+        2.times do
+         d.add_piece(key, :x) 
+         d.add_piece(key, :o)
+         d.add_piece(key, :clear)
+        end
+      end
+      
+      expect(d.to_the_right_diagonals_down[0]).to match_array([:x,:o,:clear,:x,:o,:clear])
+      expect(d.to_the_right_diagonals_down[1]).to match_array([:o,:clear,:x,:o,:clear])
+    end
+  end
+
+  # describe '#to_the_left_diagonals_up' do
+  #   it 'returns an array of diagonal arrays' do
+  #     d.game_board.each_key do |key|
+  #       2.times do
+  #        d.add_piece(key, :x) 
+  #        d.add_piece(key, :o)
+  #        d.add_piece(key, :clear)
+  #       end
+  #     end
+      
+  #     expect(d.to_the_left_diagonals_up[0]).to match_array([:x,:o,:clear,:x,:o,:clear])
+  #     expect(d.to_the_left_diagonals_up[1]).to match_array([:o,:clear,:x,:o,:clear])
+  #   end
+  # end
+
 end
