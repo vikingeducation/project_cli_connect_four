@@ -57,8 +57,34 @@ describe Board do
 
       expect(board.win?).to eq(true)
     end
-    #when you win horizontally win returns true
+    
+    it "returns true if there are four consecutive pieces in a row" do
+      (0..3).each do |col|
+        board.add_piece('r', col)
+      end
+
+      expect(board.win?).to eq(true)
+    end
+    
     #when you win vertically win returns true
+    it "returns false if there are no four consecutive pieces" do
+      (0..6).each do |col|
+        6.times do
+      
+          if col.even?
+            board.add_piece('r', col)
+            board.add_piece('b', col)
+          else
+            board.add_piece('b', col)
+            board.add_piece('r', col)
+          end
+
+        end
+      end
+
+      expect(board.win?).to eq(false)
+
+    end
 
 
   end

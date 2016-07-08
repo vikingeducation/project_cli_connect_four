@@ -14,6 +14,17 @@ class Board
     end
   end
 
+  def win?
+    render
+    lines = verticals + horizontals #+ diagonals # line is an array upto size 7
+    lines.each do |line|
+      return true if has_four_in_a_row?(line)
+    end
+    false
+  end
+
+  private
+
   def col_full?(column)
     @board[column].length >= 6
   end
@@ -79,16 +90,6 @@ class Board
         piece_color = piece
       end
       return true if counter == 4
-    end
-    false
-  end
-
-  def win?
-    p verticals
-    p horizontals
-    lines = verticals + horizontals #+ diagonals # line is an array upto size 7
-    lines.each do |line|
-      return true if has_four_in_a_row?(line)
     end
     false
   end
