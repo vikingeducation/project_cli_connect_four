@@ -1,17 +1,19 @@
 # game.rb
-require_relative 'player'
-require_relative 'board'
+require "./board.rb"
+require "./player.rb"
+require "./computer.rb"
 
 class Game
   def initialize
+    print_instructions
     @board = Board.new
-    @player1 = Player.new("X")
-    @player2 = Player.new("O")
+    @player1 = Player.create_player("X", "Player 1")
+    @player2 = Player.create_player("O", "Player 2")
     @current_player = [@player1, @player2].sample
   end
 
   def play
-    print_instructions
+    print_who_goes_first
     loop do
       @board.render
       make_next_move
@@ -48,9 +50,12 @@ class Game
   def print_instructions
     puts
     puts "Welcome to Connect Four."
-    puts "Enter the number of the column (1-7) where you want to put your piece in."
-    puts "#{@current_player.name} wins the toss, and will go first."
     puts
+  end
+
+  def print_who_goes_first
+    puts "#{@current_player.name} wins the toss, and will go first."
+    puts "Enter the number of the column (1-7) where you want to put your piece in."
   end
 end
 

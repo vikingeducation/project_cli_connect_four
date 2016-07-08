@@ -17,6 +17,21 @@ class Player
     get_move
   end
 
+  def self.create_player(piece, position)
+    input = ""
+    @piece = piece
+    until %w[ human h computer c].include?(input)
+      puts "Will #{position} be a computer or a human?"
+      input = gets.chomp.downcase
+    end
+
+    if %w[ human h ].include?(input)
+      Player.new(piece)
+    else
+      Computer.new(piece)
+    end
+  end
+
   private
 
   def get_move
@@ -26,5 +41,8 @@ class Player
     end until (1..7).include?(response)
     [response - 1, piece]
   end
+
+  
+
 end
 

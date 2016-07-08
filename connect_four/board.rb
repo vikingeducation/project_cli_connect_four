@@ -25,9 +25,9 @@ class Board
   end
 
   def check_winner?(piece)
-    # check_columns?(piece) || 
-    # check_rows?(piece) ||
-    # check_up_diagonals?(piece)
+    check_columns?(piece) || 
+    check_rows?(piece) ||
+    check_up_diagonals?(piece) ||
     check_down_diagonals?(piece)
   end
 
