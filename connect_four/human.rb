@@ -1,7 +1,8 @@
 class Human < Player
+  attr_reader :name, :color
 
   def initialize(color)
-    super
+    @color = color
     @name = get_username
   end
 
@@ -11,7 +12,9 @@ class Human < Player
   end
 
   def player_input
-    gets.strip.to_i until valid_input?
+    current_move = ""
+    current_move = gets.strip.to_i until valid_input?(current_move)
+    current_move
   end
 
 end

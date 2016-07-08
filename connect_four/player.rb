@@ -1,12 +1,8 @@
 class Player
-
-
-  def iniatialize(color)
-    @color = color
-  end
+  include Display
 
   def get_move
-    player_msg
+    player_msg(name)
     player_input
   end
 
