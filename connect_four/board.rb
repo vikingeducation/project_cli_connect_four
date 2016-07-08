@@ -1,50 +1,94 @@
-module ConnectFour
-  class Board
+class Board
+  attr_accessor :grid
 
-    attr_accessor :board
-
-    def initialize(rows,columns)
-      @board = Array.new(columns) { Column.new(rows) } 
-      @rows = rows     
-    end
-
-    def add_piece(col_num, player_piece)
-      column(col_num).pieces.push(player_piece)
-    end
-
-    def column(n)
-      @board[n.to_i-1]
-    end
-
-    def col_full?(col_num)
-      if column(col_num).full?
-        full_col_error
-        return true
-      else
-        return false
-      end
-    end
-
-    def full_col_error
-      puts "That column is full!"
-    end
-
-    def render
-      #Column data starts at bottom, leftmost in array is bottom in display
-      #top-left:at first column.pieces[@max_length]
-      #top row: each column.pieces at index @max_length
-      #second-top-row:each column.pieces at index @max_length-1
-      #and so on until 
-      #botom row:each column.pieces at index 0
-      i=@board[0].max_length-1
-      while i>=0
-        @board.each do |column|
-          print "#{(column.pieces[i]||"_")}|"
-        end
-        puts
-        i-=1
-      end
-    end
-
+  def initialize
+    @grid = Array.new(7){[]}
   end
+
+  def move(column, piece)
+    grid[column-1].push(piece)
+  end
+
+  def vertical_win?(grid)
+    status = false
+    grid.each do |column|
+      if column.chunk { |piece| piece }.map{|a,b| b}.any? { |arr| arr.count >= 4 }
+        status = true
+        break
+      end
+    end
+    status
+  end
+
+  def horizontal_win?(grid)
+    vertical_win?(fill_copy(grid).transpose)
+  end
+
+  def diagonal_win?(grid)
+    vertical_win?(diagonalize(grid))
+  end
+
+  def diagonalize(grid)
+    copy = fill_copy(grid)
+    diagonals = half_diags(copy) + half_diags(copy.reverse)
+    diagonals
+  end
+
+  def victory?
+    horizontal_win?(grid) || vertical_win?(grid) || diagonal_win?(grid)
+  end
+
+  def draw?
+    full = true
+    @grid.length.times do |col|
+       if !column_full?(col)
+         full = false
+       end
+    end
+    full
+  end
+
+  def game_over?
+    victory? || draw?
+  end
+
+  def column_full?(column)
+    @grid[column].length == 6
+  end
+
+
+
+  def half_diags(copy)
+    arr = []
+    (1..2).each do |y|
+      arr.push([])
+      x = 0
+      until x == 7 || y ==6
+        arr[-1] << copy[x][y]
+        x+=1
+        y+=1
+      end
+    end
+    (0..3).each do |x|
+      arr.push([])
+      y = 0
+      until x==7 || y==6
+        arr[-1] << copy[x][y]
+        x+=1
+        y+=1
+      end
+    end
+    arr
+  end
+
+  def fill_copy(grid)
+    copy = grid.dup.map! {|x| x.dup}
+    copy.length.times do |x|
+      until copy[x].length == 6
+        copy[x] << x.to_s
+      end
+    end
+    copy
+  end
+
 end
