@@ -72,13 +72,20 @@ class Board
     piece_color = line[0]
     counter = 0
     line.each do |piece|
-      piece == piece_color ? counter += 1 : piece_color = piece
+      if piece == piece_color
+        counter += 1
+      else
+        counter = 1 
+        piece_color = piece
+      end
       return true if counter == 4
     end
     false
   end
 
   def win?
+    p verticals
+    p horizontals
     lines = verticals + horizontals #+ diagonals # line is an array upto size 7
     lines.each do |line|
       return true if has_four_in_a_row?(line)
@@ -90,7 +97,7 @@ class Board
 
     full_board = []
 
-    7.times do |col|
+    7.times do
       full_board << []
     end
 
