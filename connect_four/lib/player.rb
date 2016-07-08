@@ -1,9 +1,13 @@
 =begin
 Public Methods
   initialize
+    Player should have a name and a pice
   name
+    return name
   piece
+    return piece
   get_input
+    return an input which is an Integer and in valid range (1-7)
 
 Private Methods
   ask_for_input

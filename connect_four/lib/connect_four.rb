@@ -1,9 +1,14 @@
 =begin
   Public Methods
     initialize
+      ConnectFour should have player1 and player2, game_board and current_player
+      current_player should be player1
     game_board
+      returns game_board
     current_player
+      returns current_player
     play
+      #leaving this for later
 
   Private Methods
     switch_player
