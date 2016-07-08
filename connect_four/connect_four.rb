@@ -72,7 +72,7 @@ class Board
     0.upto(5) do |row|
       0.upto(6) do |col|
         DirectionGenerator.generate_directions(row,col,[6,5]).each do |combo|
-          #combo.map{ |item| @state[item[0]][item[1]] }
+          combo.map{ |item| @state[item[0]][item[1]] }
           return true if winning_combination?(combo)
         end
       end
@@ -197,8 +197,8 @@ class DirectionGenerator
       DIRECTIONS.map do |direction| 
         dispatch(direction, row, col)
       end.select do |row|
-        row.any? do |coord|
-          !bad_coord?(coord, limit)
+        row.none? do |coord|
+          bad_coord?(coord, limit)
         end
       end
     end
@@ -265,3 +265,10 @@ class DirectionGenerator
 
   end
 end
+
+
+def test
+  Game.new
+end
+
+test
