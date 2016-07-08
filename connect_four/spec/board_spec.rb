@@ -107,7 +107,7 @@ describe Board do
     end
 
     it "returns false by default" do
-      expect(b.column_full?(rand(6))).to be_falsey
+      expect(b.column_full?(rand(7))).to be_falsey
     end
 
     it "returns true if column if full" do
@@ -118,6 +118,27 @@ describe Board do
   end
 
   describe "#fill_copy" do
+    it "takes exactly one argument" do
+      expect{b.fill_copy}.to raise_error(ArgumentError)
+      expect{b.fill_copy("a", "a")}.to raise_error(ArgumentError)
+    end
+
+    it "takes a board and outputs an array" do 
+      expect(b.fill_copy(b.grid)[rand(7)]).to be_a(Array)
+    end
+
+    it "the output array is an array of elements of length 6" do
+      expect(b.fill_copy(b.grid)[rand(7)].length).to eq(6)
+    end
+
+    it "the return array should be a duplicate of the original array" do 
+      expect(b.fill_copy(b.grid).object_id).not_to eql(b.grid.object_id)
+    end
+
+    it "the return array should contain arrays with different object id's than those contained by the original array" do 
+      i = rand(7)
+      expect(b.fill_copy(b.grid)[i].object_id).not_to eql(b.grid[i].object_id)
+    end
 
   end
 end
