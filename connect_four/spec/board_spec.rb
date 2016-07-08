@@ -48,27 +48,76 @@ describe Board do
     end
 
 
-    it "returns true when the board has a vertical win" do 
-      b.grid = [ %w(X X X X) ] 
+    it "returns true when the board has a vertical win" do
+      b.grid = [ %w(X X X X) ]
       expect(b.victory?).to be_truthy
     end
-    # array of 7 arrays. each array is a column. start out empty. 
-    # 
+
+    it "returns true when the board has a horizontal win" do
+      b.grid = [["a"], ["a"], ["a"], ["a"] ]
+      expect(b.victory?).to be_truthy
+    end
+
+    it "returns true when the board has a diagonal win" do
+      b.grid = [ %w(O O O X), %w(O O X O), %w(O X O O), %w(X O O O), [], [], [] ]
+      expect(b.victory?).to be_truthy
+    end
+
   end
 
   describe "#draw?" do
+    it "doesn't take any arguments" do
+      expect{b.draw?("foo")}.to raise_error(ArgumentError)
+    end
 
+    it "returns a boolean" do
+      expect(b.draw?).to be_falsey
+    end
+
+    it "returns true if game board is full" do
+      b.grid = Array.new(7){%w[a a a a a a]}
+      expect(b.draw?).to be_truthy
+    end
   end
 
   describe "#game_over?" do
+    it "takes no argument" do
+      expect{b.game_over?("foo")}.to raise_error(ArgumentError)
+    end
 
+    it "returns false by default" do
+      expect(b.game_over?).to be_falsey
+    end
+
+    it "return true if victory? or draw?" do
+      b.grid = Array.new(7){%w[a a a a a a]}
+      expect(b.game_over?).to be_truthy
+    end
+
+    it "returns true if victory?" do
+      b.grid = [["a"], ["a"], ["a"], ["a"] ]
+      expect(b.game_over?).to be_truthy
+    end
   end
 
   describe "#column_full?" do
+    it "takes exactly one argument" do
+      expect{b.column_full?}.to raise_error(ArgumentError)
+      expect{b.column_full?("a", "a")}.to raise_error(ArgumentError)
+    end
+
+    it "returns false by default" do
+      expect(b.column_full?(rand(6))).to be_falsey
+    end
+
+    it "returns true if column if full" do
+      b.grid = [ %w(X X X X X X) ]
+      expect(b.column_full?(0)).to be_truthy
+    end
 
   end
 
   describe "#fill_copy" do
-    
+
   end
 end
