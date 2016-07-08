@@ -1,0 +1,48 @@
+# Your code here!
+
+#display board [BOARD]
+
+#until game_over? [GAME]
+  #player.make_move [GAME]
+    #get_move (loop) [PLAYER]
+      #if valid entry, set move to entry else, next [PLAYER]
+    #next unless board.add_to_col?(@player.move)     
+
+  
+    #win or board full?
+  #switch player [GAME]
+
+#display winner message or tie_message
+
+#Game
+  #play
+  #game_over?(board)
+  #display_winner_message
+  #display_tie_message
+  #switch_player
+
+
+#Board
+
+  #data: nested array where each inner array is a column
+  #display_board
+  #add_to_col?
+    unless col_full? 
+      add piece to board
+    else
+      false
+    end
+
+  #win?
+  #tie?
+  #col_full? (col.length > 7)
+
+
+#Player  
+  #make_move (calls get_move and sets move = to move, and @board.add_to_col)
+  #valid_col? (should be 1 through 7)
+
+  #Computer
+    # get_move (generates a move based on board)
+  #Human
+      #get_move (displays puts message and gets.chomp, and validates)
