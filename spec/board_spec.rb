@@ -5,6 +5,13 @@ require "spec_helper"
 describe Board do
 
   let(:board){Board.new}
+  let(:partial_board){Board.new([[Piece.new("R"), Piece.new("R"), Piece.new("R"), Piece.new("R"), Piece.new("R"), Piece.new("R")],
+ [[], [], [], [], [], []],
+ [[], [], [], [], [], []],
+ [[], [], [], [], [], []],
+ [[], [], [], [], [], []],
+ [[], [], [], [], [], []],
+ [[], [], [], [], [], []]])}
 
   describe "#initialize" do
     it "initializes a board object" do
@@ -30,7 +37,50 @@ describe Board do
 
   describe "#bottom" do
     it "returns the bottom of the column" do
-    
+      expect(board.bottom(1)).to eq(0)
+    end
+
+    it "returns lowest available space" do
+      board.update_board(1, "R")
+      expect(board.bottom(1)).to eq(1)
+    end
+  end
+
+  describe "#horizontals" do
+    it "returns a transposed board" do
+      expect(partial_board.horizontals).not_to eq(partial_board.verticals)
+    end
+  end
+
+  describe "#verticals" do
+    it "returns the board" do
+      expect(board.verticals).to eq(Array.new(7){Array.new(6){[]}})
+    end
+  end
+
+  describe "#rising_diagonals" do
+    let(:r_diagonals) {[[[], [], [], [], [], []],
+ [[], [], [], [], []],
+ [[], [], [], []],
+ [[], [], [], [], [], []],
+ [[], [], [], [], []],
+ [[], [], [], []]]}
+
+    it "returns the rising diagonals of the board" do
+      expect(board.rising_diagonals).to eq(r_diagonals)
+    end
+  end
+
+  describe "#falling_diagonals" do
+    let(:f_diagonals) {[[[], [], [], []],
+ [[], [], [], [], []],
+ [[], [], [], [], [], []],
+ [[], [], [], [], [], []],
+ [[], [], [], [], []],
+ [[], [], [], []]]}
+
+    it "returns the falling diagonals of the board" do
+      expect(board.falling_diagonals).to eq(f_diagonals)
     end
   end
 
