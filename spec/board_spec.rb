@@ -26,13 +26,13 @@ RSpec.describe Board do
 
 
   describe "#bottom(column)" do
-    it "should return an empty array" do
+    it "will return the index of the bottom of the column that will be empty" do
       expect(board.bottom(0)).to eq(0)
     end
   end
 
   describe "#verticals" do
-    it "should return an array of all the columns" do
+    it "will return an array of empty arrays of all the columns of the board" do
       expect(board.verticals).to eq(Array.new(7){Array.new(6){[]}})
     end
   end
@@ -41,28 +41,28 @@ RSpec.describe Board do
   describe '#update_board(column, color)' do
     let(:red_piece) {Piece.new("R")}
 
-    it "should should update the board with a placed piece" do
+    it "will update the board with a placed piece by the player" do
       expect(board.update_board(0, red_piece.color)).to eq(board.instance_variable_get(:@grid)[0][0])
     end
 
   end
 
   describe "#horizontals" do
-    it "should return an array of all the rows" do
+    it "will return an array of empty arrays all the columns of the board" do
       expect(board.horizontals).to eq(Array.new(6){Array.new(7){[]}})
     end
 
-    it "should not return an array of columns" do
+    it "will return an array of the arrays of rows of the board instead of the columns" do
       expect(board.horizontals).to_not eq(Array.new(7){Array.new(6){[]}})
     end
   end
 
   describe '#rising_diagonals' do
-    it 'should return an array # of rising diagonals' do
+    it 'will return an the number of rising diagonals of the board' do
         expect(board.rising_diagonals.length).to eq(6)
     end
 
-    it 'should return an array' do
+    it 'will return the type of-- an Array-- of the rising diagonal' do
         expect(board.rising_diagonals).to be_a(Array)
     end
 
