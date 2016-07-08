@@ -32,11 +32,12 @@ class ConnectFour
     @game_board = Board.new
     @player_one =  Human.new("Phillip", :x)
     @player_two = Human.new("Adrian", :o)
-    @current_player = Human.new("Phillip", :x)
+    @current_player = @player_one
   end
 
   def play
-    puts "\n#{@current_player.name} is current player represented by piece: #{@current_player.piece} "
+    puts "\n#{@player_one.name} is current player represented by piece: #{@current_player.piece} "
+    puts "\n#{@player_two.name} is current player represented by piece: #{@current_player.piece} "
     #Render the board
     @game_board.render
 
@@ -70,14 +71,19 @@ class ConnectFour
   end
 
   def next_player
-    puts @current_player.info
-    puts @player_one.info
-    puts @player_two.info
+    # puts @current_player.info
+    # puts @player_one.info
+    # puts @player_two.info
 
-    if @current_player.equals?(@player_one)
-      @current_player.to(@player_two)
+    # if @current_player.equals?(@player_one)
+    #   @current_player.to(@player_two)
+    # else
+    #   @current_player.to(@player_one)
+    # end
+    if @current_player == @player_one
+      @current_player = @player_two
     else
-      @current_player.to(@player_one)
+      @current_player = @player_one
     end
 
     puts "#{@current_player.name} is now the current player"
