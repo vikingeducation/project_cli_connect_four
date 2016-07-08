@@ -1,4 +1,30 @@
+=begin 
+
+class board
+
+
+  new
+  enter pick
+  display board
+  display_board =
+  render
+  -----------
+  test if initialize display_board has something in it
+
+  test if when we enter a pick does the display board change and what if we give it a wrong piece or a wrong place or wrong number of arguments(error)
+
+  
+  
+
+
+=end
+
 class Board
+
+
+
+
+
 
   attr_accessor :display_board
 
