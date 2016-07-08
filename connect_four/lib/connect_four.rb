@@ -17,6 +17,7 @@ class connect_four
 -------------------
 
   test if initialize creates a new board(if board has something)
+
   does view have the board in it
   tests number of players to see if it makes a computer or human
   test that it sets current player
@@ -31,6 +32,8 @@ require_relative "player.rb"
 require_relative "board.rb"
 
 class Game
+
+  attr_accessor :board
 
   BWIN = ["B","B","B","B"]
   RWIN = ["R","R","R","R"]
