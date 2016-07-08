@@ -31,12 +31,8 @@ class ConnectFour
 
   def play
     loop do
-      p @player1.make_move
-      @board.render_board
-      winning_message(@player1) if win?
-      p @player2.make_move
-      @board.render_board
-      winning_message(@player2) if win?
+      player_moves(@player1)
+      player_moves(@player2)
     end
   end
 
@@ -45,8 +41,10 @@ class ConnectFour
     exit
   end
 
-  def player_moves
-    
+  def player_moves(player)
+    player.make_move
+    @board.render_board
+    winning_message(player) if win?
   end
 
 
@@ -66,9 +64,6 @@ class ConnectFour
     return true
   end
 
-
-  def turn_over
-  end
 
   # def check_win(arrays)
   #   counter = 0
