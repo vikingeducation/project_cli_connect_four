@@ -1,11 +1,9 @@
-require 'pry'
 require_relative 'board'
 require_relative 'player'
 require_relative 'human'
 require_relative 'computer'
 
 class Game
-
   def initialize
     @board = Board.new
     @player1 = Human.new('r')
