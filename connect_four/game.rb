@@ -2,6 +2,7 @@ module ConnectFour
   class Game
     def initialize(rows,columns)
       @board = Board.new(rows,columns)
+      @max_height=rows
       welcome_message
       initialize_players
     end 
@@ -46,6 +47,7 @@ module ConnectFour
     end
 
     def game_over
+      @board.render
       puts "Game over"
       exit
     end
@@ -61,20 +63,31 @@ module ConnectFour
     def verticals
       @board.board.each do |column|
         idx=0
-        while idx < column.max_length - 3
-          #create a subarray starting at idx with length 4
-          sub_arr = column.pieces[idx, 4] 
-          #check if all four elements in the subarray are the same
-          return true if sub_arr.all? {|e| e == :X} || sub_arr.all?{|e| e==:O} 
-          idx+=1
+        if column.pieces.length>=4
+          while idx < @max_height - 3
+            #create a subarray starting at idx with length 4
+            sub_arr = column.pieces[idx, 4] 
+            #check if all four elements in the subarray are the same
+            return true if sub_arr.all? {|e| e==sub_arr[0]}
+            idx+=1
+          end
         end
       end
       return false
     end
 
     def horizontals
-      make_horizontals
-
+      make_horizontals.each do |row|
+        idx=0
+        if row.count(:X)+row.count(:O)>=4
+          while idx<@max_height-3
+            sub_arr = row[idx, 4]
+            return true if sub_arr.all?{|e| e == sub_arr[0]}
+            idx+=1
+          end
+        end
+      end
+      return false
     end
 
     def make_horizontals
@@ -92,6 +105,7 @@ module ConnectFour
     end
 
     def diagonals
+      
     end
 
     def full?

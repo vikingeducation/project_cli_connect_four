@@ -17,7 +17,7 @@ module ConnectFour
     end
 
     def col_full?(col_num)
-      if column(col_num).pieces.length == @rows
+      if column(col_num).full?
         full_col_error
         return true
       else
@@ -36,7 +36,7 @@ module ConnectFour
       #second-top-row:each column.pieces at index @max_length-1
       #and so on until 
       #botom row:each column.pieces at index 0
-      i=@board[0].max_length
+      i=@board[0].max_length-1
       while i>=0
         @board.each do |column|
           print "#{(column.pieces[i]||"_")}|"

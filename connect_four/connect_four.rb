@@ -24,7 +24,7 @@ require 'computer'
 
 module ConnectFour
 
-game=ConnectFour::Game.new(7,6)
+game=ConnectFour::Game.new(6,7)
 game.play
 
 end

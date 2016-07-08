@@ -2,13 +2,12 @@ module ConnectFour
   class Human < Player
     def move 
       prompt
-      x = get_move
-      if valid_move?(x)
-        x
-      else
+      choice = get_move
+      until valid_move?(choice)
         puts "That is not a valid move."
-        move
+        choice=gets.chomp
       end
+      choice
     end
 
     def get_move
@@ -20,8 +19,7 @@ module ConnectFour
     end
 
     def valid_move?(move)
-      Array("0".."6").include?(move)
-      # Array("0".."6").include?(move) ? true : puts "That is not a valid move."
+      Array("1".."7").include?(move)
     end
 
   end

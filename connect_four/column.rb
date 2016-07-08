@@ -9,7 +9,7 @@ module ConnectFour
     end
 
     def full?
-      @pieces.length==@max_length
+      @pieces.length==max_length
     end
 
   end
