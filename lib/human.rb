@@ -5,7 +5,7 @@ class Human < Player
   end
 
   def get_move
-    puts "Where do you want to move"
+    puts "Where do you want to move? (1-7)"
   end
 
   def assign_move(board)

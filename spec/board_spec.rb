@@ -37,7 +37,30 @@ describe Board do
       expect(board_size).to eq(1)
     end
 
-    #only adds to the correct spot
-    #col must be available
+    it "returns false if the column is full" do
+
+      5.times do
+        board.add_piece('r', 0)
+      end
+
+      expect(board.add_piece('r', 0)).to eq(false)
+
+    end 
   end
+
+  describe "#win" do
+
+    it "returns true if there are four consecutive pieces in a column" do
+      4.times do
+        board.add_piece('r', 0)
+      end
+
+      expect(board.win?).to eq(true)
+    end
+    #when you win horizontally win returns true
+    #when you win vertically win returns true
+
+
+  end
+
 end

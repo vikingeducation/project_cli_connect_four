@@ -15,11 +15,7 @@ class Board
   end
 
   def col_full?(column)
-    @board[column].length >= 7
-  end
-
-  def win?
-    check_lines?
+    @board[column].length >= 6
   end
 
   def verticals
@@ -74,13 +70,7 @@ class Board
   
   end
 
-  def check_lines?
-    lines = verticals + horizontals #+ diagonals # line is an array upto size 7
-    lines.each do |line|
-      return true if has_four_in_a_row?(line)
-    end
-    false
-  end
+
 
   def has_four_in_a_row?(line)
     return false if line.length < 4
@@ -93,6 +83,14 @@ class Board
     false
   end
 
+  def win?
+    lines = verticals + horizontals #+ diagonals # line is an array upto size 7
+    lines.each do |line|
+      return true if has_four_in_a_row?(line)
+    end
+    false
+  end
+  
   def render
     p self
 
