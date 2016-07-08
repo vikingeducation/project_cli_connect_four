@@ -70,32 +70,33 @@ class Board
       row
     end
 
-  def diagonals
-    diagonals = left_diagonals + right_diagonals
-  end
+  #TODO: fix diagonal methods
+  # def diagonals
+  #   diagonals = left_diagonals + right_diagonals
+  # end
 
-  def left_diagonals
-    diagonals = []
-    7.times do |n|
-      diagonals << create_left_diagonal(n)
-      diagonals << create_right_diagonal(n)
+  # def left_diagonals
+  #   diagonals = []
+  #   7.times do |n|
+  #     diagonals << create_left_diagonal(n)
+  #     diagonals << create_right_diagonal(n)
       
-    end
+  #   end
     
-  end
+  # end
 
-  def create_right_diagonal(n)
-    diagonal = []
-    row_i = 0
-    #col_i = 0
+  # def create_right_diagonal(n)
+  #   diagonal = []
+  #   row_i = 0
+  #   #col_i = 0
  
-    while row_i < 6 && col_i < 6
-      diagonal << @board[n][row_i]
-      row_i += 1
-      col_i += 1
-    end
+  #   while row_i < 6 && col_i < 6
+  #     diagonal << @board[n][row_i]
+  #     row_i += 1
+  #     col_i += 1
+  #   end
 
-  end
+  # end
 
   def has_four_in_a_row?(line)
     return false if line.length < 4

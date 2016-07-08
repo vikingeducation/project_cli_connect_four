@@ -17,6 +17,8 @@ class Game
       @current_player.make_move(@board)
       switch_player
     end
+    display_winner_message if @board.win?
+    display_tie_message if @board.full?
     @board.render
   end
 
@@ -29,11 +31,13 @@ class Game
   end
 
   def display_winner_message
-    
+    switch_player
+    puts "Congrats #{@current_player.color}, you won!"
   end
 
   def display_tie_message
-    
+    puts "Tie game!"
   end
 
 end
+

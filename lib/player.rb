@@ -1,6 +1,6 @@
 class Player
 
-  attr_reader :move
+  attr_reader :color
 
   def initialize(color)
     @color = color

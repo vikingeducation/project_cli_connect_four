@@ -20,7 +20,7 @@ describe Game do
   end
 
   let(:player1) do
-    gam
+    game.instance_variable_get(:@player1)
   end
 
   let(:player2) do
@@ -48,6 +48,9 @@ describe Game do
     context "when the current player is player 2" do
 
       it "sets current player to player 1" do
+        game.switch_player
+        game.switch_player
+        expect(current_player).to eq(player1)
       end
     end
   end
