@@ -16,8 +16,10 @@ class Human < Player
 
 
   ###If time permits, move this in board
-  def check_move_valid?(column)
-    column.between?(0,6)
-  end
+  private
+
+    def check_move_valid?(column)
+      column.between?(0,6)
+    end
 
 end

@@ -5,10 +5,10 @@
  full_board check_win
 =end
 
-require_relative "board"
-require_relative "player"
-require_relative "piece"
-require_relative "human"
+require_relative "./connect_four/board"
+require_relative "./connect_four/player"
+require_relative "./connect_four/piece"
+require_relative "./connect_four/human"
 
 class ConnectFour
 
@@ -18,7 +18,6 @@ class ConnectFour
     @player1 = Human.new(names[0], "R", @board)
     @player2 = Human.new(names[1], "B", @board)
     @current_player = @player1
-    play
   end
 
   def get_players_names
@@ -103,4 +102,4 @@ class ConnectFour
 end
 
 
-# Your code here!
+#ConnectFour.new.play
