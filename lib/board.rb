@@ -15,7 +15,7 @@ class Board
   end
 
   def win?
-    render
+  
     lines = verticals + horizontals #+ diagonals # line is an array upto size 7
     lines.each do |line|
       return true if has_four_in_a_row?(line)
