@@ -1,15 +1,16 @@
 # player.rb
 
 class Player
-  attr_reader :name, :piece
+  attr_reader :name, :piece, :position
 
-  def initialize(piece)
-    @name = get_name
+  def initialize(piece, position)
+    @name = get_name(position)
     @piece = piece
+    @position = position
   end
 
-  def get_name
-    puts "Please enter your name:"
+  def get_name(position)
+    puts "#{position}, please enter your name:"
     gets.chomp
   end
 
@@ -26,9 +27,9 @@ class Player
     end
 
     if %w[ human h ].include?(input)
-      Player.new(piece)
+      Player.new(piece, position)
     else
-      Computer.new(piece)
+      Computer.new(piece, position)
     end
   end
 
@@ -36,7 +37,7 @@ class Player
 
   def get_move
     begin
-      puts "Please place your next #{piece}, #{name}"
+      puts "#{name}, please place your next #{piece} by typing the number of the column and pressing enter"
       response = gets.chomp.to_i
     end until (1..7).include?(response)
     [response - 1, piece]

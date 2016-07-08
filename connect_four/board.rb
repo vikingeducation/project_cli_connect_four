@@ -62,7 +62,9 @@ class Board
     board.each do |column|
       3.times do |index|
         if column[index..(index + 3)].all? { |element| element == piece }
-          return true
+          if check_array_for_match(column[index..(index + 3)], piece)
+            return true
+          end
         end
       end
     end
@@ -76,7 +78,7 @@ class Board
         4.times do |index|
           row_array << board[column + index][row]
         end
-        if row_array.all? { |element| element == piece }
+        if check_array_for_match(row_array, piece)
           return true
         end
       end
@@ -91,7 +93,7 @@ class Board
         4.times do |index|
           diagonal_array << board[column + index][row + index]
         end
-        if diagonal_array.all? { |element| element == piece }
+        if check_array_for_match(diagonal_array, piece)
           return true
         end
       end
@@ -107,7 +109,7 @@ class Board
         4.times do |index|
           diagonal_array << board[column + index][row_index - index]
         end
-        if diagonal_array.all? { |element| element == piece }
+        if check_array_for_match(diagonal_array, piece)
           return true
         end
       end
@@ -116,6 +118,9 @@ class Board
     false
   end
 
+  def check_array_for_match(array, piece)
+    array.all? { |element| element == piece}
+  end
 
 end
 

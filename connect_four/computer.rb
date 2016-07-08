@@ -2,6 +2,12 @@
 
 class Computer < Player
 
+  def initialize(piece, position)
+    @name = get_name
+    @piece = piece
+    @position = position
+  end
+
   def get_name
     "Hal"
   end

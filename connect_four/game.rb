@@ -48,14 +48,15 @@ class Game
   end
 
   def print_instructions
-    puts
+    
     puts "Welcome to Connect Four."
     puts
   end
 
   def print_who_goes_first
+    puts "--------------------------------"
     puts "#{@current_player.name} wins the toss, and will go first."
-    puts "Enter the number of the column (1-7) where you want to put your piece in."
+    puts "Here's the board"
   end
 end
 
