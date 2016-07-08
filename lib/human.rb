@@ -1,11 +1,12 @@
 class Human < Player
 
   def make_move(board)
+    get_move
     get_move while !assign_move(board)
   end
 
   def get_move
-    puts "Where do you want to move? (1-7)"
+    puts "#{@color}, where do you want to move? (1-7)"
   end
 
   def assign_move(board)

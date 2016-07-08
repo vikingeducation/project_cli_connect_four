@@ -59,18 +59,13 @@ class Board
     row_i = 0
     #col_i = 0
  
-
     while row_i < 6 && col_i < 6
       diagonal << @board[n][row_i]
       row_i += 1
       col_i += 1
     end
 
-      
-  
   end
-
-
 
   def has_four_in_a_row?(line)
     return false if line.length < 4
@@ -90,9 +85,31 @@ class Board
     end
     false
   end
-  
+
   def render
-    p self
+
+    full_board = []
+
+    7.times do |col|
+      full_board << []
+    end
+
+    7.times do |col|
+      6.times do |row|
+        if @board[col][row]
+          full_board[col] << @board[col][row]
+        else
+          full_board[col] << " "
+        end
+      end
+    end
+    
+
+    full_board.transpose.reverse.each do |row|
+      puts "|" + row.join(" ") + "|"
+    end
+     puts "+- - - - - - -+"
+     puts " 1 2 3 4 5 6 7 "
 
   end
 end
