@@ -27,7 +27,7 @@ class Board
     @board.all? { |col| col.length == 6 }
   end
 
-    def render
+  def render
 
     full_board = fill_board
 
@@ -35,8 +35,8 @@ class Board
     full_board.transpose.reverse.each do |row|
       puts "|" + row.join(" ") + "|"
     end
-     puts "+- - - - - - -+"
-     puts " 1 2 3 4 5 6 7 "
+    puts "+- - - - - - -+"
+    puts " 1 2 3 4 5 6 7 "
 
   end
   

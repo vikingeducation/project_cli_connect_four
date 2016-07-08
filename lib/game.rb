@@ -1,3 +1,4 @@
+require 'pry'
 require_relative 'board'
 require_relative 'player'
 require_relative 'human'
@@ -24,8 +25,6 @@ class Game
   def game_over?
     @board.win? || @board.full?
   end
-
-  
 
   def switch_player
     @current_player =  @current_player == @player2 ? @player1 : @player2
