@@ -65,9 +65,11 @@ class Board
 
 end
 
-# ("A".."C").to_a.each do |letter|
-#   ("1".."4").to_a.each do |num|
-#       board[[letter, num]] = "X"
-#       3.times { board[[letter.next, num.next ]] ||= "X"}
-#   end
-# end
+("A".."C").to_a.map do |letter|
+  ("1".."4").to_a.map do |num|
+      board[[letter, num]] = "X"
+      board[[letter.next, num.next ]] = "X"
+      board[[letter.next.next, num.next.next ]] = "X"
+      board[[letter.next.next.next, num.next.next.next ]] = "X"
+  end
+end
