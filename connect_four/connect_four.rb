@@ -1,3 +1,20 @@
+=begin
+  Public Methods
+    initialize
+    game_board
+    current_player
+    play
+
+  Private Methods
+    switch_player
+    end_message
+
+
+=end
+
+
+
+
 require_relative 'board'
 require_relative 'display'
 require_relative 'player'
@@ -33,6 +50,8 @@ class ConnectFour
     end_message(@current_player)
 
   end
+
+  private
 
   def switch_player
     if @current_player == @player1

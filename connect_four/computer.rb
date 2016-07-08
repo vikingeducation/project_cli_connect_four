@@ -1,3 +1,18 @@
+=begin
+  Public Methods
+    initialize
+    name
+    piece
+    get_input
+
+  Private Methods
+    ask_for_input
+    valid_input?
+
+=end
+
+
+
 class Computer
   attr_reader :name, :piece
 
@@ -16,6 +31,8 @@ class Computer
 
     end
   end
+
+  private
 
   def ask_for_input(grid)
     (0..6).to_a.reverse.each do |x|

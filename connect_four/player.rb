@@ -1,3 +1,17 @@
+=begin
+Public Methods
+  initialize
+  name
+  piece
+  get_input
+
+Private Methods
+  ask_for_input
+  valid_input?
+
+=end
+
+
 class Player
   attr_reader :name, :piece
 
@@ -16,6 +30,8 @@ class Player
       puts "Invalid Input"
     end
   end
+  
+  private
 
   def ask_for_input
     puts "Where do you want to move your piece #{name} (columns 1-7) ?"

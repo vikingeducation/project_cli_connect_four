@@ -1,10 +1,17 @@
 =begin
 Public-facing interface
 initialize
+  Board should have a grid
+  that grid should be an array of 7 arrays
+
 grid
+  return the grid
 move
+  after move is called one of the arrays in grid should have a piece in it
 game_over?
+  returns a boolean depending on victory conditions
 victory?
+  returns a boolean depending on state of the grid
 
 
 Private Methods
