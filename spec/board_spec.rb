@@ -4,13 +4,9 @@ require 'board'
 
 
 
-  available?
-    - check to see if a full column rejects a new piece
-    - check to see if a non-full column accepts a new piece
 
-  check_columns?
-    - check to see if non-winning conditions return false
-    - check to see if winning conditions return true
+
+
 
   check_rows?
     - check to see if non-winning conditions return false
@@ -55,16 +51,49 @@ describe Board do
   describe '#tie?' do
 
     it 'returns true if the board is full of pieces' do
-      board
+      b.instance_variable_set( :@board, Array.new(7) { Array.new(6, "X") } )
+      expect(b.tie?).to be true
+    end
+
+    it 'returns false for starting board' do
+      expect(b.tie?).to be false
+    end
+
+    it 'returns false for one "_"' do
+      b.instance_variable_set( :@board, [["X","_"],["X","X"]] )
+      expect(b.tie?).to be false
+    end
+  end
+
+  describe '#available?' do
+
+    it 'rejects new piece if column is full' do
+      b.instance_variable_set( :@board, Array.new(7) { Array.new(6, "X") } )
+      expect(b.send(:available?, [4,"X"])).to be false
+    end
+
+    it 'accepts new piece for non-full column' do
+      expect(b.send(:available?, [4,"X"])).to be true
     end
 
   end
 
+  describe '#check_columns?' do
 
-    # tie?
-    # - check to see if a board of all X's returns true
-    # - check to see if starting board returns false
+    it 'returns false for non-winning condition' do
+      expect(b.send(:check_columns?, "X")).to be false
+    end
 
+    it 'returns true for winning condition' do
+
+      expect(b.send(:check_columns?, "X")).to be true
+    end
+  end
+
+
+ # check_columns?
+ #    - check to see if non-winning conditions return false
+ #    - check to see if winning conditions return true
 
 
 
