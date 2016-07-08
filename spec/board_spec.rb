@@ -1,40 +1,30 @@
-require "./lib/connect_four/board"
-require "./lib/connect_four/piece"
+require "board"
 require "spec_helper"
 
-describe Board do
+RSpec.describe Board do
 
   let(:board){Board.new}
 
   describe "#initialize" do
+    it "does not initiaize a board with input supplied" do
+      expect {Board.new([])}.to raise_error ArgumentError
+    end
+
     it "initializes a board object" do
       expect(board).to be_a(Board)
     end
 
-    it "initializes a blank board" do
-      expect(board.verticals).to eq(Array.new(7){Array.new(6){[]}})
-    end
-
-    it "initializes a pre-made board with parameter" do
-      new_board = Board.new([])
-      expect(new_board.verticals).to eq([])
-    end
-  end
-
-  describe "#update_board" do
-    it "updates board with a Piece object" do
-      board.update_board(0,"R")
-      expect(board.verticals[0][0]).to be_a(Piece)
+    it 'provides board with proper dimensions' do
+      grid = board.instance_variable_get(:@grid)
+      expect(grid.length).to eq(7)
+      grid.each do |row|
+        expect(row.length).to eq(6)
+      end
     end
   end
 
-  describe "#bottom" do
-    it "returns the bottom of the column" do
-    
-    end
+  describe 'subject' do
+
   end
-
-
-
 
 end
