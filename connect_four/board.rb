@@ -89,6 +89,11 @@ class Board
 
   def diagonals
     diagonals_array = []
+    diagonals_array << diagonals_up << diagonals_down
+  end
+
+  def diagonals_up
+    diagonals_array = []
     
     #first half diagonal
     @NUM_COLS.times do |col_num|
@@ -134,6 +139,38 @@ class Board
     7.times do |count|
       @game_board[count + 1] = Array.new(6, :clear)
     end
+  end
+
+  def diagonals_down
+    diagonals_array = []
+    
+    #first half diagonal
+    @NUM_COLS.times do |col_num|
+        count = 0
+        diag = []
+        until col_num + count >= @NUM_COLS || count >= @NUM_ROWS
+          diag << @game_board[col_num + count + 1][@NUM_ROWS - count - 1]
+          count += 1
+        end 
+        diagonals_array << diag
+    end
+
+    #second half diagonal
+    (@NUM_ROWS - 1).times do |row_num|
+      count = 0
+      diag = []
+      starting_row = 0
+      until row_num + count + starting_row >= @NUM_ROWS || count >= @NUM_COLS
+          diag << @game_board[count + 1][@NUM_ROWS - starting_row - count - 1]
+          count += 1
+      end
+
+      starting_row += 1
+      
+      diagonals_array << diag
+    end
+
+    diagonals_array
   end
 end
 

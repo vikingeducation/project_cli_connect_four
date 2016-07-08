@@ -16,6 +16,8 @@ end
 b=Board.new
 b.render
 
+diagonals_down
+
 puts
 puts b.winning_combination?
 print b.four_in_a_row?(b.diagonals), "\n"
