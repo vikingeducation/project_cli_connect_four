@@ -12,9 +12,9 @@ require_relative "./connect_four/human"
 
 class ConnectFour
 
-  def initialize
+  def initialize(board = nil)
     names = get_players_names
-    @board = Board.new
+    @board = board || Board.new
     @player1 = Human.new(names[0], "R", @board)
     @player2 = Human.new(names[1], "B", @board)
     @current_player = @player1
@@ -55,7 +55,7 @@ class ConnectFour
   end
 
   def full_board?
-    @boards.horizontals.each do |row|
+    @board.horizontals.each do |row|
       if row.any? {|row| row == []}
         return false
       end
