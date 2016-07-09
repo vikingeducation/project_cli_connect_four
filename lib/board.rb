@@ -145,10 +145,9 @@ class Board
     row_i = n
     col_i = 6
   
-    until row_i < 0 || col_i < 0
-    
+     until row_i > 5 || col_i < 0   
       diagonal << full_board[col_i][row_i]
-      row_i -= 1
+      row_i += 1
       col_i -= 1
     end
 
