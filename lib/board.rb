@@ -15,8 +15,10 @@ class Board
   end
 
   def win?
-  
-    lines = verticals + horizontals #+ diagonals # line is an array upto size 7
+    p verticals
+    p horizontals
+    p diagonals
+    lines = verticals + horizontals + diagonals # line is an array upto size 7
     lines.each do |line|
       return true if has_four_in_a_row?(line)
     end
@@ -47,7 +49,6 @@ class Board
   end
 
 
-
   def verticals
     @board
   end
@@ -70,42 +71,113 @@ class Board
       row
     end
 
-  #TODO: fix diagonal methods
-  # def diagonals
-  #   diagonals = left_diagonals + right_diagonals
-  # end
 
-  # def left_diagonals
-  #   diagonals = []
-  #   7.times do |n|
-  #     diagonals << create_left_diagonal(n)
-  #     diagonals << create_right_diagonal(n)
+  def diagonals
+    diagonals = right_diagonals + left_diagonals 
+  end
+
+  def right_diagonals
+    diagonals = []
+    6.times do |n|
+      #diagonals << create_left_diagonal(n)
+      diagonals << create_right_top_diagonal(n)
       
-  #   end
+    end
+
+    7.times do |n|
+      diagonals << create_right_bottom_diagonal(n)
+      
+    end
+    diagonals
+  end
+
+
+  def left_diagonals
+    diagonals = []
+    6.times do |n|
+      #diagonals << create_left_diagonal(n)
+      diagonals << create_left_top_diagonal(n)
+      
+    end
+
+    7.times do |n|
+      diagonals << create_left_bottom_diagonal(n)
+      
+    end
+    diagonals
+  end
+
+  def create_right_top_diagonal(n)
+    full_board = fill_board(nil)
+
+    diagonal = []
+    row_i = n
+    col_i = 0
+  
+    until row_i > 5
     
-  # end
+      diagonal << full_board[col_i][row_i]
+      row_i += 1
+      col_i += 1
+    end
 
-  # def create_right_diagonal(n)
-  #   diagonal = []
-  #   row_i = 0
-  #   #col_i = 0
- 
-  #   while row_i < 6 && col_i < 6
-  #     diagonal << @board[n][row_i]
-  #     row_i += 1
-  #     col_i += 1
-  #   end
+    diagonal
+    
+  end
 
-  # end
+  def create_right_bottom_diagonal(n)
+    full_board = fill_board(nil)
+    diagonal = []
+    row_i = 0
+    col_i = n
+    until col_i > 6
+      diagonal << full_board[col_i][row_i]
+      row_i += 1
+      col_i += 1
+    end
+    diagonal
+  end
+
+  def create_left_top_diagonal(n)
+    full_board = fill_board(nil)
+
+    diagonal = []
+    row_i = n
+    col_i = 6
+  
+    until row_i < 0 || col_i < 0
+    
+      diagonal << full_board[col_i][row_i]
+      row_i -= 1
+      col_i -= 1
+    end
+
+    diagonal
+    
+  end
+
+  def create_left_bottom_diagonal(n)
+    full_board = fill_board(nil)
+    diagonal = []
+    row_i = 5
+    col_i = n
+    until row_i < 0 || col_i > 6
+      diagonal << full_board[col_i][row_i]
+      row_i -= 1
+      col_i += 1
+    end
+    diagonal
+  end
 
   def has_four_in_a_row?(line)
     return false if line.length < 4
     piece_color = line[0]
     counter = 0
     line.each do |piece|
-      if piece == piece_color
+      if piece == piece_color && piece != nil
         counter += 1
-      else
+      elsif piece != nil
+        
         counter = 1 
         piece_color = piece
       end
@@ -114,7 +186,7 @@ class Board
     false
   end
 
-  def fill_board
+  def fill_board(filler=" ")
     #initialize board
     full_board = []
     7.times do
@@ -127,7 +199,7 @@ class Board
         if @board[col][row]
           full_board[col] << @board[col][row]
         else
-          full_board[col] << " "
+          full_board[col] << filler
         end
       end
     end
