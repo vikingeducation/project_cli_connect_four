@@ -1,13 +1,13 @@
 require 'spec_helper'
 
 
-describe "Player" do
-  subject(:p){Player.new("player1", "X")}
+describe "Computer" do
+  subject(:p){Computer.new("player1", "X")}
 
   describe ".initialize" do
 
     it "requires exactly two arguments" do
-      expect{Player.new("a", "b", "c")}.to raise_error(ArgumentError)
+      expect{Computer.new("a", "b", "c")}.to raise_error(ArgumentError)
     end
   end
 
@@ -31,9 +31,8 @@ describe "Player" do
     end
 
     it "returns an integer from 1-7" do
-      i = rand(7)+1
-      allow(p).to receive(:gets).and_return(i.to_s)
-      expect(p.get_input(Board.new)).to eq (i)
+      expect(p.get_input(Board.new)).to be <= 7
+      expect(p.get_input(Board.new)).to be >= 1
     end
 
     it "returns an integer" do

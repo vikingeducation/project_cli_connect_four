@@ -8,13 +8,13 @@ class ConnectFour
 
   def initialize(type = :player)
     @player1 = Player.new("Player 1", "O")
-    @player2 = type == :computer ? Computer.new("Player 2", "X") : Player.new("Player 2", "X") 
+    @player2 = type == :computer ? Computer.new("Player 2", "X") : Player.new("Player 2", "X")
     #@player2 = Player.new("Player 2", "X")
     @game_board = Board.new
     @current_player = @player1
   end
 
-  
+
 
   def play
     Display.welcome
