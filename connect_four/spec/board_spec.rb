@@ -97,8 +97,10 @@ describe Board do
     end
   end
 
+
+
   describe '#to_the_right_diagonals_down' do
-    it 'returns an array of diagonal arrays' do
+    before do 
       d.game_board.each_key do |key|
         2.times do
          d.add_piece(key, :x)
@@ -106,7 +108,9 @@ describe Board do
          d.add_piece(key, :clear)
         end
       end
+    end
 
+    it 'returns an array of diagonal arrays' do
       expect(d.to_the_right_diagonals_down[0]).to match_array([:clear,:o,:x,:clear,:o,:x])
       expect(d.to_the_right_diagonals_down[2]).to match_array([:clear,:o,:x,:clear,:o])
     end

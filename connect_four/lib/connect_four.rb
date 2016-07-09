@@ -28,6 +28,7 @@ require_relative "computer"
 
 #connect_four.rb
 class ConnectFour
+  attr_reader :player_one, :player_two, :current_player
 
   def initialize 
     @game_board = Board.new
@@ -93,8 +94,8 @@ class ConnectFour
   end
 end 
 
-game = ConnectFour.new
-game.play
+#game = ConnectFour.new
+#game.play
 
 
 
