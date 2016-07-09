@@ -6,11 +6,9 @@ require_relative "human"
 class ConnectFour
 
   def initialize
-    names = get_players_names
-    # names = ["J", "D"]
     @board = Board.new
-    @player1 = Human.new(names[0], "R", @board)
-    @player2 = Human.new(names[1], "B", @board)
+    @player1 = Human.new("", "R", @board)
+    @player2 = Human.new("", "B", @board)
     @current_player = @player1
   end
 
@@ -23,6 +21,7 @@ class ConnectFour
   end
 
   def play
+    names = get_players_names
     loop do
       player_moves(@player1)
       player_moves(@player2)

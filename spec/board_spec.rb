@@ -84,11 +84,11 @@ RSpec.describe Board do
         expect(board.falling_diagonals).to be_a(Array)
     end
 
-    it 'will return an array of arrays' do
+    it 'will return an array of arrays of the falling diagonals' do
         expect(board.falling_diagonals[0]).to be_a(Array)
     end
 
-    it 'will produce an array of length six for rising diagonal array' do
+    it 'will produce an array of length four for rising diagonal array' do
       expect(board.falling_diagonals[0].length).to eq(4)
     end
   end
