@@ -3,6 +3,7 @@ module ConnectFour
     def initialize(rows,columns)
       @board = Board.new(rows,columns)
       @max_height=rows
+      @player_pieces=[:X,:O]
       welcome_message
       initialize_players
     end 
@@ -105,7 +106,31 @@ module ConnectFour
     end
 
     def diagonals
-      
+      #up-diagonals
+      (0..3).each do |x|
+        (0..2).each do |y|
+          diagonal=[]
+          (0..3).each do |increment|
+            diagonal << @board.board[x+increment].pieces[y+increment]
+          end
+          if diagonal.all?{|e|@player_pieces.include?(e)}
+            return true if diagonal.all?{|e| e== diagonal[0]}
+          end
+        end
+      end
+      #down-diagonals
+      (0..3).each do |x|
+        (3..5).each do |y|
+          diagonal=[]
+          (0..3).each do |decrement|
+            diagonal << @board.board[x+decrement].pieces[y-decrement]
+          end
+          if diagonal.all?{|e| @player_pieces.include?(e)}
+            return true if diagonal.all?{|e| e== diagonal[0]}
+          end
+        end
+      end
+      return false
     end
 
     def full?
