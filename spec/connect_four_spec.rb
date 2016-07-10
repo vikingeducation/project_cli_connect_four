@@ -30,8 +30,14 @@ RSpec.describe ConnectFour do
 
   describe 'check_win(arrays)' do
     it "will return true(win) if a row is filled with four consectutive pieces" do
-      winning_horizontal = [[Piece.new("R")], [Piece.new("R")], [Piece.new("R")], [Piece.new("R")], [], [], []]
-      expect(ConnectFour.new.check_win(winning_horizontal)).to eq(true)
+      winning_horizontal = [[Piece.new("R"), [], [], [], [], []],
+ [Piece.new("R"), [], [], [], [], []],
+ [Piece.new("R"), [], [], [], [], []],
+ [Piece.new("R"), [], [], [], [], []],
+ [[], [], [], [], [], []],
+ [[], [], [], [], [], []],
+ [[], [], [], [], [], []]]
+      expect(ConnectFour.new.check_win(winning_horizontal)).to be(true)
     end
   end
 

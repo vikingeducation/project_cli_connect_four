@@ -16,7 +16,7 @@ RSpec.describe Board do
     end
 
     it 'provides board with proper dimensions' do
-      grid = board.instance_variable_get(:@grid)
+      grid = board.grid
       expect(grid.length).to eq(7)
       grid.each do |row|
         expect(row.length).to eq(6)
@@ -42,7 +42,7 @@ RSpec.describe Board do
     let(:red_piece) {Piece.new("R")}
 
     it "will update the board with a placed piece by the player" do
-      expect(board.update_board(0, red_piece.color)).to eq(board.instance_variable_get(:@grid)[0][0])
+      expect(board.update_board(0, red_piece.color)).to be_a(Piece)
     end
 
   end

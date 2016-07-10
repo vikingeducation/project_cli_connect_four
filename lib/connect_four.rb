@@ -7,8 +7,8 @@ class ConnectFour
 
   def initialize
     @board = Board.new
-    @player1 = Human.new("", "R", @board)
-    @player2 = Human.new("", "B", @board)
+    @player1 = Human.new("RED", "R", @board)
+    @player2 = Human.new("BLACK", "B", @board)
     @current_player = @player1
   end
 
@@ -79,7 +79,8 @@ class ConnectFour
       counter_b = 0
       array.each do |space|
         if space.empty?
-          counter = 0
+          counter_r = 0
+          counter_b = 0
         elsif space.color == "R"
           counter_r += 1
         elsif space.color == "B"
