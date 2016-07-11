@@ -8,6 +8,7 @@ class Player
 
   def deal_card
     @cards << get_card_from_deck
+    true
   end
 
   def get_card_from_deck
@@ -25,5 +26,9 @@ class Player
 
   def get_new_card?
      hand_sum(@cards) < 21
+  end
+
+  def place_bet
+
   end
 end
