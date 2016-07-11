@@ -1,4 +1,6 @@
 class Player
+  attr_writer :cards
+
   DECK = []
   (2..14).each {|num| DECK << [num, 4]}
 
@@ -15,17 +17,20 @@ class Player
     card = nil
     loop do
       card = DECK.sample
-      break if card[1] > 0
+      if card[1] > 0
+        card[1] -= 1
+        break
+      end
     end
     card[0]
   end
 
-  def hand_sum(hand_arr)
-    hand_arr.inject(0) {|total, card| total + card}
+  def hand_sum
+    @cards.inject(0) {|total, card| total + card}
   end
 
   def get_new_card?
-     hand_sum(@cards) < 21
+     hand_sum < 21
   end
 
   def place_bet

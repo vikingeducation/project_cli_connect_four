@@ -7,6 +7,6 @@ class Dealer < Player
   end
 
   def get_new_card?
-     (16 > hand_sum(@cards))
+     (16 > hand_sum)
   end
 end

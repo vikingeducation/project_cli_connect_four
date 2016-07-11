@@ -2,6 +2,7 @@ require "player"
 
 RSpec.describe Player do
   let(:player) { Player.new }
+  let(:fake_player) { instance_double("Player") }
 
   describe "#initialize" do
     it 'intializes player without input args' do
@@ -17,23 +18,28 @@ RSpec.describe Player do
   describe '#hand_sum' do
 
     it 'will sum up hand 5 & 6' do
-      expect(player.hand_sum([5,6])).to eq 11
+      player.instance_variable_set(:@cards, [5,6])
+      expect(player.hand_sum).to eq 11
     end
 
     it 'will sum up hand 3 & 4' do
-        expect(player.hand_sum([3,4])).to eq 7
+      player.instance_variable_set(:@cards, [3,4])
+      expect(player.hand_sum).to eq 7
     end
 
     it 'will sum hand 3, 4, & 5' do
-      expect(player.hand_sum([3,4,5])).to eq 12
+      player.instance_variable_set(:@cards, [3,4,5])
+      expect(player.hand_sum).to eq 12
     end
 
     it 'will sum hand 4, 5, 11' do
-      expect(player.hand_sum([4,5,11])).to eq 20
+      player.instance_variable_set(:@cards, [4,5,11])
+      expect(player.hand_sum).to eq 20
     end
 
     it 'will sum hand 2, 3, 2, 4, 5, 3, 10, 10' do
-      expect(player.hand_sum([2, 3, 2, 4, 5, 3, 10, 10])).to eq 39
+      player.instance_variable_set(:@cards, [2, 3, 2, 4, 5, 3, 10, 10])
+      expect(player.hand_sum).to eq 39
     end
   end
 
@@ -56,9 +62,6 @@ RSpec.describe Player do
 
   describe "#place_bet" do
 
-    it "will identify bet placed by player" do
-      expect(player.place_bet).to
-    end
-
+    it "will identify bet placed by player"
   end
 end

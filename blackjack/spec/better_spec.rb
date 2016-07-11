@@ -13,29 +13,6 @@ RSpec.describe Better do
     end
   end
 
-  describe '#hand_sum' do
-
-    it 'will sum up hand 5 & 6' do
-      expect(better.hand_sum([5,6])).to eq 11
-    end
-
-    it 'will sum up hand 3 & 4' do
-        expect(better.hand_sum([3,4])).to eq 7
-    end
-
-    it 'will sum hand 3, 4, & 5' do
-      expect(better.hand_sum([3,4,5])).to eq 12
-    end
-
-    it 'will sum hand 4, 5, 11' do
-      expect(better.hand_sum([4,5,11])).to eq 20
-    end
-
-    it 'will sum hand 2, 3, 2, 4, 5, 3, 10, 10' do
-      expect(better.hand_sum([2, 3, 2, 4, 5, 3, 10, 10])).to eq 39
-    end
-  end
-
   describe "#get_new_card?" do
 
     it "will result true if unless total > 16" do
