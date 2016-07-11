@@ -4,9 +4,11 @@
 #     better
 #     dealer
 #   play game
+    place bets
 #   deal cards
 #   asks players for additional cards unless undesired conditions met
 #   win/lose
+      Gambler wins/ Dealer wins/ Tie
 #
 # player class:
 #   initialize

@@ -28,16 +28,6 @@ RSpec.describe Blackjack do
 
   end
 
-  describe "#place_bet" do
-    let(:bljk) {Blackjack.new}
-
-    it "will identify bet placed by Gambler" do
-      gambler = bljk.instance_variable_get(:@gambler)
-      expect(gambler.place_bet).to be true
-    end
-
-  end
-
   describe "who wins?" do
 
   end

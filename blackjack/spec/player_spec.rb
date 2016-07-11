@@ -53,4 +53,12 @@ RSpec.describe Player do
       expect(card).to be_a(Integer)
     end
   end
+
+  describe "#place_bet" do
+
+    it "will identify bet placed by player" do
+      expect(player.place_bet).to
+    end
+
+  end
 end

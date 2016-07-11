@@ -29,6 +29,13 @@ class Player
   end
 
   def place_bet
+    # ask for bet amount
+    bet = gets.strip.
+    # validate it is a whole number and will be turned into integer
+    bet = bet.to_i if valid_input?
+  end
 
+  def valid_input?
+    
   end
 end
