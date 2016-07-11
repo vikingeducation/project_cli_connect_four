@@ -94,8 +94,8 @@ class ConnectFour
   end
 end 
 
-#game = ConnectFour.new
-#game.play
+game = ConnectFour.new
+game.play
 
 
 
