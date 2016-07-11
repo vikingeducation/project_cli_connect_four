@@ -1,6 +1,8 @@
-class Better
+require 'player'
 
-  def hand_sum(*num)
-    num.inject(0) {|total, card| total + card}
+class Better < Player
+  def initialize
+    @name = "Gambler"
+    super
   end
 end
