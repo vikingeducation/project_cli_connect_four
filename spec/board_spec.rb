@@ -62,4 +62,6 @@ describe Board do
 			expect(subject.add_piece(10,"X")).to be false
 		end
 	end
+
+	describe ""
 end
