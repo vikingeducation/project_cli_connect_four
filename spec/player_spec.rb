@@ -15,4 +15,5 @@ describe Player do
 			expect(player.piece).to eq("X")
 		end
 	end
+
 end
