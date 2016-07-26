@@ -1,0 +1,9 @@
+Setup board [Board]
+Setup two players [Player]
+Determine which player goes first [Tosser]
+Start game loop [Game]
+   Render board [Board]
+   Ask current player to move [Player]
+   Check for game over [Board]
+   Switch player [Tosser]
+
