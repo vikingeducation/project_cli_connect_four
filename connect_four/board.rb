@@ -10,11 +10,15 @@ class Board
     def render
         puts
         # loop through data structure
-        @board.each do |row|
-            row.each do |cell|
+        puts " 0   1   2   3   4   5   6   7   8   9"
+        puts
+        @board.each_with_index do |row, row_index|
+            row.each_with_index do |cell, cell_index|
                 # display an existing marker if any, else blank
-                cell.nil? ? print("+".center(2)) : print(cell.to_s.center(2))
+                cell.nil? ? print("+".center(4)) : print(cell.to_s.center(4))
             end
+            print "  #{row_index}"
+            puts
             puts
         end
         puts
@@ -33,45 +37,55 @@ class Board
         end
     end
 
-    # piece_location_valid?
-    def piece_location_valid?(coords)
-        # Is the placement within_valid_coordinates?
-        if within_valid_coordinates?(coords)
-            # Are the piece coordinates_available?
-            coordinates_available?(coords)
-        end
-    end
-
-    # within_valid_coordinates?
-    def within_valid_coordinates?(coords)
-        # UNLESS piece coords are in the acceptible range
-        if (0..9).include?(coords[0]) && (0..9).include?(coords[1])
-            true
-        else
-            # display an error message
-            puts "Piece coordinates are out of bounds"
-        end
-    end
-
-    # coordinates_available?
-    def coordinates_available?(coords)
-        # UNLESS piece coords are not occupied
-        if @board[coords[0]][coords[1]].nil?
-            true
-        else
-            # display error message
-            puts "There is already a piece there!"
-        end
-    end
 
     # winning_combination?
     def winning_combination?(piece)
         # is there a winning_diagonal?
         # or winning_vertical?
         # or winning_horizontal? for that piece?
-        # winning_diagonal?(piece)   ||
+        winning_diagonal?(piece)   ||
         winning_horizontal?(piece) ||
         winning_vertical?(piece)
+    end
+
+    # full?
+    def full?
+        # does every square contain a piece?
+        @board.all? do |row|
+            row.none?(&:nil?)
+        end
+    end
+
+    private
+    # piece_location_valid?
+    def piece_location_valid?(coords)
+      # Is the placement within_valid_coordinates?
+      if within_valid_coordinates?(coords)
+        # Are the piece coordinates_available?
+        coordinates_available?(coords)
+      end
+    end
+
+    # within_valid_coordinates?
+    def within_valid_coordinates?(coords)
+      # UNLESS piece coords are in the acceptible range
+      if (0..9).include?(coords[0]) && (0..9).include?(coords[1])
+        true
+      else
+        # display an error message
+        puts "Piece coordinates are out of bounds"
+      end
+    end
+
+    # coordinates_available?
+    def coordinates_available?(coords)
+      # UNLESS piece coords are not occupied
+      if @board[coords[0]][coords[1]].nil?
+        true
+      else
+        # display error message
+        puts "There is already a piece there!"
+      end
     end
 
     # winning_diagonal?
@@ -100,8 +114,39 @@ class Board
 
     # diagonals
     def diagonals
-        # return the diagonal pieces
-        [[ @board[0][0],@board[1][1],@board[2][2] ],[ @board[2][0],@board[1][1],@board[0][2] ]]
+      # binding.pry
+      result = []
+      (0..9).each do |row|
+        (0..9).each do |cell|
+          result << form_diagonal_1([row, cell]) if valid_point_1([row, cell])
+          result << form_diagonal_2([row, cell]) if valid_point_2([row, cell])
+        end
+      end
+      result
+    end
+
+    def form_diagonal_1 array
+      result = []
+      5.times do |i|
+        result << @board[array[0] + i][array[1] + i]
+      end
+      result
+    end
+
+    def form_diagonal_2 array
+      result = []
+      5.times do |i|
+        result << @board[array[0] + i][array[1] - i]
+      end
+      result
+    end
+
+    def valid_point_1 array
+      (array[0] + 4 <= 9) && (array[1] + 4 <= 9)
+    end
+
+    def valid_point_2 array
+      (array[0] + 4 <= 9) && (array[1] - 4 >= 0)
     end
 
     # verticals
@@ -130,12 +175,6 @@ class Board
       result
     end
 
-    # full?
-    def full?
-        # does every square contain a piece?
-        @board.all? do |row|
-            row.none?(&:nil?)
-        end
-    end
+
 
 end

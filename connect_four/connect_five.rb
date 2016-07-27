@@ -11,8 +11,8 @@ class ConnectFive
         @board = Board.new
 
         # set up the players
-        @player_x = Player.new("Madame X", :x, @board)
-        @player_y = Player.new("Mister Y", :y, @board)
+        @player_x = Player.new("Madame O", :O, @board)
+        @player_y = Player.new("Mister X", :X, @board)
 
         # assign the starting player
         @current_player = @player_x
@@ -30,7 +30,7 @@ class ConnectFive
             @current_player.get_coordinates
 
             # check if game is over
-            break if check_game_over 
+            break if check_game_over
 
             # switch players
             switch_players
