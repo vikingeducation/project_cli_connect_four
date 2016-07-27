@@ -13,7 +13,7 @@ class Board
         @board.each do |row|
             row.each do |cell|
                 # display an existing marker if any, else blank
-                cell.nil? ? print("-") : print(cell.to_s)
+                cell.nil? ? print("+".center(2)) : print(cell.to_s.center(2))
             end
             puts
         end
@@ -45,7 +45,7 @@ class Board
     # within_valid_coordinates?
     def within_valid_coordinates?(coords)
         # UNLESS piece coords are in the acceptible range
-        if (0..2).include?(coords[0]) && (0..2).include?(coords[1])
+        if (0..9).include?(coords[0]) && (0..9).include?(coords[1])
             true
         else
             # display an error message
@@ -69,7 +69,7 @@ class Board
         # is there a winning_diagonal?
         # or winning_vertical?
         # or winning_horizontal? for that piece?
-        winning_diagonal?(piece)   ||
+        # winning_diagonal?(piece)   ||
         winning_horizontal?(piece) ||
         winning_vertical?(piece)
     end
@@ -105,19 +105,29 @@ class Board
     end
 
     # verticals
-    def verticals
+    def horizontals
         # return the vertical pieces
-        @board
+        array_transform @board
     end
 
     # horizontals
-    def horizontals
+    def verticals
         # return the horizontal pieces
-        horizontals = []
-        3.times do |i|
-            horizontals << [@board[0][i],@board[1][i],@board[2][i]]
+        verts = []
+        10.times do |i|
+            verts << [@board[0][i],@board[1][i],@board[2][i],@board[3][i],@board[4][i],@board[5][i],@board[6][i],@board[7][i],@board[8][i],@board[9][i]]
         end
-        horizontals
+        array_transform verts
+    end
+
+    def array_transform array
+      result = []
+      array.each do |row|
+        5.times do |start_point|
+          result << row[start_point..(start_point + 4)]
+        end
+      end
+      result
     end
 
     # full?

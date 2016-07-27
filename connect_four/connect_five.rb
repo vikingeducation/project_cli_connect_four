@@ -1,4 +1,9 @@
 # Your code here!
+require_relative 'board.rb'
+require_relative 'player.rb'
+require 'pry'
+
+
 class ConnectFive
     # initialize
     def initialize
@@ -25,7 +30,7 @@ class ConnectFive
             @current_player.get_coordinates
 
             # check if game is over
-            break if check_game_over
+            break if check_game_over 
 
             # switch players
             switch_players
@@ -41,6 +46,7 @@ class ConnectFive
 
     # check_victory?
     def check_victory
+      # binding.pry
         # IF Board says current player's piece has
         # a winning_combination?
         if @board.winning_combination?(@current_player.piece)
@@ -74,3 +80,6 @@ class ConnectFive
     end
 
 end
+
+new_game = ConnectFive.new
+new_game.play

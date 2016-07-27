@@ -28,6 +28,8 @@ class Player
         end
     end
 
+    private
+
 
     # ask_for_coordinates
     def ask_for_coordinates
@@ -37,7 +39,7 @@ class Player
         gets.strip.split(",").map(&:to_i)
     end
 
-    # validate_coordinates_format
+    # validate_coordinates_format, does not need to care about the board size here
     def validate_coordinates_format(coords)
         # UNLESS coordinates are in the proper format
         if coords.is_a?(Array) && coords.size == 2
