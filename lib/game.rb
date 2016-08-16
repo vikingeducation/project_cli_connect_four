@@ -1,6 +1,5 @@
 require_relative "player.rb"
 require_relative "board.rb"
-require 'colorize'
 
 class Game
 	def initialize
@@ -21,7 +20,7 @@ class Game
 
 			@current_player.get_column_number
 			if @current_player.wins?
-				puts "#{@current_player.name} wins!".colorize(:light_blue)
+				puts "#{@current_player.name} wins!"
 				break
 			end
 

@@ -1,7 +1,5 @@
-#equire 'colorize'
-
 class Board
-	attr_reader :board_array, :last_move
+	attr_accessor :board_array, :last_move
 
 	def initialize( board_array = nil)
 		@board_array = board_array || Array.new(6) { Array.new(7) }
@@ -34,7 +32,7 @@ class Board
 	end
 
 	def valid_column?(column)
-		(0..6).include?(column) ? true : puts("Column doesn't exist").colorize(:red)
+		(0..6).include?(column) ? true : puts("Column doesn't exist")
 	end
 
 	def winning_combination?(peice)
