@@ -1,5 +1,7 @@
 require_relative('board.rb')
 require_relative('player.rb')
+require_relative('computer.rb')
+
 
 class ConnectFour
 
@@ -12,6 +14,7 @@ class ConnectFour
 
   def play
     welcome
+    players?
     loop do
       @board.render
       @current_player.get_column
@@ -25,6 +28,15 @@ class ConnectFour
     puts "#       Welcome to      #"
     puts "#      Connect Four     #"
     puts "#########################"
+  end
+
+  def players?
+    puts "# Enter 1 or 2 for a 1-player or 2-player game:"
+    puts "# ----->"
+    @num_of_players = gets.chomp.to_i
+    if @num_of_players == 1
+      @player_2 = Computer.new("Computer", :O, @board)
+    end
   end
 
   def game_over?
