@@ -73,7 +73,7 @@ class Board
     end
   end
 
-  def vertical_win?(piece)
+  def horizontal_win?(piece)
     @board.each do |column|
       3.times do |index|
         if column[index..(index + 3)].all? {|element| element == piece}
@@ -84,7 +84,7 @@ class Board
     false
   end
 
-  def horizontal_win?(piece)
+  def vertical_win?(piece)
     6.times do |row|
       4.times do |column|
         result = []

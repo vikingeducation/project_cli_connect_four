@@ -3,7 +3,7 @@ require_relative 'player.rb'
 class Computer < Player
 
   def initialize(name, piece, board)
-    @name = Computer
+    @name = 'Computer'
     @piece = piece
     @board = board
   end
