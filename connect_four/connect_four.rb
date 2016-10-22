@@ -1,3 +1,5 @@
+require 'pry'
+
 class ConnectFour
 
   def initialize
@@ -12,7 +14,7 @@ class ConnectFour
     loop do
       @board.render
       @current_player.get_guess
-      game_over
+      break if game_over
       switch_players
     end
   end
@@ -63,7 +65,7 @@ class ConnectFour
 end
 
 class HumanPlayer
-  attr_accessor :peg_symbol
+  attr_accessor :peg_symbol, :board, :name
 
   def initialize(name, peg_symbol ,board)
     raise "Peg has to be a string" unless peg_symbol.is_a? (String)
@@ -73,35 +75,24 @@ class HumanPlayer
   end
 
   def get_guess
-    loop do 
-      guess = ask_for_guess
-      if @board.is_peg_location_available?(guess)
-        if @board.add_pegs(guess, peg_symbol)
+    loop do
+      guess = ask_for_guess.to_i
+      if @board.is_valid_input?(guess)
+        if @board.is_peg_location_available?(guess)
+          @board.add_pegs(guess, peg_symbol)
           break
         end
+      else
+        puts "Please provide correct number of the column!"
       end
     end
   end
 
   def ask_for_guess
-    loop do
-      puts
-      puts
-      puts "#{@name}, Please type a number of the column you wish to drop your peg in #{@peg_symbol}"
-      guess = gets.strip.to_i
-      if is_valid_input?(guess)
-        break if @board.is_peg_location_available?(guess)
-      end
-      puts "Please provide correct number of the column!"
-    end
-  end
-
-  # def is_space_in_column?(guess)
-  #   @board.any? {|row| row[guess].nil? }
-  # end
-
-  def is_valid_input?(guess)
-    "1234567".include? guess.to_s
+    puts
+    puts
+    puts "#{@name}, Please type a number of the column you wish to drop your peg in #{@peg_symbol}"
+    gets.strip.to_i
   end
 
 end
@@ -114,10 +105,15 @@ class Board
 
   def render
     puts
-    puts "DBG: @board = #{@board.inspect}"
     @board.size.times do |row|
-      print " 1  2  3  4  5  6  7 \n" if row == 0
-      @board[row].size.times {|col| print "|#{@board[row][col]}"}
+      print "1 2 3 4 5 6 7 \n" if row == 0
+      @board[row].size.times do |col|
+        if @board[row][col].nil?
+          print "_|"
+        else
+          print "#{@board[row][col]}|"
+        end
+      end
       puts
     end
       print "_____________________"
@@ -128,20 +124,25 @@ class Board
   end
 
   def add_pegs(guess, peg_symbol)
-    (5).downto(0) do |row|
-      if @board[row][guess-1].nil?
-        @board[row][guess-1] = peg_symbol
+    col = guess - 1
+    5.downto(0) do |row|
+      if @board[row][col].nil?
+        @board[row][col] = peg_symbol
         break
       end
     end
   end
 
   def is_peg_location_available?(guess)
-    if @board[0][guess].nil?
+    if @board.first[guess].nil?
       true
     else
       puts "Please choose different column, this one is full!"
     end
+  end
+
+  def is_valid_input?(guess)
+    "1234567".include? guess.to_s
   end
 
   def board_of_rows_strings
