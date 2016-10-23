@@ -1,5 +1,3 @@
-require 'pry'
-
 class ConnectFour
 
   def initialize
@@ -17,6 +15,8 @@ class ConnectFour
     end
     @board.render
   end
+
+  private
 
   def welcome_display
     puts "
@@ -63,8 +63,6 @@ class ConnectFour
     puts "Please type 'U' to play against another User or 'C' to play against Computer."
     gets.strip.upcase
   end
-
-
 
   def is_there_winner?
     if @board.winning_connected_four(@current_player.peg_symbol)
@@ -187,6 +185,8 @@ class Board
   def is_valid_input?(guess)
     "1234567".include? guess.to_s
   end
+
+  private
 
   def board_of_rows_strings
     @board.map { |row| row = row.join(",") }
