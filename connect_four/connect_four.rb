@@ -4,19 +4,18 @@ class ConnectFour
 
   def initialize
     @board = Board.new
-    @player_one = HumanPlayer.new("PLAYER ONE", "@" ,@board)
-    @player_two = HumanPlayer.new("PLAYER TWO", "O" ,@board)
-    @current_player = @player_one
   end
 
   def play
     welcome_display
+    against_player_or_computer?
     loop do
       @board.render
       @current_player.get_guess
       break if game_over
       switch_players
     end
+    @board.render
   end
 
   def welcome_display
@@ -29,12 +28,43 @@ class ConnectFour
    puts
    puts
    puts "ABOUT THE GAME"
-   puts "This game is similar to the classic tic-tac-toe game, the primary difference being that in this game players must connect four of their pegs in a straight line, either horizontally, vertically or diagonally."
-   puts "The player takes turns with the other player or computer to drop pegs into slots within the grid. The first one to connect four slots in a line wins."
+   puts "This game is similar to the classic tic-tac-toe game."
+   puts "The primary difference is that players must connect four of their pegs in a straight line"
+   puts "either horizontally, vertically or diagonally."
+   puts
+   puts "The player takes turns with the other player or computer to drop pegs into slots within the grid."
+   puts "The first one to connect four slots in a line wins."
    puts "The player drops his peg into chosen column. The pegs falls into next available position."
    puts
    puts
   end
+
+  def against_player_or_computer?
+    loop do
+      case ask_for_player_or_computer
+      when "C"
+        @player_one = HumanPlayer.new("PLAYER ONE", "@" ,@board)
+        @player_two = ComputerPlayer.new("COMPUTER", "O" ,@board)
+        break
+      when "U"
+        @player_one = HumanPlayer.new("PLAYER ONE", "@" ,@board)
+        @player_two = HumanPlayer.new("PLAYER TWO", "O" ,@board)
+        break
+      else
+        puts "You have typed incorrect value. Please try again!"
+      end
+    end
+    @current_player = @player_one
+  end
+
+  def ask_for_player_or_computer
+    puts
+    puts "Please choose who would you like to play against with."
+    puts "Please type 'U' to play against another User or 'C' to play against Computer."
+    gets.strip.upcase
+  end
+
+
 
   def is_there_winner?
     if @board.winning_connected_four(@current_player.peg_symbol)
@@ -97,6 +127,19 @@ class HumanPlayer
 
 end
 
+#========================AI Pair Programmed
+
+class ComputerPlayer
+
+
+
+
+
+
+end
+
+#============================================
+
 class Board
 
   def initialize
@@ -116,7 +159,7 @@ class Board
       end
       puts
     end
-      print "_____________________"
+      puts
   end
 
   def is_board_full?
@@ -156,7 +199,7 @@ class Board
 
   def is_it_winning_diagonal?(peg_symbol)
     north_east_diagonals.any? {|row| row.include? four_pegs_connected(peg_symbol)} ||
-    north_west_diagonals.any? {|row| row.include? four_pegs_connected(peg_symbol)}
+    south_east_diagonals.any? {|row| row.include? four_pegs_connected(peg_symbol)}
   end
 
   def is_it_winning_vertical?(peg_symbol)
@@ -183,30 +226,30 @@ class Board
     board_vertical.map { |row| row = row.join(",") }
   end
 
-  def north_east_diagonals
-    ne_diagonals = Array.new(6){Array.new}
-      0.upto(5) do |diag|
-        ne_diagonals[0] << @board[0+diag][diag]
-        ne_diagonals[1] << @board[1+diag][diag] if 1 + diag < 6
-        ne_diagonals[2] << @board[2+diag][diag] if 2 + diag < 6
-        ne_diagonals[3] << @board[diag][1+diag]
-        ne_diagonals[4] << @board[diag][2+diag]
-        ne_diagonals[5] << @board[diag][3+diag]
+  def south_east_diagonals
+    se_diagonals = Array.new(6){Array.new}
+       0.upto(5) do |diag|
+        se_diagonals[0] << @board[diag][diag]
+        se_diagonals[1] << @board[1 + diag][diag] if diag <= 4
+        se_diagonals[2] << @board[2 + diag][diag] if diag <= 3
+        se_diagonals[3] << @board[diag][1 + diag]
+        se_diagonals[4] << @board[diag][2 + diag]
+        se_diagonals[5] << @board[diag][3 + diag]
       end
-    ne_diagonals.map { |row| row = row.join(",") }
+    se_diagonals.map { |row| row = row.join(",") }
   end
 
-  def north_west_diagonals
-    nw_diagonals = Array.new(6){Array.new}
-    0.upto(5) do |diag|
-      nw_diagonals[0] << @board[diag][4 + diag]
-      nw_diagonals[1] << @board[diag][5 + diag] if 6 + diag < 7
-      nw_diagonals[2] << @board[diag][6 + diag] if 6 + diag < 7
-      nw_diagonals[3] << @board[4 + diag][diag] if 4 + diag < 6
-      nw_diagonals[4] << @board[5 + diag][diag] if 5 + diag < 6
-      nw_diagonals[5] << @board[6 + diag][diag] if 6 + diag < 6
+  def north_east_diagonals
+    ne_diagonals = Array.new(6){Array.new}
+    5.downto(0) do |diag|
+      ne_diagonals[0] << @board[diag][5 - diag]
+      ne_diagonals[1] << @board[diag][6 - diag]
+      ne_diagonals[2] << @board[diag][7 - diag]
+      ne_diagonals[3] << @board[diag][8 - diag]
+      ne_diagonals[4] << @board[diag - 1][5 - diag]
+      ne_diagonals[5] << @board[diag - 2][5 - diag]
     end
-    nw_diagonals.map { |row| row = row.join(",") }
+    ne_diagonals.map { |row| row = row.join(",") }
   end
 
 end
