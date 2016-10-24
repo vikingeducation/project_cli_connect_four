@@ -138,7 +138,7 @@ class ComputerPlayer
 
   def get_guess
     loop do
-      guess = rand(1..7)
+      guess = is_it_winning_vertical? || rand(1..7)
 
       if @board.is_peg_location_available?(guess)
         @board.add_pegs(guess, peg_symbol)
@@ -146,11 +146,46 @@ class ComputerPlayer
       end
     end
   end
+
+  def is_it_winning_vertical?
+    board_of_columns_strings.each_with_index do |row, row_idx|
+      if row.include? three_pegs_connected(@peg_symbol)
+        return row_idx + 1
+      end
+    end
+    return nil
+  end
+  #  1 2 3 4 5 6 7
+  # | | | | | | | |
+  # | | | | | | | |
+  # | | | | | | | |
+  # |o| | | | | | |
+  # |o| | | | | | |
+  # |o| | | | | | |
+
+  def board_of_rows_strings
+    @board.board.map { |row| row = row.join(",") }
+  end
+
+  def three_pegs_connected(peg_symbol)
+    "#{peg_symbol},#{peg_symbol},#{peg_symbol}"
+  end
+
+  def board_of_columns_strings
+    board_vertical = []
+    6.times do |column|
+      new_row = []
+      @board.board.each {|row| new_row << row[column]}
+      board_vertical << new_row
+    end
+    board_vertical.map { |row| row = row.join(",") }
+  end
 end
 
 #============================================
 
 class Board
+  attr_reader :board
 
   def initialize
     @board = Array.new(6){Array.new(7)}
