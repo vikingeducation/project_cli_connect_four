@@ -128,12 +128,24 @@ end
 #========================AI Pair Programmed
 
 class ComputerPlayer
+  attr_accessor :peg_symbol, :board, :name
 
+  def initialize(name, peg_symbol, board)
+    @name = name
+    @peg_symbol = peg_symbol
+    @board = board
+  end
 
+  def get_guess
+    loop do
+      guess = rand(1..7)
 
-
-
-
+      if @board.is_peg_location_available?(guess)
+        @board.add_pegs(guess, peg_symbol)
+        break
+      end
+    end
+  end
 end
 
 #============================================
@@ -186,6 +198,13 @@ class Board
     "1234567".include? guess.to_s
   end
 
+  def winning_connected_four(peg_symbol)
+    is_it_winning_horizontal?(peg_symbol) ||
+    is_it_winning_diagonal?(peg_symbol) ||
+    is_it_winning_vertical?(peg_symbol)
+  end
+
+
   private
 
   def board_of_rows_strings
@@ -208,12 +227,6 @@ class Board
 
   def four_pegs_connected(peg_symbol)
     "#{peg_symbol},#{peg_symbol},#{peg_symbol},#{peg_symbol}"
-  end
-
-  def winning_connected_four(peg_symbol)
-    is_it_winning_horizontal?(peg_symbol) ||
-    is_it_winning_diagonal?(peg_symbol) ||
-    is_it_winning_vertical?(peg_symbol)
   end
 
   def board_of_columns_strings
