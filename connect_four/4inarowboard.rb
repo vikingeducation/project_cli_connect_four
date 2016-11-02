@@ -9,6 +9,7 @@ while index_num > -1 do
   index_num -= 1
 end
 
+
 #victory algorithm. 
 
 #the code for this will iterate through every column and say something like at board[1][1], check all indexes that are +-1 off that index for the same symbol. then repeat the pattren, so if it was at -1 -1 or +1 +0 do the same thing, if its still the same symbol then repeat until the "same times" counter == 4, if it is, then declare winner.
