@@ -3,44 +3,67 @@ require_relative "prompt"
 class ConnectFour
 
   def initialize
-    # @board_instance = Board.new
-    # @red = Player.new
-    # @black = Player.new
+    @board = Board.new
+    @p1 = Player.new
+    @p2 = Player.new
   end
 
   def run
-    unless win? || draw? 
-      input = Prompt.get_input
-      @board_instance.update_board(input)
-    end
-  end
 
-  def win? 
-    false
-  end
+    # show board
+      # board => display
+    # Display.render_board(@board)
 
-  def draw? 
-    false
-  end
+    # first player is p1
+    current_player = @p2
 
-  # run
-    # show board    
-      # board => display 
     # loop until win or draw
+    unless win? || draw?
+
+      current_player = (current_player == @p1) ? @p2 : @p1
       # ask for user move
+        # validate user input
+      input = Prompt.get_input
+
       # validate user move (legal move)
-        # out of bounds/board
-        # out of top/no more space in col
       # update board
+      # @board.update(input, @p1) if @board.valid_move?(input)
+        # out of top/no more space in col (handled in Board)
+
+      # check for win
+
+      # @board.check_for_win(current_player)
+        # horizontal
+        # vertical
+        # diagonal
+
+
       # show board
         # board => display
-  # check for win
-    # horizontal 
-    # vertical 
-    # diagonal 
+      # Display.render_board(@board)
+    end # unless loop
+
+    # Display.game_won(color) if win?
+
+    # Display.game_draw(color) if draw?
+
+    # play_again?
+  end # run method
+
+  def win?
+    false
+  end
+
+  def draw?
+    false
+  end
+
+  def play_again?
+  end
+
 end
 
 # test
 t = ConnectFour.new
-t.run 
+t.run
 

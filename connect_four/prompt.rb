@@ -4,12 +4,14 @@ class Prompt
   	begin
   		puts "Enter column: "
   		input = gets.strip
-  	end until Prompt.is_valid?(input)
+  	end until Prompt.valid_input?(input)
   	input.to_i
   end
 
   # validate user input
-  def self.is_valid?(input)
-  	true if /[1-7]/.match(input)
+  def self.valid_input?(input)
+    # true if /[1-7]/.match(input)
+    # converts boolean type
+  	!!input.match(/[1-7]/)
   end
 end

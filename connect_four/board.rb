@@ -11,9 +11,9 @@ class Board
   # ]
 
   def initialze
-    @board = # 0  1  2  3  4  5  6 
+    @board = # 0  1  2  3  4  5  6
               [
-              [0, 0, 0, 0, 0, 0, 0], # 0
+              [0, r, 0, 0, 0, 0, 0], # 0
               [0, 0, 0, 0, 0, 0, 0], # 1
               [0, 0, 0, 0, 0, 0, 0], # 2
               [0, 0, 0, 0, 0, 0, 0], # 3
@@ -22,12 +22,20 @@ class Board
               ]
   end
 
+  # r says: 2
+  # board[x][1]
+
   # return board array
-  def update_board(input)
+  def update(input, player)
     if board[5][input] == 0
-      
+      board[][input - 1] = color
+
   end
-       
+
+  def valid_move?
+
+  end
+
 
     # horizontal:
       # each row that has 4 or more values
@@ -48,7 +56,7 @@ class Board
             # find 3rd
               # find 2nd
                 # return true
-      # reverse each array => repeat 
+      # reverse each array => repeat
 
   # instance of board: keeps track of moves
   # return what the board is
