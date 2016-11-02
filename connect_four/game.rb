@@ -37,26 +37,17 @@ class Game
     loop do
       print "#{@current_player.player_name}, in which column would you like to place your piece? (0-6) "
       player_move = gets.chomp
-      move = parse_player_move(player_move)
-      break if move.is_a?(Integer)
+      break if move_valid?(player_move)
     end
-    player_move
-  end
-
-  def parse_player_move(player_move_string)
-    string_is_integer?(player_move_string)
+    player_move.to_i
   end
 
   def move_valid?(column_index)
-    valid_column?(column_index) && !column_full?(column_index)
+    valid_column?(column_index) && !@board.column_full?(column_index)
   end
 
   def valid_column?(column_index)
-    (0..6).include?(column_index)
-  end
-
-  def string_is_integer?(string)
-    string.to_i.to_s == string
+    (0..6).include?(column_index.to_i)
   end
 
   def draw?
