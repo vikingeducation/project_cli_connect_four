@@ -4,10 +4,10 @@ class Board
   #    0  1  2  3  4  5  6
   #   [r, b, r, b, b, b, b], # board[0]
   #   [0, 0, 0, 0, 0, b, 0], # board[1]
-  #   [0, 0, 0, 0, 0, b, 0],
+  #   [0, 0, 0, 0, 0, b, 0], # board[2]
   #   [0, 0, 0, 0, 0, b, 0], # board[3]
   #   [0, 0, 0, 0, 0, 0, 0], # board[4]
-  #   [0, 0, 0, 0, 0, 0, 0]
+  #   [0, 0, 0, 0, 0, 0, 0]  # board[5]
   # ]
 
   attr_accessor :board # temp
@@ -24,63 +24,61 @@ class Board
               ]
   end
 
-  # r says: 2
-  # board[x][1]
-
-  # return board array
+  # update board array
   def update(input, color)
-    if valid_move?(input)
-      6.times do |i|
-        if @board[i][input - 1] == 0
-          @board[i][input - 1] = color
-          return
-        end
+    6.times do |i|
+      if @board[i][input - 1] == 0
+        @board[i][input - 1] = color
+        return
       end
-    else
-      puts "invalid"
     end
-
-    @board
+    self
   end
 
+  # check that column is not full
   def valid_move?(input)
     @board[5][input - 1] == 0
   end
 
+  def horizontal_win?(color)
+    false
+  end
 
-    # horizontal:
-      # each row that has 4 or more values
-        # find a starting coordinate [0, 1, 2, 3] == player
-          # check the final coordinate: [index + 3] == player
-            # check the 3rd coordinate: [index + 2]
-              # check the 2nd coord: [index + 1]
-                # return true => win condition
+  def vertical_win?(color)
+    false
+  end
 
-    # vertical:
-      # use .transpose
+  def diagonal_win?(color)
+    false
+  end
 
-    # diagonal:
-      # starting points => x: [0..3] y: [0..2]
-      # coordinate system
-        # check if a coordinate == player/color: [0][0]
-          # find the last (4th value) [index+3][index+3] == player
-            # find 3rd
-              # find 2nd
-                # return true
-      # reverse each array => repeat
+  # horizontal:
+    # each row that has 4 or more values
+      # find a starting coordinate [0, 1, 2, 3] == player
+        # check the final coordinate: [index + 3] == player
+          # check the 3rd coordinate: [index + 2]
+            # check the 2nd coord: [index + 1]
+              # return true => win condition
+
+  # vertical:
+    # use .transpose
+
+  # diagonal:
+    # starting points => x: [0..3] y: [0..2]
+    # coordinate system
+      # check if a coordinate == player/color: [0][0]
+        # find the last (4th value) [index+3][index+3] == player
+          # find 3rd
+            # find 2nd
+              # return true
+    # reverse each array => repeat
 
   # instance of board: keeps track of moves
   # return what the board is
 
-end
+  # if board is full, returns true
+  def full?
+    !@board.flatten.include?(0)
+  end
 
-t = Board.new
-t.board.each { |arr| p arr }
-t.update(2,:b)
-t.update(2,:r)
-t.update(2,:b)
-t.update(2,:r)
-t.update(2,:b)
-t.update(2,:r)
-t.update(2,:b)
-t.board.each { |arr| p arr }
+end

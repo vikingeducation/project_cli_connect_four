@@ -12,9 +12,6 @@ class Player
     # talks to board to figure this out
 end
 
-p = Player.new(:red)
-puts p.color
-
 # Later on  
 # HumanPlayer < Player
 # ComputerPlayer < Player

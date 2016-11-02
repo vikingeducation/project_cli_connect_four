@@ -13,40 +13,24 @@ class ConnectFour
   def run
 
     # show board
-      # board => display
     # Display.render_board(@board)
-
-    # first player is p1
-    current_player = @p2
+    @current_player = @p2
 
     # loop until win or draw
     unless win? || draw?
 
-      current_player = (current_player == @p1) ? @p2 : @p1
-      # ask for user move
-        # validate user input
+      @current_player = (@current_player == @p1) ? @p2 : @p1
       input = Prompt.get_input
 
-      # validate user move (legal move)
-      # update board
       if @board.valid_move?(input)
-        @board.update(input, current_player.color)
+        @board = @board.update(input, @current_player.color)
       else
-        puts "invalid"
+        # ...
       end
-        # out of top/no more space in col (handled in Board)
-
-      # check for win
-
-      # @board.check_for_win(current_player)
-        # horizontal
-        # vertical
-        # diagonal
-
 
       # show board
-        # board => display
       # Display.render_board(@board)
+
     end # unless loop
 
     # Display.game_won(color) if win?
@@ -57,11 +41,13 @@ class ConnectFour
   end # run method
 
   def win?
-    false
+    @board.horizontal_win?(@current_player.color) ||
+    @board.vertical_win?(@current_player.color) ||
+    @board.diagonal_win?(@current_player.color) 
   end
 
   def draw?
-    false
+    @board.full?
   end
 
   def play_again?
