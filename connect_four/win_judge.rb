@@ -10,6 +10,8 @@ class WinJudge
     diagonal_right_bottom: [1,-1]
   }
 
+  attr_accessor :last_move
+
   def initialize(layout, last_move)
     @layout = layout
     @last_move = last_move
