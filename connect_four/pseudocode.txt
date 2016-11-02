@@ -1,0 +1,13 @@
+Set up the game                 # ConnectFour#initialize
+  Create a couple of players    # ConnectFour => Player#new
+    Get player pieces
+  Create blank board
+  Welcome/ instructions
+Game cycle
+  Turn cycle
+    Render board
+    get player move (column)
+      validate move
+    Update board
+    Break if winner || quit
+  Play again?
