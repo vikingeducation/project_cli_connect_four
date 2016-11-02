@@ -1,6 +1,33 @@
 class Board
   # render
-  # place(piece_type, column) 
+  # move_valid?
+  # column_full?
+  # valid_column?
+  # place(piece_type, column)
     # add pieces to board
-  # winner?
-    # return 'X' or "O" or nil
+  # four_in_a_row?
+    # return 'X' or 'O' or nil
+  # vertical_win?(piece_type)
+  # horizontal_win?(piece_type)
+  # diagonal_win?(piece_type)
+  # board_full?
+
+class Player
+  initialize(piece_type)
+  @piece_type
+  # choose_column(column)
+  Board.place(self.piece_type, column)
+
+class Game
+  @current_player
+  play
+    player_config
+      Player1 = Player.new('X')
+      Player2 = Player.new('O')
+    setup_board
+      board = Board.new
+    game_loop
+  draw?
+  winner?
+  quit
+  switch_player

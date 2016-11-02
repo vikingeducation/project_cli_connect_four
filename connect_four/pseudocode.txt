@@ -1,0 +1,6 @@
+Things that can happen during a game:
+  Player successful move
+  Player selects an invalid column
+  Board is full, therefore draw
+  Player wants to quit early
+  Player wins

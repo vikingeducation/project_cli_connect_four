@@ -1,5 +1,4 @@
 Welcome to Connect Four
-How many players? 2
 
 -0-1-2-3-4-5-6-
 | | | | | | | |
@@ -50,6 +49,3 @@ grid[rows].each do |row|
 grid.each do |row|
   print row with pipes separating each item
 end
-
-
-
