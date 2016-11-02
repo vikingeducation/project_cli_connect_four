@@ -1,15 +1,21 @@
-Set up the game                 # ConnectFour#initialize
-  Create a couple of players    # ConnectFour => Player#new
-    Set player pieces           # Player#initialize
-  Create blank board            # Board#inititialize
-  Welcome/ instructions         # UserWelcomer
-Game cycle                      # ConnectFour#play
-  Turn cycle                    # ConnectFour#turn_cycle
-    Render board                # BoardView#render
-    get player move (column)    # Player#get_move
-    unless quit?                # ConnectFour#quit
-      validate move             # ConnectFour#valid_move?
-    Update board                # BoardController#add_piece
-    switch active player        # ConnectFour#update_active_player
-    Break if winner || draw     # ConnectFour => Board
-Play again?                     # ConnectFour#play_again?
+
+Play cycle                      # GameController#play
+
+   Game.new   Set up the game               # Game#initialize
+              Create a couple of players    # Game => Player#new
+              Set player pieces           # Player#initialize
+            Create blank board            # Board#inititialize
+            Welcome/ instructions         # UserWelcomer
+
+   Game.run     Turn cycle                    # Game#turn_cycle
+                Render board                # BoardView#render
+                get player move (column)    # Player#get_move
+                unless quit?                # Game#quit
+                  validate move             # Game#valid_move?
+                Update board                # BoardController#add_piece
+                switch active player        # Game#update_active_player
+                Break if winner || draw     # Game => Board
+
+
+Play again?                     # GameController#play_again?
+
