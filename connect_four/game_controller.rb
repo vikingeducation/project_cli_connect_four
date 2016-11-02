@@ -7,11 +7,16 @@ class GameController
 
   def self.play
     loop do
-      game = game.new
+      game_config = get_game_options
+      game = game.new(game_config)
       game.setup
-      game.run
+      game.run      # change
       break unless play_again?
     end
+  end
+
+  def setup
+
   end
 
   protected
