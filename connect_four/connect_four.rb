@@ -1,5 +1,3 @@
-require 'pry-byebug'
-
 class ConnectFour
   def initialize
     @board = Board.new
@@ -9,11 +7,10 @@ class ConnectFour
   end
 
   def play
-    @board.setup
     loop do 
       @board.display
-      break if game_over?
       @current_player.make_move
+      break if game_over?
       switch_players
     end
   end
@@ -32,119 +29,6 @@ class ConnectFour
 
 end
 
-class Board
-  attr_accessor :layout
-  def initialize
-    @layout = Array.new(7){Array.new(6)}
-    @lastmove = nil
-  end
 
-  def display
-    index_num = 7
-    while index_num > -1 do 
-      @layout.each do |list|
-        print list[index_num]
-      end
-      print "\n"
-      index_num -= 1
-    end
-    puts "1234567"
-  end
-
-  def full?
-    #does not currently work at all. Layout is full of underscores
-    @layout.all? { |column| column.length == 7 }
-  end
-
-  def four_connected?
-    false
-
-    #one function for each direction of diagnonal1, diagonal2, up and down. 
-
-    #one diagonal will be index[in+1][in+1] index[in-1][in-1]
-
-    #two diagonal will be index[in+1][in-1] index[in-1][in+1]
-
-    #store last move with global variable
-  end
-
-  def full_column?(column)
-    column.last != "_"
-  end
-
-  def add_piece(column_number, piece)
-    index = column_number - 1
-    column = @layout[index]
-    return false if full_column?(column)
-    piece_index = find_piece_index(column)
-    @layout[index][piece_index] = piece
-    @lastmove = [index, piece_index]
-  end
-
-  def find_piece_index(column)
-    index = 0
-    column.each_with_index do |cell, cell_number|
-      if cell != "_"
-        index = cell_number + 1
-      end
-    end
-    index
-  end
-
-  def setup
-    new_layout = []
-    @layout.each_with_index do |column, column_number|
-      new_column = []
-      column.each_with_index do |cell, cell_number|
-        new_column[cell_number] = "_"
-      end
-      new_layout[column_number] = new_column
-    end
-    @layout = new_layout
-  end
-
-end
-
-class Player
-  def initialize(board, piece)
-    @board = board
-    @piece = piece
-  end
-
-  def make_move
-    loop do
-      column_number = choose_column
-      break if @board.add_piece(column_number, @piece)
-      puts "You cannot choose a full column"
-    end
-  end
-
-end
-
-class HumanPlayer < Player
-  def choose_column
-    input = "error"
-    loop do
-      puts "Pick column 1 to 7."
-      input = gets.chomp.to_i
-      break if (1..7).include?(input)
-      puts "Invalid input."
-    end
-    input
-  end 
-end
-
-class BotPlayer < Player
-  def choose_column
-    (rand(7) + 1)
-  end 
-end
-
-class Piece
-
-end
-
-game = ConnectFour.new
-game.play
 
 #choose size
