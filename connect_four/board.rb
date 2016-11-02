@@ -57,9 +57,11 @@ class Board
 
   def diagonal_combos(position)
     diag_combos = []
-    movement_vectors = 1
-    movement_vectors.each do |v|
-      diag_combos.push(add(position, v))
+    # v = 1
+    (1..3).each do |vec|
+      vector = [vec, vec]
+      combo = add(position, vector) # <<-- there was a typo: said add(position, vec)
+      diag_combos.push(combo)
     end
     diag_combos
   end
