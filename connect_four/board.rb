@@ -1,11 +1,21 @@
+require 'matrix'
+
 class Board
   attr_reader :board
   def initialize
-    @board = Array.new(7) { ["x", "x" , "x", "x", nil,nil] }
+    @board = Array.new(7) { [nil, nil, nil, nil, nil, nil] }
   end
 
   def add_piece(column, piece)
-    board[column]  << piece if board[column].length < 7
+    # check column rows from bottom to top
+    # place piece if nil
+    board[column].each do |cell|
+      if !cell
+        board[column][cell] = piece 
+        return true
+      end
+    end
+    false
   end
 
   def winner?
@@ -13,8 +23,8 @@ class Board
   end
 
   def win
-    check_horizontal
-    check_vertical
+    p check_horizontal
+    p check_vertical
   end
 
   def four_in_a_row(section)
@@ -41,10 +51,14 @@ class Board
     end
   end
 
+  def check_diagonal
+    p (0..5).collect { |i| board[i][i] }
+  end
+
   def scan_board
     board.each do |column|
-      5.downto(0) do |i|
-        yield(column[i])
+      column.each do |cell|
+        yield(column[cell])
       end
     end
   end
@@ -57,6 +71,6 @@ class Board
   end
 
   def rows
-    board.transpose
+    board.transpose.reverse
   end
 end
