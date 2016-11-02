@@ -9,6 +9,7 @@ class ConnectFour
   end
 
   def play
+    @board.setup
     loop do 
       @board.display
       break if game_over?
@@ -34,7 +35,7 @@ end
 class Board
   attr_accessor :layout
   def initialize
-    @layout = Array.new(7){Array.new(0)}
+    @layout = Array.new(7){Array.new(6)}
   end
 
   def display
@@ -46,7 +47,7 @@ class Board
       print "\n"
       index_num -= 1
     end
-    puts "1 2 3 4 5 6 7"
+    puts "1234567"
   end
 
   def full?
@@ -60,8 +61,34 @@ class Board
 
   def add_piece(column, piece)
     # return false if invalid_column?(column)
-    @layout[column-1] << piece
+    index = column -1
+    column = layout[index]
+    piece_index = find_piece_index(column)
+    @layout[piece_index] = piece
   end
+
+  def find_piece_index(column)
+    index = 0
+    column.each_with_index do |cell, cell_number|
+      if cell != "_"
+        index = cell_number - 1
+      end
+    end
+    index
+  end
+
+  def setup
+    new_layout = []
+    @layout.each_with_index do |column, column_number|
+      new_column = []
+      column.each_with_index do |cell, cell_number|
+        new_column[cell_number] = "_"
+      end
+      new_layout[column_number] = new_column
+    end
+    @layout = new_layout
+  end
+
 end
 
 class Player
