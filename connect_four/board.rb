@@ -1,4 +1,7 @@
-class Board  
+require 'pry'
+require 'pry-byebug'
+
+class Board
 
   def initialize
     @grid = [
@@ -34,8 +37,20 @@ class Board
   def valid_column?
   end
 
-  def place(piece_type, column)
+  def place(piece_type, column_index)
     # add pieces to board
+    #until move_valid?
+      # adding a move to the board
+      piece_added = false
+      (@grid.length-1).downto(0) do |row_index|
+        #binding.pry
+        break if piece_added == true
+        if @grid[row_index][column_index] == ' '
+          @grid[row_index][column_index] = piece_type
+          piece_added = true
+        end
+      end
+    #end
   end
 
   def four_in_a_row?

@@ -27,6 +27,8 @@ class Game
     setup_board
       board = Board.new
     game_loop
+      board.render
+
   draw?
   winner?
   quit
