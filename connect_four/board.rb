@@ -60,14 +60,21 @@ class Board
     #end
   end
 
-  def four_in_a_row?
-    # return 'X' or 'O' or nil
+  def four_in_a_row?(array, piece_type)
+    string = array.join('')
+    pattern = piece_type * 4
+    string.include?(pattern)
+  end
+
+  def detected_win(piece_type)
   end
 
   def vertical_win?(piece_type)
+    @grid.transpose.any? { |column| four_in_a_row?(column, piece_type) }
   end
 
   def horizontal_win?(piece_type)
+    @grid.any? { |row| four_in_a_row?(row, piece_type) }
   end
 
   def diagonal_win?(piece_type)
