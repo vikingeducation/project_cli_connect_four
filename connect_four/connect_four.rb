@@ -2,10 +2,9 @@
 class ConnectFour
 
   def initialize(args = {})
-    @board = args[:board]                 || Board.new
+    @board = args[:board]   || Board.new
     @name = "Connect Four"
-    @player_1, @player_2 = args[:players] || [HumanPlayer.new(piece: :x),
-                                              HumanPlayer.new(piece: :o)]
+    
   end
 
   def instructions

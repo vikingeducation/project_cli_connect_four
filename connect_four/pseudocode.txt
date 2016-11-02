@@ -1,23 +1,4 @@
 
-Play cycle                                # GameController#play
-
-   Game.new Set up the game             # Game#initialize
-              Create a couple of players  # Game => Player#new
-              Set player pieces           # Player#initialize
-            Create blank board            # Board#inititialize
-            Welcome/ instructions         # UserInterfaceView
-
-   Game.run     Turn cycle                # Game#turn_cycle
-                Render board              # BoardController#render => BoardView.display(board)
-                get player move (column)  # Player#get_move
-                unless quit?              # Game#quit
-                  validate move           # Game#valid_move?
-                Update board              # BoardController#add_piece
-                switch active player      # Game#update_active_player
-                Break if winner || draw   # Game => Board
-
-
-Play again?                               # GameController#play_again?
 
 GameController :: sending messages to the ConnectFour
 

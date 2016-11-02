@@ -1,5 +1,5 @@
 
-class GameController
+class ConnectFourController
 
   def initialize(args = {})
     @game  = args[:game]   || ConnectFour
@@ -8,7 +8,7 @@ class GameController
 
   def self.play
     loop do
-      game_config = get_game_options
+
       current_game = game.new(game_config)
       view.welcome(game.name, game.instructions)
       turn_loop(current_game)
