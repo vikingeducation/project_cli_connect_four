@@ -19,3 +19,33 @@ Play cycle                                # GameController#play
 
 Play again?                               # GameController#play_again?
 
+GameController :: sending messages to the ConnectFour 
+
+executable -> ConnectFourLauncher
+
+Launch game -> GameController
+  welcome message -> GameView
+  print instructions -> GameView
+  turn loop -> GameController
+    render board -> BoardController -> BoardView
+    get user input -> GameView#print prompt
+                      Player.get_move 
+                        Listener - get data
+                        GameController -> quit, ask ConnectFour if valid?
+                      GameController -> ConnectFour#place_piece  -> Board.set_cell
+    switch active player -> GameController
+  game_over? -> GameController ask ConnectFour.over? -> look at board data
+end game -> Gameview print  -> ConnectFour.outcome
+                                ask ConnectFour.win? || draw? -> look at board data 
+
+play_again?                   GameController
+  print play again message -> GameView
+  get user input -> GameView#print prompt
+                  Player.get_input 
+                    Listener - get data
+                    GameController -> quit, ask GameController if valid?
+
+
+
+                    
+

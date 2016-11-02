@@ -1,5 +1,5 @@
 
-class UserInterfaceView
+class GameView
   def self.welcome
     puts "Welcome to Connect Four!"
     puts "The board is a 6 x 7 grid"
