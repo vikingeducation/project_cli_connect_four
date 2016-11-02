@@ -1,4 +1,4 @@
-require 'pry'
+require 'pry-byebug'
 
 class ConnectFour
   def initialize
@@ -62,9 +62,9 @@ class Board
   def add_piece(column, piece)
     # return false if invalid_column?(column)
     index = column -1
-    column = layout[index]
+    column = @layout[index]
     piece_index = find_piece_index(column)
-    @layout[piece_index] = piece
+    @layout[index][piece_index] = piece
   end
 
   def find_piece_index(column)
