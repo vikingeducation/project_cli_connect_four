@@ -2,6 +2,12 @@ class WinJudge
   DIRECTIONS = {
     right: [1, 0],
     left: [-1, 0],
+    up: [0,1],
+    down: [0,-1],
+    diagonal_right_top: [1,1],
+    diagonal_left_bottom: [-1,-1],
+    diagonal_left_top: [-1,1],
+    diagonal_right_bottom: [1,-1]
   }
 
   def initialize(layout, last_move)
@@ -13,40 +19,19 @@ class WinJudge
   end
 
   def check_for_win?
-    check_for_horizontal
-    # check_for_horizontal ||
-    # check_for_diagonal_1 ||
-    # check_for_diagonal_2
-    #one function for each direction of diagnonal1, diagonal2, up and down. 
-
-    #one diagonal will be index[in+1][in+1] index[in-1][in-1]
-
-    #two diagonal will be index[in+1][in-1] index[in-1][in+1]
-
-    #store last move with global variable
+    check_for(:up,:down) ||
+    check_for(:left,:right) ||
+    check_for(:diagonal_right_top,:diagonal_left_bottom) ||
+    check_for(:diagonal_left_top,:diagonal_right_bottom) 
   end
 
-  def check_for_horizontal
+  def check_for(direction1,direction2)
     connect_count = 1
-    connect_count += count(:up)
-    connect_count += count(:down)
+    connect_count += count(direction1)
+    connect_count += count(direction2)
     return true if connect_count >= 4
     false
   end
-
-  # def self.count_up(layout, piece, x_coord, y_coord)
-  #   connect_count = 0
-  #   found == true
-  #   while found == true
-  #     if layout[x_coord + 1 ][y_coord] == piece
-  #       x_coord += 1 
-  #       connect_count += 1
-  #     else
-  #       found == false
-  #     end
-  #   end
-  #   connect_count
-  # end
 
   def count(direction)
     direction_array = DIRECTIONS[direction]
@@ -57,7 +42,10 @@ class WinJudge
     connect_count = 0
     found = true
     while found == true
-      if @layout[x_coord + x_increment ][y_coord + y_increment] == @piece
+      if x_coord + x_increment < 0 || y_coord + y_increment < 0 ||
+          x_coord + x_increment >= 7||y_coord + y_increment >= 6
+          found = false
+      elsif @layout[x_coord + x_increment ][y_coord + y_increment] == @piece
         x_coord += x_increment
         y_coord += y_increment
         connect_count += 1
@@ -67,6 +55,4 @@ class WinJudge
     end
     connect_count
   end
-
-
 end
