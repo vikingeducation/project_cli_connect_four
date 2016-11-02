@@ -1,6 +1,7 @@
 class Player
+  attr_accessor :piece
   def placement
     puts "Enter the column in which you want to place a piece"
-    get.strip.to_i
+    gets.strip.to_i
   end
 end
