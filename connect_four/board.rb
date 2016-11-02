@@ -1,4 +1,14 @@
 class Board
+  DIAGONAL_VECTORS = [
+                       [[-3,-3], [-2,-2], [-1,-1], [0,0]],
+                       [[-2,-2], [-1,-1], [0,0], [1,1]],
+                       [[-1,-1], [0,0], [1,1], [2,2]],
+                       [[0,0], [1,1], [2,2], [3,3]],
+                       [[0,0],[1,-1],[2,-2],[3,-3]],
+                       [[-3,3],[-2,2],[-1,1],[0,0]],
+                       [[-2,2],[-1,1],[0,0],[1,-1]],
+                       [[-1,1],[0,0],[1,-1],[2,-2]],
+                     ]
   def initialize
     @redsPositions = []
     @bluesPositions = []
@@ -56,14 +66,19 @@ class Board
   end
 
   def diagonal_combos(position)
-    diag_combos = []
-    # v = 1
-    (1..3).each do |vec|
-      vector = [vec, vec]
-      combo = add(position, vector)
-      diag_combos.push(combo)
+    diag_combos = check_diagonals(DIAGONAL_VECTORS, position)
+  end
+
+  def check_diagonals(direction, position)
+    poss_wins = [] # array of position coodinates
+    direction.each do |vectors|
+      single_combo = []
+      vectors.each do |vector|
+        single_combo << add(position, vector)
+      end
+      poss_wins.push(single_combo)
     end
-    diag_combos
+    poss_wins
   end
 
   def add(position, v)
