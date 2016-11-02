@@ -23,15 +23,17 @@ class Game
     until winner? || draw?
       @board.render
       player_move = player_input
-      @board.place(@current_player, player_move)
+      @board.place(@current_player.piece_type, player_move)
       switch_player
     end
   end
 
   def player_input
-    until @board.move_valid?(player_move)
-      print "#{@current_player.player_name}, enter your move: "
-      player_move = gets.chomp
+    player_move = nil
+    loop do
+      print "#{@current_player.player_name}, in which column would you like to place your piece? (0-6) "
+      player_move = gets.chomp.to_i
+      break if @board.move_valid?(player_move)
     end
     player_move
   end

@@ -17,24 +17,28 @@ class Board
   end
 
   def render
+    puts
     label = "-0-1-2-3-4-5-6-"
     puts label
     @grid.each do |row|
       puts "|#{row.join('|')}|"
     end
     puts label
+    puts
   end
 
   def column
   end
 
-  def move_valid?
+  def move_valid?(column_index)
+    valid_column?(column_index) && !column_full?
   end
 
-  def column_full?
+  def column_full?(column_index)
+
   end
 
-  def valid_column?
+  def valid_column?(column_index)
   end
 
   def place(piece_type, column_index)
