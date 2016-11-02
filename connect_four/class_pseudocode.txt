@@ -1,0 +1,6 @@
+class Board
+  # render
+  # place(piece_type, column) 
+    # add pieces to board
+  # winner?
+    # return 'X' or "O" or nil

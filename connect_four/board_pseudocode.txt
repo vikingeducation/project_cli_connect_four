@@ -11,6 +11,8 @@ How many players? 2
 -0-1-2-3-4-5-6-
 Player 1, which column?
 
+#############################
+
 ## Data structure 1: Rows inside columns. Easier to add moves to, harder to render.
 grid = [column0: [Row0: X], column2: [Row0: O, Row1:0, Row2:0, Row3:X]]
 [['X']['O']['O','O','O','X']] # each inner array is a column; each entry is a cell
@@ -21,10 +23,17 @@ row0column0 = column0[0]
 grid[2].push("X")
 
 # rendering the board
+puts "-0-1-2-3-4-5-6-"
+
 grid.each do |column|
   render_column = column.reverse
   render_column.each do |cell|
-    render(cell)
+    render_row = row.join('|')
+
+
+puts "-0-1-2-3-4-5-6-"
+
+#############################
 
 ## Data structure 2: Columns inside rows. Easier to render, harder to add moves to.
 grid = [[],[],['','','X','O','O','X','X']] # each inner array is a row, each entry is a cell
@@ -35,3 +44,12 @@ user_piece = 'X'
 rows = 5.downto(0)
 grid[rows].each do |row|
   row[user_choice] = user_piece if row[user_choice].empty?
+
+# rendering to the command line
+
+grid.each do |row|
+  print row with pipes separating each item
+end
+
+
+
