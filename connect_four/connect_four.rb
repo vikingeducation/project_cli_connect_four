@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 require_relative "player"
 require_relative "board"
 require_relative "render"
@@ -13,8 +15,14 @@ class ConnectFour
   end
 
   def play
-    @board.add_piece(@player1.placement, @player1.piece)
-    Render.board(@board.board)
+    until game_end?
+      @board.add_piece(@player1.placement, @player1.piece)
+      Render.board(@board.board)
+    end
+  end
+
+  def game_end?
+    @board.winner? || @board.full?
   end
 end
 

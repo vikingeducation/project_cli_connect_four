@@ -1,18 +1,15 @@
 class Render
   def self.board(board)
-    rows = []
-    board.map! do |column|
-      6.times do |i|
-        column[i] || column << " "
-      end
-      column
-    end
+    puts "\n- 1 - 2 - 3 - 4 - 5 - 6 - 7 -"
     5.downto(0) do |i|
-      rows << []
       board.each do |column|
-        rows[-1] << column[i]
+        print "| #{(column[i] || " ")} "
       end
+      puts "|"
     end
-    rows.each { |row| p row}
+    puts "- 1 - 2 - 3 - 4 - 5 - 6 - 7 -\n\n"
+  end
+  def self.weird board
+    p board
   end
 end
