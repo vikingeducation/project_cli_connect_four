@@ -25,34 +25,36 @@ class WinJudge
     check_for(:diagonal_left_top,:diagonal_right_bottom) 
   end
 
-  def check_for(direction1,direction2)
-    connect_count = 1
-    connect_count += count(direction1)
-    connect_count += count(direction2)
-    return true if connect_count >= 4
-    false
-  end
+  private
 
-  def count(direction)
-    direction_array = DIRECTIONS[direction]
-    x_increment = direction_array[0]
-    y_increment = direction_array[1]
-    x_coord = @x_coord
-    y_coord = @y_coord
-    connect_count = 0
-    found = true
-    while found == true
-      if x_coord + x_increment < 0 || y_coord + y_increment < 0 ||
-          x_coord + x_increment >= 7||y_coord + y_increment >= 6
-          found = false
-      elsif @layout[x_coord + x_increment ][y_coord + y_increment] == @piece
-        x_coord += x_increment
-        y_coord += y_increment
-        connect_count += 1
-      else
-        found = false
-      end
+    def check_for(direction1,direction2)
+      connect_count = 1
+      connect_count += count(direction1)
+      connect_count += count(direction2)
+      return true if connect_count >= 4
+      false
     end
-    connect_count
-  end
+
+    def count(direction)
+      direction_array = DIRECTIONS[direction]
+      x_increment = direction_array[0]
+      y_increment = direction_array[1]
+      x_coord = @x_coord
+      y_coord = @y_coord
+      connect_count = 0
+      found = true
+      while found == true
+        if x_coord + x_increment < 0 || y_coord + y_increment < 0 ||
+            x_coord + x_increment >= 7||y_coord + y_increment >= 6
+            found = false
+        elsif @layout[x_coord + x_increment ][y_coord + y_increment] == @piece
+          x_coord += x_increment
+          y_coord += y_increment
+          connect_count += 1
+        else
+          found = false
+        end
+      end
+      connect_count
+    end
 end

@@ -1,6 +1,6 @@
 class ConnectFour
   attr_accessor :board
-  
+
   def initialize
     @board = Board.new
     @player1 = HumanPlayer.new(@board, 'O')
