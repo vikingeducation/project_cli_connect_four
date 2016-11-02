@@ -23,20 +23,20 @@ class ConnectFourController
 
   def turn_loop(game)
     loop do
-      current_game.render
+      game.render
       self.active_player = get_active_player
-      player_move = get_player_move(active_player)
-      current_game.add_piece(player_move, player.piece)
-      break if current_game.over?
+      player_move = get_player_move(active_player, game)
+      game.add_piece(player_move, player.piece)
+      break if game.over?
     end
   end
 
-  def get_player_move(player)
+  def get_player_move(player, game)
     loop do
       view.print_player_move_prompt
       player_input = player.get_move
       quit if QUIT_OPTIONS.include?(player_input)
-      break if current_game.valid_move?(player_input)
+      break if game.valid_move?(player_input)
     end
     player_input
   end

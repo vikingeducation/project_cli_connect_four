@@ -1,10 +1,11 @@
 
 class ConnectFour
+	attr_accessor :board
 
   NAME = "Connect Four"
 
   def initialize(args = {})
-    @board = args[:board]   || Board.new
+    @board = args[:board] || Board.new
   end
 
   def instructions
@@ -16,6 +17,15 @@ class ConnectFour
 
   def name
     NAME
+  end
+
+  def render
+  	board.render
+  end
+
+  def valid_move?(move)
+  	board.in_range?(move) &&
+  	board.column_not_full?(move)
   end
 
 end

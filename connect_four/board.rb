@@ -12,7 +12,19 @@ class Grid
     grid[row][col] = value    
   end
 
-   private
+  def rows
+    grid
+  end
+
+  def columns
+    grid.transpose
+  end
+
+  def diagonals
+    
+  end
+
+  private
       attr_reader :grid
 end
 
@@ -20,6 +32,7 @@ class Board
 
   def initialize(args = {})
     @board = args[:grid] || Grid.new(rows: 6, columns: 7)
+    @view = BoardView
   end
 
   def add_piece(coordinates, value)
@@ -28,7 +41,20 @@ class Board
     board.set_cell(row, col, value)
   end
 
+  def render
+    view.render(self)
+  end
+
+  def in_range?(column)
+    column > 0 &&
+    column <= board.column_count
+  end
+
+  def column_not_full?(column)
+    board.
+  end
+
   private
-    attr_reader :board
+    attr_reader :board, :view
 end
 
