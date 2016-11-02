@@ -1,10 +1,9 @@
 class Render
   def self.board(board)
     puts "\n- 1 - 2 - 3 - 4 - 5 - 6 - 7 -"
-    # 5.downto(0) do |i|
-      board.each do |row|
-        row.each do |cell|
-          print "| #{(cell || " ")} "
+    board.each do |row|
+      row.each do |cell|
+        print "| #{(cell || " ")} "
       end
       puts "|"
     end

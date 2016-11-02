@@ -15,10 +15,10 @@ class ConnectFour
   end
 
   def play
-    Render.board(@board.rows)
+    # Render.board(@board.rows)
     until game_end?
       @board.add_piece(@player1.placement, @player1.piece)
-      Render.board(@board.rows)
+      # Render.board(@board.rows)
     end
   end
 
