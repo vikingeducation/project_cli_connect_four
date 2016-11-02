@@ -1,5 +1,6 @@
 class Board
   attr_accessor :layout
+  attr_accessor :last_move
   
   def initialize
     @layout = Array.new(7){Array.new(6) {'_'} }
