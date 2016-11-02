@@ -60,7 +60,7 @@ class Board
     # v = 1
     (1..3).each do |vec|
       vector = [vec, vec]
-      combo = add(position, vector) # <<-- there was a typo: said add(position, vec)
+      combo = add(position, vector)
       diag_combos.push(combo)
     end
     diag_combos
