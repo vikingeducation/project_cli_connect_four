@@ -1,4 +1,6 @@
 require_relative "prompt"
+require_relative "player"
+require_relative "board"
 
 class ConnectFour
 
@@ -27,7 +29,11 @@ class ConnectFour
 
       # validate user move (legal move)
       # update board
-      # @board.update(input, current_player.color) if @board.valid_move?(input)
+      if @board.valid_move?(input)
+        @board.update(input, current_player.color)
+      else
+        puts "invalid"
+      end
         # out of top/no more space in col (handled in Board)
 
       # check for win

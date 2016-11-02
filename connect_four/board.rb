@@ -29,14 +29,22 @@ class Board
 
   # return board array
   def update(input, color)
-    if @board[5][input] == 0
-      @board[0][input - 1] = color
+    if valid_move?(input)
+      6.times do |i|
+        if @board[i][input - 1] == 0
+          @board[i][input - 1] = color
+          return
+        end
+      end
+    else
+      puts "invalid"
     end
+
     @board
   end
 
-  def valid_move?
-
+  def valid_move?(input)
+    @board[5][input - 1] == 0
   end
 
 
@@ -67,6 +75,12 @@ class Board
 end
 
 t = Board.new
-t.board.each { |arr| p arr } 
-t.update(2,:black)
-t.board.each { |arr| p arr.inspect } 
+t.board.each { |arr| p arr }
+t.update(2,:b)
+t.update(2,:r)
+t.update(2,:b)
+t.update(2,:r)
+t.update(2,:b)
+t.update(2,:r)
+t.update(2,:b)
+t.board.each { |arr| p arr }
