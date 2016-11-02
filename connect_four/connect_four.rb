@@ -4,8 +4,8 @@ class ConnectFour
 
   def initialize
     @board = Board.new
-    @p1 = Player.new
-    @p2 = Player.new
+    @p1 = Player.new(:r)
+    @p2 = Player.new(:b)
   end
 
   def run
@@ -27,7 +27,7 @@ class ConnectFour
 
       # validate user move (legal move)
       # update board
-      # @board.update(input, @p1) if @board.valid_move?(input)
+      # @board.update(input, current_player.color) if @board.valid_move?(input)
         # out of top/no more space in col (handled in Board)
 
       # check for win

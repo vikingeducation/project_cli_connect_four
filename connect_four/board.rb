@@ -10,10 +10,12 @@ class Board
   #   [0, 0, 0, 0, 0, 0, 0]
   # ]
 
-  def initialze
+  attr_accessor :board # temp
+
+  def initialize
     @board = # 0  1  2  3  4  5  6
               [
-              [0, r, 0, 0, 0, 0, 0], # 0
+              [0, 0, 0, 0, 0, 0, 0], # 0
               [0, 0, 0, 0, 0, 0, 0], # 1
               [0, 0, 0, 0, 0, 0, 0], # 2
               [0, 0, 0, 0, 0, 0, 0], # 3
@@ -26,10 +28,11 @@ class Board
   # board[x][1]
 
   # return board array
-  def update(input, player)
-    if board[5][input] == 0
-      board[][input - 1] = color
-
+  def update(input, color)
+    if @board[5][input] == 0
+      @board[0][input - 1] = color
+    end
+    @board
   end
 
   def valid_move?
@@ -62,3 +65,8 @@ class Board
   # return what the board is
 
 end
+
+t = Board.new
+t.board.each { |arr| p arr } 
+t.update(2,:black)
+t.board.each { |arr| p arr.inspect } 
