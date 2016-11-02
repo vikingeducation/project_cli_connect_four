@@ -4,14 +4,37 @@ class Board
     @bluesPositions = []
   end
 
-  def add_piece(player, position)
-    col, row = check_position
-    @redPosition += position
+  def add_piece(player, col)
+    valid_drop?(col)
+    row = get_row(col)
+    position = [col, row]
+    position.winning_combos
+    player == red ? @redsPositions << position : @bluesPositions << position
   end
 
-  def check_position(col)
-    col.full? # TODO, return invalid
-    return col, row
+  def get_row(col)
+    row = col.length - 1
+    row
+  end
+
+  def not_full?(col)
+    col.length < 7
+  end
+
+  def valid_drop?(col)
+    col.in_bounds? && col.not_full?
+  end
+
+  def in_bounds?(col)
+    (0..6).include? col
+  end
+
+  def winning_combos(position)
+    vertical_win?(position)
+  end
+
+  def vertical_win?(position)
+
   end
 end
 
@@ -30,7 +53,7 @@ end
 # - has properties: color or nil, coordinates
 
 # When player drop piece generate a hash of winning combos or array of arrays
-# player only gives x, 
+# player only gives x,
 winningCombos = { :vert => [], :hori => [[]], :diag => [[]] }
 
 # VECTOR
