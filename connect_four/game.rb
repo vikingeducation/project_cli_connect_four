@@ -6,8 +6,6 @@ class Game
   def play
     player_config
     setup_board
-    print @board.column_full?(2)
-    print @board.column_full?(3)
     game_loop
   end
 
@@ -20,8 +18,6 @@ class Game
   def setup_board
     @board = Board.new
   end
-
-
 
   def game_loop
     until winner? || draw?
@@ -36,14 +32,20 @@ class Game
     player_move = nil
     loop do
       print "#{@current_player.player_name}, in which column would you like to place your piece? (0-6) "
-      player_move = gets.chomp
+      player_input = gets.chomp
+      player_move = player_input.to_i
       break if move_valid?(player_move)
+      puts "Invalid move"
     end
     player_move.to_i
   end
 
   def move_valid?(column_index)
-    valid_column?(column_index) && !@board.column_full?(column_index)
+    valid_column?(column_index) && !@board.column_full?(column_index) && integer_is_string(column_index)
+  end
+
+  def integer_is_string(input)
+    input.to_s.to_i == input
   end
 
   def valid_column?(column_index)
@@ -51,6 +53,7 @@ class Game
   end
 
   def draw?
+    @board.board_full?
   end
 
   def winner?
