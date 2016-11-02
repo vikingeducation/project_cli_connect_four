@@ -8,7 +8,7 @@ Play cycle                      # GameController#play
             Welcome/ instructions         # UserWelcomer
 
    Game.run     Turn cycle                    # Game#turn_cycle
-                Render board                # BoardView#render
+                Render board                # BoardController#render => BoardView.display(board)
                 get player move (column)    # Player#get_move
                 unless quit?                # Game#quit
                   validate move             # Game#valid_move?

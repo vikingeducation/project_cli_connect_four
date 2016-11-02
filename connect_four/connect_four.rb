@@ -7,4 +7,6 @@ class ConnectFour
     @board = args[:board]                 || Board.new
   end
 
+  
+
 end
