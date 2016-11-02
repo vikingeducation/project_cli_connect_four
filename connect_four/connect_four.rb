@@ -1,74 +1,46 @@
-# 6x7 board
+require_relative "prompt"
 
-# class ConnectFour
-  # requires other files
-  # validate user move (legal move)
-    # out of bounds/board
-    # out of top/no more space in col
-  # win conditions
-    # win
-      # 4 in a row
-      # 4 in col
-      #
-    # draw
+class ConnectFour
 
-# class Prompt/Listener
-  # asks for user inputs
-  # validate user input
+  def initialize
+    # @board_instance = Board.new
+    # @red = Player.new
+    # @black = Player.new
+  end
 
-# class Player
-  # controlling where you can put pieces
-    # talks to board to figure this out
+  def run
+    unless win? || draw? 
+      input = Prompt.get_input
+      @board_instance.update_board(input)
+    end
+  end
 
-  # instantiate with color
-    # red player
-    # black player
+  def win? 
+    false
+  end
 
-  # Later on
-    # HumanPlayer < Player
-    # ComputerPlayer < Player
+  def draw? 
+    false
+  end
 
-# class Board
-  board = [
-     0  1  2  3  4  5  6
-    [r, b, r, b, b, b, b], # board[0]
-    [0, 0, 0, 0, 0, b, 0], # board[1]
-    [0, 0, 0, 0, 0, b, 0],
-    [0, 0, 0, 0, 0, b, 0], # board[3]
-    [0, 0, 0, 0, 0, 0, 0], # board[4]
-    [0, 0, 0, 0, 0, 0, 0]
-  ]
-    # horizontal:
-      # each row that has 4 or more values
-        # find a starting coordinate [0, 1, 2, 3] == player
-          # check the final coordinate: [index + 3] == player
-            # check the 3rd coordinate: [index + 2]
-              # check the 2nd coord: [index + 1]
-                # return true => win condition
+  # run
+    # show board    
+      # board => display 
+    # loop until win or draw
+      # ask for user move
+      # validate user move (legal move)
+        # out of bounds/board
+        # out of top/no more space in col
+      # update board
+      # show board
+        # board => display
+  # check for win
+    # horizontal 
+    # vertical 
+    # diagonal 
+end
 
-    # vertical:
-      # use .transpose
+# test
+t = ConnectFour.new
+t.run 
 
-    # diagonal:
-      # coordinate system
-
-      #
-        # check if a coordinate == player/color: [0][0]
-          # find the last (4th value) [index+3][index+3] == player
-            # find 3rd
-              # find 2nd
-                # return true
-
-
-
-        x _ _ x
-        x _ _ x
-
-  # instance of board: keeps track of moves
-  # return what the board is
-
-# class Display
-  # display board between turns
-  # display input (feedback)
-  # display who won
-  # display instructions
