@@ -44,10 +44,8 @@ class Board
   end
 
   def horizontal_combos(position)
-    # 4 arrays of 4 vectors each
-    # 3,4
     hori_combos =[]
-    [(-3..0), (-2..1), (-1..2), (0..3)].each do |r| 
+    [(-3..0), (-2..1), (-1..2), (0..3)].each do |r|
       combos =[]
       r.each do |num|
         combos.push([(position[0] + num), position[1]])
@@ -57,8 +55,21 @@ class Board
     hori_combos
   end
 
+  def diagonal_combos(position)
+    diag_combos = []
+    movement_vectors = 1
+    movement_vectors.each do |v|
+      diag_combos.push(add(position, v))
+    end
+    diag_combos
+  end
+
+  def add(position, v)
+    [position[0] + v[0], position[1] + v[1]]
+  end
+
   def four_in_a_row?()
-    # check 
+    # check
   end
 end
 
