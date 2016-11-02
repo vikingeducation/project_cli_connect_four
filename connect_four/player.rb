@@ -3,7 +3,7 @@ class Player
   attr_reader :piece
 
   def initialize(piece:)
-    @piece = args[:piece]
+    @piece = :piece
   end
 
   def get_move
