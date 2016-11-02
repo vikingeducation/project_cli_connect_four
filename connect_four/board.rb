@@ -5,8 +5,8 @@ class Board
 
   def initialize
     @grid = [
-              [' ',' ',' ',' ',' ',' ',' '],
-              [' ',' ',' ',' ',' ',' ',' '],
+              [' ',' ','O',' ',' ',' ',' '],
+              [' ',' ','O',' ',' ',' ',' '],
               [' ',' ','X','O','O','X','X'],
               [' ',' ','O','X','O','O','X'],
               [' ',' ','O','X','X','X','O'],
@@ -27,18 +27,13 @@ class Board
     puts
   end
 
-  def column
-  end
-
-  def move_valid?(column_index)
-    valid_column?(column_index) && !column_full?
+  def column(column_index)
+    columns = @grid.transpose
+    columns[column_index]
   end
 
   def column_full?(column_index)
-
-  end
-
-  def valid_column?(column_index)
+    ['X','O'].include?(column(column_index)[0])
   end
 
   def place(piece_type, column_index)
