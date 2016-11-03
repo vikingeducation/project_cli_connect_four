@@ -1,14 +1,3 @@
-# class Board
-# column_full?
-# place(piece_type, column)
-# four_in_a_row?
-# detected_win?
-# vertical_win?(piece_type)
-# horizontal_win?(piece_type)
-# diagonal_win?(piece_type)
-# generate_diagonals(rect_array)
-# board_full?
-
 require 'board'
 
 describe Board do
@@ -53,6 +42,26 @@ describe Board do
     ]}
     let(:diagonal_win_board){Board.new(diagonal_win_grid)}
 
+  let(:square_grid) {[
+      [' ',' ',' ',' ',' ',' '],
+      [' ',' ',' ',' ',' ',' '],
+      [' ',' ',' ','X',' ',' '],
+      [' ',' ','X',' ',' ',' '],
+      [' ','X',' ',' ',' ',' '],
+      ['X',' ',' ',' ',' ',' ']
+    ]}
+    let(:square_board){Board.new(square_grid)}
+
+  let(:full_grid) {[
+      ['X','X','X','X','X','X'],
+      ['X','X','X','X','X','X'],
+      ['X','X','X','X','X','X'],
+      ['X','X','X','X','X','X'],
+      ['X','X','X','X','X','X'],
+      ['X','X','X','X','X','X']
+    ]}
+    let(:full_board){Board.new(full_grid)}
+
   describe '#column' do
     it 'takes a column_index as a parameter, flips the board on its side, and returns the column' do
       expect(multipurpose_board.column(2)).to eq(["O", "O", "X", "O", "O", "O"])
@@ -96,29 +105,35 @@ describe Board do
 
   describe '#detected_win?' do
 
-    it 'returns true only when a vertical, horizontal, or diagonal win is detected' do
+    it 'returns false when no win is detected' do
+      expect(multipurpose_board.detected_win?('X')).to be false
+    end
 
-      # make vertical_win?(piece_type) return false
-      # make horizontal_win?(piece_type) return false
-      # make diagonal_win?(piece_type) return false
-      #expect(detected_win?('X')).to be false
+    it 'returns true when a horizontal win is detected' do
+      allow(multipurpose_board).to receive(:horizontal_win?).with('X').and_return(true)
+      expect(multipurpose_board.detected_win?('X')).to be true
+    end
 
-      # make horizontal_win?(piece_type) return true
-      allow(multipurpose_board.horizontal_win?('X')).to eq(true)
-      expect(detected_win?('X')).to be true
+    it 'returns true when a vertical win is detected' do
+      allow(multipurpose_board).to receive(:vertical_win?).with('X').and_return(true)
+      expect(multipurpose_board.detected_win?('X')).to be true
+    end
 
+    it 'returns true when a diagonal win is detected' do
+      allow(multipurpose_board).to receive(:diagonal_win?).with('X').and_return(true)
+      expect(multipurpose_board.detected_win?('X')).to be true
     end
 
   end
 
   describe '#horizontal_win?' do
 
-    it 'finds a horizontal win in a winning grid' do
-      expect(horizontal_win_board.horizontal_win?('X')).to be_truthy
-    end
-
     it 'does not find a horizontal win in a losing grid' do
       expect(multipurpose_board.horizontal_win?('X')).to be_falsy
+    end
+
+    it 'finds a horizontal win in a winning grid' do
+      expect(horizontal_win_board.horizontal_win?('X')).to be_truthy
     end
 
   end
@@ -147,12 +162,32 @@ describe Board do
 
   end
 
-# generate_diagonals:
-#   it 'lists all the diagonals in a square array'
-#   it 'lists all the diagonals in a rectangular array'
+  describe '#generate_diagonals' do
 
-# board_full?:
-#   it 'returns true if the board is full'
-#   it 'returns false if the board is not full'
+    it 'lists all the diagonals in a square array' do
+      expected_output =  [[" "],
+                          [" ", " "],
+                          [" ", " ", " "],
+                          [" ", " ", " ", " "],
+                          [" ", " ", " ", " ", " "],
+                          [" ", " ", "X", "X", "X", "X"]]
+
+      expect(square_board.generate_diagonals(square_grid)).to eq(expected_output)
+    end
+
+  end
+ 
+
+  describe '#board_full?' do
+
+    it 'returns true if the board is full' do
+      expect(full_board.board_full?).to be true
+    end
+
+    it 'returns false if the board is not full' do
+      expect(multipurpose_board.board_full?).to be false
+    end
+
+  end
 
 end
