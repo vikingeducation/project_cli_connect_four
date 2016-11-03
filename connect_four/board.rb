@@ -1,3 +1,5 @@
+require 'matrix'
+
 class Board
   attr_reader :board
   def initialize
@@ -5,27 +7,22 @@ class Board
   end
 
   def add_piece(column, piece)
-    # check column rows from bottom to top
-    # place piece if nil
-    piece_placed = false
-    temp = board[column].map do |cell|
-      if !cell && !piece_placed
-        piece_placed = true
-        piece
-      else
-        cell
+    board[column].each_with_index do |cell, row|
+      if !cell
+        board[column][row] = piece
+        return [column, row]
       end
     end
-    p board[column] = temp
     false
   end
 
-  def winner?
-    !!win
+  def winner?(coords)
+    !!win(coords)
   end
 
-  def win
-    check_horizontal || check_vertical
+  def win(coords)
+    # check_horizontal || check_vertical || 
+    check_diagonal(coords)
   end
 
   def four_in_a_row(section)
@@ -55,8 +52,29 @@ class Board
     false
   end
 
-  def check_diagonal
-    (0..5).collect { |i| board[i][i] }
+  def negative_diagonal(piece)
+    until piece[0] == 0 || piece[1] == 5
+      piece[0] -= 1
+      piece[1] += 1
+    end
+    (0..5).collect { |i| board[piece[0] + i][piece[1] - i] }
+  end
+
+  def positive_diagonal(piece)
+    until piece[0] == 0 || piece[1] == 0
+      piece[0] -= 1
+      piece[1] -= 1
+    end
+    (0..5).collect { |i| board[piece[0] + i][piece[1] + i] }
+  end
+
+  def check_diagonal(piece)
+    diagonals = []
+    diagonals << positive_diagonal(piece)
+    diagonals << negative_diagonal(piece)
+    diagonals.each do |diagonal|
+      return true if four_in_a_row(diagonal)
+    end
     false
   end
 

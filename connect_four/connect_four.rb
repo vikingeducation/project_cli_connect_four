@@ -15,15 +15,16 @@ class ConnectFour
   end
 
   def play
-    # Render.board(@board.rows)
-    until game_end?
-      @board.add_piece(@player1.placement, @player1.piece)
-      # Render.board(@board.rows)
-    end
+    Render.board(@board.rows)
+    placement = nil
+    begin
+      placement = @board.add_piece(@player1.placement, @player1.piece)
+      Render.board(@board.rows)
+    end until game_end?(placement)
   end
 
-  def game_end?
-    @board.winner? || @board.full?
+  def game_end?(coords)
+    @board.winner?(coords) || @board.full?
   end
 end
 
