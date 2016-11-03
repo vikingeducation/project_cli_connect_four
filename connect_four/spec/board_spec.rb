@@ -46,15 +46,33 @@ describe Board do
     end
   end
 
-# place:
-#   it 'takes a piece_type and a column_index and adds that piece to the first empty space in that column'
+  describe '#four_in_a_row' do
 
-# four_in_a_row?:
-#   it 'checks if there are 4 in a row of piece_type in a long array'
-#   it 'checks if there are 4 in a row of piece_type in a short array'
-#   it 'checks if there are 4 in a row of piece_type in an array of length 4'
+    it 'checks if there are 4 in a row of piece_type in a short array' do
+      short_array = Array.new(3, 'x')
+      expect(board_1.four_in_a_row?(short_array,'x')).to be_falsy
+    end  
 
-# detected_win?:
+    it 'checks if there are 4 in a row of piece_type in an array of length 4' do
+      four_array = Array.new(4, 'x')
+      expect(board_1.four_in_a_row?(four_array,'x')).to be_truthy
+    end 
+
+    it 'checks if there are 4 in a row of piece_type in a long array' do
+      long_array = Array.new(6, 'x')
+      expect(board_1.four_in_a_row?(long_array,'x')).to be_truthy
+    end
+
+  end    
+
+  describe '#detected_win' do
+
+    it 'returns true only when a vertical, horizontal, or diagonal win is detected'
+
+  end
+
+  describe '#horizontal_win' do
+  end
 
 # horizontal_win?:
 #   it 'finds a horizontal win in a winning grid'
