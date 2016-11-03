@@ -3,7 +3,7 @@ require 'rspec'
 class Board
   attr_reader :board
   def initialize(saved = nil)
-    @board = saved || Array.new(7) { Array.new(6) }f
+    @board = saved || Array.new(7) { Array.new(6) }
   end
 
   def add_piece(column, piece)
@@ -62,8 +62,8 @@ class Board
     start = diagonal_start(piece.dup, slope)
     oper = (slope == true ? :+ : :-)
     (0..5).collect do |i| 
-      if ((0..6).include?(start[0] + i)) && 
-         ((0..5).include?(start[1].send(oper, i)))
+      if ((0...board.length).include?(start[0] + i)) && 
+         ((0...board[0].length).include?(start[1].send(oper, i)))
         board[start[0] + i][start[1].send(oper, i)]
       else
         nil
@@ -72,7 +72,8 @@ class Board
   end
 
   def diagonal_start(piece, slope)
-    oper, max = (slope == true ? [:-, 0] : [:+, 5])
+    oper, max = (slope == true ? [:-, 0] : [:+, (board[0].length-1).to_i])
+    p board[0].length-1
     until piece[0] == 0 || piece[1] == max
       piece[0] -= 1
       piece[1] = piece[1].send(oper, 1)
