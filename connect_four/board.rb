@@ -47,11 +47,12 @@ class Board
   end
 
   def diagonal(piece, slope = true)
-    diagonal_start(piece, slope)
+    start = diagonal_start(piece.dup, slope)
     oper = (slope == true ? :+ : :-)
     (0..5).collect do |i| 
-      if ((0..6).include?(piece[0] + i)) && ((0..5).include?(piece[1].send(oper, i)))
-        board[piece[0] + i][piece[1].send(oper, i)]
+      if ((0..6).include?(start[0] + i)) && 
+         ((0..5).include?(start[1].send(oper, i)))
+        board[start[0] + i][start[1].send(oper, i)]
       else
         nil
       end 
@@ -59,16 +60,17 @@ class Board
   end
 
   def diagonal_start(piece, slope)
-    oper, max = slope == true ? [:+, 5] : [:-, 0]
+    oper, max = (slope == true ? [:-, 0] : [:+, 5])
     until piece[0] == 0 || piece[1] == max
       piece[0] -= 1
-      piece[1].send(oper, 1)
+      piece[1] = piece[1].send(oper, 1)
     end
+    piece
   end
 
   def check_diagonal(piece)
     diagonals = []
-    diagonals << diagonal(piece) << diagonal(piece, false)
+    diagonals << diagonal(piece.dup) << diagonal(piece.dup, false)
     diagonals.each do |diagonal|
       winner = four_in_a_row(diagonal)
       return winner if winner
