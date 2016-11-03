@@ -9,29 +9,32 @@ class Board
                        [[-2,2],[-1,1],[0,0],[1,-1]],
                        [[-1,1],[0,0],[1,-1],[2,-2]],
                      ]
+                     attr_reader :columns
+
   def initialize
     @redsPositions = []
     @bluesPositions = []
+    @columns = Array.new(6) {[" "," "," "," "," "," "," "]}
   end
 
   def add_piece(player, col)
-    valid_drop?(col)
+    @columns[col][row] = player.symbol if valid_drop?(col)
     row = get_row(col)
     position = [col, row]
-    player == red ? @redsPositions << position : @bluesPositions << position
-    winnging_combos(position)
+    player_array(player).push position
+    @last_piece = position
   end
 
   def get_row(col)
     row = col.length - 1
   end
 
-  def not_full?(col)
-    col.length < 7
-  end
-
   def valid_drop?(col)
     col.in_bounds? && col.not_full?
+  end
+
+  def not_full?(col)
+    col.length < 7
   end
 
   def in_bounds?(col)
@@ -42,6 +45,8 @@ class Board
     combos = {}
     combos[:vert] = vertical_combos(position)
     combos[:hori] = horizontal_combos(position)
+    combos[:diag] = diagonal_combos(position)
+    combos
   end
 
   def vertical_combos(position)
@@ -85,31 +90,28 @@ class Board
     [position[0] + v[0], position[1] + v[1]]
   end
 
-  def four_in_a_row?()
-    # check
+  def player_array(player)
+    player.color == 'red' ? @redsPositions : @bluesPositions
   end
+
+  def render
+    @columns.transpose.each do |row|
+      p row.join "|"
+    end
+    print "_____________"
+    print "0|1|2|3|4|5|6"
+  end
+
+  def four_in_a_row?(player)
+    win_combos = winning_combos(@last_piece)
+    four_in_a_row = false
+    win_combos.each do |direction, win_combo|
+      four_in_a_row = win_combo.all? do |position|
+        player_array(player).include? position
+      end
+      break if four_in_a_row == true
+    end
+    four_in_a_row
+  end
+
 end
-
-
-# 2,1 -- 3,2 4,3 5,4
-#        1,2 0,3 -,4
-
-# 4,4 --increase 1,1 or -1,-1
-#       3,5 2,6  1,-1   -1, 1
-#       5,3 6,2
-
-#       [1,2]
-
-# # position class
-# # any one middle position has max 16 wins
-# # - has properties: color or nil, coordinates
-
-# # When player drop piece generate a hash of winning combos or array of arrays
-# # player only gives x,
-# winningCombos = { :vert => [], :hori => [[]], :diag => [[]] }
-
-# # VECTOR
-# (5, 4)
-# # vertical win at [0, [-4]]
-# # horizontal win at [[-4..4], 0]
-# # diagonal [[4..-4], [4..-4](same number)] and [[-4..4], [4..-4] (opposite numbers)]
