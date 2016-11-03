@@ -22,9 +22,18 @@ class Board
     check_horizontal || check_vertical || check_diagonal(coords)
   end
 
-  def four_in_a_row(section)
-    counter = 0
-    section.each_cons(4) do |chunk|
+  def close_to_win(piece)
+    section = board[check_vertical(3)] if check_vertical(3)
+    if section
+      section.each_cons(4) do |chunk|
+        return false if chunk[-1] == piece
+      end
+      check_vertical(3)
+    end
+  end
+
+  def four_in_a_row(section, size=4)
+    section.each_cons(size) do |chunk|
       return chunk[0] if chunk.all? {|piece| piece == chunk[0] && !piece.nil?}
     end
     false
@@ -38,9 +47,10 @@ class Board
     false
   end
 
-  def check_vertical
-    board.each do |column|
-      winner = four_in_a_row(column)
+  def check_vertical(size = 4)
+    board.each_with_index do |column, i|
+      winner = four_in_a_row(column, size)
+      return i if  winner && size == 3
       return winner if winner
     end
     false

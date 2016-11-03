@@ -5,10 +5,10 @@ require_relative "board"
 require_relative "render"
 
 class ConnectFour
-  def initialize
+  def initialize (computer)
     @board = Board.new
     @player1 = Player.new
-    @player2 = Player.new
+    @player2 = (computer ? Computer.new(@board) : Player.new)
     @player1.piece = "X"
     @player2.piece = "O"
     play
@@ -59,4 +59,4 @@ class ConnectFour
   end
 end
 
-ConnectFour.new
+ConnectFour.new(true)
