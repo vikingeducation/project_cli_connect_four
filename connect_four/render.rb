@@ -1,6 +1,6 @@
 class Render
   def self.board(board)
-    # puts "\e[H\e[2J"
+    puts "\e[H\e[2J"
     puts "\n\n- 1 - 2 - 3 - 4 - 5 - 6 - 7 -"
     board.each do |row|
       row.each do |cell|
