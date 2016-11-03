@@ -24,7 +24,7 @@ describe Player do
 
     it "should ask the player to pick a place" do 
       player = Player.new
-      allow(STDOUT).to receive(:puts).with("Enter the column in which you want to place a piece")
+      expect(player).to receive(:puts).with("Enter the column in which you want to place a piece")
       player.placement
     end
   end
