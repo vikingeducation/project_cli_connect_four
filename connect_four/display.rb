@@ -1,5 +1,3 @@
-require "rainbow/ext/string"
-
 module Display
   @color_red = "Red".color(:red)
   @color_black = "Black".color(:black).background(:white)
