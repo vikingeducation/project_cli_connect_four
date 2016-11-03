@@ -21,12 +21,14 @@ class Game
 
   def game_loop
     puts "Welcome to Connect 4! Type 'q' to quit"
-    until # winner? || draw?
+    until winner? || draw?
       @board.render
       player_move = player_input
       @board.place(@current_player.piece_type, player_move)
       switch_player
     end
+    puts "Winner!" if winner?
+    puts "Draw!" if draw?
   end
 
   def player_input
@@ -63,7 +65,7 @@ class Game
   end
 
   def winner?
-    @board.detected_win?(@current_player.piece_type)
+    @board.detected_win?(@player_1.piece_type) || @board.detected_win?(@player_2.piece_type)
   end
 
   def quit(player_input)

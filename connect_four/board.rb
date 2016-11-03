@@ -5,12 +5,20 @@ class Board
 
   def initialize
 
+    # @grid = [
+    #           [' ',' ',' ',' ',' ',' ',' '],
+    #           [' ',' ',' ',' ',' ',' ',' '],
+    #           [' ',' ',' ',' ',' ',' ',' '],
+    #           [' ',' ',' ',' ',' ',' ',' '],
+    #           [' ',' ',' ',' ',' ',' ',' '],
+    #           [' ',' ',' ',' ',' ',' ',' ']
+    #         ]
     @grid = [
               [' ',' ',' ',' ',' ',' ',' '],
               [' ',' ',' ',' ',' ',' ',' '],
-              [' ',' ',' ',' ',' ',' ',' '],
-              [' ',' ',' ',' ',' ',' ',' '],
-              [' ',' ',' ',' ',' ',' ',' '],
+              [' ',' ',' ','X',' ',' ',' '],
+              [' ',' ','X',' ',' ',' ',' '],
+              [' ','X',' ',' ',' ',' ',' '],
               [' ',' ',' ',' ',' ',' ',' ']
             ]
 
@@ -77,7 +85,7 @@ class Board
   end
 
   def detected_win?(piece_type)
-    vertical_win?(piece_type) || horizontal_win?(piece_type) || diagonal_right_win?(piece_type) || diagonal_left_win?(piece_type)
+    vertical_win?(piece_type) || horizontal_win?(piece_type) || diagonal_win?(piece_type)
   end
 
   def vertical_win?(piece_type)
@@ -88,21 +96,25 @@ class Board
     @grid.any? { |row| four_in_a_row?(row, piece_type) }
   end
 
-  def generate_diagonals(rect_array)
-    results = []
-    (0..rect_array.length).each do |i|
-      diag = []
-      (0..i).each do |j|
-        (0..i).each do |k|
-          diag.push([j,k]) if j + k == i
-        end
-      end
-      results.push(diag)
-    end
-    results
+  def diagonal_win?(piece_type)
+    generate_diagonals(@grid).any? { |diag| four_in_a_row?(diag, piece_type)} || generate_diagonals(@grid.transpose).any? { |diag| four_in_a_row?(diag, piece_type)}
   end
 
-  def diagonal_win?(piece_type)
+  def generate_diagonals(rect_array)
+    results = []
+    begin
+      (0..rect_array.length).each do |i|
+        diag = []
+        (0..i).each do |j|
+          (0..i).each do |k|
+            diag.push(rect_array[j][k]) if j + k == i
+          end
+        end
+        results.push(diag)
+      end
+    rescue
+    end
+    results
   end
 
   def four_diagonal_rights?(row, cell, piece_type)
