@@ -10,5 +10,5 @@ class HumanPlayer < Player
       puts "Invalid input."
     end
     input
-  end 
+  end
 end
