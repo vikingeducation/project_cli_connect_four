@@ -27,7 +27,10 @@ class Game
       @board.place(@current_player.piece_type, player_move)
       switch_player
     end
-    puts "Winner!" if winner?
+    if winner?
+      @board.render
+      puts "Winner!"
+    end
     puts "Draw!" if draw?
   end
 
