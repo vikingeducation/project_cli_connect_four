@@ -86,6 +86,22 @@ describe Board do
       board.layout[0][0] = 'X'
       expect(board.four_connected?).to be false
     end
+
+    it "returns true if winning move" do
+      board.last_move = [0,0]
+      board.layout[0][0] = 'X'
+      board.layout[1][0] = 'X'
+      board.layout[2][0] = 'X'
+      board.layout[3][0] = 'X'
+      expect(board.four_connected?).to be true
+    end
+  end
+
+  describe "#find_piece_index" do
+    it "returns the spot on the column where a piece will go" do
+      column = ["X","_","_","_","_","_"]
+      expect(board.find_piece_index(column)).to eq(1)
+    end
   end
 
 
