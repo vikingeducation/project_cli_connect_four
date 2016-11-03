@@ -50,6 +50,19 @@ describe Game do
 
   end
 
+  describe '#switch_player' do
+
+    it 'changes current_player' do
+      game.player_config
+      initial_current_player = game.instance_variable_get(:@current_player)
+      game.switch_player
+      expect(game.instance_variable_get(:@current_player)).to_not eq(initial_current_player)
+    end
+
+  end
+
+  
+
 end
 
 # initialize
