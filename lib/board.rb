@@ -3,7 +3,7 @@ require 'rspec'
 class Board
   attr_reader :board
   def initialize(saved = nil)
-    @board = saved || Array.new(7) { Array.new(6) }
+    @board = saved || Array.new(7) { Array.new(6) }f
   end
 
   def add_piece(column, piece)
