@@ -13,36 +13,65 @@ require 'board'
 
 describe Board do
 
-  let(:grid_1) {[
-                 [' ',' ','O',' ',' ',' ',' '],
-                 [' ',' ','O',' ',' ',' ',' '],
-                 [' ',' ','X','O','O','X','X'],
-                 [' ',' ','O','X','O','O','X'],
-                 [' ',' ','O','X','X','X','O'],
-                 ['X','O','O','X','O','X','X']
-               ]}
+  let(:multipurpose_grid) {[
+    [' ',' ','O',' ',' ',' ',' '],
+    [' ',' ','O',' ',' ',' ',' '],
+    [' ',' ','X','O','O','X','X'],
+    [' ',' ','O','X','O','O','X'],
+    [' ',' ','O','X','X','X','O'],
+    ['X','O','O','X','O','O','X']
+  ]}
+  let(:multipurpose_board){Board.new(multipurpose_grid)}
 
-  let(:board_1){Board.new(grid_1)}
+  let(:horizontal_win_grid) {[
+      [' ',' ',' ',' ',' ',' ',' '],
+      [' ',' ',' ',' ',' ',' ',' '],
+      [' ',' ',' ',' ',' ',' ',' '],
+      [' ',' ',' ',' ',' ',' ',' '],
+      [' ','X','X','X','X',' ',' '],
+      [' ',' ',' ',' ',' ',' ',' ']
+    ]}
+    let(:horizontal_win_board){Board.new(horizontal_win_grid)}
+
+  let(:vertical_win_grid) {[
+      [' ',' ',' ',' ',' ',' ',' '],
+      [' ',' ',' ','X',' ',' ',' '],
+      [' ',' ',' ','X',' ',' ',' '],
+      [' ',' ',' ','X',' ',' ',' '],
+      [' ',' ',' ','X',' ',' ',' '],
+      [' ',' ',' ',' ',' ',' ',' ']
+    ]}
+    let(:vertical_win_board){Board.new(vertical_win_grid)}
+
+  let(:diagonal_win_grid) {[
+      [' ',' ',' ',' ',' ',' ',' '],
+      [' ',' ',' ',' ',' ',' ',' '],
+      [' ',' ',' ','X',' ',' ',' '],
+      [' ',' ','X',' ',' ',' ',' '],
+      [' ','X',' ',' ',' ',' ',' '],
+      ['X',' ',' ',' ',' ',' ',' ']
+    ]}
+    let(:diagonal_win_board){Board.new(diagonal_win_grid)}
 
   describe '#column' do
     it 'takes a column_index as a parameter, flips the board on its side, and returns the column' do
-      expect(board_1.column(2)).to eq(["O", "O", "X", "O", "O", "O"])
+      expect(multipurpose_board.column(2)).to eq(["O", "O", "X", "O", "O", "O"])
     end
   end
 
   describe '#column_full' do
     it 'takes a column_index and returns true if that column_index is full' do
-      expect(board_1.column_full?(2)).to be_truthy
+      expect(multipurpose_board.column_full?(2)).to be_truthy
     end
     it 'takes a column_index and returns false if that column_index is not full' do
-      expect(board_1.column_full?(3)).to be_falsy
+      expect(multipurpose_board.column_full?(3)).to be_falsy
     end
   end
 
   describe '#place' do
     it 'takes a piece_type and a column_index and adds that piece to the first empty space in that column' do
-      board_1.place('O',0)
-      expect(board_1.column(0)).to eq([' ',' ',' ',' ','O','X'])
+      multipurpose_board.place('O',0)
+      expect(multipurpose_board.column(0)).to eq([' ',' ',' ',' ','O','X'])
     end
   end
 
@@ -50,41 +79,62 @@ describe Board do
 
     it 'checks if there are 4 in a row of piece_type in a short array' do
       short_array = Array.new(3, 'x')
-      expect(board_1.four_in_a_row?(short_array,'x')).to be_falsy
-    end  
+      expect(multipurpose_board.four_in_a_row?(short_array,'x')).to be_falsy
+    end
 
     it 'checks if there are 4 in a row of piece_type in an array of length 4' do
       four_array = Array.new(4, 'x')
-      expect(board_1.four_in_a_row?(four_array,'x')).to be_truthy
-    end 
+      expect(multipurpose_board.four_in_a_row?(four_array,'x')).to be_truthy
+    end
 
     it 'checks if there are 4 in a row of piece_type in a long array' do
       long_array = Array.new(6, 'x')
-      expect(board_1.four_in_a_row?(long_array,'x')).to be_truthy
+      expect(multipurpose_board.four_in_a_row?(long_array,'x')).to be_truthy
     end
 
-  end    
+  end
 
-  describe '#detected_win' do
+  describe '#detected_win?' do
 
     it 'returns true only when a vertical, horizontal, or diagonal win is detected'
 
   end
 
-  describe '#horizontal_win' do
+  describe '#horizontal_win?' do
+
+    it 'finds a horizontal win in a winning grid' do
+      expect(horizontal_win_board.horizontal_win?('X')).to be_truthy
+    end
+
+    it 'does not find a horizontal win in a losing grid' do
+      expect(multipurpose_board.horizontal_win?('X')).to be_falsy
+    end
+
   end
 
-# horizontal_win?:
-#   it 'finds a horizontal win in a winning grid'
-#   it 'does not find a horizontal win in a losing grid'
+  describe '#vertical_win?' do
 
-# vertical_win?:
-#   it 'finds a vertical win in a winning grid'
-#   it 'does not find a vertical win in a losing grid'
+    it 'finds a vertical win in a winning grid' do
+      expect(vertical_win_board.vertical_win?('X')).to be_truthy
+    end
 
-# diagonal_win?:
-#   it 'finds a diagonal win in a winning grid'
-#   it 'does not find a diagonal win in a losing grid'
+    it 'does not find a vertical win in a losing grid' do
+      expect(multipurpose_board.vertical_win?('X')).to be_falsy
+    end
+
+  end
+
+  describe '#diagonal_win?' do
+
+    it 'finds a diagonal win in a winning grid' do
+      expect(diagonal_win_board.diagonal_win?('X')).to be_truthy
+    end
+
+    it 'does not find a diagonal win in a losing grid' do
+      expect(multipurpose_board.diagonal_win?('X')).to be_falsy
+    end
+
+  end
 
 # generate_diagonals:
 #   it 'lists all the diagonals in a square array'
