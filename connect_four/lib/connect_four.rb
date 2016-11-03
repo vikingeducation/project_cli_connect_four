@@ -33,8 +33,10 @@ class ConnectFour
     # play_again?
   end 
 
+  private
+
   def win?
-    @board.horizontal_win? || @board.vertical_win? || @board.diagonal_win?
+    @board.win?
   end
 
   def draw?

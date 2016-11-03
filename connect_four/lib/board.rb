@@ -33,10 +33,16 @@ class Board
     @board[last_row][col_num] == 0
   end
 
-  def four_in_a_row?(four_piece_array)
-    first_piece = four_piece_array[0]
-    four_piece_array.all? { |piece| piece == first_piece }
+  def win? 
+    horizontal_win? || vertical_win? || 
+    diagonal_tl_br_win? || diagonal_tr_bl_win?
   end
+
+  def full?
+    !@board.flatten.include?(0)
+  end
+
+  private
 
   def horizontal_win?
     @board.each do |row|
@@ -57,7 +63,7 @@ class Board
     result
   end
 
-  def diagonal_win?
+  def diagonal_tl_br_win?
     rows_to_check = @board[0..2]
     rows_to_check.each_with_index do |row, row_num| # row_num = 0, 1, 2
       start_point, end_point = 0, 3
@@ -75,84 +81,20 @@ class Board
     false
   end
 
-  def full?
-    !@board.flatten.include?(0)
+  def diagonal_tr_bl_win?
+    flip_board
+    result = diagonal_tl_br_win?
+    flip_board
+    result
+  end
+
+  def flip_board
+    @board.map! { |row| row.reverse }
+  end
+
+  def four_in_a_row?(four_piece_array)
+    first_piece = four_piece_array[0]
+    four_piece_array.all? { |piece| piece == first_piece }
   end
 
 end
-
-# t = Board.new
-
-# t.board = [
-#            [ 0,  0,  0,  0,  0,  0,  0], # board[0]
-#            [ 0,  0,  0,  0,  0,  0,  0], # board[1]
-#            [ 0,  0,  0,  0,  0,  0,  0], # board[2]
-#            [ 0,  0,  0,  0,  0,  0,  0], # board[3]
-#            [ 0,  0,  0,  0,  0,  0,  0], # board[4]
-#            [ 0,  0,  0,  0,  0,  0,  0]  # board[5]
-#           ]
-
-# def display(board)
-#   board.each { |row| p row }
-#   p "----------------------"
-# end
-
-# display(t.board)
-# t.horizontal_win?
-
-# t.update(2, 1)
-# display(t.board)
-# p t.horizontal_win?
-
-# t.update(2, 1)
-# display(t.board)
-# p t.horizontal_win?
-
-# t.update(3, 1)
-# display(t.board)
-# p t.horizontal_win?
-
-# t.update(4, 1)
-# display(t.board)
-# p t.horizontal_win?
-
-# t.update(6, 1)
-# display(t.board)
-# p t.horizontal_win?
-
-# t.update(2, 1)
-# display(t.board)
-# p t.vertical_win?
-
-# t.update(2, 1)
-# display(t.board)
-# p t.vertical_win?
-
-# t.update(3, 1)
-# display(t.board)
-# p t.vertical_win?
-
-# t.update(4, 1)
-# display(t.board)
-# p t.vertical_win?
-
-# t.update(4, 1)
-# display(t.board)
-# p t.diagonal_win?
-
-# t.update(5, 1)
-# display(t.board)
-# p t.diagonal_win?
-
-# t.update(5, 1)
-# display(t.board)
-# p t.diagonal_win?
-
-# t.update(5, 1)
-# display(t.board)
-# p t.diagonal_win?
-
-# t.update(5, 1)
-# display(t.board)
-# p t.diagonal_win?
-
