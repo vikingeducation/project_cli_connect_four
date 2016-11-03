@@ -37,7 +37,7 @@ class Game
     puts "Welcome to Connect 4!"
     puts "To place a piece please type the number of the column (0-6)."
     puts "The first player to place 4 pieces in a row wins!"
-    puts "Press 'enter' to begin."
+    puts "Press 'any key' to begin."
     gets
   end
 

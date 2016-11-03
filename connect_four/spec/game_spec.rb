@@ -25,12 +25,4 @@ describe "Game" do
     end
   end
 
-  describe ' ' do
-
-    it "should tell us if #play calls #game_loop" do
-      expect(subject).to receive(:bar).with("an argument I want")
-      subject.foo
-    end
-
-  end
 end

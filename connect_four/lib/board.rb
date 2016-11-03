@@ -54,12 +54,10 @@ class Board
   end
 
   def vertical_combos(position)
-    [
-      [position,
-      [position[0], (position[1] - 1)],
-      [position[0], (position[1] - 2)],
-      [position[0], (position[1] - 3)]]
-    ]
+    [position,
+    [position[0], (position[1] - 1)],
+    [position[0], (position[1] - 2)],
+    [position[0], (position[1] - 3)]]
   end
 
   def horizontal_combos(position)

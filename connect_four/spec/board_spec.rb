@@ -34,6 +34,26 @@ describe 'Board' do
     end
   end
 
+  describe '#player_array' do
+    let(:player_red){ Player.new('red') }
+    let(:player_blue){ Player.new('blue') }
 
+    it 'will return an empty array for player red' do
+      expect(Board.new.player_array(player_red)).to eq([])
+    end
+
+    it 'will return an empty array for player blue' do
+      expect(Board.new.player_array(player_blue)).to eq([])
+    end
+
+  end
+
+  describe '#vertical_combos' do
+    let(:combinations){[[0, 4],[0, 3],[0, 2],[0, 1]]}
+
+    it 'will return :combinations when called using [0,4]' do
+      expect(Board.new.vertical_combos([0,4])).to eq(combinations)
+    end
+  end
 
 end
