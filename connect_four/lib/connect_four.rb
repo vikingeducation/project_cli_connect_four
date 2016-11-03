@@ -50,6 +50,7 @@ class ConnectFour
     @board.display
     puts "Player #{@current_player.piece} wins!"
   end
+  
   def game_over?
     @board.full? || @board.four_connected?
   end
