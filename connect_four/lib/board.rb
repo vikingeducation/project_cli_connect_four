@@ -15,11 +15,10 @@ class Board
                      ]
                      attr_reader :columns
 
-  def initialize
+  def initialize(columns=Array.new(6) {[" "," "," "," "," "," "," "]})
     @reds_positions = []
     @blues_positions = []
-    @columns = Array.new(6) {[" "," "," "," "," "," "," "]}
-  end
+    @columns = columns
 
   def add_piece(player, col)
     row = get_row(col)
