@@ -24,7 +24,7 @@ class ConnectFour
 
   def get_players
     puts "Select one or two player game. (1/2)"
-    input = gets.chomp.strip
+    input = gets.chomp
     if valid_player_input?(input)
       set_players(input.to_i)
     else
@@ -50,7 +50,7 @@ class ConnectFour
     @board.display
     puts "Player #{@current_player.piece} wins!"
   end
-  
+
   def game_over?
     @board.full? || @board.four_connected?
   end

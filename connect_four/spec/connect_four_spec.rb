@@ -45,12 +45,29 @@ describe ConnectFour do
       expect(game.game_over?).to be true
     end
 
-    it "returns true if there are 4 in a row"
-    it "returns false if board isn't full, and there aren't 4 in a row"
+    it "returns true if there are 4 in a row" do
+        game.board.layout[0][0] = 'O'
+        game.board.layout[1][0] = 'O'
+        game.board.layout[2][0] = 'O'
+        game.board.layout[3][0] = 'O'
+        game.board.last_move = [0,0]
+        expect(game.game_over?).to be true
+    end
 
-
+    it "returns false if board isn't full, and there aren't 4 in a row" do
+      game.board.layout[0][0] = 'O'
+      game.board.last_move = [0,0]
+      expect(game.game_over?).to be false
+    end
   end
 
+  describe "#get_players?" do
+    it "sets player to ai when input is 1" do
+      allow(game).to receive(:gets).and_return("1")
+      game.get_players
+      expect(game.instance_variable_get(:@player2)).to be_a(BotPlayer)
+    end
+  end
 
 
 end
