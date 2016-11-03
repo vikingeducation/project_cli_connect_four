@@ -20,7 +20,8 @@ class Game
   end
 
   def game_loop
-    until winner? || draw?
+    puts "Welcome to Connect 4! Type 'q' to quit"
+    until # winner? || draw?
       @board.render
       player_move = player_input
       @board.place(@current_player.piece_type, player_move)
@@ -31,13 +32,18 @@ class Game
   def player_input
     player_move = nil
     loop do
-      print "#{@current_player.player_name}, in which column would you like to place your piece? (0-6) "
+      instructions
       player_input = gets.chomp
+      #quit?(player_input)
       player_move = player_input.to_i
       break if move_valid?(player_move)
       puts "Invalid move"
     end
     player_move.to_i
+  end
+
+  def instructions
+    print "#{@current_player.player_name}, in which column would you like to place your piece? (0-6) "
   end
 
   def move_valid?(column_index)
@@ -57,9 +63,14 @@ class Game
   end
 
   def winner?
+    @board.detected_win?(@current_player.piece_type)
   end
 
-  def quit
+  def quit(player_input)
+    if player_input == 'q'
+      puts "Thanks for playing!"
+      exit
+    end
   end
 
   def switch_player

@@ -4,14 +4,24 @@ require 'pry-byebug'
 class Board
 
   def initialize
+
     @grid = [
-              ['O','O','O',' ','O','O','O'],
-              ['O','O','O','O','O','O','O'],
-              ['O','O','X','O','O','X','X'],
-              ['O','O','O','X','O','O','X'],
-              ['O','O','O','X','X','X','O'],
-              ['X','O','O','X','O','X','X']
+              [' ',' ',' ',' ',' ',' ',' '],
+              [' ',' ',' ',' ',' ',' ',' '],
+              [' ',' ',' ',' ',' ',' ',' '],
+              [' ',' ',' ',' ',' ',' ',' '],
+              [' ',' ',' ',' ',' ',' ',' '],
+              [' ',' ',' ',' ',' ',' ',' ']
             ]
+
+    # @grid = [
+    #           ['O','O','O',' ','O','O','O'],
+    #           ['O','O','O','O','O','O','O'],
+    #           ['O','O','X','O','O','X','X'],
+    #           ['O','O','O','X','O','O','X'],
+    #           ['O','O','O','X','X','X','O'],
+    #           ['X','O','O','X','O','X','X']
+    #         ]
     # @grid = [
     #           [' ',' ','O',' ',' ',' ',' '],
     #           [' ',' ','O',' ',' ',' ',' '],
@@ -66,7 +76,8 @@ class Board
     string.include?(pattern)
   end
 
-  def detected_win(piece_type)
+  def detected_win?(piece_type)
+    vertical_win?(piece_type) || horizontal_win?(piece_type) || diagonal_right_win?(piece_type) || diagonal_left_win?(piece_type)
   end
 
   def vertical_win?(piece_type)
@@ -77,7 +88,40 @@ class Board
     @grid.any? { |row| four_in_a_row?(row, piece_type) }
   end
 
-  def diagonal_win?(piece_type)
+  def diagonal_right_win?(piece_type)
+    # starting from 1st array, 1st item, iterate
+    # by adding 1 to array and 1 to item and 
+    # check if the next three are of the same type
+    @grid.each_with_index do |row, row_index|
+      row.each do |cell, cell_index|
+        if four_diagonal_rights?(row_index, cell_index, piece_type)
+          true
+        else
+          false
+        end
+      end
+    end
+  end
+
+  def four_diagonal_rights?(row, cell, piece_type)
+    four_adjacent_pieces = []
+    binding.pry
+    4.times do |i|
+      four_adjacent_pieces << @grid[row][cell]
+      row += 1
+      cell += 1
+    end
+    adjacent_checker = four_adjecent_pieces.all? do |piece|
+      piece == piece_type
+    end
+    if adjacent_checker
+      return true
+    else
+      return false
+    end
+  end
+
+  def diagonal_left_win?(piece_type)
   end
 
   def board_full?
