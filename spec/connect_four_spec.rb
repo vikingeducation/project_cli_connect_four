@@ -32,6 +32,27 @@ describe ConnectFour do
     end
   end
 
-  describe "#play" do 
+  describe "#play" do
+    it "should render the board" do
+      allow(game.player1).to receive(:placement).and_return(0)
+      allow(game.player2).to receive(:placement).and_return(1)
+      expect(Render).to receive(:board).at_least(:once)
+      game.play
+    end
+
+    it "should set the player on the first turn"
+
+    it "should place a new piece on the board"
+
+    it "should reject an invalid move"
+
+    it "should re-render the board after a valid move"
+
+    it "should switch players on unless the game ends"
+
+    it "should declare a winner when the game ends"
+
+
+
   end
 end

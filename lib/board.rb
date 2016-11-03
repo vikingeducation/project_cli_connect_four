@@ -1,5 +1,3 @@
-require 'rspec'
-
 class Board
   attr_reader :board
   def initialize(saved = nil)
@@ -7,6 +5,7 @@ class Board
   end
 
   def add_piece(column, piece)
+    return false if invalid_column?(column)
     board[column].each_with_index do |cell, row|
       if cell.nil?
         board[column][row] = piece
@@ -14,14 +13,6 @@ class Board
       end
     end
     false
-  end
-
-  def winner?(coords)
-    !!win(coords)
-  end
-
-  def win(coords)
-    check_horizontal || check_vertical || check_diagonal(coords)
   end
 
   def close_to_win(piece)
@@ -45,11 +36,22 @@ class Board
     board.transpose.reverse
   end
 
+  def win(coords)
+    check_horizontal || check_vertical || check_diagonal(coords)
+  end
+
+  def winner?(coords)
+    !!win(coords)
+  end
+
   private
 
-    def four_in_a_row(section, size=4)
-      section.each_cons(size) do |chunk|
-        return chunk[0] if chunk.all? {|piece| piece == chunk[0] && !piece.nil?}
+    def check_diagonal(piece)
+      diagonals = []
+      diagonals << diagonal(piece.dup) << diagonal(piece.dup, false)
+      diagonals.each do |diagonal|
+        winner = four_in_a_row(diagonal)
+        return winner if winner
       end
       false
     end
@@ -93,14 +95,16 @@ class Board
       piece
     end
 
-    def check_diagonal(piece)
-      diagonals = []
-      diagonals << diagonal(piece.dup) << diagonal(piece.dup, false)
-      diagonals.each do |diagonal|
-        winner = four_in_a_row(diagonal)
-        return winner if winner
+    def four_in_a_row(section, size=4)
+      section.each_cons(size) do |chunk|
+        return chunk[0] if chunk.all? {|piece| piece == chunk[0] && !piece.nil?}
       end
       false
+    end
+
+    def invalid_column?(column)
+      return false if (0...board.length).include?(column)
+      true
     end
 
     def scan_board
