@@ -4,9 +4,11 @@ require 'execute'
 
 describe Board do
   let(:board) {Board.new}
+  let(:layout) { board.layout }
+
   describe "#initialize" do
     it "has a layout" do
-      expect(board.instance_variable_get(:@layout)).to be_a(Array)
+      expect(layout).to be_a(Array)
     end
 
     it "has a last move" do
