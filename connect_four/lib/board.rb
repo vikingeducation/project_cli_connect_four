@@ -104,8 +104,8 @@ class Board
     puts "0|1|2|3|4|5|6"
   end
 
-  def four_in_a_row?(player)
-    win_combos = winning_combos(@last_piece)
+  def four_in_a_row?(player, last_piece)
+    win_combos = winning_combos(last_piece)
     four_in_a_row = false
     win_combos.each do |direction, win_combo|
       four_in_a_row = win_combo.all? do |position|

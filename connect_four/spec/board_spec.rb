@@ -7,12 +7,7 @@ load 'lib/board.rb'
 
 describe 'Board' do
   let(:b){ Board.new }
-  let(:test_board){[["o"," "," "," "," "," "," "],
-                   ["o"," "," "," "," "," "," "],
-                   ["o"," "," "," "," "," "," "],
-                   ["o"," "," "," "," "," "," "],
-                   ["o"," "," "," "," "," "," "],
-                   ["o","o","o","o","o","o","o"]]}
+  let(:test_board){[["O","O","O","O","O","O","O"]]}
 
   describe '#get_row' do
     xit 'will return the first empty row given a column' do
@@ -57,13 +52,20 @@ describe 'Board' do
   end
 
   describe '#horizontal_combos' do
-    let(:hor_combinations){[[[0, 3], [1, 3], [2, 3], [3, 3]], 
-                            [[1, 3], [2, 3], [3, 3], [4, 3]], 
-                            [[2, 3], [3, 3], [4, 3], [5, 3]], 
+    let(:hor_combinations){[[[0, 3], [1, 3], [2, 3], [3, 3]],
+                            [[1, 3], [2, 3], [3, 3], [4, 3]],
+                            [[2, 3], [3, 3], [4, 3], [5, 3]],
                             [[3, 3], [4, 3], [5, 3], [6, 3]]]}
 
     it 'will return :hor_combinations when called using [3,3]' do
       expect(Board.new.horizontal_combos([3,3])).to eq(hor_combinations)
+    end
+  end
+
+  describe '#four_in_a_row' do
+    let(:player_blue){ Player.new('blue') }
+    it '' do
+      expect(Board.new(test_board).four_in_a_row?(player_blue, [0][])).to be true
     end
 
   end
