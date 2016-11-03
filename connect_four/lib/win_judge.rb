@@ -45,7 +45,7 @@ class WinJudge
       y_coord = @y_coord
       connect_count = 0
       found = true
-      while found == true
+      while found
         if x_coord + x_increment < 0 || y_coord + y_increment < 0 ||
             x_coord + x_increment >= 7||y_coord + y_increment >= 6
             found = false
