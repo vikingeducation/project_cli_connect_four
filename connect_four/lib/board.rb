@@ -19,6 +19,7 @@ class Board
     @reds_positions = []
     @blues_positions = []
     @columns = columns
+  end
 
   def add_piece(player, col)
     row = get_row(col)
