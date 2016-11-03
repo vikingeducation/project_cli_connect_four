@@ -1,7 +1,6 @@
 class Board
-  attr_accessor :layout
-  attr_accessor :last_move
-  
+  attr_accessor :layout, :last_move
+
   def initialize
     @layout = Array.new(7){Array.new(6) {'_'} }
     @last_move = nil
@@ -9,7 +8,7 @@ class Board
 
   def display
     index_num = 7
-    while index_num > -1 do 
+    while index_num > -1 do
       @layout.each do |list|
         print list[index_num]
       end
