@@ -3,13 +3,13 @@ class Grid
   attr_reader :column_count, :row_count
 
   def initialize(args = {})
-    @row_count     = args[:rows]    
-    @column_count  = args[:columns]  
+    @row_count     = args[:rows]
+    @column_count  = args[:columns]
     @grid          = Array.new(row_count) { Array.new(column_count) }
   end
 
   def set_cell(row, col, value)
-    grid[row][col] = value    
+    grid[row][col] = value
   end
 
   def rows
@@ -21,7 +21,7 @@ class Grid
   end
 
   def diagonals
-    
+
   end
 
   private
@@ -35,23 +35,32 @@ class Board
     @view = BoardView
   end
 
-  def add_piece(coordinates, value)
-    row = coordinates[0] - 1
-    col = coordinates[1] - 1
+  def add_piece(column, value)
+    column = board.columns[column - 1]
+    row = top_most_empty_spot(column)
     board.set_cell(row, col, value)
   end
 
+  def topmost_empty_spot(column)
+    top_most_spot = column.find_index { |e| !e.nil? }
+    if top_most_spot.nil?
+      column.length - 1
+    else
+      top_most_spot - 1
+    end
+  end
+
+  def column_not_full?(column)
+    column.any? { |e| e.nil? }
+  end
+
   def render
-    view.render(self)
+    view.render(board)
   end
 
   def in_range?(column)
     column > 0 &&
     column <= board.column_count
-  end
-
-  def column_not_full?(column)
-    board.
   end
 
   private

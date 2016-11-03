@@ -8,9 +8,8 @@ class ConnectFourController
 
   def self.play
     loop do
-
-      current_game = game.new(game_config)
-      view.welcome(game.name, game.instructions)
+      current_game = game.new
+      view.welcome(current_game.name, current_game.instructions)
       turn_loop(current_game)
       break unless play_again?
     end
