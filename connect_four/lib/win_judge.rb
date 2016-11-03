@@ -11,6 +11,7 @@ class WinJudge
   }
 
   attr_accessor :last_move
+  attr_writer :layout
 
   def initialize(layout, last_move)
     @layout = layout
@@ -24,7 +25,7 @@ class WinJudge
     check_for(:up,:down) ||
     check_for(:left,:right) ||
     check_for(:diagonal_right_top,:diagonal_left_bottom) ||
-    check_for(:diagonal_left_top,:diagonal_right_bottom) 
+    check_for(:diagonal_left_top,:diagonal_right_bottom)
   end
 
   private
