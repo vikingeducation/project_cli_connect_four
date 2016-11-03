@@ -1,5 +1,5 @@
 class Board
-  # render
+  # render - skip
   # column
   # column_full?
   # place(piece_type, column)
@@ -11,16 +11,21 @@ class Board
   # generate_diagonals(rect_array)
   # board_full?
 
-board = Board.new([
+column: it 'takes a column_index as a parameter, flips the board on its side, and returns the column'
+  board = Board.new([
+    [' ',' ','O',' ',' ',' ',' '],
+    [' ',' ','O',' ',' ',' ',' '],
+    [' ',' ','X','O','O','X','X'],
+    [' ',' ','O','X','O','O','X'],
+    [' ',' ','O','X','X','X','O'],
+    ['X','O','O','X','O','X','X']
+  ])
+  board.column(2) =>
+    ["O", "O", "X", "O", "O", "O"]
 
-              [' ',' ','O',' ',' ',' ',' '],
-              [' ',' ','O',' ',' ',' ',' '],
-             [' ',' ','X','O','O','X','X'],
-              [' ',' ','O','X','O','O','X'],
-              [' ',' ','O','X','X','X','O'],
-               ['X','O','O','X','O','X','X']
+column_full?: 
+  it 'takes a column_index and returns true if that column_index is full'
+  it 'takes a column_index and returns false if that column_index is not full'
 
-])
-
-board.column(2)
- => ["O", "O", "X", "O", "O", "O"]
+place:
+  it 'takes a piece_type and a column_index and adds that piece to the first empty space in that column'
