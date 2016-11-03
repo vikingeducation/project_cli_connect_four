@@ -1,11 +1,13 @@
 class Game
 
   def initialize
+    @board = Board.new
   end
+
+  attr_reader :board, :player_1, :player_2
 
   def play
     player_config
-    setup_board
     game_loop
   end
 
@@ -13,10 +15,6 @@ class Game
     @player_1 = Player.new("Player 1", 'X')
     @player_2 = Player.new("Player 2", 'O')
     @current_player = @player_1
-  end
-
-  def setup_board
-    @board = Board.new
   end
 
   def game_loop
