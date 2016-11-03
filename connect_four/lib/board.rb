@@ -15,7 +15,7 @@ class Board
                      ]
                      attr_reader :columns
 
-  def initialize(columns=Array.new(6) {[" "," "," "," "," "," "," "]})
+  def initialize(columns=Array.new(6) {[]})
     @reds_positions = []
     @blues_positions = []
     @columns = columns
@@ -30,7 +30,7 @@ class Board
   end
 
   def get_row(col)
-    row = @columns[col].length - 1
+    row = @columns[col].length
   end
 
   def valid_drop?(col)

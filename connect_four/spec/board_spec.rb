@@ -49,11 +49,23 @@ describe 'Board' do
   end
 
   describe '#vertical_combos' do
-    let(:combinations){[[0, 4],[0, 3],[0, 2],[0, 1]]}
+    let(:vert_combinations){[[0, 4],[0, 3],[0, 2],[0, 1]]}
 
-    it 'will return :combinations when called using [0,4]' do
-      expect(Board.new.vertical_combos([0,4])).to eq(combinations)
+    it 'will return :vert_combinations when called using [0,4]' do
+      expect(Board.new.vertical_combos([0,4])).to eq(vert_combinations)
     end
+  end
+
+  describe '#horizontal_combos' do
+    let(:hor_combinations){[[[0, 3], [1, 3], [2, 3], [3, 3]], 
+                            [[1, 3], [2, 3], [3, 3], [4, 3]], 
+                            [[2, 3], [3, 3], [4, 3], [5, 3]], 
+                            [[3, 3], [4, 3], [5, 3], [6, 3]]]}
+
+    it 'will return :hor_combinations when called using [3,3]' do
+      expect(Board.new.horizontal_combos([3,3])).to eq(hor_combinations)
+    end
+
   end
 
 end
