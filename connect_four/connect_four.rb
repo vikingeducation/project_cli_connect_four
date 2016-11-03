@@ -25,11 +25,12 @@ class ConnectFour
       else
         Display.invalid_input
       end
+      Display.render_board(@board.board)
     end 
 
     Display.game_won(@current_player.color) if win?
     Display.game_draw(@current_player.color) if draw?
-    play_again?
+    # play_again?
   end 
 
   def win?
@@ -40,13 +41,12 @@ class ConnectFour
     @board.full?
   end
 
-  def play_again?
-    Display.ask_replay
-    replay = Prompt.get_replay
-  end
+  # def play_again?
+  #   Display.ask_replay
+  #   replay = Prompt.get_replay
+  # end
 
 end
 
-# test
 t = ConnectFour.new
 t.run
