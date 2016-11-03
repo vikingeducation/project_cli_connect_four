@@ -96,7 +96,18 @@ describe Board do
 
   describe '#detected_win?' do
 
-    it 'returns true only when a vertical, horizontal, or diagonal win is detected'
+    it 'returns true only when a vertical, horizontal, or diagonal win is detected' do
+
+      # make vertical_win?(piece_type) return false
+      # make horizontal_win?(piece_type) return false
+      # make diagonal_win?(piece_type) return false
+      #expect(detected_win?('X')).to be false
+
+      # make horizontal_win?(piece_type) return true
+      allow(multipurpose_board.horizontal_win?('X')).to eq(true)
+      expect(detected_win?('X')).to be true
+
+    end
 
   end
 
