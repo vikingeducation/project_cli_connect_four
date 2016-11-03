@@ -1,6 +1,4 @@
 # class Board
-# render - skip
-# column
 # column_full?
 # place(piece_type, column)
 # four_in_a_row?
@@ -32,24 +30,21 @@ describe Board do
     end
   end
 
+  describe '#column_full' do
+    it 'takes a column_index and returns true if that column_index is full' do
+      expect(board_1.column_full?(2)).to be_truthy
+    end
+    it 'takes a column_index and returns false if that column_index is not full' do
+      expect(board_1.column_full?(3)).to be_falsy
+    end
+  end
 
-
-
-# column: it 'takes a column_index as a parameter, flips the board on its side, and returns the column'
-#   board = Board.new([
-#     [' ',' ','O',' ',' ',' ',' '],
-#     [' ',' ','O',' ',' ',' ',' '],
-#     [' ',' ','X','O','O','X','X'],
-#     [' ',' ','O','X','O','O','X'],
-#     [' ',' ','O','X','X','X','O'],
-#     ['X','O','O','X','O','X','X']
-#   ])
-#   board.column(2) =>
-#     ["O", "O", "X", "O", "O", "O"]
-
-# column_full?: 
-#   it 'takes a column_index and returns true if that column_index is full'
-#   it 'takes a column_index and returns false if that column_index is not full'
+  describe '#place' do
+    it 'takes a piece_type and a column_index and adds that piece to the first empty space in that column' do
+      board_1.place('O',0)
+      expect(board_1.column(0)).to eq([' ',' ',' ',' ','O','X'])
+    end
+  end
 
 # place:
 #   it 'takes a piece_type and a column_index and adds that piece to the first empty space in that column'
@@ -82,5 +77,3 @@ describe Board do
 #   it 'returns false if the board is not full'
 
 end
-
-
