@@ -3,8 +3,10 @@ require_relative '../lib/connect_four'
 
 describe ConnectFour do 
   
-  let(:game){ ConnectFour.new }
-  let(:comp_game){ ConnectFour.new(true) }
+  let(:game){ ConnectFour.new(false, false) }
+  let(:comp_game){ ConnectFour.new(true, false) }
+  let(:auto_game){ ConnectFour.new(true, true) }
+  
   
   describe "#initialize" do 
 
@@ -27,15 +29,16 @@ describe ConnectFour do
       expect(game.player2.piece).to eq("O")
     end
 
-    it "should start with no current player" do 
-      expect(game.current_player).to be_nil
+    it "should play the game not to play if autoplay is set to false" do 
+      expect(game).not_to receive(:play)
     end
   end
 
   describe "#play" do
     it "should render the board" do
-      allow(game.player1).to receive(:placement).and_return(0)
-      allow(game.player2).to receive(:placement).and_return(1)
+      allow(game.player1).to receive(:placement).and_return(1)
+      allow(game.player2).to receive(:placement).and_return(2)
+      allow(Render).to receive(:placement)
       expect(Render).to receive(:board).at_least(:once)
       game.play
     end

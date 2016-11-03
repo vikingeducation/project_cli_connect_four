@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby
+
 
 require_relative "player"
 require_relative "board"
@@ -6,13 +6,13 @@ require_relative "render"
 
 class ConnectFour
   attr_reader :board, :player1, :player2
-  def initialize (computer = false)
+  def initialize (computer = false, auto_play = true)
     @board = Board.new
     @player1 = Player.new
     @player2 = (computer ? Computer.new(@board) : Player.new)
     @player1.piece = "X"
     @player2.piece = "O"
-    play
+    auto_play ? play : nil
   end
 
   def play
@@ -61,5 +61,3 @@ class ConnectFour
       !!move
     end
 end
-
-ConnectFour.new(true)
