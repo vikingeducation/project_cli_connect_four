@@ -39,7 +39,6 @@ class Game
     loop do
       instructions
       player_input = gets.chomp
-      #quit?(player_input)
       player_move = player_input.to_i
       break if move_valid?(player_move)
       puts "Invalid move"
@@ -52,11 +51,11 @@ class Game
   end
 
   def move_valid?(column_index)
-    valid_column?(column_index) && !@board.column_full?(column_index) && integer_is_string(column_index)
+    valid_column?(column_index) && !@board.column_full?(column_index) && string_is_integer?(column_index)
   end
 
-  def integer_is_string(input)
-    input.to_s.to_i == input
+  def string_is_integer?(input)
+    input.to_i.to_s == input
   end
 
   def valid_column?(column_index)
@@ -69,13 +68,6 @@ class Game
 
   def winner?
     @board.detected_win?(@player_1.piece_type) || @board.detected_win?(@player_2.piece_type)
-  end
-
-  def quit(player_input)
-    if player_input == 'q'
-      puts "Thanks for playing!"
-      exit
-    end
   end
 
   def switch_player
