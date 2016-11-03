@@ -117,27 +117,6 @@ class Board
     results
   end
 
-  def four_diagonal_rights?(row, cell, piece_type)
-    four_adjacent_pieces = []
-    binding.pry
-    4.times do |i|
-      four_adjacent_pieces << @grid[row][cell]
-      row += 1
-      cell += 1
-    end
-    adjacent_checker = four_adjecent_pieces.all? do |piece|
-      piece == piece_type
-    end
-    if adjacent_checker
-      return true
-    else
-      return false
-    end
-  end
-
-  def diagonal_left_win?(piece_type)
-  end
-
   def board_full?
     @grid.all? do |row|
       row.none? do |cell|

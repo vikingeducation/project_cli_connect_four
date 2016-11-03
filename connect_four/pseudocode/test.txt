@@ -1,0 +1,14 @@
+class Board
+  # render
+  # column
+  # column_full?
+  # place(piece_type, column)
+  # four_in_a_row?
+  # detected_win?
+  # vertical_win?(piece_type)
+  # horizontal_win?(piece_type)
+  # diagonal_win?(piece_type)
+  # generate_diagonals(rect_array)
+  # board_full?
+
+
