@@ -20,4 +20,6 @@ describe ConnectFour do
        expect(game.instance_variable_get(:@current_player)).to be_a(Player)
      end
   end
+
+
 end
