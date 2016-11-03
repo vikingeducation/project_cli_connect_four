@@ -11,4 +11,16 @@ class Board
   # generate_diagonals(rect_array)
   # board_full?
 
+board = Board.new([
 
+              [' ',' ','O',' ',' ',' ',' '],
+              [' ',' ','O',' ',' ',' ',' '],
+             [' ',' ','X','O','O','X','X'],
+              [' ',' ','O','X','O','O','X'],
+              [' ',' ','O','X','X','X','O'],
+               ['X','O','O','X','O','X','X']
+
+])
+
+board.column(2)
+ => ["O", "O", "X", "O", "O", "O"]
