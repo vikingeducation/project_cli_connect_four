@@ -12,14 +12,14 @@ class Board
               ['O','O','O','X','X','X','O'],
               ['X','O','O','X','O','X','X']
             ]
-    # @grid = [
-    #           [' ',' ','O',' ',' ',' ',' '],
-    #           [' ',' ','O',' ',' ',' ',' '],
-    #           [' ',' ','X','O','O','X','X'],
-    #           [' ',' ','O','X','O','O','X'],
-    #           [' ',' ','O','X','X','X','O'],
-    #           ['X','O','O','X','O','X','X']
-    #         ]
+    @grid = [
+              [' ',' ','O',' ',' ',' ',' '],
+              [' ',' ','O',' ',' ',' ',' '],
+              [' ',' ','X','O','O','X','X'],
+              [' ',' ','O','X','O','O','X'],
+              [' ',' ','O','X','X','X','O'],
+              ['X','O','O','X','O','X','X']
+            ]
 
     # @grid = [[],[],[],[],[],[],[]]
   end
@@ -75,6 +75,20 @@ class Board
 
   def horizontal_win?(piece_type)
     @grid.any? { |row| four_in_a_row?(row, piece_type) }
+  end
+
+  def generate_diagonals(rect_array)
+    results = []
+    (0..rect_array.length).each do |i|
+      diag = []
+      (0..i).each do |j|
+        (0..i).each do |k|
+          diag.push([j,k]) if j + k == i
+        end
+      end
+      results.push(diag)
+    end
+    results
   end
 
   def diagonal_win?(piece_type)
