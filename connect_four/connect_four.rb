@@ -11,7 +11,7 @@ class ConnectFour
   def play
     welcome_message
     get_players
-    loop do 
+    loop do
       @board.display
       @current_player.make_move
       if game_over?
