@@ -10,9 +10,7 @@ class Board
   #          [0, 0, 0, 0, 0, 0, 0]  # board[5]
   #         ]
 
-  #### TEMPORARY
-  attr_accessor :board 
-  #### TEMPORARY
+  attr_reader :board
 
   def initialize
     @board = Array.new(6) { |row| [0, 0, 0, 0, 0, 0, 0] }

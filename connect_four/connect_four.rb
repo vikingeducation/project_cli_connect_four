@@ -13,42 +13,27 @@ class ConnectFour
   end
 
   def run
-
     Display.instructions
-
-    # Display.render_board(@board)
-
+    Display.render_board(@board.board)
     @current_player = @p2
 
-    # loop until win or draw
     until win? || draw?
-
       @current_player = (@current_player == @p1) ? @p2 : @p1
       input = Prompt.get_input
-
       if @board.valid_move?(input)
         @board = @board.update(input, @current_player.color)
       else
         Display.invalid_input
       end
-
-      # show board
-      # Display.render_board(@board)
-
-    end # until loop
+    end 
 
     Display.game_won(@current_player.color) if win?
-
     Display.game_draw(@current_player.color) if draw?
-
     play_again?
-  end # run method
+  end 
 
   def win?
-    false
-    @board.horizontal_win?(@current_player.color) ||
-    @board.vertical_win?(@current_player.color) ||
-    @board.diagonal_win?(@current_player.color)
+    @board.horizontal_win? || @board.vertical_win? || @board.diagonal_win?
   end
 
   def draw?
