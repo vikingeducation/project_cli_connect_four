@@ -1,6 +1,7 @@
 class Render
   def self.board(board)
-    puts "\n- 1 - 2 - 3 - 4 - 5 - 6 - 7 -"
+    puts "\e[H\e[2J"
+    puts "\n\n- 1 - 2 - 3 - 4 - 5 - 6 - 7 -"
     board.each do |row|
       row.each do |cell|
         print "| #{(cell || " ")} "
@@ -10,7 +11,8 @@ class Render
 
     puts "- 1 - 2 - 3 - 4 - 5 - 6 - 7 -\n\n"
   end
-  def self.weird board
-    p board
+  def self.winner(player)
+    puts "########GAMER OVER########\n\n"
+    puts "#{player} wins!\n\n"
   end
 end

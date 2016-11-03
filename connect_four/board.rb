@@ -1,14 +1,12 @@
-require 'matrix'
-
 class Board
   attr_reader :board
   def initialize
-    @board = Array.new(7) { [nil, nil, nil, nil, nil, nil] }
+    @board = Array.new(7) { Array.new(6) }
   end
 
   def add_piece(column, piece)
     board[column].each_with_index do |cell, row|
-      if !cell
+      if cell.nil?
         board[column][row] = piece
         return [column, row]
       end
@@ -21,59 +19,59 @@ class Board
   end
 
   def win(coords)
-    # check_horizontal || check_vertical || 
-    check_diagonal(coords)
+    check_horizontal || check_vertical || check_diagonal(coords)
   end
 
   def four_in_a_row(section)
     counter = 0
-    section.each.with_index(1) do |item, index|
-      if (item == section[index-1] && !item.nil?)
-        counter += 1
-      else
-        counter = 0
-      end
-      return true if counter == 4
+    section.each_cons(4) do |chunk|
+      return chunk[0] if chunk.all? {|piece| piece == chunk[0] && !piece.nil?}
     end
     false
   end
 
   def check_horizontal
     rows.each do |row|
-      return true if four_in_a_row(row)
+      winner = four_in_a_row(row)
+      return winner if winner
     end
     false
   end
 
   def check_vertical
     board.each do |column|
-      return true if four_in_a_row(column)
+      winner = four_in_a_row(column)
+      return winner if winner
     end
     false
   end
 
-  def negative_diagonal(piece)
-    until piece[0] == 0 || piece[1] == 5
-      piece[0] -= 1
-      piece[1] += 1
+  def diagonal(piece, slope = true)
+    diagonal_start(piece, slope)
+    oper = (slope == true ? :+ : :-)
+    (0..5).collect do |i| 
+      if ((0..6).include?(piece[0] + i)) && ((0..5).include?(piece[1].send(oper, i)))
+        board[piece[0] + i][piece[1].send(oper, i)]
+      else
+        nil
+      end 
     end
-    (0..5).collect { |i| board[piece[0] + i][piece[1] - i] }
   end
 
-  def positive_diagonal(piece)
-    until piece[0] == 0 || piece[1] == 0
+  def diagonal_start(piece, slope)
+    oper, max = slope == true ? [:+, 5] : [:-, 0]
+    until piece[0] == 0 || piece[1] == max
       piece[0] -= 1
-      piece[1] -= 1
+      piece[1].send(oper, 1)
     end
-    (0..5).collect { |i| board[piece[0] + i][piece[1] + i] }
   end
 
   def check_diagonal(piece)
     diagonals = []
-    diagonals << positive_diagonal(piece)
-    diagonals << negative_diagonal(piece)
+    diagonals << diagonal(piece) << diagonal(piece, false)
     diagonals.each do |diagonal|
-      return true if four_in_a_row(diagonal)
+      winner = four_in_a_row(diagonal)
+      return winner if winner
     end
     false
   end
