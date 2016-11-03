@@ -1,3 +1,7 @@
+require_relative 'board'
+require_relative 'game'
+require_relative 'player'
+
 class Board
   DIAGONAL_VECTORS = [
                        [[-3,-3], [-2,-2], [-1,-1], [0,0]],
@@ -12,8 +16,8 @@ class Board
                      attr_reader :columns
 
   def initialize
-    @redsPositions = []
-    @bluesPositions = []
+    @reds_positions = []
+    @blues_positions = []
     @columns = Array.new(6) {[" "," "," "," "," "," "," "]}
   end
 
@@ -91,7 +95,7 @@ class Board
   end
 
   def player_array(player)
-    player.color == 'red' ? @redsPositions : @bluesPositions
+    player.color == 'red' ? @reds_positions : @blues_positions
   end
 
   def render

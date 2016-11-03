@@ -1,7 +1,6 @@
-# Player
-# - move (class or method?)
-# - drop (Piece, column)
-# play passes color position of piece to board
+require_relative 'board'
+require_relative 'game'
+require_relative 'player'
 
 class Player
   attr_reader :color
