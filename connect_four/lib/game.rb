@@ -22,7 +22,7 @@ class Game
     @board.add_piece(current_player(@turn_count), drop)
     check_win
     @turn_count += 1
-    draw if board_full?
+    draw if board_full?(@turn_count)
     game_loop
   end
 
@@ -30,8 +30,8 @@ class Game
     count % 2 == 0 ? @player_blue : @player_red
   end
 
-  def board_full?
-    @turn_count >= 43 ? true : false
+  def board_full?(count)
+    count >= 43 ? true : false
   end
 
   def welcome

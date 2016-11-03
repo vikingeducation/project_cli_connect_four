@@ -1,9 +1,8 @@
 require_relative 'board'
 require_relative 'game'
-require_relative 'player'
 
 class Player
-  attr_reader :color
+  attr_reader :color,
               :symbol
 
   def initialize(color)
