@@ -43,7 +43,7 @@ class ConnectFour
   def win?
     @board.horizontal_win?(@current_player.color) ||
     @board.vertical_win?(@current_player.color) ||
-    @board.diagonal_win?(@current_player.color) 
+    @board.diagonal_win?(@current_player.color)
   end
 
   def draw?

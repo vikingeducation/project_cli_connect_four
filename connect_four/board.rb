@@ -41,7 +41,26 @@ class Board
   end
 
   def horizontal_win?(color)
+    # each row that has 4 or more values
+
+    @board.each_with_index do |row_arr, row_num|
+
+      start_point = 0
+      end_point = 3
+
+      (start_point..end_point).each do |col_num|
+        return true if row_arr[col_num..col_num + 3].all? { |piece| piece == color }
+      end
+    end
+
     false
+
+    #
+      # find a starting coordinate [0, 1, 2, 3] == player
+        # check the final coordinate: [index + 3] == player
+          # check the 3rd coordinate: [index + 2]
+            # check the 2nd coord: [index + 1]
+              # return true => win condition
   end
 
   def vertical_win?(color)
@@ -52,13 +71,7 @@ class Board
     false
   end
 
-  # horizontal:
-    # each row that has 4 or more values
-      # find a starting coordinate [0, 1, 2, 3] == player
-        # check the final coordinate: [index + 3] == player
-          # check the 3rd coordinate: [index + 2]
-            # check the 2nd coord: [index + 1]
-              # return true => win condition
+
 
   # vertical:
     # use .transpose
