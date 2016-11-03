@@ -4,9 +4,9 @@ require_relative 'player'
 
 class Game
   def initialize(attr = {})
-    @player_red = attr[:player_red]
-    @player_blue = attr[:player_blue]
-    @board = attr[:board]
+    @player_red = Player.new('red')
+    @player_blue = Player.new('blue')
+    @board = Board.new
     @turn_count = 1 # Odd for red, Even for Blue, at 43 game over
     @win = false
   end
@@ -22,7 +22,7 @@ class Game
     @board.add_piece(current_player(@turn_count), drop)
     check_win
     @turn_count += 1
-    draw if @board.board_full?
+    draw if board_full?
     game_loop
   end
 
@@ -43,7 +43,7 @@ class Game
   end
 
   def check_win
-    congratulations if @board.four_in_a_row?(player)
+    congratulations if @board.four_in_a_row?(current_player(@turn_count))
   end
 
   def congratulations

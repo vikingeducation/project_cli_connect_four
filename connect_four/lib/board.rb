@@ -22,23 +22,23 @@ class Board
   end
 
   def add_piece(player, col)
-    @columns[col][row] = player.symbol if valid_drop?(col)
     row = get_row(col)
+    @columns[col][row] = player.symbol if valid_drop?(col)
     position = [col, row]
     player_array(player).push position
     @last_piece = position
   end
 
   def get_row(col)
-    row = col.length - 1
+    row = @columns[col].length - 1
   end
 
   def valid_drop?(col)
-    col.in_bounds? && col.not_full?
+    in_bounds?(col) && not_full?(col)
   end
 
   def not_full?(col)
-    col.length < 7
+    @columns[col].length < 7
   end
 
   def in_bounds?(col)
@@ -100,10 +100,10 @@ class Board
 
   def render
     @columns.transpose.each do |row|
-      p row.join "|"
+      p row.join '|'
     end
-    print "_____________"
-    print "0|1|2|3|4|5|6"
+    puts "_____________"
+    puts "0|1|2|3|4|5|6"
   end
 
   def four_in_a_row?(player)
