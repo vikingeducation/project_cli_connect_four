@@ -63,8 +63,6 @@ describe ConnectFour do
       
     end
 
-    it "should reject an invalid move"
-
     it "should re-render the board after a valid move" do
       allow(game.player1).to receive(:placement).and_return(1)
       allow(game.player2).to receive(:placement).and_return(2)
@@ -73,11 +71,31 @@ describe ConnectFour do
       expect(Render).to receive(:board).at_least(3).times
     end
 
-    it "should switch players on unless the game ends"
+    it "should switch players on unless the game ends" do
+      allow(Render).to receive(:placement)
+      allow(Render).to receive(:winner)
+      allow(Render).to receive(:board)
+      allow(game).to receive(:game_end?).and_return(false, true)
+      allow(game.player1).to receive(:placement).and_return(0)
+      allow(game.board).to receive(:add_piece).and_return([0,0])
+      expect(game.player2).to receive(:placement).and_return(0)
+    end
 
-    it "should declare a winner when the game ends"
+    it "should declare a winner when the game ends" do
+      allow(Render).to receive(:placement)
+      allow(Render).to receive(:winner)
+      allow(Render).to receive(:board)
+      allow(game).to receive(:game_end?).and_return(true)
+      allow(game.player1).to receive(:placement).and_return(0)
+      allow(game.board).to receive(:add_piece).with(0, game.player1.piece).and_return([0,0])
+      expect(game).to receive(:declare_winner).exactly(:once)
+    end
+  end
 
-
-
+  describe "#get_move" do
+    it "should reject an invalid move" do
+      allow(game.player1).to receive(:placement).and_return(8, 0)
+      expect(game.send(:get_move, game.player1)).to eq([0,0])
+    end
   end
 end
