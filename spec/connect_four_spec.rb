@@ -35,22 +35,45 @@ describe ConnectFour do
   end
 
   describe "#play" do
+    after(:each){game.play}
     it "should render the board" do
       allow(game.player1).to receive(:placement).and_return(1)
       allow(game.player2).to receive(:placement).and_return(2)
       allow(Render).to receive(:placement)
       allow(Render).to receive(:winner)
       expect(Render).to receive(:board).at_least(:once)
-      game.play
     end
 
-    it "should set the player on the first turn"
+    it "should set the player on the first turn" do
+      allow(Render).to receive(:placement)
+      allow(Render).to receive(:winner)
+      allow(Render).to receive(:board)
+      allow(game.player1).to receive(:placement).and_return(1)
+      allow(game.player2).to receive(:placement).and_return(2)
+      expect(game).to receive(:switch_player).at_least(:once).and_return(game.player1)
+    end
 
-    it "should place a new piece on the board"
+    it "should place a new piece on the board" do
+      allow(Render).to receive(:placement)
+      allow(Render).to receive(:winner)
+      allow(Render).to receive(:board)
+      allow(game).to receive(:game_end?).and_return(true)
+      allow(game.player1).to receive(:placement).and_return(0)
+      allow(game.player2).to receive(:placement).and_return(1)
+      expect(game.board).to receive(:add_piece).with(0, game.player1.piece).and_return([0,0])
+      expect(game.board).to receive(:add_piece).with(1, game.player2.piece).and_return([1,0])
+      
+    end
 
     it "should reject an invalid move"
 
-    it "should re-render the board after a valid move"
+    it "should re-render the board after a valid move" do
+      allow(game.player1).to receive(:placement).and_return(1)
+      allow(game.player2).to receive(:placement).and_return(2)
+      allow(Render).to receive(:placement)
+      allow(Render).to receive(:winner)
+      expect(Render).to receive(:board).at_least(3).times
+    end
 
     it "should switch players on unless the game ends"
 
