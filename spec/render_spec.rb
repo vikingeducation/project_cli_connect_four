@@ -28,7 +28,7 @@ describe Render do
   end
 
   describe ".format_cells" do
-    it "should a formatted row" do
+    it "should output a formatted row" do
       expect(Render).to receive(:print).with("| X ").exactly(3).times
       expect(Render).to receive(:puts).with("|")
       Render.format_cells(["X", "X", "X"])
