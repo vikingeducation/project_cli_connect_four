@@ -5,13 +5,13 @@ class Prompt
   		Display.ask_input
   		input = gets.strip
       Display.invalid_input
-  	end until Prompt.valid_input?(input)
+  	end until Prompt.valid_input?(input) && Prompt.valid_length?(input)
+
   	input.to_i
   end
 
   def self.valid_input?(input)
-    valid_length?(input)
-  	!!input.match(/\A[1-7]\Z/)
+    !!input.match(/\A[1-7]\Z/)
   end
 
   def self.valid_length?(input)
@@ -28,9 +28,7 @@ class Prompt
   end
 
   def self.valid_replay?(replay)
-    ######
-    return true if replay == "y" || replay == "n"
-    false
+    replay == "y" || replay == "n"
   end
 
 end

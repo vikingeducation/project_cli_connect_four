@@ -21,7 +21,7 @@ class ConnectFour
       @current_player = (@current_player == @p1) ? @p2 : @p1
       input = Prompt.get_input
 
-      if Prompt.valid_input?(input) && @board.valid_move?(input)
+      if @board.valid_move?(input)
         @board = @board.update(input, @current_player.color)
       else
         Display.invalid_input
