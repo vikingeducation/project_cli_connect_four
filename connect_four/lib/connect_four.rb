@@ -23,11 +23,11 @@ class ConnectFour
 
       if @board.valid_move?(input)
         @board = @board.update(input, @current_player.color)
+        Display.render_board(@board.board)
       else
         Display.invalid_input
       end
 
-      Display.render_board(@board.board)
     end
 
     Display.game_won(@current_player.color) if win?
