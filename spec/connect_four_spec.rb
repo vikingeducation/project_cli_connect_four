@@ -39,6 +39,7 @@ describe ConnectFour do
       allow(game.player1).to receive(:placement).and_return(1)
       allow(game.player2).to receive(:placement).and_return(2)
       allow(Render).to receive(:placement)
+      allow(Render).to receive(:winner)
       expect(Render).to receive(:board).at_least(:once)
       game.play
     end
