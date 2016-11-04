@@ -20,18 +20,20 @@ class ConnectFour
     until win? || draw?
       @current_player = (@current_player == @p1) ? @p2 : @p1
       input = Prompt.get_input
-      if @board.valid_move?(input)
+
+      if Prompt.valid_input?(input) && @board.valid_move?(input)
         @board = @board.update(input, @current_player.color)
       else
         Display.invalid_input
       end
+
       Display.render_board(@board.board)
-    end 
+    end
 
     Display.game_won(@current_player.color) if win?
     Display.game_draw(@current_player.color) if draw?
     # play_again?
-  end 
+  end
 
   private
 
