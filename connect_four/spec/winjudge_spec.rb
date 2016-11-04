@@ -27,9 +27,14 @@ describe WinJudge do
     it "has a piece" do
       expect(winjudge.instance_variable_get(:@piece)).to eq('_')
     end
+  end
 
-
-
+  describe "#check_for_win?" do
+    it "tests for up and down" do
+      winjudge.layout[0] = ["X","X","X","X", "_", "_"]
+      winjudge.last_move = [0,0]
+      expect(winjudge.check_for_win?).to be true
+    end
   end
 
 end

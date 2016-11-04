@@ -18,11 +18,4 @@ describe Player do
       expect(player.piece).to eq(player.instance_variable_get(:@piece))
     end
   end
-
-  describe "#piece=" do
-    it "lets us change the player peice" do  
-      player.piece = "test"
-      expect(player.instance_variable_get(:@piece)).to eq("test")
-    end
-  end
 end

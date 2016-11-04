@@ -11,7 +11,7 @@ class WinJudge
   }
 
   attr_accessor :last_move
-  attr_writer :layout
+  attr_accessor :layout
 
   def initialize(layout, last_move)
     @layout = layout
