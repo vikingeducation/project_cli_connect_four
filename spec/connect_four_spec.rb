@@ -59,9 +59,7 @@ describe ConnectFour do
       allow(Render).to receive(:board)
       allow(game).to receive(:game_end?).and_return(true)
       allow(game.player1).to receive(:placement).and_return(0)
-      allow(game.player2).to receive(:placement).and_return(1)
       expect(game.board).to receive(:add_piece).with(0, game.player1.piece).and_return([0,0])
-      expect(game.board).to receive(:add_piece).with(1, game.player2.piece).and_return([1,0])
       
     end
 
