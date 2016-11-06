@@ -1,0 +1,6 @@
+Gemfile
+Gemfile.lock
+Guardfile
+pseudocode.rb
+.rspec
+tmp/
