@@ -10,6 +10,7 @@ class GameView
   end
 
   def self.print_player_move_prompt(player)
+    puts
   	print "Player #{player} enter a column 1-7: "
   end
 
@@ -26,5 +27,15 @@ class GameView
 
   def self.print_play_again_prompt
     print "Play again? (y/n): "
+  end
+
+  def self.pick_players_prompt
+    puts "Enter '1' for 1 player, '2' for 2 player: "
+    print "> "
+  end
+
+  def self.player_default_message
+    puts "Invalid input, defaulting to 2 player game..."
+    puts
   end
 end
