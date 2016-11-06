@@ -15,7 +15,7 @@ describe Board do
 		   [0, 0, 0, 0, 0, 0, 0], 
 		   [0, 0, 0, 0, 0, 0, 0]
 		  ]
-		end 
+		end
 
 		it "creates an empty board" do 
 			expect(test_board.board).to eq(empty_board)

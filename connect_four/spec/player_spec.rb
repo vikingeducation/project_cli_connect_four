@@ -10,6 +10,8 @@ describe Player do
 			expect(test_player.color).to eq('R')
 		end
 
+		# fails if it doesn't receive a color
+
 	end
 
 end

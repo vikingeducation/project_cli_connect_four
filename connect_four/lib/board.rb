@@ -13,7 +13,7 @@ class Board
   attr_reader :board
 
   def initialize
-    @board = Array.new(6) { |row| [0, 0, 0, 0, 0, 0, 0] }
+    @board = Array.new(6) { Array.new(7) { 0 } }
   end
 
   def update(col_num, piece) 
