@@ -1,3 +1,4 @@
+#!/usr/bin/ruby
 
 require_relative 'board'
 require_relative 'connect_four_controller'

@@ -2,8 +2,8 @@
 class Player
   attr_reader :piece
 
-  def initialize(piece:)
-    @piece = :piece
+  def initialize(piece: nil)
+    @piece = piece
   end
 
   def get_move
@@ -15,7 +15,7 @@ end
 class HumanPlayer < Player
 
   def get_move
-
+    gets.strip
   end
 end
 

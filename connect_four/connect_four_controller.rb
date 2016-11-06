@@ -1,7 +1,7 @@
 
 class ConnectFourController
 
-  QUIT_OPTIONS = ["q"]
+  QUIT_OPTIONS = %w(q quit Q exit)
 
   def initialize(args = {})
     @game  = args[:game]                  || ConnectFour
@@ -26,19 +26,21 @@ class ConnectFourController
       game.render
       self.active_player = get_active_player
       player_move = get_player_move(active_player, game)
-      game.add_piece(player_move, player.piece)
+      game.add_piece(player_move, active_player.piece)
       break if game.over?
     end
   end
 
   def get_player_move(player, game)
+    player_input = ""
     loop do
-      view.print_player_move_prompt
+      view.print_player_move_prompt(active_player.piece)
       player_input = player.get_move
       quit if QUIT_OPTIONS.include?(player_input)
       break if game.valid_move?(player_input)
+      view.print_invalid_input
     end
-    player_input
+    player_input.to_i
   end
 
   protected

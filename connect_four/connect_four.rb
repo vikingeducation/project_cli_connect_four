@@ -28,8 +28,19 @@ class ConnectFour
   end
 
   def valid_move?(move)
-    board.in_range?(move) &&
-    board.column_not_full?(move)
+    board.in_range?(move.to_i) &&
+    board.column_not_full?(move.to_i)
   end
 
+  def over?
+    win? || draw?
+  end
+
+  def win?
+    board.four_in_a_row?
+  end
+
+  def draw?
+    board.full?
+  end
 end
