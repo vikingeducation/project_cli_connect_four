@@ -1,11 +1,11 @@
-class Player
-  attr_reader :color
+# class Player
+#   attr_reader :color
 
-  def initialize(color)
-    @color = color
-  end
-end
+#   def initialize(color)
+#     @color = color
+#   end
+# end
 
-# Later on  
-# HumanPlayer < Player
-# ComputerPlayer < Player
+# # Later on  
+# # HumanPlayer < Player
+# # ComputerPlayer < Player

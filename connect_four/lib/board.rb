@@ -1,100 +1,144 @@
+# empty board array
+# assuming width = 7 && height = 6
+  # [
+  #  []
+  #  []
+  #  []
+  #  []
+  #  []
+  #  []
+  #  []
+  # ]
+
+# semi-filled board array
+  # [
+  #  ['X','O']
+  #  ['X']
+  #  []
+  #  ['X','O','O']
+  #  ['X']
+  #  ['O','X','O']
+  #  []
+  # ]
+
+# full board array 
+  # [
+  #  ['X','O','X','O','X','O']
+  #  ['X','O','X','O','X','O']
+  #  ['X','O','X','O','X','O']
+  #  ['X','O','X','O','X','O']
+  #  ['X','O','X','O','X','O']
+  #  ['X','O','X','O','X','O']
+  #  ['X','O','X','O','X','O']
+  # ]
+
 class Board
 
-  # board = [
-  #           0  1  2  3  4  5  6
-  #          [r, b, r, b, b, b, b], # board[0]
-  #          [0, 0, 0, 0, 0, b, 0], # board[1]
-  #          [0, 0, 0, 0, 0, b, 0], # board[2]
-  #          [0, 0, 0, 0, 0, b, 0], # board[3]
-  #          [0, 0, 0, 0, 0, 0, 0], # board[4]
-  #          [0, 0, 0, 0, 0, 0, 0]  # board[5]
-  #         ]
+  attr_reader :width, :height
+  attr_accessor :board
 
-  attr_reader :board
-
-  def initialize
-    @board = Array.new(6) { Array.new(7) { 0 } }
+  def initialize(args = {})
+    @width = args[:width] || 7
+    @height = args[:height] || 6
+    raise "Error: board too small" if @height < 4 || @width < 4
+    @board = Array.new(@width) { [] }
   end
 
-  def update(col_num, piece) 
-    col_num -= 1
-    @board.length.times do |row_num|
-      if @board[row_num][col_num] == 0
-        @board[row_num][col_num] = piece 
-        break
-      end
-    end
-    self 
+  def update(column, piece) 
+    @board[column-1] << piece
   end
 
-  def valid_move?(col_num)
-    last_row = 5
-    col_num -= 1
-    @board[last_row][col_num] == 0
+  def valid_move?(column)
+    @board[column-1].length < @height
   end
 
   def win? 
-    horizontal_win? || vertical_win? || 
-    diagonal_tl_br_win? || diagonal_tr_bl_win?
+    vertical_win? || horizontal_win? || 
+    diagonal_win_neg? || diagonal_win_pos?
   end
 
   def full?
-    !@board.flatten.include?(0)
+    @board.all? { |column| column.length == @height }
   end
 
-  private
+  private 
 
-  def horizontal_win?
-    @board.each do |row|
-      start_point, end_point = 0, 3
-      (start_point..end_point).each do |offset|
-        four_piece_array = row[start_point+offset..end_point+offset]
-        next if four_piece_array.include?(0)
-        return true if four_in_a_row?(four_piece_array)
-      end
-    end
-    false
-  end
+  # win conditions
 
   def vertical_win?
-    @board = @board.transpose
-    result = horizontal_win?
-    @board = @board.transpose
-    result
+    @board.each do |column|
+      next if column.length < 4 
+      chunks = column.each_cons(4) 
+      return true if has_winning_chunk?(chunks)
+    end
+    false
   end
 
-  def diagonal_tl_br_win?
-    rows_to_check = @board[0..2]
-    rows_to_check.each_with_index do |row, row_num| # row_num = 0, 1, 2
-      start_point, end_point = 0, 3
-      (start_point..end_point).each do |col_num| # col_num = 0, 1, 2, 3
-        offset = 0
-        four_piece_array = []
-        while offset < 4
-          four_piece_array << @board[row_num+offset][col_num+offset]
-          offset += 1
+  def horizontal_win?
+    (0..@height).each do |row_num| 
+      row_pieces = []
+      @board.each do |column| 
+        row_pieces << column[row_num] if column[row_num] # ...exists
+      end
+      next if row_pieces.length < 4
+      chunks = row_pieces.each_cons(4)
+      return true if has_winning_chunk?(chunks)
+    end
+    false
+  end
+
+  def diagonal_win_neg? # top left to bottom right diagonal
+    return false if not_enough_pieces?
+    board_padded = pad_board(nil) # fill all empty spaces in board with nil
+    (0..@width-4).each do |col_num| 
+      (0..@height-4).each do |row_num| 
+        diagonal_pieces = []
+        (0..3).each do |offset| 
+          diagonal_pieces << board_padded[col_num+offset][row_num+offset] =
         end
-        next if four_piece_array.include?(0)    
-        return true if four_in_a_row?(four_piece_array) 
+        next if diagonal_pieces.include?(nil)
+        return true if pieces_identical?(diagonal_pieces)
       end
     end
     false
   end
 
-  def diagonal_tr_bl_win?
+  def diagonal_win_pos? # top right to bottom left diagonal
     flip_board
-    result = diagonal_tl_br_win?
+    result = diagonal_win_neg?
     flip_board
     result
   end
 
-  def flip_board
-    @board.map! { |row| row.reverse }
+  # helpers
+
+  def pieces_identical?(piece_array)
+    first_piece = piece_array[0]
+    piece_array.all? { |piece| piece == first_piece }
   end
 
-  def four_in_a_row?(four_piece_array)
-    first_piece = four_piece_array[0]
-    four_piece_array.all? { |piece| piece == first_piece }
+  def has_winning_chunk?(chunks) 
+    chunks.each do |four_piece_chunk|
+      return true if pieces_identical?(four_piece_chunk)
+    end
+    false
+  end
+
+  def not_enough_pieces?
+    @board.all? { |column| column.length < 4 }
+  end
+
+  def pad_board(pad_val)
+    @board.map do |column|
+      while column.length < @height
+        column << pad_val
+      end
+      column
+    end
+  end
+
+  def flip_board 
+    @board.map! { |column| column.reverse }
   end
 
 end

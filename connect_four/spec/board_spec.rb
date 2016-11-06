@@ -2,197 +2,100 @@ require 'board'
 
 describe Board do 
 
-	let(:test_board) { Board.new }
+	let(:board) { Board.new }
+	let(:board_custom) { Board.new(width: 8, height: 10) }
 
 	describe "#initialize" do 
 
-		let(:empty_board) do 
-			[
-		   [0, 0, 0, 0, 0, 0, 0], 
-		   [0, 0, 0, 0, 0, 0, 0], 
-		   [0, 0, 0, 0, 0, 0, 0], 
-		   [0, 0, 0, 0, 0, 0, 0], 
-		   [0, 0, 0, 0, 0, 0, 0], 
-		   [0, 0, 0, 0, 0, 0, 0]
-		  ]
+		it "sets a board's width as 7 pieces by default" do 
+			expect(board.width).to eq(7)
 		end
 
-		it "creates an empty board" do 
-			expect(test_board.board).to eq(empty_board)
+		it "sets a board's height as 6 pieces by default" do
+			expect(board.height).to eq(6)
 		end
 
-	end
-
-	describe "#update" do
-
-		let(:one_piece_board) do 
-			[
-		   [0, 0, 0, 0, 'X', 0, 0], 
-		   [0, 0, 0, 0, 0, 0, 0], 
-		   [0, 0, 0, 0, 0, 0, 0], 
-		   [0, 0, 0, 0, 0, 0, 0], 
-		   [0, 0, 0, 0, 0, 0, 0], 
-		   [0, 0, 0, 0, 0, 0, 0]
-		  ]
+		it "sets a board's width to a specific width, if desired" do 
+			expect(board_custom.width).to eq(8)
 		end
 
-		let(:stack_piece_board) do 
-			[
-		   [0, 0, 0, 0, 'X', 0, 0], 
-		   [0, 0, 0, 0, 'Y', 0, 0], 
-		   [0, 0, 0, 0, 0, 0, 0], 
-		   [0, 0, 0, 0, 0, 0, 0], 
-		   [0, 0, 0, 0, 0, 0, 0], 
-		   [0, 0, 0, 0, 0, 0, 0]
-		  ]
-		end
+		it "sets a board's height to a specific height, if desired" do 
+			expect(board_custom.height).to eq(10)
+		end 
 
-		it "adds a piece" do 
-			test_board.update(5,'X')
-			expect(test_board.board).to eq(one_piece_board)
-		end
-
-		it "stacks pieces in a column" do 
-			test_board.update(5,'X')
-			test_board.update(5,'Y')
-			expect(test_board.board).to eq(stack_piece_board)
+		it "raises an error if a board is too small" do
+			expect do
+				Board.new(width: 3, height: 2)
+			end.to raise_error(RuntimeError)
 		end
 
 	end
 
-	describe "#valid_move?" do
+	describe "#valid_move?" do 
 
-		let(:column_full_board) do 
-			[
-		   [0, 0, 0, 0, 'X', 0, 0], 
-		   [0, 0, 0, 0, 'Y', 0, 0], 
-		   [0, 0, 0, 0, 'X', 0, 0], 
-		   [0, 0, 0, 0, 'X', 0, 0], 
-		   [0, 0, 0, 0, 'Y', 0, 0], 
-		   [0, 0, 0, 0, 'X', 0, 0]
-		  ]
+		it "returns true if column has available spaces" do 
+			2.times { board.update(5, 'Y') }
+			expect(board.valid_move?(5)).to be true
 		end
 
-		it "returns false if column is full" do
-			test_board.instance_variable_set( :@board, column_full_board )
-			expect(test_board.valid_move?(5)).to be false
+		it "returns false if column is full" do 
+			board.height.times { board.update(3, 'X') }
+			expect(board.valid_move?(3)).to be false
 		end
 
 	end
 
-	describe "#win?" do
+	describe "#win?" do 
 
-		let(:horiz_win_board) do 
-				[
-			   [0, 0, 'X', 'X', 'X', 'X', 0], 
-			   [0, 0, 0, 0, 0, 0, 0], 
-			   [0, 0, 0, 0, 0, 0, 0], 
-			   [0, 0, 0, 0, 0, 0, 0], 
-			   [0, 0, 0, 0, 0, 0, 0], 
-			   [0, 0, 0, 0, 0, 0, 0]
-			  ]
-			end
-
-		let(:vert_win_board) do 
-			[
-		   [0, 0, 0, 0, 'X', 0, 0], 
-		   [0, 0, 0, 0, 'Y', 0, 0], 
-		   [0, 0, 0, 0, 'Y', 0, 0], 
-		   [0, 0, 0, 0, 'Y', 0, 0], 
-		   [0, 0, 0, 0, 'Y', 0, 0], 
-		   [0, 0, 0, 0, 'X', 0, 0]
-		  ]
+		it "successfully recognizes a vertical win" do 
+			4.times { board.update(3, 'X') }
+			expect(board.win?).to be true
 		end
 
-		let(:diag_tl_br_win_board) do 
-			[
-		   ['X', 0, 0, 0, 0, 0, 0], 
-		   [0, 'X', 0, 0, 0, 0, 0], 
-		   [0, 0, 'X', 0, 0, 0, 0], 
-		   [0, 0, 0, 'X', 0, 0, 0], 
-		   [0, 0, 0, 0, 0, 0, 0], 
-		   [0, 0, 0, 0, 0, 0, 0]
-		  ]
-		end		
-
-		let(:diag_tr_bl_win_board) do 
-			[
-		   [0, 0, 0, 0, 'X', 0, 0], 
-		   [0, 0, 0, 'X', 0, 0, 0], 
-		   [0, 0, 'X', 0, 0, 0, 0], 
-		   [0, 'X', 0, 0, 0, 0, 0], 
-		   [0, 0, 0, 0, 0, 0, 0], 
-		   [0, 0, 0, 0, 0, 0, 0]
-		  ]
+		it "successfully recognizes a horizontal win" do 
+			(1..4).each { |column| board.update(column, 'X') }
+			expect(board.win?).to be true
 		end
 
-		it "returns true for a horizontal win" do
-
-			test_board.instance_variable_set( :@board, horiz_win_board )
-			expect(test_board.win?).to be true
-
+		it "successfully recognizes a diagonal win (positive slope)" do
+			board.update(1,'X')
+			board.update(2,'O')
+			board.update(2,'X')
+			2.times { board.update(3, 'O') }
+			board.update(3, 'X')
+			3.times { board.update(4, 'O') }
+			board.update(4, 'X')	
+			expect(board.win?).to be true
 		end
 
-		it "returns true for a vertical win" do
-
-			test_board.instance_variable_set( :@board, vert_win_board )
-			expect(test_board.win?).to be true
-
-		end
-
-		it "returns true for a top-left to bottom-right diagonal win" do 
-
-			test_board.instance_variable_set( :@board, diag_tl_br_win_board )
-			expect(test_board.win?).to be true
-
-		end
-
-		it "returns true for a top-right to bottom-left diagonal win" do
-
-			test_board.instance_variable_set( :@board, diag_tr_bl_win_board )
-			expect(test_board.win?).to be true
-
+		it "successfully recognizes a diagonal win (negative slope)" do
+			board.update(board.width,'X')
+			board.update(board.width-1,'O')
+			board.update(board.width-1,'X')
+			2.times { board.update(board.width-2, 'O') }
+			board.update(board.width-2, 'X')
+			3.times { board.update(board.width-3, 'O') }
+			board.update(board.width-3, 'X')
+			expect(board.win?).to be true
 		end
 
 	end
 
 	describe "#full?" do 
 
-		let(:full_board) do 
-			[
-		   ['x', 'x', 'x', 'x', 'x', 'x', 'x'], 
-		   ['x', 'x', 'x', 'x', 'x', 'x', 'x'], 
-		   ['x', 'x', 'x', 'x', 'x', 'x', 'x'], 
-		   ['x', 'x', 'x', 'x', 'x', 'x', 'x'], 
-		   ['x', 'x', 'x', 'x', 'x', 'x', 'x'], 
-		   ['x', 'x', 'x', 'x', 'x', 'x', 'x']
-		  ]
-		end 		
-
-
-		let(:almost_full_board) do 
-			[
-		   ['x', 'x', 'x', 'x', 'x', 'x', 'x'], 
-		   ['x', 'x', 'x', 'x', 'x', 'x', 'x'], 
-		   ['x', 'x', 'x', 'x', 'x', 'x', 'x'], 
-		   ['x', 'x', 'x', 0, 'x', 'x', 'x'], 
-		   ['x', 'x', 'x', 'x', 'X', 'x', 'x'], 
-		   ['x', 'x', 'x', 'x', 'x', 'x', 'x']
-		  ]
-		end 	
-
-		it "returns true for a full board" do
-
-			test_board.instance_variable_set( :@board, full_board )
-			expect(test_board.full?).to be true
-
+		it "returns true if board is full" do 
+			board.width.times do |col_num|
+				board.height.times { board.update(col_num, 'X') }
+			end
+			expect(board.full?).to be true
 		end
 
-		it "returns false for a board missing one piece" do
-
-			test_board.instance_variable_set( :@board, almost_full_board )
-			expect(test_board.full?).to be false
-
+		it "returns false if board is one piece away from being full" do 
+			(board.width-1).times do |col_num|
+				board.height.times { board.update(col_num, 'X') }
+			end
+			(board.height-1).times { board.update(board.width-1, 'X') }
+			expect(board.full?).to be false
 		end
 
 	end
