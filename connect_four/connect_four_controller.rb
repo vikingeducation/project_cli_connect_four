@@ -16,7 +16,8 @@ class ConnectFourController
       current_game = game.new
       view.welcome(game.name, current_game.instructions)
       turn_loop(current_game)
-      view.end_message(current_game.outcome)
+      current_game.render
+      view.end_message(current_game.win?)
       break unless play_again?
     end
   end
@@ -54,8 +55,8 @@ class ConnectFourController
 
     def play_again?
       view.print_play_again_prompt
-      player_input = player.get_input
-      player_input == "yes" ? true : false
+      player_input = gets.strip.downcase
+      player_input == "y" ? true : false
     end
 
     def quit

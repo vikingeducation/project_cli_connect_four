@@ -1,5 +1,3 @@
-require './board_view'
-
 class Grid
   attr_reader :column_count, :row_count
 
