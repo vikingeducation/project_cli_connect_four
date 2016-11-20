@@ -1,6 +1,7 @@
 require_relative "human_player.rb"
 require_relative "computer_player.rb"
-require_relative "peg_system.rb"
+# require_relative "peg_system.rb"
+require_relative "peg_system_test.rb"
 require_relative "board.rb"
 
 class ConnectFour
@@ -47,17 +48,14 @@ class ConnectFour
 
   def against_player_or_computer?
     loop do
+      @peg_system_one = PegSystem.new("@", @board)
+      @peg_system_two = PegSystem.new("O", @board)
+      @player_one = HumanPlayer.new("PLAYER ONE", "@" ,@board)
       case ask_for_player_or_computer
       when "C"
-        @peg_system_one = PegSystem.new("@", @board)
-        @peg_system_two = PegSystem.new("O", @board)
-        @player_one = HumanPlayer.new("PLAYER ONE", "@" ,@board)
         @player_two = ComputerPlayer.new("COMPUTER", "O" ,@board, @peg_system_one, @peg_system_two)
         break
       when "U"
-        @peg_system_one = PegSystem.new("@", @board)
-        @peg_system_two = PegSystem.new("O", @board)
-        @player_one = HumanPlayer.new("PLAYER ONE", "@" ,@board)
         @player_two = HumanPlayer.new("PLAYER TWO", "O" ,@board)
         break
       else
@@ -98,11 +96,11 @@ class ConnectFour
   end
 
   def switch_players
-    @current_player == @player_one ? @current_player = @player_two : @current_player = @player_one
+    @current_player = @current_player == @player_one ? @player_two : @player_one
   end
 
   def switch_peg_system
-    @current_peg_system == @peg_system_one ? @current_peg_system = @peg_system_two : @current_peg_system = @peg_system_one
+    @current_peg_system = @current_peg_system == @peg_system_one ? @peg_system_two : @peg_system_one
   end
 
 end

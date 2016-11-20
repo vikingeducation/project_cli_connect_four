@@ -138,17 +138,7 @@ class PegSystem
     south_east_diagonals_array.each_with_index do |row, row_idx|
       x = shift_se_diagonal_to_get_board_coord(row_idx)[0]
       y = shift_se_diagonal_to_get_board_coord(row_idx)[1]
-      case
-      when detect_pattern_in_array(row, @peg_peg_peg_empty)
-        potential_guess = [detect_pattern_in_array(row, @peg_peg_peg_empty) + 3 + x, detect_pattern_in_array(row, @peg_peg_peg_empty) + 3 + y]
-      when detect_pattern_in_array(row, @peg_peg_empty_peg)
-        potential_guess = [detect_pattern_in_array(row, @peg_peg_empty_peg) + 2 + x, detect_pattern_in_array(row, @peg_peg_empty_peg) + 2 + y]
-      when detect_pattern_in_array(row, @peg_empty_peg_peg)
-        potential_guess = [detect_pattern_in_array(row, @peg_empty_peg_peg) + 1 + x, detect_pattern_in_array(row, @peg_empty_peg_peg) + 1 + y]
-      when detect_pattern_in_array(row, @empty_peg_peg_peg)
-        potential_guess = [detect_pattern_in_array(row, @empty_peg_peg_peg) + x, detect_pattern_in_array(row, @empty_peg_peg_peg) + y]
-      end
-      puts "DBG: potential_guess-se = #{potential_guess.inspect}"
+      potential_guess = diagonal_conditions(-1,row,x,y) || []
       space_under_slot?(potential_guess) ? (break) : potential_guess = []
     end
     potential_guess.any? && !@board.board[0][potential_guess[1]] ? potential_guess[1] + 1 : nil
@@ -176,21 +166,23 @@ class PegSystem
     north_east_diagonals_array.each_with_index do |row, row_idx|
       x = shift_ne_diagonal_to_get_board_coord(row_idx)[0]
       y = shift_ne_diagonal_to_get_board_coord(row_idx)[1]
-      case
-      when detect_pattern_in_array(row, @peg_peg_peg_empty)
-        potential_guess = [detect_pattern_in_array(row, @peg_peg_peg_empty) - (3 + x), detect_pattern_in_array(row, @peg_peg_peg_empty) + 3 + y]
-      when detect_pattern_in_array(row, @peg_peg_empty_peg)
-        potential_guess = [detect_pattern_in_array(row, @peg_peg_empty_peg) - (2 + x), detect_pattern_in_array(row, @peg_peg_empty_peg) + 2 + y]
-      when detect_pattern_in_array(row, @peg_empty_peg_peg)
-        potential_guess = [detect_pattern_in_array(row, @peg_empty_peg_peg) - (1 + x), detect_pattern_in_array(row, @peg_empty_peg_peg) + 1 + y]
-      when detect_pattern_in_array(row, @empty_peg_peg_peg)
-        potential_guess = [detect_pattern_in_array(row, @empty_peg_peg_peg) - x, detect_pattern_in_array(row, @empty_peg_peg_peg) + y]
-      end
-      puts "DBG: potential_guess-ne = #{potential_guess.inspect}"
+      potential_guess = diagonal_conditions(1,row,x,y) || []
       space_under_slot?(potential_guess) ? (break) : potential_guess = []
-
     end
     potential_guess.any? && !@board.board[0][potential_guess[1]] ? potential_guess[1] + 1 : nil
   end
 
+
+  def diagonal_conditions(calibrator,row,x,y)
+    case
+    when detect_pattern_in_array(row, @peg_peg_peg_empty)
+      [detect_pattern_in_array(row, @peg_peg_peg_empty) - (3 + x)*calibrator, detect_pattern_in_array(row, @peg_peg_peg_empty) + 3 + y]
+    when detect_pattern_in_array(row, @peg_peg_empty_peg)
+      [detect_pattern_in_array(row, @peg_peg_empty_peg) - (2 + x)*calibrator, detect_pattern_in_array(row, @peg_peg_empty_peg) + 2 + y]
+    when detect_pattern_in_array(row, @peg_empty_peg_peg)
+      [detect_pattern_in_array(row, @peg_empty_peg_peg) - (1 + x)*calibrator, detect_pattern_in_array(row, @peg_empty_peg_peg) + 1 + y]
+    when detect_pattern_in_array(row, @empty_peg_peg_peg)
+      [detect_pattern_in_array(row, @empty_peg_peg_peg) - x*calibrator, detect_pattern_in_array(row, @empty_peg_peg_peg) + y]
+    end
+  end
 end
