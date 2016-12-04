@@ -1,0 +1,34 @@
+
+# game class:
+#   initialize
+#     better
+#     dealer
+#   play game
+    place bets
+#   deal cards
+#   asks players for additional cards unless undesired conditions met
+#   win/lose
+      Gambler wins/ Dealer wins/ Tie
+#
+# player class:
+#   initialize
+#   dealt cards
+#   hit if card total > 21
+#
+# better class:
+#   initialize
+#      name = Gambler
+#   card total
+#
+# dealer class:
+#   initialize
+#      name = Dealer
+#   hit unless total > 16
+#   card total
+#
+# display class:
+#   game not won
+#     hidden card
+#     showing cards
+#   game won
+#     show all cards
