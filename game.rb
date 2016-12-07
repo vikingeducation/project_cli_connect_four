@@ -2,8 +2,8 @@ class Game
 
   def initialize
     @board = Board.new
-    @player1 = Human.new(@board, "X")
-    @player2 = Human.new(@board, "O")
+    @player1 = Human.new(@board, "X", 1)
+    @player2 = Human.new(@board, "O", 2)
   end
 
   def play
@@ -14,25 +14,27 @@ class Game
     turn_count = 0
     move = []
     loop do
+      turn_count += 1
       if turn_count.odd?
         move = @player1.choose_column
       elsif turn_count.even?
         move = @player2.choose_column
       end
       @board.render
-      break if @board.draw? || @board.win?(move[1], move[2], move[3])
+      break if @board.draw? || @board.win?(move)
     end
+    game_over
   end
 
   def intro
     puts "Welcome to Connect Four!"
-    puts "INSTRUCTIONS FILL IN LATER"
+    puts "Please enter the column number (1-7) such that column 1 would be input as '1'."
   end
 
-  def game_over?(column_index, row_index)
-    return true if @board.draw? || @board.win?(column_index, row_index)
-    false
+  def game_over
+    puts puts puts puts
+    puts "GAME OVER!"
+    puts puts puts puts
   end
-
 
 end
