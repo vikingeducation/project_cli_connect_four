@@ -2,8 +2,8 @@ class Board
 
   attr_reader :columns
 
-  def initialize
-    @columns = Array.new(7) { Array.new(6, '-') }
+  def initialize(board_input=false)
+    @columns = ( board_input || Array.new(7) { Array.new(6, '-') })
   end
 
   def rows(index)
@@ -32,18 +32,19 @@ class Board
   end
 
   def draw?
-    return false if @columns.transpose.flatten.include?('-')
+    return false if @columns.flatten.include?("-")
+    true
   end
 
-#ALSO returns nil instead of t/f
   def win?(move)
     column_index = move[0]
     row_index = move[1]
     piece = move[2]
-    test_object(rows(row_index), piece)
+    return true if horizontal_win?(move[1], piece) || vertical_win?([column_index], piece) || diagonal_win?(column_index, row_index, piece)
+    false
   end
 
-def test_object(relevant_array, piece)
+  def test_object(relevant_array, piece)
     test_object = relevant_array.join
     return true if test_object.include?(piece*4)
     false
