@@ -4,6 +4,8 @@ require 'pry'
 
 class Human < Player
 
+  private
+
   def choose_column
     player_choice = ""
     puts 

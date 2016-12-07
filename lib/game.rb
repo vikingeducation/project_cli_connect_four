@@ -26,6 +26,8 @@ class Game
     game_over
   end
 
+  private
+
   def intro
     puts "Welcome to Connect Four!"
     puts "Please enter the column number (1-7) such that column 1 would be input as '1'."

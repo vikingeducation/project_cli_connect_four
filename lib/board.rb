@@ -4,7 +4,6 @@ class Board
 
   def initialize
     @columns = Array.new(7) { Array.new(6, '-') }
-    @rows = @columns.transpose
   end
 
   def rows(index)
@@ -38,7 +37,6 @@ class Board
 
 #ALSO returns nil instead of t/f
   def win?(move)
-    binding.pry
     column_index = move[0]
     row_index = move[1]
     piece = move[2]
@@ -51,12 +49,10 @@ def test_object(relevant_array, piece)
     false
   end
 
-#also sometimes returns nil...should return only t/f
   def vertical_win?(column_index, piece)
     test_object(@columns[column_index], piece)
   end
 
-#keeps returning nil for some reason..?
   def horizontal_win?(row_index, piece)
     test_object(rows(row_index), piece)
   end
@@ -81,7 +77,7 @@ def test_object(relevant_array, piece)
     position_on_searchable = (column_index-1) + ((row_index-1)*7)
     search_start_point = position_on_searchable % 7
     diagonal_indexes = (1..42).to_a.select { |i| i % diff == search_start_point }
-    diagonal_indexes.each { |i| diagonal_array << @columns.transpose.flatten[i] }
+    diagonal_indexes.each { |i| diagonal_array << @columns.transpose.flatten[i] unless @columns.transpose.flatten[i] == nil}
     diagonal_array
   end
 
