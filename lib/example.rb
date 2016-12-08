@@ -4,4 +4,4 @@ require_relative 'player'
 require_relative 'human'
 
 game = Game.new
-game.intro
+game.play

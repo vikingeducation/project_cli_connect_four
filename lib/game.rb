@@ -21,14 +21,13 @@ class Game
         move = @player2.choose_column
       end
       @board.render
-      break if @board.draw? || @board.win?(move)
+      break if @board.win?(move) || @board.draw? 
     end
     game_over
   end
 
-  private
-
   def intro
+    puts puts puts
     puts "Welcome to Connect Four!"
     puts "Please enter the column number (1-7) such that column 1 would be input as '1'."
   end

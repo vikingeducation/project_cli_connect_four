@@ -1,3 +1,4 @@
+require 'pry'
 class Board
 
   attr_reader :columns
@@ -40,7 +41,7 @@ class Board
     column_index = move[0]
     row_index = move[1]
     piece = move[2]
-    return true if horizontal_win?(move[1], piece) || vertical_win?([column_index], piece) || diagonal_win?(column_index, row_index, piece)
+    return true if horizontal_win?(row_index, piece) || vertical_win?(column_index, piece) || diagonal_win?(column_index, row_index, piece)
     false
   end
 
@@ -58,33 +59,107 @@ class Board
     test_object(rows(row_index), piece)
   end
 
-#also not returning t/f
   def diagonal_win?(column_index, row_index, piece)
     test_object(upward_diagonal(column_index, row_index), piece)
     test_object(downward_diagonal(column_index, row_index), piece)
   end
 
   def upward_diagonal(column_index, row_index)
-    generate_diagonal(column_index, row_index, 8)
+    a = upward_diagonal_lower_left(column_index, row_index) 
+    b = upward_diagonal_upper_right(column_index, row_index)
+    (a + b)
+  end
+
+  def upward_diagonal_upper_right(column_index, row_index)
+    upper_right = [@columns[column_index][row_index]]
+    loop do
+      column_index += 1
+      row_index += 1
+      if (0..6).include?(column_index) && (0..5).include?(row_index)
+        upper_right << @columns[column_index][row_index]
+      else
+        break
+      end
+    end
+    upper_right
+  end
+
+  def upward_diagonal_lower_left(column_index, row_index)
+    lower_left = []
+    loop do
+      column_index -= 1
+      row_index -= 1
+      if (0..6).include?(column_index) && (0..5).include?(row_index)
+        lower_left << @columns[column_index][row_index]
+      else
+        break
+      end
+    end
+    lower_left.reverse
   end
 
   def downward_diagonal(column_index, row_index)
-    generate_diagonal(column_index, row_index, 6)
+    a = downward_diagonal_upper_left(column_index, row_index)
+    b = downward_diagonal_lower_right(column_index, row_index)
+    a + b
   end
 
-#problem with indexes + search_start_point
-  def generate_diagonal(column_index, row_index, diff)
-    diagonal_array = []
-    position_on_searchable = (column_index-1) + ((row_index-1)*7)
-    search_start_point = position_on_searchable % 7
-    diagonal_indexes = (1..42).to_a.select { |i| i % diff == search_start_point }
-    diagonal_indexes.each { |i| diagonal_array << @columns.transpose.flatten[i] unless @columns.transpose.flatten[i] == nil}
-    diagonal_array
+  def downward_diagonal_upper_left(column_index, row_index)
+    upper_left = []
+    loop do
+      column_index -= 1
+      row_index += 1
+      if (0..6).include?(column_index) && (0..5).include?(row_index)
+        upper_left << @columns[column_index][row_index]
+      else
+        break
+      end
+    end
+    upper_left.reverse
   end
 
+  def downward_diagonal_lower_right(column_index, row_index)
+    lower_right = [@columns[column_index][row_index]]
+    loop do
+      column_index += 1
+      row_index -= 1
+      if (0..6).include?(column_index) && (0..5).include?(row_index)
+        lower_right << @columns[column_index][row_index]
+      else
+        break
+      end
+    end
+    lower_right
+  end
 
-
+#class ends here
 end
 
-#bb = Board.new
-#bb.render
+
+  input = [
+    ["-", "-", "-", "-", "-", "-"],
+    ["-", "-", "-", "-", "-", "-"],
+    ["E", "-", "-", "-", "-", "-"],
+    ["A", "F", "-", "-", "-", "-"],
+    ["-", "B", "G", "-", "-", "-"],
+    ["Z", "-", "C", "H", "-", "-"],
+    ["-", "Z", "-", "D", "I", "-"]
+  ]
+  more_input = [
+    ["-", "-", "-", "-", "-", "-"],
+    ["-", "-", "-", "-", "-", "K"],
+    ["-", "-", "-", "-", "J", "-"],
+    ["-", "-", "-", "I", "-", "D"],
+    ["-", "-", "H", "-", "C", "-"],
+    ["-", "G", "-", "B", "-", "-"],
+    ["F", "-", "A", "-", "-", "-"]
+  ]
+bb = Board.new(more_input)
+bb.render
+puts bb.columns[5][1]
+#puts "this is upward_diagonal original method"
+#puts bb.upward_diagonal(5,0)
+puts bb.downward_diagonal(5,1)
+
+
+
