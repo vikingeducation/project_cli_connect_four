@@ -1,7 +1,10 @@
 class ComputerPlayer
-  attr_accessor :peg_symbol, :board, :name, :competitors_peg
+  attr_reader :peg_symbol, :board, :name, :competitors_peg
 
   def initialize(name, peg_symbol, board, peg_system_competitor, peg_system_computer)
+    # raise "name has to be a string" unless name.is_a? (String)
+    # raise "Peg has to be a string" unless peg_symbol.is_a? (String)
+    # raise "Board needs to be an array" unless board.is_a? (Array)
     @name = name
     @peg_symbol = peg_symbol
     @board = board

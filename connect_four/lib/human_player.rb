@@ -8,19 +8,19 @@ class HumanPlayer
     @board = board
   end
 
-  def get_col_guessed
+  def get_col_guessed(column=nil)
     loop do
-      col_guessed = ask_for_col_guessed.to_i
-      if @board.is_valid_input?(col_guessed)
-        if @board.can_drop_peg_here?(col_guessed)
+      col_guessed = column ||= ask_for_col_guessed.to_i
+      if @board.is_valid_input?(col_guessed) &&  @board.can_drop_peg_here?(col_guessed)
           @board.add_pegs(col_guessed, peg_symbol)
           break
-        end
-      else
-        puts "Please provide correct number of the column!"
+      elsif
+        puts "Please choose a correct column number, this one is either full or doesn't exist!"
       end
     end
   end
+
+  private
 
   def ask_for_col_guessed
     puts

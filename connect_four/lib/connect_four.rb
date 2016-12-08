@@ -105,5 +105,5 @@ class ConnectFour
 
 end
 
-s = ConnectFour.new
-s.play
+# s = ConnectFour.new
+# s.play

@@ -1,12 +1,16 @@
-class Board
-  attr_reader :board
+require 'pry'
 
-  def initialize
-    @board = Array.new(6){Array.new(7)}
+class Board
+  attr_accessor :board
+
+  def initialize(board = nil)
+    @board = board ||= Array.new(6){Array.new(7)}
+    # @board = board || Array.new(6){Array.new(7)}
+    raise "Board has to be an Array" unless board.is_a? (Array)
+    raise "Array has to be 2D = 6 by 7" unless board.size == 6 && board[0].size == 7
   end
 
   def render
-    puts "DBG: @board = #{@board.inspect}"
     puts
     @board.size.times do |row|
       print "1 2 3 4 5 6 7 \n" if row == 0
@@ -32,12 +36,12 @@ class Board
     end
   end
 
-  def slot_empty?(row, col)
-     true if within_board_range?(row, col) && @board[row][col - 1] == nil
+  def slot_empty?(row, col_guessed)
+     within_board_range?(row, col_guessed ) && @board[row][col_guessed - 1] == nil ? true : false
   end
 
   def can_drop_peg_here?(col_guessed)
-    self.slot_empty?(0, col_guessed - 1) ? true : puts("Please choose a different column, this one is full!")
+    self.slot_empty?(0, col_guessed) ? true : false
   end
 
   def is_valid_input?(col_guessed)
@@ -45,7 +49,7 @@ class Board
   end
 
   def within_board_range?(row, col_guessed)
-    row <= 5 && col_guessed <= 6
+    row <= 5 && col_guessed - 1 <= 6
   end
 
 end

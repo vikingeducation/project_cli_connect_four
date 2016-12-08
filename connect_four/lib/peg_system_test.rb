@@ -1,4 +1,7 @@
+require 'pry'
+
 class PegSystem
+  attr_reader :board
 
   def initialize(peg_symbol, board)
     @peg_symbol = peg_symbol
@@ -36,15 +39,14 @@ class PegSystem
     potential_guess = []
     @board.board.each_with_index do |row, row_idx|
       case
-      when detect_pattern_in_array(row, @peg_peg_peg_empty)
+      when detect_pattern_in_array(row, @peg_peg_peg_empty) && space_under_slot?([row_idx, detect_pattern_in_array(row, @peg_peg_peg_empty) + 3])
         potential_guess = [row_idx, detect_pattern_in_array(row, @peg_peg_peg_empty) + 3]
-      when detect_pattern_in_array(row, @peg_peg_empty_peg)
+      when detect_pattern_in_array(row, @peg_peg_empty_peg) && space_under_slot?([row_idx, detect_pattern_in_array(row, @peg_peg_empty_peg) + 2])
         potential_guess = [row_idx, detect_pattern_in_array(row, @peg_peg_empty_peg) + 2]
-      when detect_pattern_in_array(row, @peg_empty_peg_peg)
+      when detect_pattern_in_array(row, @peg_empty_peg_peg) && space_under_slot?([row_idx, detect_pattern_in_array(row, @peg_empty_peg_peg) + 1])
         potential_guess = [row_idx, detect_pattern_in_array(row, @peg_empty_peg_peg) + 1]
-      when detect_pattern_in_array(row, @empty_peg_peg_peg)
+      when detect_pattern_in_array(row, @empty_peg_peg_peg) && space_under_slot?([row_idx, detect_pattern_in_array(row, @empty_peg_peg_peg)])
         potential_guess = [row_idx, detect_pattern_in_array(row, @empty_peg_peg_peg)]
-        puts "DBG: potential_guess = #{potential_guess.inspect}"
       end
       space_under_slot?(potential_guess) ? (break) : potential_guess = []
     end
