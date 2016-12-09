@@ -749,9 +749,7 @@ describe PegSystem do
       # pegsystem.instance_variable_set(:@board, board_new)
       expect(ai_pegs.four_pegs_horizontally?).to be_truthy
     end
-  end
 
-  describe "#four_pegs_horizontally" do
     it "returns false when board doesn't contain four pegs connected horizontally" do
       board_new = [[nil, nil, nil, nil, nil, nil, nil],
                    [nil, nil, nil, nil, nil, nil, nil],
@@ -761,88 +759,110 @@ describe PegSystem do
                    ["@", "O", "O", "O", "@", "@", "@"]]
       board = Board.new(board_new)
       ai_pegs = PegSystem.new("O", board)
-      # pegsystem.instance_variable_set(:@board, board_new)
       expect(ai_pegs.four_pegs_horizontally?).to be_falsey
     end
   end
 
-  # describe "#four_pegs_vertically" do
-  #   it "returns true when board contains four pegs connected horizontally" do
-  #     board_new = [[nil, nil, nil, nil, nil, nil, nil],
-  #                  [nil, nil, nil, nil, nil, nil, nil],
-  #                  ["O", nil, nil, nil, nil, nil, nil],
-  #                  ["O", "O", nil, nil, "@", nil, nil],
-  #                  ["O", "O", "O", "O", "O", "@", "@"],
-  #                  ["@", "O", "O", "O", "@", "@", "@"]]
-  #     board = Board.new(board_new)
-  #     ai_pegs = PegSystem.new("O", board)
-  #     # pegsystem.instance_variable_set(:@board, board_new)
-  #     expect(ai_pegs.four_pegs_vertically?).to be_truthy
-  #   end
-  # end
+  describe "#four_pegs_vertically" do
+    it "returns true when board contains four pegs connected vertically" do
+      board_new = [[nil, nil, nil, nil, nil, nil, nil],
+                   [nil, nil, nil, nil, nil, nil, nil],
+                   ["O", "O", nil, nil, nil, nil, nil],
+                   ["O", "O", nil, nil, "@", nil, nil],
+                   ["@", "O", "@", "O", "O", "@", "@"],
+                   ["@", "O", "O", "O", "@", "@", "@"]]
+      board = Board.new(board_new)
+      ai_pegs = PegSystem.new("O", board)
+      expect(ai_pegs.four_pegs_vertically?).to be_truthy
+    end
 
-  # describe "#four_pegs_vertically" do
-  #   it "returns false when board doesn't contain four pegs connected horizontally" do
-  #     board_new = [[nil, nil, nil, nil, nil, nil, nil],
-  #                  [nil, nil, nil, nil, nil, nil, nil],
-  #                  ["O", nil, nil, nil, nil, nil, nil],
-  #                  ["O", "O", nil, nil, "@", nil, nil],
-  #                  ["@", "O", "@", "O", "O", "@", "@"],
-  #                  ["@", "O", "O", "O", "@", "@", "@"]]
-  #     board = Board.new(board_new)
-  #     ai_pegs = PegSystem.new("O", board)
-  #     # pegsystem.instance_variable_set(:@board, board_new)
-  #     expect(ai_pegs.four_pegs_vertically?).to be_falsey
-  #   end
-  # end
+    it "returns false when board doesn't contain four pegs connected vertically" do
+      board_new = [[nil, nil, nil, nil, nil, nil, nil],
+                   [nil, nil, nil, nil, nil, nil, nil],
+                   ["O", nil, nil, nil, nil, nil, nil],
+                   ["O", "O", nil, nil, "@", nil, nil],
+                   ["@", "O", "@", "O", "O", "@", "@"],
+                   ["O", "O", "O", "O", "@", "@", "@"]]
+      board = Board.new(board_new)
+      ai_pegs = PegSystem.new("O", board)
+      expect(ai_pegs.four_pegs_vertically?).to be_falsey
+    end
+  end
+
+  describe "#four_pegs_diagonally" do
+    it "returns true when board contains four pegs connected diagonally north east" do
+      board_new = [[nil, nil, nil, nil, nil, nil, nil],
+                   [nil, nil, nil, nil, nil, nil, nil],
+                   ["O", "O", nil, nil, nil, "O", nil],
+                   ["O", "@", nil, nil, "O", "@", nil],
+                   ["@", "O", "@", "O", "O", "@", "@"],
+                   ["@", "O", "O", "O", "@", "@", "@"]]
+      board = Board.new(board_new)
+      ai_pegs = PegSystem.new("O", board)
+      expect(ai_pegs.four_pegs_diagonally?).to be_truthy
+    end
+
+    it "returns true when board contains four pegs connected diagonally south east" do
+      board_new = [[nil, nil, nil, nil, nil, nil, nil],
+                   [nil, nil, nil, nil, nil, nil, nil],
+                   ["O", "@", nil, nil, nil, nil, nil],
+                   ["O", "O", nil, nil, "@", nil, nil],
+                   ["@", "@", "O", "@", "O", "@", "@"],
+                   ["@", "O", "O", "O", "@", "@", "@"]]
+      board = Board.new(board_new)
+      ai_pegs = PegSystem.new("O", board)
+      expect(ai_pegs.four_pegs_diagonally?).to be_truthy
+    end
+
+    it "returns false when board doesn't contain four pegs connected diagonally" do
+      board_new = [[nil, nil, nil, nil, nil, nil, nil],
+                   [nil, nil, nil, nil, nil, nil, nil],
+                   ["O", nil, nil, nil, nil, nil, nil],
+                   ["O", "O", nil, nil, "@", nil, nil],
+                   ["@", "O", "@", "O", "O", "@", "@"],
+                   ["O", "O", "O", "O", "@", "@", "@"]]
+      board = Board.new(board_new)
+      ai_pegs = PegSystem.new("O", board)
+      expect(ai_pegs.four_pegs_diagonally?).to be_falsey
+    end
+  end
+
+  describe "#winning_connected_four?" do
+    it "returns true when board contains four pegs connected in any way" do
+      board_new = [[nil, nil, nil, nil, nil, nil, nil],
+                   [nil, nil, nil, nil, nil, nil, nil],
+                   ["O", "O", nil, nil, nil, nil, nil],
+                   ["O", "O", nil, nil, "@", nil, nil],
+                   ["@", "O", "@", "O", "O", "@", "@"],
+                   ["@", "O", "O", "O", "@", "@", "@"]]
+      board = Board.new(board_new)
+      ai_pegs = PegSystem.new("O", board)
+      expect(ai_pegs.winning_connected_four?).to be_truthy
+    end
+
+    it "returns false when board doesn't contain four pegs connected in anyway" do
+      board_new = [[nil, nil, nil, nil, nil, nil, nil],
+                   [nil, nil, nil, nil, nil, nil, nil],
+                   ["O", nil, nil, nil, nil, nil, nil],
+                   ["O", "O", nil, nil, "@", nil, nil],
+                   ["@", "O", "@", "O", "O", "@", "@"],
+                   ["O", "@", "O", "O", "@", "@", "@"]]
+      board = Board.new(board_new)
+      ai_pegs = PegSystem.new("O", board)
+      expect(ai_pegs.winning_connected_four?).to be_falsey
+    end
+  end
 
 end
 # peg_symbol, 
 # board
-# @peg_peg_peg_peg
-# @peg_peg_peg_empty
-# @peg_peg_empty_peg 
-# @peg_empty_peg_peg
-# @empty_peg_peg_peg
 
-# four_pegs_vertically?
-# - returns trou if there are 4 pegs connected on the bottom
-# - returns true if we have 4 pegs connected on the top of the board
-
-# four_pegs_horizontally?
-# - - returns trou if there are 4 pegs connected on the bottom
-# - returns true if we have 4 pegs connected on the top of the 
-
-# four_pegs_diagonally?
-# - returns trou if there are 4 pegs connected up on the bottom
-# - returns true if we have 4 pegs connected up on the top of the 
-# - returns trou if there are 4 pegs connected down on the bottom
-# - returns true if we have 4 pegs connected down on the top of the 
-
-# three_pegs_vertically?
-# - returns no of column with missing 4th peg on the bottom vertically
-# - returns no of column twith missing 4th peg on the top vertically
-# - return false if column is full
-
-# three_pegs_horizontally?
-# - returns no of column with missing 4th peg on the bottom horizontally
-# - returns no of column with missing 4th peg on the top horizontally - inside
-# - returns no of column with missing 4th peg on the top horizontally - outside
-# - return false if there is no 3 pegs connected
-# - return false if there are 3 pegs connected with no empty around to connect them
 
 # three_pegs_diagonally?
 # - - returns no of column with missing 4th peg to make it diagonal up
 # - returns no of column with missing 4th peg to make it diagonall dawn
 # - returns no of column with missing 4th peg in between to make it diagonall downn
 # - returns no of column with missing 4th peg in between to make it diagonall up
-
-# winning_connected_four
-# - retirns true if 4pegs horizontal?
-# - returns true if 4 pegs vertical?
-# - returns true if diagonal?
-# - returns false if no connection
-# - returns false if no winner?
 
 
 # --------private----------

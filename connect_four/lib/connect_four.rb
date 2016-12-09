@@ -74,7 +74,7 @@ class ConnectFour
   end
 
   def is_there_winner?
-    if @current_peg_system.winning_connected_four
+    if @current_peg_system.winning_connected_four?
       puts "Congratulations to #{@current_player.name}!!! You have connected four symbol pegs!"
       true
     else

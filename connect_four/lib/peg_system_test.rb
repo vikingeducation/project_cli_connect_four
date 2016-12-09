@@ -13,6 +13,44 @@ class PegSystem
     @empty_peg_peg_peg = [nil, @peg_symbol, @peg_symbol, @peg_symbol]
   end
 
+  def three_pegs_vertically?
+    board_rotated_90deg.each_with_index do |col, col_idx|
+      if detect_pattern_in_array(col, @empty_peg_peg_peg) && col[0] == nil
+        return col_idx + 1
+      end
+    end
+    return nil
+  end
+
+
+  def three_pegs_horizontally?
+    potential_guess = []
+    @board.board.each_with_index do |row, row_idx|
+      case
+      when detect_pattern_with_no_empty_space_under?(row, row_idx, @peg_peg_peg_empty, 3)
+        potential_guess = [row_idx, detect_pattern_in_array(row, @peg_peg_peg_empty) + 3]
+      when detect_pattern_with_no_empty_space_under?(row, row_idx, @peg_peg_empty_peg, 2)
+        potential_guess = [row_idx, detect_pattern_in_array(row, @peg_peg_empty_peg) + 2]
+      when detect_pattern_with_no_empty_space_under?(row, row_idx, @peg_empty_peg_peg, 1)
+        potential_guess = [row_idx, detect_pattern_in_array(row, @peg_empty_peg_peg) + 1]
+      when detect_pattern_with_no_empty_space_under?(row, row_idx, @empty_peg_peg_peg, 0)
+        potential_guess = [row_idx, detect_pattern_in_array(row, @empty_peg_peg_peg)]
+      end
+      space_under_slot?(potential_guess) ? (break) : potential_guess = []
+    end
+    potential_guess.any? ? potential_guess[1] + 1 : nil
+  end
+
+  def three_pegs_diagonally?
+    three_pegs_north_east_diagonally?  || three_pegs_south_east_diagonally?
+  end
+
+  def winning_connected_four?
+    four_pegs_horizontally? ||
+    four_pegs_vertically? ||
+    four_pegs_diagonally?
+  end
+
   def four_pegs_vertically?
     board_rotated_90deg.any? {|row| detect_pattern_in_array(row, @peg_peg_peg_peg)}
   end
@@ -26,45 +64,12 @@ class PegSystem
     south_east_diagonals_array.any? {|row| detect_pattern_in_array(row, @peg_peg_peg_peg)}
   end
 
-  def three_pegs_vertically?
-    board_rotated_90deg.each_with_index do |col, col_idx|
-      if detect_pattern_in_array(col, @empty_peg_peg_peg) && col[0] == nil
-        return col_idx + 1
-      end
-    end
-    return nil
-  end
-
-  def three_pegs_horizontally?
-    potential_guess = []
-    @board.board.each_with_index do |row, row_idx|
-      case
-      when detect_pattern_in_array(row, @peg_peg_peg_empty) && space_under_slot?([row_idx, detect_pattern_in_array(row, @peg_peg_peg_empty) + 3])
-        potential_guess = [row_idx, detect_pattern_in_array(row, @peg_peg_peg_empty) + 3]
-      when detect_pattern_in_array(row, @peg_peg_empty_peg) && space_under_slot?([row_idx, detect_pattern_in_array(row, @peg_peg_empty_peg) + 2])
-        potential_guess = [row_idx, detect_pattern_in_array(row, @peg_peg_empty_peg) + 2]
-      when detect_pattern_in_array(row, @peg_empty_peg_peg) && space_under_slot?([row_idx, detect_pattern_in_array(row, @peg_empty_peg_peg) + 1])
-        potential_guess = [row_idx, detect_pattern_in_array(row, @peg_empty_peg_peg) + 1]
-      when detect_pattern_in_array(row, @empty_peg_peg_peg) && space_under_slot?([row_idx, detect_pattern_in_array(row, @empty_peg_peg_peg)])
-        potential_guess = [row_idx, detect_pattern_in_array(row, @empty_peg_peg_peg)]
-      end
-      space_under_slot?(potential_guess) ? (break) : potential_guess = []
-    end
-    potential_guess.any? ? potential_guess[1] + 1 : nil
-  end
-
-  def three_pegs_diagonally?
-    three_pegs_north_east_diagonally?  || three_pegs_south_east_diagonally?
-  end
-
-  def winning_connected_four
-    four_pegs_horizontally? ||
-    four_pegs_vertically? ||
-    four_pegs_diagonally?
-  end
-
   private
 
+
+  def detect_pattern_with_no_empty_space_under?(array_row, row_number, pattern, shift)
+    detect_pattern_in_array(array_row, pattern) && space_under_slot?([row_number, detect_pattern_in_array(array_row, pattern) + shift])
+  end
 
   def south_east_diagonals_array
     se_diagonals = Array.new(6){Array.new}
