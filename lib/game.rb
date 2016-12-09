@@ -2,14 +2,12 @@ class Game
 
   def initialize
     @board = Board.new
-    @player1 = Human.new(@board, "X", 1)
-    @player2 = Human.new(@board, "O", 2)
   end
 
   def play
-    puts puts
     intro
-    #2player or 1player
+    mode = how_many_players
+    activate(mode)
     @board.render
     turn_count = 0
     move = []
@@ -26,10 +24,35 @@ class Game
     game_over
   end
 
+  def how_many_players
+    puts
+    puts "Would you like to play the game in 1-player or 2-player mode?"
+    puts "Enter 'a' for 1-player mode or 'b' for 2-player mode."
+    mode = gets.chomp.downcase
+    until %w(a b).include?(mode)
+      puts "Sorry, please enter 'a' for 1-player mode or 'b' for 2-player mode."
+      mode = gets.chomp.downcase
+    end
+    mode
+  end
+
+  def activate(mode)
+    if mode == "a"
+      @player1 = Human.new(@board, "X", 1)
+      @player2 = AI.new(@board, "O", 2)
+    elsif mode == "b"
+      @player1 = Human.new(@board, "X", 1)
+      @player2 = Human.new(@board, "O", 2)
+    end
+  end
+
+
   def intro
     puts puts puts
     puts "Welcome to Connect Four!"
-    puts "Please enter the column number (1-7) such that column 1 would be input as '1'."
+    puts
+    puts "Instructions:"
+    puts "When it's your turn, please enter the number (1-7) of the column you'd like to drop your piece into, such that column 1 would be input as '1'."
   end
 
   def game_over

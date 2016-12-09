@@ -26,7 +26,3 @@ class Human < Player
 
 
 end
-
-#bb = Board.new
-#me = Human.new(bb, "O")
-#me.choose_column

@@ -41,7 +41,10 @@ class Board
     column_index = move[0]
     row_index = move[1]
     piece = move[2]
-    return true if horizontal_win?(row_index, piece) || vertical_win?(column_index, piece) || diagonal_win?(column_index, row_index, piece)
+    return true if horizontal_win?(row_index, piece) || 
+      vertical_win?(column_index, piece) || 
+      upper_diagonal_win?(column_index, row_index, piece)|| 
+      downward_diagonal_win?(column_index, row_index, piece)
     false
   end
 
@@ -59,15 +62,18 @@ class Board
     test_object(rows(row_index), piece)
   end
 
-  def diagonal_win?(column_index, row_index, piece)
+  def upper_diagonal_win?(column_index, row_index, piece)
     test_object(upward_diagonal(column_index, row_index), piece)
+  end
+
+  def downward_diagonal_win?(column_index, row_index, piece)
     test_object(downward_diagonal(column_index, row_index), piece)
   end
 
   def upward_diagonal(column_index, row_index)
     a = upward_diagonal_lower_left(column_index, row_index) 
     b = upward_diagonal_upper_right(column_index, row_index)
-    (a + b)
+    a + b
   end
 
   def upward_diagonal_upper_right(column_index, row_index)
@@ -134,8 +140,7 @@ class Board
 
 #class ends here
 end
-
-
+=begin
   input = [
     ["-", "-", "-", "-", "-", "-"],
     ["-", "-", "-", "-", "-", "-"],
@@ -153,13 +158,39 @@ end
     ["-", "-", "H", "-", "C", "-"],
     ["-", "G", "-", "B", "-", "-"],
     ["F", "-", "A", "-", "-", "-"]
+  ] 
+  more_input = [
+    ["-", "-", "-", "-", "-", "-"],
+    ["-", "-", "-", "-", "-", "-"],
+    ["-", "-", "-", "-", "-", "-"],
+    ["O", "-", "-", "-", "-", "-"],
+    ["-", "O", "-", "-", "-", "-"],
+    ["-", "-", "O", "-", "-", "-"],
+    ["-", "-", "-", "O", "-", "-"]
   ]
-bb = Board.new(more_input)
+    draw_input = [
+    ["", "O", "O", "O", "O", "O"],
+    ["O", "O", "O", "O", "O", "O"],
+    ["O", "O", "O", "O", "O", "O"],
+    ["O", "O", "O", "O", "O", "O"],
+    ["O", "O", "O", "O", "O", "O"],
+    ["O", "O", "O", "O", "O", "O"],
+    ["O", "O", "O", "O", "O", "O"]
+  ]
+bb = Board.new(draw_input)
 bb.render
-puts bb.columns[5][1]
+puts bb.columns[3][0]
 #puts "this is upward_diagonal original method"
 #puts bb.upward_diagonal(5,0)
-puts bb.downward_diagonal(5,1)
+#puts bb.downward_diagonal(5,1)
+#puts bb.upward_diagonal(3,0)
+#puts bb.test_object(bb.upward_diagonal(3,0), "O")
+#puts bb.diagonal_win?(3,0,"O")
+puts bb.draw?
+=end
+
+
+
 
 
 
