@@ -26,8 +26,8 @@ class Board
   end
 
   def process_choice(choice, piece)
-    column_index = choice - 1
-    row_index = @columns[choice-1].index('-')
+    column_index = choice
+    row_index = @columns[column_index].index('-')
     @columns[column_index][row_index] = piece
     [column_index, row_index, piece]
   end

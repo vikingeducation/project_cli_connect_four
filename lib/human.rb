@@ -14,6 +14,7 @@ class Human < Player
       puts "Try again! Bad input."
       player_choice = gets.chomp.strip.to_i
     end
+    player_choice -= 1
     @board.process_choice(player_choice, @piece)
   end
 
