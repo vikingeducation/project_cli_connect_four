@@ -48,6 +48,8 @@ class Board
     false
   end
 
+  protected
+
   def test_object(relevant_array, piece)
     test_object = relevant_array.join
     return true if test_object.include?(piece*4)
@@ -137,58 +139,7 @@ class Board
     end
     lower_right
   end
-
-#class ends here
 end
-=begin
-  input = [
-    ["-", "-", "-", "-", "-", "-"],
-    ["-", "-", "-", "-", "-", "-"],
-    ["E", "-", "-", "-", "-", "-"],
-    ["A", "F", "-", "-", "-", "-"],
-    ["-", "B", "G", "-", "-", "-"],
-    ["Z", "-", "C", "H", "-", "-"],
-    ["-", "Z", "-", "D", "I", "-"]
-  ]
-  more_input = [
-    ["-", "-", "-", "-", "-", "-"],
-    ["-", "-", "-", "-", "-", "K"],
-    ["-", "-", "-", "-", "J", "-"],
-    ["-", "-", "-", "I", "-", "D"],
-    ["-", "-", "H", "-", "C", "-"],
-    ["-", "G", "-", "B", "-", "-"],
-    ["F", "-", "A", "-", "-", "-"]
-  ] 
-  more_input = [
-    ["-", "-", "-", "-", "-", "-"],
-    ["-", "-", "-", "-", "-", "-"],
-    ["-", "-", "-", "-", "-", "-"],
-    ["O", "-", "-", "-", "-", "-"],
-    ["-", "O", "-", "-", "-", "-"],
-    ["-", "-", "O", "-", "-", "-"],
-    ["-", "-", "-", "O", "-", "-"]
-  ]
-    draw_input = [
-    ["", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O"],
-    ["O", "O", "O", "O", "O", "O"]
-  ]
-bb = Board.new(draw_input)
-bb.render
-puts bb.columns[3][0]
-#puts "this is upward_diagonal original method"
-#puts bb.upward_diagonal(5,0)
-#puts bb.downward_diagonal(5,1)
-#puts bb.upward_diagonal(3,0)
-#puts bb.test_object(bb.upward_diagonal(3,0), "O")
-#puts bb.diagonal_win?(3,0,"O")
-puts bb.draw?
-=end
-
 
 
 

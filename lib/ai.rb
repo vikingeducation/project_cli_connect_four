@@ -13,7 +13,7 @@ class AI < Player
     possible_columns
   end
 
-# look for 3 pieces in a row
+# look for 3 consecutive pieces
   def better_moves
     candidates = []
     available_moves.each do |i|

@@ -4,7 +4,6 @@ describe Board do
 
   let(:b){Board.new}
   let(:full_b){Board.new(Array.new(7) { Array.new(6, "O") })}
-  let(:alternating_column_b){Board.new(Array.new(7) { ['X', 'O']  * 3 })}
 
   describe '#initialize' do
     it "creates a board" do
@@ -38,38 +37,61 @@ describe Board do
     end
   end
 
-  describe '#test_object' do
-    it "returns true if array has four consecutive elements" do
-      expect(b.test_object(%w(s s s s), "s")).to be true
+  describe '#win' do
+    it "returns false if no wins" do
+      expect(b.win?([0,0,"O"])).to be false
     end
 
-    it "returns false if array doesn't have four consecutive elements" do
-      expect(b.test_object(%w(a b c d), "O")). to be false
+    it "returns true if vertical win" do
+      board = [
+          ["O", "O", "O", "O", "O", "O"],
+          ["-", "-", "-", "-", "-", "-"],
+          ["-", "-", "-", "-", "-", "-"],
+          ["-", "-", "-", "-", "-", "-"],
+          ["-", "-", "-", "-", "-", "-"],
+          ["-", "-", "-", "-", "-", "-"],
+          ["-", "-", "-", "-", "-", "-"]
+        ]
+      expect(Board.new(board).win?([0,0,"O"])).to be true
+    end
+
+    it "returns true if horizontal win" do
+      board = [
+          ["O", "-", "-", "-", "-", "-"],
+          ["O", "-", "-", "-", "-", "-"],
+          ["O", "-", "-", "-", "-", "-"],
+          ["O", "-", "-", "-", "-", "-"],
+          ["O", "-", "-", "-", "-", "-"],
+          ["O", "-", "-", "-", "-", "-"],
+          ["O", "-", "-", "-", "-", "-"]
+        ]
+      expect(Board.new(board).win?([0,0,"O"])).to be true
+    end
+
+    it "returns true if upper diagonal win" do 
+      board = [
+          ["-", "-", "-", "-", "-", "-"],
+          ["-", "-", "-", "-", "-", "-"],
+          ["-", "-", "-", "-", "-", "-"],
+          ["O", "-", "-", "-", "-", "-"],
+          ["-", "O", "-", "-", "-", "-"],
+          ["-", "-", "O", "-", "-", "-"],
+          ["-", "-", "-", "O", "-", "-"]
+        ]
+      expect(Board.new(board).win?([3,0,"O"])).to be true
+    end
+
+    it "returns true if downward diagonal win" do
+      board = [
+        ["-", "-", "-", "O", "-", "-"],
+        ["-", "-", "O", "-", "-", "-"],
+        ["-", "O", "-", "-", "-", "-"],
+        ["O", "-", "-", "-", "-", "-"],
+        ["-", "-", "-", "-", "-", "-"],
+        ["-", "-", "-", "-", "-", "-"],
+        ["-", "-", "", "-", "-", "-"]
+      ]
+      expect(Board.new(board).win?([0,3,"O"])).to be true
     end
   end
-
-  describe '#vertical_win?' do
-    it 'returns true if a column has four consecutive pieces' do
-      expect(full_b.vertical_win?(3, "O")).to be true
-    end
-
-    it 'returns false if a column does not include four consecutive pieces' do
-      expect(b.vertical_win?(3, "O")).to be false
-    end
-  end
-
-  describe '#horizontal_win?' do
-    it 'returns true if a row has four consecutive pieces' do
-      expect(alternating_column_b.horizontal_win?(0, "X")).to be true
-    end
-
-    it 'returns false if a row does not include four consecutive pieces' do
-      expect(b.horizontal_win?(2, "O")).to be false
-    end
-  end
-
-
-
-
-#class ends here
 end
