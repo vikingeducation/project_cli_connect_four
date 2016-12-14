@@ -22,7 +22,7 @@ class ConnectFour
 	end
 
 	def play_one_round(player)
-		player_input = player.get_input(@board.output_possible_plays) - 1
+		player_input = player.get_input(@board.output_possible_plays, @board.board_array) - 1
 		piece_added = @board.add_piece(player.color, player_input)
 		piece_added
 	end
@@ -55,7 +55,7 @@ class ConnectFour
 					puts "Cannot add piece, please select another column!"
 				end
 			end
-			game_won = @board.check_winning_pos @cur_player.color
+			game_won = @board.check_winning_pos(@cur_player.color,false)
 			game_finished = (@board.number_of_pos_filled == 42)
 			unless game_won
 				if @cur_player == player1

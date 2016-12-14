@@ -2,7 +2,7 @@ require 'colorize'
 require_relative 'constants'
 
 class Board
-	attr_reader :number_of_pos_filled
+	attr_accessor :number_of_pos_filled, :board_array
 	def initialize
 		@number_of_pos_filled = 0
 		@board_array = []
@@ -22,6 +22,23 @@ class Board
 			end
 		end
 		possibles_array
+	end
+
+	def remove_piece(col)
+		removed = false
+		7.times do |index_outer|
+			5.downto(0) do |index|
+				if col == index_outer
+					if @board_array[index][index_outer] == NO_COLOR
+						@board_array[index+1][index_outer] = NO_COLOR
+						removed = true
+					end
+				end
+			end
+		end
+		unless removed
+			@board_array[0][col] = NO_COLOR
+		end
 	end
 
 	def add_piece(color, col)
@@ -55,16 +72,16 @@ class Board
 		return_val
 	end
 
-	def check_winning_pos_horiz(color)
+	def check_winning_pos_horiz(color, printable)
 		return_val = false
-		printed = false
+		printed = false || printable
 		6.times do	|index|
 			return_val = return_val | check_line(@board_array[index], color)
 			if return_val
 				unless printed
 					print "Winning Pos Found On Row #{index} For "
-					print "RED"  if     color == RED
-					print "BLUE" unless color == RED
+					print "RED\n"  if     color == RED
+					print "BLUE\n" unless color == RED
 					printed = true
 				end
 			end
@@ -72,9 +89,9 @@ class Board
 		return_val
 	end
 
-	def check_winning_pos_vertic(color)
+	def check_winning_pos_vertic(color, printable)
 		return_val = false
-		printed = false
+		printed = false || printable
 		vertic_array = []
 		7.times do |col|
 			6.times do	|index|
@@ -93,17 +110,9 @@ class Board
 		return_val
 	end
 
-	def check_winning_pos(color)
+	def check_winning_pos_diag(color, printable)
 		return_val = false
-		return_val = return_val | check_winning_pos_horiz(color)
-		return_val = return_val | check_winning_pos_vertic(color)
-		return_val = return_val | check_winning_diag(color)
-		return_val
-	end
-
-	def check_winning_diag(color)
-		return_val = false
-		printed = false
+		printed = false || printable
 		6.times do |row|
 			7.times do |col|
 				if col < 4
@@ -135,6 +144,14 @@ class Board
 				end
 			end
 		end
+		return_val
+	end
+
+	def check_winning_pos(color, printable)
+		return_val = false
+		return_val = return_val | check_winning_pos_horiz(color, printable)
+		return_val = return_val | check_winning_pos_vertic(color, printable)
+		return_val = return_val | check_winning_pos_diag(color, printable)
 		return_val
 	end
 
