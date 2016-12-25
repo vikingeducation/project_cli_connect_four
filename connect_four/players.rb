@@ -4,17 +4,17 @@ class Player
   def initialize(name='Player 2', piece='o')
     @name = name
     @piece = piece
-    @move = []
+    @move = ''
   end
 
   def reset_moves
-    @move = []
+    @move = ''
   end
 
   def get_move(board)
     # accept board so that we can verify the validity of the
     until valid_format? && board.valid_move?(move)
-      prompt_move
+      prompt_move(board)
     end
   end
 
@@ -33,9 +33,14 @@ class Player
 end
 
 class AI < Player
+
+  def move
+    @move
+  end
+
   private
-  def prompt_move
-    @move = rand(1..6)
+  def prompt_move(board=nil)
+    @move = rand(0..5)
   end
 end
 
@@ -43,7 +48,7 @@ class Human < Player
 
   private
 
-  def prompt_move
+  def prompt_move(board=nil_)
     puts "Enter column (1-6) in which you'd like to place your piece. Enter '1' for column 1, '2' for column 2 and so on."
     print "#{@name}: "
     @move = gets.strip

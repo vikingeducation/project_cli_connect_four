@@ -13,7 +13,7 @@ class ConnectFour
     welcome
     get_mode
     create_players
-    @current_player = @player1
+    @current_player = [@player1, @player2].sample
 
     run_game(@board)
 
