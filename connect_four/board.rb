@@ -56,10 +56,8 @@ class Board
       puts "That column's full. Choose one with space in it."
       return false
     end
-
     true
   end
-
 
   private
 
