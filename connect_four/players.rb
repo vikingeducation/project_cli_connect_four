@@ -40,6 +40,7 @@ class AI < Player
 
   private
   def prompt_move(board=nil)
+    p board.board
     @move = rand(0..5)
   end
 end

@@ -89,7 +89,7 @@ class Board
     (0..5).each do |i|
       (0..5).each do |j|
         # same "row" x[0][1], x[0][2]
-        if @board[i][j] == @board[i][j-1] && !@board[i][j-1].nil? && j - 1 > 0
+        if @board[i][j] == @board[i][j-1] && !@board[i][j-1].nil? && j - 1 > -1
           down += 1
         else
           down = 1
