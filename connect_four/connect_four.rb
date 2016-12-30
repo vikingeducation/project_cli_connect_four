@@ -1,7 +1,6 @@
 require_relative 'board'
 require_relative 'players'
 
-
 class ConnectFour
   def initialize
     @board = Board.new

@@ -1,5 +1,5 @@
 class Board
-  attr_reader :board
+  attr_accessor :board
   def initialize
     @board = Array.new(6){ [] }
   end
@@ -39,8 +39,7 @@ class Board
 
 
   def game_won?
-    return true if four_across?
-    return true if four_diagonal?
+    return true if connect_four?
     false
   end
 
@@ -61,49 +60,42 @@ class Board
 
   private
 
-  def four_diagonal?
-    #left_diagonal
-    @board.each_with_index do |row, r|
-      row.each_with_index do |item, c|
-        return true if diagonal(c, r, 1, 1) || diagonal(c, r, -1, 1)
+  def connect_four?
+    @board.each_with_index do |row, y|
+      row.each_with_index do |item, x|
+        return true if diagonal(x, y, 1, 1) || diagonal(x, y, -1, 1) || down?(x, y, 1, 1) || across?(x, y, 1, 1, )
       end
     end
     false
   end
 
-  def diagonal(column, row, increment, counter)
-    return false if column + increment > 5 || row + increment > 5
-    return false if column + increment < 0 || row + increment < 0
-    # column and row == coordinates
+  def diagonal(x, y, increment, counter)
+    return false if x + increment > 5 || y + 1 > 5
+    return false if x + increment < 0 || y + 1 < 0
+    # x and y == coordinates
     # increment = increment, which determines direction of diagonal line
-    if @board[column][row] == @board[column + increment][row - 1] && !@board[column][row].nil?
+    if @board[y][x] == @board[y + 1][x + increment] && !@board[y][x].nil?
+      counter += 1
+
+      return true if counter == 4
+      diagonal(x + increment, y + 1, increment, counter)
+    end
+  end
+
+  def down?(x, y, increment, counter)
+    if @board[y][x] == @board[y + increment][x]
       counter += 1
       return true if counter == 4
-      diagonal(column + increment, row - 1, increment, counter)
+      down?(x, y + increment, increment, counter)
     end
   end
 
-  def four_across?
-    down = 1
-    across = 1
-    (0..5).each do |i|
-      (0..5).each do |j|
-        # same "row" x[0][1], x[0][2]
-        if @board[i][j] == @board[i][j-1] && !@board[i][j-1].nil? && j - 1 > -1
-          down += 1
-        else
-          down = 1
-        end
-        # same col x[1][0], x[2][0], x[3][0]
-        if @board[j][i] == @board[j-1][i] && !@board[j-1][i].nil?
-          across += 1
-        else
-          across = 1
-        end
-        return true if down == 4 || across == 4
-      end
+  def across?(x, y, increment, counter )
+    if @board[y][x] == @board[y][x + increment]
+      counter += 1
+      return true if counter == 4
+      across?(x + increment, y, increment, counter)
     end
-    false
   end
 
 end
