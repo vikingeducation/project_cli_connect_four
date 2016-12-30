@@ -83,6 +83,7 @@ class Board
   end
 
   def down?(x, y, increment, counter)
+    return false if y + increment > 5
     if @board[y][x] == @board[y + increment][x]
       counter += 1
       return true if counter == 4
@@ -91,6 +92,7 @@ class Board
   end
 
   def across?(x, y, increment, counter )
+    return false if x + increment > 5
     if @board[y][x] == @board[y][x + increment]
       counter += 1
       return true if counter == 4
