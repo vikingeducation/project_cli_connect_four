@@ -39,9 +39,40 @@ class AI < Player
   end
 
   private
+
   def prompt_move(board=nil)
-    p board.board
     @move = rand(0..5)
+  end
+
+
+  def diagonal?(x, y, increment, counter)
+    return false if x + increment > 5 || y + 1 > 5
+    return false if x + increment < 0 || y + 1 < 0
+    # x and y == coordinates
+    # increment = increment, which determines direction of diagonal line
+    if @board[y][x] == @board[y + 1][x + increment] && !@board[y][x].nil?
+      counter += 1
+      return true if counter == 3
+      diagonal(x + increment, y + 1, increment, counter)
+    end
+  end
+
+  def down?(x, y, increment, counter)
+    return false if y + increment > 5
+    if @board[y][x] == @board[y + increment][x]
+      counter += 1
+      return true if counter == 3
+      down?(x, y + increment, increment, counter)
+    end
+  end
+
+  def across?(x, y, increment, counter )
+    return false if x + increment > 5
+    if @board[y][x] == @board[y][x + increment]
+      counter += 1
+      return true if counter == 3
+      across?(x + increment, y, increment, counter)
+    end
   end
 end
 

@@ -76,7 +76,6 @@ class Board
     # increment = increment, which determines direction of diagonal line
     if @board[y][x] == @board[y + 1][x + increment] && !@board[y][x].nil?
       counter += 1
-
       return true if counter == 4
       diagonal(x + increment, y + 1, increment, counter)
     end
