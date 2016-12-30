@@ -14,16 +14,16 @@ class ConnectFour
     create_players
     @current_player = [@player1, @player2].sample
 
-    run_game(@board)
+    run_game
 
   end
 
   private
 
-  def run_game(board)
+  def run_game
     @board.render
     until @board.full?
-      @current_player.get_move(board)
+      @current_player.get_move(@board)
       @board.update(@current_player)
       @board.render
       if @board.game_won?

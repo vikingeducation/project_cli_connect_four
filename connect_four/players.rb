@@ -41,41 +41,50 @@ class AI < Player
   private
 
   def prompt_move(board=nil)
-    @move = rand(0..5)
+    @board = board
+    @b = @board.board
+    @move = winning_move ? winning_move : rand(0..5)
+    puts "move #{@move}"
   end
 
-
-  def diagonal?(x, y, increment, counter)
-    return false if x + increment > 5 || y + 1 > 5
-    return false if x + increment < 0 || y + 1 < 0
-    # x and y == coordinates
-    # increment = increment, which determines direction of diagonal line
-    if @board[y][x] == @board[y + 1][x + increment] && !@board[y][x].nil?
-      counter += 1
-      return true if counter == 3
-      diagonal(x + increment, y + 1, increment, counter)
+  def winning_move
+    @b.each_with_index do |row, y|
+      row.each_with_index do |col, x|
+        if across?(x, y, 1, 1)
+          return y if @board.valid_move?(y)
+        end
+        if down?(x, y, 1, 1)
+          return y-1 if @board.valid_move?(y-1)
+        end
+        if down?(x, y, -1, 1)
+          return y + 1 if @board.valid_move?(y+1)
+        end
+      end
     end
+    false
   end
+
+
 
   def down?(x, y, increment, counter)
     return false if y + increment > 5
-    if @board[y][x] == @board[y + increment][x]
+    if @b[y][x] == @b[y + increment][x] && @b[y][x] == @piece
       counter += 1
       return true if counter == 3
       down?(x, y + increment, increment, counter)
     end
   end
 
-  def across?(x, y, increment, counter )
+  def across?(x, y, increment, counter)
     return false if x + increment > 5
-    if @board[y][x] == @board[y][x + increment]
+    if @b[y][x] == @b[y][x + increment] && @b[y][x]  == @piece
       counter += 1
       return true if counter == 3
       across?(x + increment, y, increment, counter)
     end
   end
-end
 
+end
 class Human < Player
 
   private
@@ -89,5 +98,6 @@ class Human < Player
     puts
     puts "Please check the format of your move."  unless valid_format?
   end
+
 
 end
