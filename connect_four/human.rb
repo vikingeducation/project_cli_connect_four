@@ -1,7 +1,7 @@
 # All actions related to the Player
 module Connect_Four
 
-  class Human
+  class Human < Player
     attr_accessor :name, :piece
     
     def initialize(name, piece, board)

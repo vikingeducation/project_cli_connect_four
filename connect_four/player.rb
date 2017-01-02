@@ -5,7 +5,6 @@ module Connect_Four
     attr_accessor :name, :piece
     
     def initialize(name, piece, board)
-      raise "Piece must be a Symbol!" unless piece.is_a?(Symbol)
       @name = name
       @piece = piece
       @board = board
