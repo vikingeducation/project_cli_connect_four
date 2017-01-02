@@ -15,7 +15,7 @@ class Game
     answer = gets.chomp.strip
     if(answer == "1")
       @player1 = Player.new("Player1", :r, @board)
-      @player2 = Computer.new("Player2", :y, @board)
+      @player2 = Computer.new("Computer", :y, @board)
     elsif(answer == "2")
       @player1 = Player.new("Player1", :r, @board)
       @player2 = Player.new("Player2", :y, @board)

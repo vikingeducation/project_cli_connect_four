@@ -10,5 +10,5 @@ require './computer'
 # namespace
 include Connect_Four
 
-# Play!
+# Play
 Game.new.play

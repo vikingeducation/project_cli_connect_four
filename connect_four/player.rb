@@ -26,14 +26,12 @@ module Connect_Four
       end
     end
 
-    # ask_for_coordinates
     def ask_for_coordinates
       puts "#{@name}(#{@piece}), enter your coordinates in the form x,y:"
       user_input = gets.chomp.strip.split(",")
       user_input.map {|x| x.to_i}
     end
 
-    # validate_coordinates_format
     def validate_coordinates_format(coords)
       if coords.is_a?(Array) && coords.size == 2
           true
