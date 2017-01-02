@@ -15,7 +15,6 @@ module Connect_Four
       end
     end
 
-    # ask_for_coordinates
     def create_coordinates
       computer_input = [rand(5), rand(6)]
     end
