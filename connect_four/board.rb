@@ -10,7 +10,6 @@ module Connect_Four
       # render
         def render
             puts
-            # loop through data structure
             @board.each do |row|
                 row.each do |cell|
                     # display an existing marker if any, else blank
@@ -148,11 +147,8 @@ module Connect_Four
             horizontals  
         end
 
-        # full?
         def full?
-            # does every square contain a piece?
             @board.all? do |row|
-                # row.none?(&:nil?)
                 row.none? {|x| x.nil?}
             end
         end
