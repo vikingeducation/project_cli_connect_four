@@ -1,8 +1,8 @@
-require './connect_four/game'
-require './connect_four/board'
-require './connect_four/player'
-require './connect_four/computer'
-require './connect_four/human'
+require './game'
+require './board'
+require './player'
+require './computer'
+# require './connect_four/human'
 
 
 # Includes the 
