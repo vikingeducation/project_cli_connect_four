@@ -111,15 +111,15 @@ module Connect_Four
         # vertical combinations
         def verticals
             verticals = []
-            4.times do |i|
+            7.times do |i|
                 verticals << [@board[0][i],@board[1][i],@board[2][i], @board[3][i]]
             end
 
-            1.upto(4) do |i|
+            7.times do |i|
                 verticals << [@board[1][i],@board[2][i],@board[3][i], @board[4][i]]
             end
 
-            2.upto(5) do |i|
+            7.times do |i|
                 verticals << [@board[2][i],@board[3][i],@board[4][i], @board[5][i]]
             end
             verticals
@@ -128,7 +128,7 @@ module Connect_Four
         # horizontal combinations
         def horizontals
             horizontals = []
-            
+
             6.times do |i|
                 horizontals << [@board[i][0],@board[i][1],@board[i][2], @board[i][3]]
             end

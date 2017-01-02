@@ -6,15 +6,18 @@ module Connect_Four
     end
 
     def get_coordinates
-      coords = generate_coordinates
-      @board.add_piece(coords, @piece)
+      loop do
+        coords = create_coordinates
+
+        if @board.add_piece(coords, @piece)
+          break
+        end
+      end
     end
 
     # ask_for_coordinates
-    def generate_coordinates
+    def create_coordinates
       computer_input = [rand(5), rand(6)]
     end
-
-  end
   end
 end
