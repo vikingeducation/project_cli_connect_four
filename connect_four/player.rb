@@ -67,10 +67,6 @@ module Connect_Four
 
 end
 
-# AI computer player 
-module Connect_Four
-  class Computer < Player
-  end
 
 # Layout of the board
 class Board
@@ -196,7 +192,8 @@ class Board
     def full?
         # does every square contain a piece?
         @board_arr.all? do |row|
-            row.none?(&:nil?)
+            # row.none?(&:nil?)
+            row.none? {|x| x.nil?}
         end
     end
 
@@ -242,32 +239,23 @@ class Game
 
     initial_setup
 
-    # while the user has not quit, loop the game
        @board.render
-          # ask for coordinates from the current player
         @current_player.get_coordinates
 
-        # check if game is over
         break if check_game_over
 
-        # switch players
         switch_players
-    # end
   end
 
   # check_game_over?
     def check_game_over
-        # check for victory
-        # check for draw
         check_victory || check_draw
     end
 
     # check_draw?
     def check_draw
-        # If Board says we've filled up 
         if @board.full?
-            # display draw message
-            puts "You've drawn..."
+            puts "You've drawn!"
             true
         else
             false
@@ -276,10 +264,7 @@ class Game
 
     # check_victory?
     def check_victory
-        # IF Board says current player's piece has
-        # a winning_combination?
         if @board.winning_combination?(@current_player.piece)
-            # then output a victory message
             puts "Congratulations #{@current_player.name}, you win!"
             true
         else
@@ -296,17 +281,4 @@ class Game
             @current_player = @player_x
         end
     end
-
-  def check_vertical
-  end
-
-  def check_horizontal
-  end
-
-  def check_diagonal
-  end
-
-
-
-
 end
