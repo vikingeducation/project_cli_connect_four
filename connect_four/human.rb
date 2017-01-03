@@ -11,10 +11,8 @@ module Connect_Four
 
     def get_coordinates
       loop do
-          # ask_for_coordinates
           coords = ask_for_coordinates
 
-          # IF validate_coordinates_format is true
           if validate_coordinates_format(coords)
               if @board.add_piece(coords, @piece)
                   break

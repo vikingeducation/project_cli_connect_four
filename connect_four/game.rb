@@ -12,7 +12,7 @@ class Game
     puts "Enter 1 or 2"
     puts "**********************************************"
 
-    answer = gets.chomp.strip
+    answer = gets.chomp
     if(answer == "1")
       @player1 = Human.new("Player1", :r, @board)
       @player2 = Computer.new("Computer", :y, @board)
@@ -24,7 +24,6 @@ class Game
       initial_setup
     end
     
-    # assign the starting playerr
     @current_player = @player1
   end
 
