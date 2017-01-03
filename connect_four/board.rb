@@ -107,7 +107,7 @@ module Connect_Four
 
             j = 0, k = 1, l = 2, m = 3
 
-            3 times do
+            3.times do
                 4.times do |i|
                     diagonals << [@board[j][i],@board[k][i+1],@board[l][i+2], @board[m][i+3]]
                 end
@@ -130,7 +130,7 @@ module Connect_Four
              # [ @board[0][1],@board[1][2],@board[2][3],@board[3][4] ],
              # [ @board[0][2],@board[1][3],@board[2][4],@board[3][5] ],
              # [ @board[0][3],@board[1][4],@board[2][5],@board[3][6] ]
-             ]
+             # ]
         end
 
         # vertical combinations
@@ -163,7 +163,6 @@ module Connect_Four
         # horizontal combinations
         def horizontals
             horizontals = []
-
 
             j = 0, k = 1, l = 2, m = 3
 
