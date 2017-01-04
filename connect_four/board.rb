@@ -83,28 +83,9 @@ module Connect_Four
 
          # diagonal combinations
         def diagonals
-            # [[ @board[2][0],@board[3][1],@board[4][2],@board[5][3] ],
-
-            #  [ @board[1][0],@board[2][1],@board[3][2],@board[4][3] ],
-            #  [ @board[2][1],@board[3][2],@board[4][3],@board[5][4] ],
-
-            #  [ @board[0][0],@board[1][1],@board[2][2],@board[3][3] ],
-            #  [ @board[1][1],@board[2][2],@board[3][3],@board[4][4] ],
-            #  [ @board[2][2],@board[3][3],@board[4][4],@board[5][5] ],
-
-
-            #  [ @board[0][1],@board[1][2],@board[2][3],@board[3][4] ],
-            #  [ @board[1][2],@board[2][3],@board[3][4],@board[4][5] ],
-            #  [ @board[2][3],@board[3][4],@board[4][5],@board[5][6] ],
-
-
-            #  [ @board[0][2],@board[1][3],@board[2][4],@board[3][5] ],
-            #  [ @board[1][3],@board[2][4],@board[3][5],@board[4][6] ],
-
-            #  [ @board[0][3],@board[1][4],@board[2][5],@board[3][6] ]]
-
             diagonals = []
 
+            # left to right diagonals
             counter = [0, 1, 2, 3]
 
             3.times do
@@ -112,9 +93,48 @@ module Connect_Four
                     diagonals << [@board[counter[0]][i],@board[counter[1]][i+1],@board[counter[2]][i+2], @board[counter[3]][i+3]]
                 end
                 # [j, k, l, m].each { |value| value += 1 }
-               counter.each { |value| value += 1 }
+               counter.map! { |value| value += 1 }
             end
+            
+
+
+            # right to left diagonals
+            counter2 = [6, 5, 4, 3] 
+
+            4.times do 
+                3.times do |i|
+                    diagonals << [@board[i][counter2[0]],@board[i+1][counter2[1]],board[i+2][counter2[2]], @board[i+3][counter2[3]]]
+                end
+                counter2.map! { |value| value -= 1 }
+            end
+            
+             
             diagonals
+             
+            
+            # @board[0][6], @board[1][5], @board[2][4], @board[3][3]
+            # @board[1][6], @board[2][5], @board[3][4], @board[4][3]  
+            # @board[2][6], @board[3][5], @board[4][4], @board[5][3]
+
+
+            # @board[0][5], @board[1][4], @board[2][3], @board[3][2]
+            # @board[1][5], @board[2][4], @board[3][3], @board[4][2]
+            # @board[2][5], @board[3][4], @board[4][3], @board[5][2]
+
+
+            # @board[0][4], @board[1][3], @board[2][2], @board[3][1]
+            # @board[1][4], @board[2][3], @board[3][2], @board[4][1]
+            # @board[2][4], @board[3][3], @board[4][2], @board[5][1] 
+
+
+            # @board[0][3], @board[1][2], @board[2][1], @board[3][0] 
+            # @board[1][3], @board[2][2], @board[3][1], @board[4][0]
+            # @board[2][3], @board[3][2], @board[4][1], @board[5][0]
+            
+
+
+
+
              # [
              # [ @board[2][0],@board[3][1],@board[4][2],@board[5][3] ],
              # [ @board[2][1],@board[3][2],@board[4][3],@board[5][4] ],
@@ -144,7 +164,7 @@ module Connect_Four
                 7.times do |i|
                 verticals << [@board[counter[0]][i],@board[counter[1]][i],@board[counter[2]][i], @board[counter[3]][i]]
                 end
-                counter.each { |value| value += 1 }
+                counter.map! { |value| value += 1 }
             end
 
             # 7.times do |i|
@@ -171,7 +191,7 @@ module Connect_Four
                 6.times do |i|
                     horizontals << [@board[i][counter[0]],@board[i][counter[1]],board[i][counter[2]], @board[i][counter[3]]]
                 end
-                counter.each { |value| value += 1 }
+                counter.map! { |value| value += 1 }
             end
 
             # 6.times do |i|
