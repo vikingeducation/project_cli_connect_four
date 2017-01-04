@@ -1,18 +1,18 @@
 class Board
   attr_accessor :board
   def initialize
-    @board = Array.new(6){ [] }
+    @board = Array.new(7){ [] }
   end
 
   def render
-    (1..6).each_with_index do |label, i|
+    (1..7).each_with_index do |label, i|
       s = i == 0? 4 : 4
       print " #{label} ".rjust(s)
     end
 
     puts
 
-    (0...@board.size).reverse_each do |i|
+    (0...6).reverse_each do |i|
       (0...@board.size).each do |j|
         print '| ' if j == 0
         print @board[j][i].nil? ? ' ' : @board[j][i]
