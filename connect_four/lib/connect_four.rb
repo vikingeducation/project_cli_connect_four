@@ -5,10 +5,10 @@ class ConnectFour
   def initialize
     @board = Board.new
     @player1 = Human.new('Player 1', 'x')
-    @board.render
   end
 
   def play
+    @board.render
     welcome
     get_mode
     create_players
@@ -70,7 +70,3 @@ class ConnectFour
     puts "Welcome to Connect Four!"
   end
 end
-
-
-c = ConnectFour.new
-c.play

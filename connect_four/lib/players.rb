@@ -8,26 +8,24 @@ class Player
   end
 
   def reset_moves
-    @move = ''
+    @move = nil
   end
 
   def get_move(board)
     # accept board so that we can verify the validity of the
-    until valid_format? && board.valid_move?(move)
-      prompt_move(board)
-    end
+    prompt_move(board) until valid_format? && board.valid_move?(move)
   end
 
   def move
     # make sure we pass it in a format that 'board' understands
-    @move - 1
+    @move - 1 unless @move.nil?
   end
 
   private
 
 
   def valid_format?
-    !@move.nil? && @move.to_s.length == 1
+    @move && @move.to_s.length == 1
   end
 
 end

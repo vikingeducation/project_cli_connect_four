@@ -1,7 +1,7 @@
 class Board
   attr_accessor :board
-  def initialize
-    @board = Array.new(7){ [] }
+  def initialize(board=nil)
+    @board = board || Array.new(7){ [] }
   end
 
   def render
@@ -32,11 +32,9 @@ class Board
     true
   end
 
-
   def update(player)
     @board[player.move] << player.piece
   end
-
 
   def game_won?
     return true if connect_four?
@@ -45,7 +43,7 @@ class Board
 
   def valid_move?(col)
     # make sure slot exists
-    unless col.between?(0,5)
+    unless col.between?(0,6)
       puts "I'm afraid that column doesn't exist!"
       return false
     end
@@ -70,11 +68,11 @@ class Board
   end
 
   def diagonal(x, y, increment, counter)
-    return false if x + increment > 5 || y + 1 > 5
+    return false if x + increment > 5 || y + 1 > 6
     return false if x + increment < 0 || y + 1 < 0
     # x and y == coordinates
     # increment = increment, which determines direction of diagonal line
-    if @board[y][x] == @board[y + 1][x + increment] && !@board[y][x].nil?
+    if @board[y][x] == @board[y + 1][x + increment] && @board[y][x]
       counter += 1
       return true if counter == 4
       diagonal(x + increment, y + 1, increment, counter)
@@ -82,7 +80,7 @@ class Board
   end
 
   def down?(x, y, increment, counter)
-    return false if y + increment > 5
+    return false if y + increment > 6
     if @board[y][x] == @board[y + increment][x]
       counter += 1
       return true if counter == 4
