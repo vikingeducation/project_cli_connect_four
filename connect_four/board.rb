@@ -105,13 +105,14 @@ module Connect_Four
 
             diagonals = []
 
-            j = 0, k = 1, l = 2, m = 3
+            counter = [0, 1, 2, 3]
 
             3.times do
                 4.times do |i|
-                    diagonals << [@board[j][i],@board[k][i+1],@board[l][i+2], @board[m][i+3]]
+                    diagonals << [@board[counter[0]][i],@board[counter[1]][i+1],@board[counter[2]][i+2], @board[counter[3]][i+3]]
                 end
-                [j, k, l, m].each { |value| value += 1 }
+                # [j, k, l, m].each { |value| value += 1 }
+               counter.each { |value| value += 1 }
             end
             diagonals
              # [
@@ -137,13 +138,13 @@ module Connect_Four
         def verticals
             verticals = []
 
-            j = 0, k = 1, l = 2, m = 3
+            counter = [0, 1, 2, 3]
 
             3.times do
                 7.times do |i|
-                verticals << [@board[j][i],@board[k][i],@board[l][i], @board[m][i]]
+                verticals << [@board[counter[0]][i],@board[counter[1]][i],@board[counter[2]][i], @board[counter[3]][i]]
                 end
-                [j, k, l, m].each { |value| value += 1 }
+                counter.each { |value| value += 1 }
             end
 
             # 7.times do |i|
@@ -164,13 +165,13 @@ module Connect_Four
         def horizontals
             horizontals = []
 
-            j = 0, k = 1, l = 2, m = 3
+            counter = [0, 1, 2, 3]
 
             4.times do 
                 6.times do |i|
-                    horizontals << [@board[i][j],@board[i][k],@board[i][l], @board[i][m]]
+                    horizontals << [@board[i][counter[0]],@board[i][counter[1]],board[i][counter[2]], @board[i][counter[3]]]
                 end
-                [j, k, l, m].each { |value| value += 1 }
+                counter.each { |value| value += 1 }
             end
 
             # 6.times do |i|
