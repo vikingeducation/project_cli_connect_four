@@ -5,5 +5,4 @@ require_relative 'c4_game'
 require 'pry'
 
 # binding.pry
-c4 = ConnectFourGame.new
-c4.play
+ConnectFourGame.start
