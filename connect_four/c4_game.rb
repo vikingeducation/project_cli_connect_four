@@ -33,17 +33,24 @@ class ConnectFourGame
   def play
     begin
       play_turn
-    end until game_won?
+    end until game_over?
   end
 
   def play_turn
-    game_board.render
-    player_move
-    switch_player
+    choice = 0
+    begin
+      game_board.render
+      choice = players[whos_turn].choose
+    end until game_board.validate_col(choice)
+
+    player_move(choice)
+    nil
   end
 
-  def player_move
-    game_board.drop_piece(players[whos_turn].choose, whos_turn)
+  def player_move(choice)
+    game_board.drop_piece(choice, whos_turn)
+    switch_player
+    nil
   end
 
   def switch_player
@@ -52,9 +59,19 @@ class ConnectFourGame
     else
       self.whos_turn = 0
     end
+    nil
   end
 
   def game_won?
     false
+  end
+
+  def game_over?
+    game_board.board.each do |row|
+      row.each do |slot|
+        return  false if slot == '-'
+      end
+    end
+    return true
   end
 end

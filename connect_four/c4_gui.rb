@@ -34,6 +34,16 @@ class Gui
     choice
   end
 
+  def self.column_full_error(col)
+    puts "Column #{col} is full."
+    puts "Please select another column."
+  end
+
+  def self.column_invalid(col)
+    puts "Column #{col} is invalid."
+    puts "Please select another column."
+  end
+
   def self.annouce_who(player)
     puts "It is now #{player}'s turn!"
   end

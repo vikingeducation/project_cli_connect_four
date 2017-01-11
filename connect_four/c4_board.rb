@@ -24,6 +24,17 @@ class ConnectFourBoard
     puts
   end
 
+  def validate_col(col)
+    return true if board[0][col] == '-'
+    if board[0][col] != nil
+      Gui.column_full_error(col)
+      return false
+    else
+      Gui.column_invalid(col)
+      return false
+    end
+  end
+
   def drop_piece(col, whos_turn)
     depth = board.size - 1
     depth.downto(0) do |row|
@@ -36,10 +47,6 @@ class ConnectFourBoard
   end
 
   private
-
-  def first_row
-    board[0]
-  end
 
   def build_empty_game_array(board_height = 6, board_width = 7)
     Array.new(board_height) { Array.new(board_width) { |_i| _i = '-' } }

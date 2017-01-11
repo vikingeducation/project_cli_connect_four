@@ -4,6 +4,7 @@ class Player
   def initialize
     @player_name = Gui.get_name
   end
+
 end
 
 class HumanPlayer < Player
@@ -16,5 +17,9 @@ end
 class CpuPlayer < Player
   def initialize
     @player_name = "CPU"
+  end
+
+  def method_name
+    worry.each dop
   end
 end
