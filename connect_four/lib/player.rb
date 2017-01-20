@@ -1,6 +1,5 @@
 # All actions related to the Player
 module Connect_Four
-
   class Player
     attr_accessor :name, :piece
     

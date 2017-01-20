@@ -1,11 +1,18 @@
 # Tests for Computer class
-# spec/computer.rb
+# spec/computer_spec.rb
+require 'player'
 require 'computer'
+include Connect_Four
 
 describe Computer do
-  # it create coordinates
-  # expecy cretate coordinates to 0 to 6 and 0 to7
 
-  # test initialiaze 
+  describe 'computer generated coordinates' do
+    it 'create random x coordinate' do
+      expect(0..5).to cover(computer.create_coordinates[0])
+    end
 
+    it 'create random y coordinate' do
+      expect(0..5).to cover(computer.create_coordinates[1])
+    end
+  end
 end
