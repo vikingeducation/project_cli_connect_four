@@ -6,6 +6,8 @@ include Connect_Four
 
 describe Computer do
 
+  let(:computer){ Computer.new("ComputerPlayer", :y, Array.new(2){Array.new(3)})  }
+
   describe 'computer generated coordinates' do
     it 'create random x coordinate' do
       expect(0..5).to cover(computer.create_coordinates[0])

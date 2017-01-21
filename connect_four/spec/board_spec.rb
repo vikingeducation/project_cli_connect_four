@@ -1,6 +1,5 @@
 # Tests for board class
 # spec/board_spec.rb
-require 'spec_helper'
 require 'board'
 include Connect_Four
 

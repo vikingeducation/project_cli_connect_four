@@ -14,3 +14,9 @@ RSpec.configure do |config|
   end
   config.expose_dsl_globally = true
 end
+
+def ignore_puts
+   before do
+      $stdout.stub(:write)
+   end
+end
