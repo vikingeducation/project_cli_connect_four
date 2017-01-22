@@ -5,13 +5,9 @@ include Connect_Four
 
 # declare the named subject of our tests
 describe Board do
-  let(:board){ Board.new  }
+  let(:board){ Board.new(Array.new(6){Array.new(7)})  }
   let(:test_array){ Array.new(2){Array.new(3)} }
   let(:test_board){ Board.new(test_array) }  
-  let(:board[0][0]){ :r }
-  let(:board[1][0]){ :r }
-  let(:board[2][0]){ :r }
-  let(:board[3][0]){ :r }
 
   describe '#initialize' do
     it 'raises an ArgumentError with more than 1 argument' do
@@ -29,7 +25,14 @@ describe Board do
 
   describe '#winning_vertical' do
     it 'returns true for a winning_vertical' do
-      expect(board.winning_vertical?(:r)).to be_truthy
+      red_board = [[:r, "", "", "","", "",""],
+                   [:r, "", "", "","", "",""],
+                   [:r, "", "", "","", "",""],
+                   [:r, "", "", "","", "",""],
+                   ["", "", "", "","", "",""],
+                   ["", "", "", "","", "",""],
+                   ["", "", "", "","", "",""]]
+      expect(Board.new(red_board).winning_vertical?(:r)).to be_truthy
     end
 
     it 'returns false for a non winning_vertical' do
@@ -37,41 +40,64 @@ describe Board do
     end
   end
 
-  # describe '#winning_vertical' do
-  #   xit 'returns true for a winning_vertical' do
-  #     # board = Board.new(Array.new(6){Array.new(7)}
-  #     board[0][0] = "r"
-  #     board[0][1] = "r"
-  #     board[0][2] = "r"
-  #     board[0][3] = "r"
-  #   end
+  describe '#winning_horizontal' do
+    it 'returns true for a winning_horizontal' do
+      red_board = [[:r, :r, :r, :r,"", "",""],
+                   ["", "", "", "","", "",""],
+                   ["", "", "", "","", "",""],
+                   ["", "", "", "","", "",""],
+                   ["", "", "", "","", "",""],
+                   ["", "", "", "","", "",""],
+                   ["", "", "", "","", "",""]]
+      expect(Board.new(red_board).winning_horizontal?(:r)).to be_truthy
+    end
 
-  #   it 'returns false for a non winning_vertical' do
-  #     # board = Board.new(Array.new(6){Array.new(7)}
-  #     board[0][0] = "r"
-  #     board[0][1] = "y"
-  #     board[0][2] = "r"
-  #     board[0][3] = "r"
-  #   end
-  # end
+    it 'returns false for a non winning_vertical' do
+      non_winning_board = [[:r, :y, :r, :r,"", "",""],
+                   ["", "", "", "","", "",""],
+                   ["", "", "", "","", "",""],
+                   ["", "", "", "","", "",""],
+                   ["", "", "", "","", "",""],
+                   ["", "", "", "","", "",""],
+                   ["", "", "", "","", "",""]]
+      expect(Board.new(non_winning_board).winning_horizontal?(:r)).to be_falsey
+    end
+  end
 
-  # describe '#winning_diagonal' do
-  #   xit 'returns true for a winning_diagonal' do
-  #     # board = Board.new(Array.new(6){Array.new(7)}
-  #     board[0][0] = "r"
-  #     board[1][1] = "r"
-  #     board[2][2] = "r"
-  #     board[3][3] = "r"
-  #   end
+  describe '#winning_diagonal' do
+    it 'returns true for a winning_diagonal' do
+      red_board = [[:r, "", "", "","", "",""],
+                   ["", :r, "", "","", "",""],
+                   ["", "", :r, "","", "",""],
+                   ["", "", "", :r,"", "",""],
+                   ["", "", "", "","", "",""],
+                   ["", "", "", "","", "",""],
+                   ["", "", "", "","", "",""]]
+      expect(Board.new(red_board).winning_diagonal?(:r)).to be_truthy
+    end
 
-  #   xit 'returns false for a non winning_diagonal' do
-  #     # board = Board.new(Array.new(6){Array.new(7)}
-  #     board[0][0] = "y"
-  #     board[1][1] = "r"
-  #     board[2][2] = "r"
-  #     board[3][3] = "r"
-  #   end
-  # end
+    it 'returns true for a winning_diagonal with mixed input' do
+      win_red_board = [[:y, "", "", "","", "",""],
+                   ["", :y, "", "",:y, "",""],
+                   [:r, "", :y, "","", "",""],
+                   [:y, :r, "", :y,"", "",""],
+                   ["", :r, :r, "",:r, "",""],
+                   ["", :r, "", :r,"", :r,""],
+                   ["", "", "", "",:y, :r,:r]]
+      expect(Board.new(win_red_board).winning_diagonal?(:r)).to be_truthy
+    end
+
+    it 'returns false for a non winning_diagonal' do
+      lose_red_board = [[:y, "", "", "","", "",""],
+                   ["", :y, "", "",:y, "",""],
+                   [:r, "", :y, "","", "",""],
+                   [:y, :y, "", :y,"", "",""],
+                   ["", :r, :r, "",:r, "",""],
+                   ["", :r, "", :r,"", :r,""],
+                   ["", "", "", "",:y, :r,:r]]
+      expect(Board.new(lose_red_board).winning_diagonal?(:r)).to be_falsey
+    end
+  end
 
   # describe 'valid coordinates' do
   #   xit 'returns true if the coordinates provided are valid'

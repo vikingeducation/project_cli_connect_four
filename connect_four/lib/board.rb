@@ -92,7 +92,6 @@ module Connect_Four
                 4.times do |i|
                     diagonals << [@board[counter[0]][i],@board[counter[1]][i+1],@board[counter[2]][i+2], @board[counter[3]][i+3]]
                 end
-                # [j, k, l, m].each { |value| value += 1 }
                counter.map! { |value| value += 1 }
             end
             
