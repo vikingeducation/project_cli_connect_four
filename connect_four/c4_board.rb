@@ -49,6 +49,6 @@ class ConnectFourBoard
   private
 
   def build_empty_game_array(board_height = 6, board_width = 7)
-    Array.new(board_height) { Array.new(board_width) { |_i| _i = '-' } }
+    Array.new(board_height-1) { Array.new(board_width) { |_i| _i = '-' } }
   end
 end

@@ -60,25 +60,25 @@ class ConnectFourGame
   end
 
   def switch_player
-    if whos_turn == 0
-      self.whos_turn = 1
-    else
-      self.whos_turn = 0
-    end
+    self.whos_turn = if whos_turn == 0
+                       1
+                     else
+                       0
+                     end
     nil
   end
 
   def game_won?
-    return check_horizontal
+    check_horizontal || check_vertical || check_diagonal
   end
 
   def game_over?
     game_board.board.each do |row|
       row.each do |slot|
-        return  false if slot == '-'
+        return false if slot == '-'
       end
     end
-    return true
+    true
   end
 
   def end_game
@@ -92,16 +92,62 @@ class ConnectFourGame
     horizontals = []
     0.upto(board_size) do |i|
       inner_board_size = board[i].length - 1
-        0.upto(inner_board_size) do |j|
-          break if j + 3 > inner_board_size
-          4.times do
-            horizontals << board[i][j].to_s + board[i][j + 1].to_s + board[i][j + 2].to_s + board[i][j + 3].to_s
-          end
+      0.upto(inner_board_size) do |j|
+        break if j + 3 > inner_board_size
+        4.times do
+          horizontals << board[i][j].to_s + board[i][j + 1].to_s + board[i][j + 2].to_s + board[i][j + 3].to_s
         end
+      end
     end
 
+    return true if horizontals.include?('XXXX') || horizontals.include?('OOOO')
+    false
+  end
 
-    return true if horizontals.include?("XXXX") || horizontals.include?("OOOO")
-    return false
+  def check_vertical
+    board = @game_board.board
+    board_size = board.size - 1
+    verticals = []
+    0.upto(board_size) do |i|
+      break if i + 3 > board_size
+      inner_board_size = board[i].length - 1
+      0.upto(inner_board_size) do |j|
+        to_match = board[i][j].to_s + board[i + 1][j].to_s + board[i + 2][j].to_s + board[i + 3][j].to_s
+        verticals << to_match
+      end
+    end
+
+    return true if verticals.include?('XXXX') || verticals.include?('OOOO')
+    false
+  end
+
+  def check_diagonal
+    board = @game_board.board
+    board_size = board.size - 1
+    diagonals = []
+    0.upto(board_size) do |i|
+      inner_board_size = board[i].length - 1
+      0.upto(inner_board_size) do |j|
+
+        to_match = ""
+        0.upto(3)  do |k|
+          unless board[i + k].nil? || board[i + k][j + k].nil?
+            to_match += board[i + k][j + k]
+          end
+        end
+
+        to_match = ""
+        0.upto(3)  do |k|
+          unless board[i + k].nil? || board[i + k][j - k].nil?
+            to_match += board[i + k][j - k]
+          end
+        end
+
+        diagonals << to_match if to_match.length == 4
+      end
+    end
+
+    return true if diagonals.include?('XXXX') || diagonals.include?('OOOO')
+    false
   end
 end
