@@ -47,4 +47,8 @@ class Gui
   def self.annouce_who(player)
     puts "It is now #{player}'s turn!"
   end
+
+  def self.end_game
+    puts "THE GAME HAS BEEN WON!"
+  end
 end
