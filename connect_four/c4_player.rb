@@ -19,7 +19,8 @@ class CpuPlayer < Player
     @player_name = "CPU"
   end
 
-  def method_name
-    worry.each dop
+  def choose
+    Gui.annouce_who(player_name)
+    (0..6).to_a.sample
   end
 end
