@@ -140,6 +140,21 @@ class Board
     false
   end
 
+  def winning_vertical(piece)
+    verticals.each_with_index do |column, column_index|
+      consecutive_pieces = 0
+      column.each do |slot|
+        if slot == piece
+          consecutive_pieces += 1
+        elsif slot == nil && consecutive_pieces == 3
+          column_label = column_index + 1
+          return column_label
+        end
+      end
+    end
+    false
+  end
+
 # winning_horizontal?
   def winning_horizontal?(piece)
     horizontals.each do |row|
@@ -252,6 +267,25 @@ class Board
   def horizontals
 # return the horizontal rows
     @board
+  end
+
+  def slot_available?
+    if @board[row_index][column_index].nil?
+      true
+    else
+      false
+  end
+
+  def possible_move?(column_index, row_index)
+    if slot_available?
+      if row_index == 0
+        true
+      elsif @board[row_index - 1][column_index].nil?
+        false
+      else
+        true
+      end
+    end
   end
 
 # full?
