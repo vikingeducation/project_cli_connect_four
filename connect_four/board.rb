@@ -132,8 +132,10 @@ class Board
       column.each do |slot|
         if slot == piece
           consecutive_pieces += 1
-        elsif slot == nil && consecutive_pieces == 3
+        elsif slot.nil? && consecutive_pieces == 3
           return true
+        else
+          consecutive_pieces = 0
         end
       end
     end
@@ -149,6 +151,8 @@ class Board
         elsif slot == nil && consecutive_pieces == 3
           column_label = column_index + 1
           return column_label
+        else
+          consecutive_pieces = 0
         end
       end
     end
@@ -165,6 +169,29 @@ class Board
           return true if consecutive_pieces == 4
         else
           consecutive_pieces = 0
+        end
+      end
+    end
+
+    false
+  end
+
+# winning_horizontal_available?
+  def winning_horizontal_available?(piece)
+    horizontals.each_with_index do |row, row_index|
+      consecutive_pieces = 0
+
+      row.each_with_index do |slot, column_index|
+        if slot == piece
+          consecutive_pieces += 1
+        elsif consecutive_pieces == 3
+          if column_index >= 4
+            column_before_sequence = column_index - 4
+            slot_before_sequence = @board[row_index][column_before_sequence]
+            return true if slot_before_sequence.nil?
+          end
+
+          return true if slot.nil?
         end
       end
     end
@@ -274,6 +301,7 @@ class Board
       true
     else
       false
+    end
   end
 
   def possible_move?(column_index, row_index)
