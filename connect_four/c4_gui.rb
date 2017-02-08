@@ -48,7 +48,8 @@ class Gui
     puts "It is now #{player}'s turn!"
   end
 
-  def self.end_game
-    puts "THE GAME HAS BEEN WON!"
+  def self.end_game(player)
+    puts
+    puts "THE GAME HAS BEEN WON BY #{player}!"
   end
 end

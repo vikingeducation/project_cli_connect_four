@@ -33,12 +33,7 @@ class ConnectFourGame
   def play
     begin
       play_turn
-      if game_won?
-        Gui.end_game
-        game_board.render
-        puts
-        break
-      end
+      break if game_won?
     end until game_over?
   end
 
@@ -69,7 +64,18 @@ class ConnectFourGame
   end
 
   def game_won?
-    check_horizontal || check_vertical || check_diagonal
+    who_won?(check_horizontal || check_vertical || check_diagonal)
+  end
+
+  def who_won?(player_piece)
+    if player_piece
+      Gui.end_game(players[0].player_name) if player_piece == 'O'
+      Gui.end_game(players[1].player_name) if player_piece == 'X'
+      game_board.render
+      return true
+    else
+      return false
+    end
   end
 
   def game_over?
@@ -100,8 +106,7 @@ class ConnectFourGame
       end
     end
 
-    return true if horizontals.include?('XXXX') || horizontals.include?('OOOO')
-    false
+    return check_plays(horizontals)
   end
 
   def check_vertical
@@ -117,8 +122,7 @@ class ConnectFourGame
       end
     end
 
-    return true if verticals.include?('XXXX') || verticals.include?('OOOO')
-    false
+    return check_plays(verticals)
   end
 
   def check_diagonal
@@ -128,15 +132,15 @@ class ConnectFourGame
     0.upto(board_size) do |i|
       inner_board_size = board[i].length - 1
       0.upto(inner_board_size) do |j|
-
-        to_match = ""
+        to_match = ''
         0.upto(3)  do |k|
           unless board[i + k].nil? || board[i + k][j + k].nil?
             to_match += board[i + k][j + k]
           end
         end
+        diagonals << to_match if to_match.length == 4
 
-        to_match = ""
+        to_match = ''
         0.upto(3)  do |k|
           unless board[i + k].nil? || board[i + k][j - k].nil?
             to_match += board[i + k][j - k]
@@ -147,7 +151,10 @@ class ConnectFourGame
       end
     end
 
-    return true if diagonals.include?('XXXX') || diagonals.include?('OOOO')
-    false
+    return check_plays(diagonals)
+  end
+
+  def check_plays(play_array)
+    return play_array.include?('XXXX') ? 'X' : play_array.include?('OOOO') ? 'O' : false
   end
 end
