@@ -48,10 +48,25 @@ class ConnectFour
     end
   end
 
-# check_draw
-# IF board says it's full
-# display a draw message
+  # check_draw
+  def check_draw
+    # IF board says it's full
+    if @board.full?
+      # display a draw message
+      puts "It's a draw!"
+      true
+    else
+      false
+    end
+  end
 
-# switch_players
-# PlayerX >> PlayerO or vice versa
+  # switch_players
+  def switch_players
+    # PlayerX >> PlayerO or vice versa
+    if @current_player == @player_x
+      @current_player = @player_y
+    else
+      @current_player = @player_x
+    end
+  end
 end
