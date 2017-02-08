@@ -27,9 +27,14 @@ class Player
     end
   end
 
-# ask_for_column
-# display message asking for column
-# pull column choice from command line
+  # ask_for_column
+  def ask_for_column
+    # display message asking for column
+    puts "Please choose a column for your next move."
+    # # pull column choice from command line
+    gets.strip.to_i
+  end
+
 
 # validate_column_format
 # UNLESS column choice is in the proper format
