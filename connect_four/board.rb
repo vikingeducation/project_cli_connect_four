@@ -24,8 +24,8 @@ class Board
 
 # add_piece
   def add_piece(column, piece)
-    # IF valid_move?
-    if valid_move?(column)
+    # IF move_valid?(column)
+    if move_valid?(column)
       # TODO - Finish add_piece method
       true
       # ELSE
@@ -33,11 +33,11 @@ class Board
     end
   end
 
-# valid_move?(column)
-  def valid_move?(column)
-    # Is the placement valid_column?
+# move_valid?(column)
+  def move_valid?(column)
+    # Is the column_valid?
     # Is the column_available?
-    if valid_column?(column) && column_available?(column)
+    if column_valid?(column) && column_available?(column)
       true
     else
       puts "Invalid move."
@@ -45,12 +45,18 @@ class Board
     end
   end
 
+# column_valid?(column)
+  def column_valid?(column)
+    # UNLESS column is in the acceptable range
+    if column >= 1 && column <= 7
+      true
+    else
+      # display an error message
+      puts "Invalid move."
+    end
+  end
 
-# valid_column?
-# UNLESS column is in the acceptable range
-# display an error message
-
-# columns_available?
+# column_available?(column)
 # UNLESS column is not full
 # display error message
 
