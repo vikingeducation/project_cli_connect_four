@@ -95,7 +95,8 @@ class Board
 # check if specified piece has four in a row across diagonals
 
 # winning_vertical?
-# check if specified piece has four in a row across verticals
+  def winning_vertical?(piece)
+  end
 
 # winning_horizontal?
 # check if specified piece has four in a row across horizontals
@@ -104,10 +105,13 @@ class Board
 # return the diagonal pieces
 
 # verticals
-# return the vertical pieces
+
 
 # horizontals
-# return the horizontal pieces
+  def horizontals
+# return the horizontal rows
+    @board
+  end
 
 # full?
 # does every slot contain a piece?
