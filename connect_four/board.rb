@@ -117,7 +117,18 @@ class Board
 
 # winning_horizontal?
   def winning_horizontal?(piece)
-    # TODO - check if specified piece has four in a row across horizontals
+    horizontals.each do |row|
+      consecutive_pieces = 0
+      row.each do |slot|
+        if slot == piece
+          consecutive_pieces += 1
+          return true if consecutive_pieces == 4
+        else
+          consecutive_pieces = 0
+        end
+      end
+    end
+
     false
   end
 
