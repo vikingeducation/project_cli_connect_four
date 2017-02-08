@@ -1,7 +1,15 @@
 # Manages all player-related functionality
 class Player
-# initialize
-  # Set marker type (e.g. X or O)
+  attr_accessor :name, :piece
+
+  # initialize
+  def initialize(name = "Mystery Player", piece, board)
+    # Set marker type (e.g. X or O)
+    raise "Piece must be a symbol!" unless piece.is_a?(Symbol)
+    @name = name
+    @piece = piece
+    @board = board
+  end
 
 # get_column
   # loop infinitely
