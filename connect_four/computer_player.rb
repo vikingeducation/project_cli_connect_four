@@ -10,6 +10,12 @@ class ComputerPlayer < Player
 
   # ask_for_column
   def ask_for_column
-    rand(6) + 1
+    if @board.winning_vertical_available?(piece)
+      @board.winning_vertical_move(piece) + 1
+    elsif @board.winning_horizontal_available?(piece)
+      @board.winning_horizontal_move(piece) + 1
+    else
+      rand(6) + 1
+    end
   end
 end
