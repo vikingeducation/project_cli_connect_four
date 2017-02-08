@@ -2,14 +2,14 @@
 class Board
 # initialize board
   def initialize
-  # set up blank data structure
-  @board = Array.new(6) { Array.new(7) }
+    # set up blank data structure
+    @board = Array.new(6) { Array.new(7) }
   end
 
 # render
   def render
     puts
-  # loop through data structure
+    # loop through data structure
     @board.each do |row|
       # display an existing marker if any, else blank
       row.each do |slot|
@@ -23,46 +23,60 @@ class Board
   end
 
 # add_piece
-    # IF piece_location_valid?
-      # place piece
-    # ELSE
-      # display error message
+  def add_piece(column, piece)
+    # IF valid_move?
+    if valid_move?(column)
+      # TODO - Finish add_piece method
+      true
+      # ELSE
+      false
+    end
+  end
 
-# move_valid?
-  # Is the placement valid_column?
-  # Is the piece column_available?
+# valid_move?(column)
+  def valid_move?(column)
+    # Is the placement valid_column?
+    # Is the column_available?
+    if valid_column?(column) && column_available?(column)
+      true
+    else
+      puts "Invalid move."
+      false
+    end
+  end
+
 
 # valid_column?
-  # UNLESS column is in the acceptable range
-    # display an error message
+# UNLESS column is in the acceptable range
+# display an error message
 
 # columns_available?
-  # UNLESS column is not full
-    # display error message
+# UNLESS column is not full
+# display error message
 
 # winning_combination?
-  # is there a winning_diagonal?
-  # or winning_vertical?
-  # or winning_horizontal? for that piece?
+# is there a winning_diagonal?
+# or winning_vertical?
+# or winning_horizontal? for that piece?
 
 # winning_diagonal?
-  # check if specified piece has four in a row across diagonals
+# check if specified piece has four in a row across diagonals
 
 # winning_vertical?
-  # check if specified piece has four in a row across verticals
+# check if specified piece has four in a row across verticals
 
 # winning_horizontal?
-  # check if specified piece has four in a row across horizontals
+# check if specified piece has four in a row across horizontals
 
 # diagonals
-  # return the diagonal pieces
+# return the diagonal pieces
 
 # verticals
-  # return the vertical pieces
+# return the vertical pieces
 
 # horizontals
-  # return the horizontal pieces
+# return the horizontal pieces
 
 # full?
-  # does every slot contain a piece?
+# does every slot contain a piece?
 end
