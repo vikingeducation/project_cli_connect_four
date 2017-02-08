@@ -9,8 +9,8 @@ class ConnectFour
     @board = Board.new
 
     # set up the players
-    @player_x = Player.new("Player 1", :x, @board)
-    @player_y = Player.new("Player 2", :y, @board)
+    @player_x = Player.new("Player 1", :X, @board)
+    @player_o = Player.new("Player 2", :O, @board)
 
     # assign the starting player
     @current_player = @player_x
@@ -27,7 +27,7 @@ class ConnectFour
       @current_player.get_column
 
       # break the loop IF the game is over
-      break if check_game_over
+      # TODO - break if check_game_over
 
       # switch players
       switch_players
@@ -67,7 +67,7 @@ class ConnectFour
   def switch_players
     # PlayerX >> PlayerO or vice versa
     if @current_player == @player_x
-      @current_player = @player_y
+      @current_player = @player_o
     else
       @current_player = @player_x
     end

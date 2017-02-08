@@ -29,11 +29,18 @@ class Board
 
 # add_piece
   def add_piece(column_label, piece)
+    column_index = column_label - 1
+
     # IF move_valid?(column)
     if move_valid?(column_label)
-      # TODO - Finish add_piece method
-      true
-      # ELSE
+      @board.each_with_index do |row, i|
+        if row[column_index].nil?
+          #place piece
+          @board[i][column_index] = piece
+          return true
+        end
+      end
+    else
       false
     end
   end
@@ -53,7 +60,7 @@ class Board
 # column_valid?(column)
   def column_valid?(column_label)
     # UNLESS column is in the acceptable range
-    if column_label >= 1 && column_num <= 7
+    if column_label >= 1 && column_label <= 7
       true
     else
       # display an error message
@@ -68,13 +75,11 @@ class Board
 
   def column(column_label)
     column_arr = []
-    @board.each_with_index do |row|
-        if row[column_label - 1].nil?
-          break
-        else
-          column_arr.push(row[column_label - 1])
-        end
+
+    @board.each do |row|
+        column_arr.push(row[column_label - 1])
     end
+
     column_arr
   end
 

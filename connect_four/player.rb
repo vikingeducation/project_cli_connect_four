@@ -19,7 +19,7 @@ class Player
       column = ask_for_column
 
       # IF validate_column_format is true
-      if validate_volumn_format(column)
+      if validate_column_format(column)
         # IF piece can be placed on Board
         # break the loop
         break if @board.add_piece(column, @piece)
