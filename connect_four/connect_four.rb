@@ -1,6 +1,6 @@
 # Controls the game play
 class ConnectFour
-# initialize
+  # initialize
   def initialize
     # set up the board
     @board = Board.new
@@ -13,7 +13,7 @@ class ConnectFour
     @current_player = @player_x
   end
 
-# play
+  # play
   def play
     # loop infinitely
     loop do
@@ -31,17 +31,22 @@ class ConnectFour
     end
   end
 
-# check_game_over
+  # check_game_over
   def check_game_over
     # check_victory
     # check_draw
     check_victory || check_draw
   end
 
-# check_victory
-# IF board says current player's piece has
-# a winning_combination?
-# display a victory message
+  # check_victory
+  def check_victory
+    # IF board says current player's piece has
+    # a winning_combination?
+    if @board.winning_combination?(@current_player.piece)
+      # display a victory message
+      puts "Congratulations, #{current_player}! You won!"
+    end
+  end
 
 # check_draw
 # IF board says it's full
