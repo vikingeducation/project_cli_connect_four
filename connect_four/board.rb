@@ -92,14 +92,34 @@ class Board
   end
 
 # winning_diagonal?
-# check if specified piece has four in a row across diagonals
+  def winning_diagonal?(piece)
+# TODO - check if specified piece has four in a row across diagonals
+    false
+  end
+
 
 # winning_vertical?
   def winning_vertical?(piece)
+    verticals.each do |column|
+      consecutive_pieces = 0
+      column.each do |slot|
+        if slot == piece
+          consecutive_pieces += 1
+          return true if consecutive_pieces == 4
+        else
+          consecutive_pieces = 0
+        end
+      end
+    end
+
+    false
   end
 
 # winning_horizontal?
-# check if specified piece has four in a row across horizontals
+  def winning_horizontal?(piece)
+    # TODO - check if specified piece has four in a row across horizontals
+    false
+  end
 
 # diagonals
 # return the diagonal pieces
@@ -122,5 +142,8 @@ class Board
   end
 
 # full?
-# does every slot contain a piece?
+  def full?
+    # TODO - does every slot contain a piece?
+    false
+  end
 end
