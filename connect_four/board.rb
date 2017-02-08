@@ -125,6 +125,21 @@ class Board
     false
   end
 
+# winning_vertical_available?(piece)
+  def winning_vertical_available?(piece)
+    verticals.each do |column|
+      consecutive_pieces = 0
+      column.each do |slot|
+        if slot == piece
+          consecutive_pieces += 1
+        elsif slot == nil && consecutive_pieces == 3
+          return true
+        end
+      end
+    end
+    false
+  end
+
 # winning_horizontal?
   def winning_horizontal?(piece)
     horizontals.each do |row|
@@ -140,27 +155,6 @@ class Board
     end
 
     false
-  end
-
-  #winning_move_available?(piece)
-  def winning_move_available?(piece)
-
-  end
-
-  #board_dup
-  def dup_board(board)
-    new_board = []
-
-    board.each do |row|
-      row_dup = []
-      row.each do |slot|
-        row_dup.push(slot.dup)
-      end
-      new_board.push(row_dup)
-    end
-
-    new_board
-    end
   end
 
 # diagonals
