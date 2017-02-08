@@ -47,7 +47,7 @@ class ConnectFour
     # a winning_combination?
     if @board.winning_combination?(@current_player.piece)
       # display a victory message
-      @board.render1
+      @board.render
       puts "Congratulations, #{@current_player.name}! You won!"
       true
     else
