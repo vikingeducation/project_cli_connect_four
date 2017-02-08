@@ -105,7 +105,15 @@ class Board
 # return the diagonal pieces
 
 # verticals
+  def verticals
+    columns = []
 
+    1.upto(7) do |column_label|
+      columns.push(column(column_label))
+    end
+
+    columns
+  end
 
 # horizontals
   def horizontals
