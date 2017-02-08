@@ -132,6 +132,22 @@ class Board
     false
   end
 
+  def winning_diagonals?(piece)
+    diagonals.each do |diagonal|
+      consecutive_pieces = 0
+      diagonal.each do |slot|
+        if slot == piece
+          consecutive_pieces += 1
+          return true if consecutive_pieces == 4
+        else
+          consecutive_pieces = 0
+        end
+      end
+    end
+
+    false
+  end
+
 # diagonals
 # return the diagonal pieces
 
