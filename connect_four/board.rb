@@ -77,16 +77,19 @@ class Board
     column_arr = []
 
     @board.each do |row|
-        column_arr.push(row[column_label - 1])
+      column_arr.push(row[column_label - 1])
     end
 
     column_arr
   end
 
-# winning_combination?
+# winning_combination?(piece)
+  def winning_combination?(piece)
 # is there a winning_diagonal?
 # or winning_vertical?
 # or winning_horizontal? for that piece?
+    winning_diagonal?(piece) || winning_vertical?(piece) || winning_horizontal?(piece)
+  end
 
 # winning_diagonal?
 # check if specified piece has four in a row across diagonals
