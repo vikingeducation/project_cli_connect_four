@@ -1,5 +1,6 @@
 require_relative "board.rb"
 require_relative "player.rb"
+require_relative "computer_player.rb"
 
 # Controls the game play
 class ConnectFour
@@ -10,7 +11,7 @@ class ConnectFour
 
     # set up the players
     @player_x = Player.new("Player 1", :X, @board)
-    @player_o = Player.new("Player 2", :O, @board)
+    @player_o = ComputerPlayer.new("Player 2", :O, @board)
 
     # assign the starting player
     @current_player = @player_x

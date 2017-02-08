@@ -1,4 +1,4 @@
-class ComputerPlayer
+class ComputerPlayer < Player
   # initialize
   def initialize(name = "Computer Player", piece, board)
     # Set marker type (e.g. X or O)
@@ -10,6 +10,6 @@ class ComputerPlayer
 
   # ask_for_column
   def ask_for_column
-
+    rand(6) + 1
   end
 end

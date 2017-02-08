@@ -108,7 +108,6 @@ class Board
     false
   end
 
-
 # winning_vertical?
   def winning_vertical?(piece)
     verticals.each do |column|
@@ -141,6 +140,27 @@ class Board
     end
 
     false
+  end
+
+  #winning_move_available?(piece)
+  def winning_move_available?(piece)
+
+  end
+
+  #board_dup
+  def dup_board(board)
+    new_board = []
+
+    board.each do |row|
+      row_dup = []
+      row.each do |slot|
+        row_dup.push(slot.dup)
+      end
+      new_board.push(row_dup)
+    end
+
+    new_board
+    end
   end
 
 # diagonals
