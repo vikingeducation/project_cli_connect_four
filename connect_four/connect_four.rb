@@ -32,8 +32,11 @@ class ConnectFour
   end
 
 # check_game_over
-# check_victory
-# check_draw
+  def check_game_over
+    # check_victory
+    # check_draw
+    check_victory || check_draw
+  end
 
 # check_victory
 # IF board says current player's piece has
