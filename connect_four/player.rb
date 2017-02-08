@@ -16,10 +16,10 @@ class Player
     # loop infinitely
     loop do
       # ask_for_column
-      ask_for_column
+      column = ask_for_column
 
       # IF validate_column_format is true
-      if validate_volumn_format
+      if validate_volumn_format(column)
         # IF piece can be placed on Board
         # break the loop
         break if @board.add_piece(column, @piece)
@@ -37,6 +37,14 @@ class Player
 
 
 # validate_column_format
-# UNLESS column choice is in the proper format
-# display error message
+  def validate_column_format(column)
+    # UNLESS column choice is in the proper format
+    if column >= 1 && column <= 7
+      true
+    else
+      # display error message
+      puts "Your choice is not in the proper format."
+    end
+  end
+
 end
