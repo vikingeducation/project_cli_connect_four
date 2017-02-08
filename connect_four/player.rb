@@ -11,18 +11,27 @@ class Player
     @board = board
   end
 
-# get_column
-  # loop infinitely
-    # ask_for_column
+  # get_column
+  def get_column
+    # loop infinitely
+    loop do
+      # ask_for_column
+      ask_for_column
+
       # IF validate_column_format is true
+      if validate_volumn_format
         # IF piece can be placed on Board
-          # break the loop
+        # break the loop
+        break if @board.add_piece(column, @piece)
+      end
+    end
+  end
 
 # ask_for_column
-  # display message asking for column
-    # pull column choice from command line
+# display message asking for column
+# pull column choice from command line
 
 # validate_column_format
-  # UNLESS column choice is in the proper format
-    # display error message
+# UNLESS column choice is in the proper format
+# display error message
 end
