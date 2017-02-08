@@ -14,11 +14,22 @@ class ConnectFour
   end
 
 # play
-# loop infinitely
-# call the board rendering method
-# ask for coordinates from the current player
-# break the loop IF the game is over
-# switch players
+  def play
+    # loop infinitely
+    loop do
+      # call the board rendering method
+      @board.render
+
+      # ask for column from the current player
+      @current_player.get_column
+
+      # break the loop IF the game is over
+      break if check_game_over
+
+      # switch players
+      switch_players
+    end
+  end
 
 # check_game_over
 # check_victory
