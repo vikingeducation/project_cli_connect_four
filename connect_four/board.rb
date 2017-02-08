@@ -3,12 +3,24 @@ class Board
 # initialize board
   def initialize
   # set up blank data structure
-  @board = Array.new()
+  @board = Array.new(6) { Array.new(7) }
   end
 
 # render
+  def render
+    puts
   # loop through data structure
-    # display an existing marker if any, else blank
+    @board.each do |row|
+      # display an existing marker if any, else blank
+      row.each do |slot|
+        print " "
+        slot.nil? ? print("-") : print(slot)
+        print " "
+      end
+      puts
+    end
+    puts
+  end
 
 # add_piece
     # IF piece_location_valid?
