@@ -1,3 +1,6 @@
+require_relative "board.rb"
+require_relative "player.rb"
+
 # Controls the game play
 class ConnectFour
   # initialize
@@ -70,3 +73,6 @@ class ConnectFour
     end
   end
 end
+
+game = ConnectFour.new
+game.play

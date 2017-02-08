@@ -10,22 +10,27 @@ class Board
   def render
     puts
     # loop through data structure
-    @board.each do |row|
+    5.downto(0) do |row|
       # display an existing marker if any, else blank
-      row.each do |slot|
-        print " "
-        slot.nil? ? print("-") : print(slot)
-        print " "
+      @board[row].each do |column|
+        print "| "
+        column.nil? ? print("-") : print(column)
+        print " |"
       end
       puts
     end
+
+    7.times { print "|---|" }
+    puts
+    1.upto(7) { |i| print "| #{i} |" }
+    puts
     puts
   end
 
 # add_piece
-  def add_piece(column, piece)
+  def add_piece(column_label, piece)
     # IF move_valid?(column)
-    if move_valid?(column)
+    if move_valid?(column_label)
       # TODO - Finish add_piece method
       true
       # ELSE
@@ -34,10 +39,10 @@ class Board
   end
 
 # move_valid?(column)
-  def move_valid?(column)
+  def move_valid?(column_label)
     # Is the column_valid?
     # Is the column_available?
-    if column_valid?(column) && column_available?(column)
+    if column_valid?(column_label) && column_available?(column_label)
       true
     else
       puts "Invalid move."
@@ -46,9 +51,9 @@ class Board
   end
 
 # column_valid?(column)
-  def column_valid?(column)
+  def column_valid?(column_label)
     # UNLESS column is in the acceptable range
-    if column >= 1 && column <= 7
+    if column_label >= 1 && column_num <= 7
       true
     else
       # display an error message
@@ -57,8 +62,21 @@ class Board
   end
 
 # column_available?(column)
-# UNLESS column is not full
-# display error message
+  def column_available?(column_label)
+    column(column_label).include?(nil) ? true : false
+  end
+
+  def column(column_label)
+    column_arr = []
+    @board.each_with_index do |row|
+        if row[column_label - 1].nil?
+          break
+        else
+          column_arr.push(row[column_label - 1])
+        end
+    end
+    column_arr
+  end
 
 # winning_combination?
 # is there a winning_diagonal?
