@@ -27,7 +27,7 @@ class ConnectFour
       @current_player.get_column
 
       # break the loop IF the game is over
-      # TODO - break if check_game_over
+      break if check_game_over
 
       # switch players
       switch_players
@@ -47,7 +47,11 @@ class ConnectFour
     # a winning_combination?
     if @board.winning_combination?(@current_player.piece)
       # display a victory message
-      puts "Congratulations, #{current_player}! You won!"
+      @board.render1
+      puts "Congratulations, #{@current_player.name}! You won!"
+      true
+    else
+      false
     end
   end
 
