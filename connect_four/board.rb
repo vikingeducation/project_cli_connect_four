@@ -93,7 +93,18 @@ class Board
 
 # winning_diagonal?
   def winning_diagonal?(piece)
-# TODO - check if specified piece has four in a row across diagonals
+    diagonals.each do |diagonal|
+      consecutive_pieces = 0
+      diagonal.each do |slot|
+        if slot == piece
+          consecutive_pieces += 1
+          return true if consecutive_pieces == 4
+        else
+          consecutive_pieces = 0
+        end
+      end
+    end
+
     false
   end
 
@@ -132,24 +143,85 @@ class Board
     false
   end
 
-  def winning_diagonals?(piece)
-    diagonals.each do |diagonal|
-      consecutive_pieces = 0
-      diagonal.each do |slot|
-        if slot == piece
-          consecutive_pieces += 1
-          return true if consecutive_pieces == 4
-        else
-          consecutive_pieces = 0
-        end
+# diagonals
+  def diagonals
+    # return the diagonal pieces
+    diagonals_arr = []
+
+    # column constant at 0, row increasing by 1
+    3.times do |i|
+      column_start = 0
+      row_start = 0
+      row_start += i
+      column = column_start
+      row = row_start
+      diagonal = []
+
+      while column <= 6 && row <= 5
+        diagonal.push(@board[row][column])
+        column += 1
+        row += 1
       end
+
+      diagonals_arr.push(diagonal)
     end
 
-    false
-  end
+    # row constant at 0, column increasing by 1
+    3.times do |i|
+      column_start = 1
+      row_start = 0
+      column_start += i
+      column = column_start
+      row = row_start
+      diagonal = []
 
-# diagonals
-# return the diagonal pieces
+      while column <= 6 && row <= 5
+        diagonal.push(@board[row][column])
+        column += 1
+        row += 1
+      end
+
+      diagonals_arr.push(diagonal)
+    end
+
+    # column constant at 6, row increasing by 1
+    3.times do |i|
+      column_start = 6
+      row_start = 0
+      row_start += i
+      column = column_start
+      row = row_start
+      diagonal = []
+
+      while column >= 0 && row <= 5
+        diagonal.push(@board[row][column])
+        column -= 1
+        row += 1
+      end
+
+      diagonals_arr.push(diagonal)
+    end
+
+    # row constant at 0, column decreasing by 1
+    3.times do |i|
+      column_start = 5
+      row_start = 0
+      column_start -= i
+      column = column_start
+      row = row_start
+      diagonal = []
+
+      while column >= 0 && row <= 5
+        diagonal.push(@board[row][column])
+        column -= 1
+        row += 1
+      end
+
+      diagonals_arr.push(diagonal)
+    end
+
+    diagonals_arr
+  end
 
 # verticals
   def verticals
