@@ -242,7 +242,12 @@ class Board
 
 # full?
   def full?
-    # TODO - does every slot contain a piece?
-    false
+    @board.each do |row|
+      row.each do |slot|
+        return false if slot.nil?
+      end
+    end
+
+    true
   end
 end
