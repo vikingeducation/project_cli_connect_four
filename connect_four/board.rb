@@ -1,7 +1,10 @@
 # Maintains game board state
 class Board
 # initialize board
+  def initialize
   # set up blank data structure
+  @board = Array.new()
+  end
 
 # render
   # loop through data structure
