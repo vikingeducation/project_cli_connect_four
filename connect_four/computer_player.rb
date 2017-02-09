@@ -6,6 +6,8 @@ class ComputerPlayer < Player
     @board = board
   end
 
+  private
+
   def ask_for_column
     if @board.winning_vertical_available?(piece)
       @board.winning_vertical_move(piece) + 1

@@ -22,6 +22,20 @@ class Board
     puts
   end
 
+  def winning_combination?(piece)
+    winning_diagonal?(piece) || winning_vertical?(piece) || winning_horizontal?(piece)
+  end
+
+  def full?
+    @board.each do |row|
+      row.each do |slot|
+        return false if slot.nil?
+      end
+    end
+
+    true
+  end
+
   def add_piece(column_label, piece)
     column_index = column_label - 1
 
@@ -35,73 +49,6 @@ class Board
     else
       false
     end
-  end
-
-  def move_valid?(column_label)
-    if column_valid?(column_label) && column_available?(column_label)
-      true
-    else
-      puts "Invalid move."
-      false
-    end
-  end
-
-  def column_valid?(column_label)
-    if column_label >= 1 && column_label <= 7
-      true
-    else
-      puts "Invalid move."
-    end
-  end
-
-  def column_available?(column_label)
-    column(column_label).include?(nil) ? true : false
-  end
-
-  def column(column_label)
-    column_arr = []
-
-    @board.each do |row|
-      column_arr.push(row[column_label - 1])
-    end
-
-    column_arr
-  end
-
-  def winning_combination?(piece)
-    winning_diagonal?(piece) || winning_vertical?(piece) || winning_horizontal?(piece)
-  end
-
-  def winning_diagonal?(piece)
-    diagonals.each do |diagonal|
-      consecutive_pieces = 0
-      diagonal.each do |slot|
-        if slot == piece
-          consecutive_pieces += 1
-          return true if consecutive_pieces == 4
-        else
-          consecutive_pieces = 0
-        end
-      end
-    end
-
-    false
-  end
-
-  def winning_vertical?(piece)
-    verticals.each do |column|
-      consecutive_pieces = 0
-      column.each do |slot|
-        if slot == piece
-          consecutive_pieces += 1
-          return true if consecutive_pieces == 4
-        else
-          consecutive_pieces = 0
-        end
-      end
-    end
-
-    false
   end
 
   def winning_vertical_available?(piece)
@@ -128,22 +75,6 @@ class Board
           consecutive_pieces += 1
         elsif slot == nil && consecutive_pieces == 3
           return column_index
-        else
-          consecutive_pieces = 0
-        end
-      end
-    end
-
-    false
-  end
-
-  def winning_horizontal?(piece)
-    horizontals.each do |row|
-      consecutive_pieces = 0
-      row.each do |slot|
-        if slot == piece
-          consecutive_pieces += 1
-          return true if consecutive_pieces == 4
         else
           consecutive_pieces = 0
         end
@@ -190,6 +121,87 @@ class Board
           end
 
           return column_index if slot.nil?
+        end
+      end
+    end
+
+    false
+  end
+
+  private
+
+  def move_valid?(column_label)
+    if column_valid?(column_label) && column_available?(column_label)
+      true
+    else
+      puts "Invalid move."
+      false
+    end
+  end
+
+  def column_valid?(column_label)
+    if column_label >= 1 && column_label <= 7
+      true
+    else
+      puts "Invalid move."
+    end
+  end
+
+  def column_available?(column_label)
+    column(column_label).include?(nil) ? true : false
+  end
+
+  def column(column_label)
+    column_arr = []
+
+    @board.each do |row|
+      column_arr.push(row[column_label - 1])
+    end
+
+    column_arr
+  end
+
+  def winning_diagonal?(piece)
+    diagonals.each do |diagonal|
+      consecutive_pieces = 0
+      diagonal.each do |slot|
+        if slot == piece
+          consecutive_pieces += 1
+          return true if consecutive_pieces == 4
+        else
+          consecutive_pieces = 0
+        end
+      end
+    end
+
+    false
+  end
+
+  def winning_vertical?(piece)
+    verticals.each do |column|
+      consecutive_pieces = 0
+      column.each do |slot|
+        if slot == piece
+          consecutive_pieces += 1
+          return true if consecutive_pieces == 4
+        else
+          consecutive_pieces = 0
+        end
+      end
+    end
+
+    false
+  end
+
+  def winning_horizontal?(piece)
+    horizontals.each do |row|
+      consecutive_pieces = 0
+      row.each do |slot|
+        if slot == piece
+          consecutive_pieces += 1
+          return true if consecutive_pieces == 4
+        else
+          consecutive_pieces = 0
         end
       end
     end
@@ -305,13 +317,4 @@ class Board
     end
   end
 
-  def full?
-    @board.each do |row|
-      row.each do |slot|
-        return false if slot.nil?
-      end
-    end
-
-    true
-  end
 end

@@ -18,6 +18,8 @@ class Player
     end
   end
 
+  private
+
   def ask_for_column
     puts "Please choose a column for your next move."
     gets.strip.to_i

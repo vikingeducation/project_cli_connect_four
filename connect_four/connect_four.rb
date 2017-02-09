@@ -19,6 +19,8 @@ class ConnectFour
     end
   end
 
+  private
+
   def check_game_over
     check_victory || check_draw
   end
