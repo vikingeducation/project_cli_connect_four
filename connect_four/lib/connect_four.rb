@@ -1,6 +1,6 @@
-require_relative "board.rb"
-require_relative "player.rb"
-require_relative "computer_player.rb"
+require_relative 'board.rb'
+require_relative 'player.rb'
+require_relative 'computer_player.rb'
 
 class ConnectFour
   def initialize
@@ -57,6 +57,3 @@ class ConnectFour
     end
   end
 end
-
-game = ConnectFour.new
-game.play

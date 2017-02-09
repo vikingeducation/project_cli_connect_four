@@ -1,3 +1,5 @@
+require_relative 'player'
+
 class ComputerPlayer < Player
   def initialize(name = "Computer Player", piece, board)
     raise "Piece must be a symbol!" unless piece.is_a?(Symbol)

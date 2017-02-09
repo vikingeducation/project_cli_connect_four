@@ -1,6 +1,6 @@
 class Board
-  def initialize
-    @board = Array.new(6) { Array.new(7) }
+  def initialize(*board_state)
+    @board = board_state || Array.new(6) { Array.new(7) }
   end
 
   def render
