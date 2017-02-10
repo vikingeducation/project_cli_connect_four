@@ -1,8 +1,6 @@
 require 'player.rb'
 
 describe Player do
-  # name
-  # piece
-  # board
+  # initialize
   # get_column
 end

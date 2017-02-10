@@ -103,5 +103,4 @@ describe Board do
   it "does not return the move that will result in a horizontal winning combination for a different piece" do
 
   end
-
 end
