@@ -31,7 +31,7 @@ module ConnectFour
       output = []
 
       0.upto(5) do |row|
-        string = ""
+        string = "Row #{row + 1}:  "
         1.upto(7) do |col|
           string += grid[col][row].nil? ? "." : grid[col][row]
         end
