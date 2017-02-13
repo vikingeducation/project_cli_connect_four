@@ -14,7 +14,7 @@
 # code
 # ------------------------------------------------------------
 
-# 2 players
+# 2 players [ok]
 # render board between turns
 # prompt input
 # validate user input
@@ -25,7 +25,70 @@
 # diagonally, or vertically in a line
 
 class ConnectFour
+  attr_accessor :board, :player1, :player2
 
+  def initialize
+    @board = []
+    @player1 = {}
+    @player2 = {}
+  end
 
+  # ------------------------------------------
+  # Set Up
+  # ------------------------------------------
+
+  def intro
+    info = [
+      "\n",
+      "*** New Game ***",
+      "The rules are:",
+      "Players will take turns inserting their pieces in a given column ",
+      "until 4 checkers of their color are positioned either horizontally, ",
+      "diagonally, or vertically in a line"
+    ]
+    info.each { |msg| puts msg }
+  end
+
+  def prompt_names
+    puts
+    puts "Insert your names so we can begin:"
+    print "Player 1 > "
+    player1[:name] = gets.chomp
+    print "Player 2 > "
+    player2[:name] = gets.chomp
+  end
+
+  # ------------------------------------------
+  # Board
+  # ------------------------------------------
+
+  def render
+    puts "Board:"
+    board.each { |row| puts row.to_s }
+  end
+
+  # ------------------------------------------
+  # Game logic
+  # ------------------------------------------
+
+  def get_moves
+  end
+
+  # ------------------------------------------
+  # Main
+  # ------------------------------------------
+
+  def run_game
+    render
+  end
+
+  def play
+    intro
+    # prompt_names
+    run_game
+  end
 
 end
+
+cf = ConnectFour.new
+cf.play
