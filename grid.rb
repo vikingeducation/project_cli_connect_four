@@ -24,6 +24,34 @@ module ConnectFour
     # "drops" a disc into the specified column
     def place_disc(column, disc)
       grid[column].push(disc)
+
+      # returns the row/col to determine if move wins game
+      [grid[column].size - 1, column]
+    end
+
+    # determines if the move wins the game
+    def winning_move?(move)
+      horizontal_win?(move) || vertical_win?(move) || diagonal_win?(move)
+    end
+
+    def valid_position?(move)
+      # rows are within index 0 to 5
+      # cols are within index 1 to 7
+      row, col = move[0], move[1]
+
+      (0..5).include?(row) && (1..7).include(col)
+    end
+
+    def horizontal_win?(move)
+
+    end
+
+    def vertical_win?(move)
+    
+    end
+
+    def diagonal_win?(move)
+
     end
 
     # renders the grid
@@ -42,6 +70,8 @@ module ConnectFour
       output.map! { |string| string += "\n" }
       output.reverse!
     end
+
+
   end
 
 end
@@ -49,7 +79,9 @@ end
 include ConnectFour
 
 g = Grid.new
-g.place_disc(1, "R")
-g.place_disc(2, "Y")
-g.place_disc(1, "R")
+p g.place_disc(1, "R")
+p g.place_disc(2, "Y")
+p g.place_disc(1, "R")
+p g.place_disc(1, "R")
+p g.place_disc(1, "R")
 puts g.render
