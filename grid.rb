@@ -16,17 +16,17 @@ module ConnectFour
       }
     end
 
-    # checks if the column a player wants to place a disc in is valid
+    # checks if the column a player wants to place a marker in is valid
     def valid_move?(column)
       grid[column].size <= 6
     end
 
-    # "drops" a disc into the specified column
-    def place_disc(column, disc)
-      grid[column].push(disc)
+    # "drops" a marker into the specified column
+    def place_marker(column, marker)
+      grid[column].push(marker)
 
-      # returns the row/col to determine if move wins game
-      [grid[column].size - 1, column]
+      # returns the col/row to determine if move wins game
+      [column, grid[column].size - 1]
     end
 
     # determines if the move wins the game
@@ -34,12 +34,28 @@ module ConnectFour
       horizontal_win?(move) || vertical_win?(move) || diagonal_win?(move)
     end
 
+    # checks if there are 4 in a row horizontally in the rows of the last move
     def horizontal_win?(move)
+      col, row = move[0], move[1]
 
+      last_marker = grid[col][row]
+
+      count = 0
+      1.upto(7) { |column| count += 1 if grid[column][row] == last_marker }
+
+      count == 4 ? true : false
     end
 
+    # checks if there are 4 in a row vertically in the column of the last move
     def vertical_win?(move)
-    
+      col, row = move[0], move[1]
+
+      # check marker of last move
+      last_marker = grid[col][row]
+
+      return true if grid[col].count { |marker| marker == last_marker } == 4
+
+      false
     end
 
     def diagonal_win?(move)
@@ -68,9 +84,17 @@ end
 include ConnectFour
 
 g = Grid.new
-p g.place_disc(1, "R")
-p g.place_disc(2, "Y")
-p g.place_disc(1, "R")
-p g.place_disc(1, "R")
-p g.place_disc(1, "R")
+# p g.place_marker(1, "R")
+# p g.place_marker(2, "Y")
+# p g.place_marker(1, "R")
+# p g.place_marker(1, "R")
+# move = g.place_marker(1, "R")
+# p move
+# p g.vertical_win?(move)
+
+g.place_marker(1, "R")
+g.place_marker(2, "R")
+g.place_marker(3, "R")
+move = g.place_marker(4, "R")
+p g.horizontal_win?(move)
 puts g.render
