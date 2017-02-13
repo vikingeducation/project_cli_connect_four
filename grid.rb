@@ -34,14 +34,6 @@ module ConnectFour
       horizontal_win?(move) || vertical_win?(move) || diagonal_win?(move)
     end
 
-    def valid_position?(move)
-      # rows are within index 0 to 5
-      # cols are within index 1 to 7
-      row, col = move[0], move[1]
-
-      (0..5).include?(row) && (1..7).include(col)
-    end
-
     def horizontal_win?(move)
 
     end
@@ -70,10 +62,7 @@ module ConnectFour
       output.map! { |string| string += "\n" }
       output.reverse!
     end
-
-
   end
-
 end
 
 include ConnectFour
