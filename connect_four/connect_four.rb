@@ -15,9 +15,10 @@ class ConnectFour
     puts "1) Computer"
     puts "2) Person"
     player2_token = "M"
-    gets =2
+    gets = 1
     if  gets == 1
       @player2 = Machine.new(player2_token, @board)
+      puts @player2.name
     else
       puts "What is the second person's name?"
       player2_name = "Michael"
@@ -32,11 +33,13 @@ class ConnectFour
   end
 
   def play
+  @board.render
     loop do
-      @board.render
       @current_player.get_drop_column
       break if check_game_over
+      @board.render
       switch_players
+      puts "#{@current_player.name}'s turn (#{@current_player.token})"
     end
   end
 
@@ -69,6 +72,7 @@ class ConnectFour
       else
           @current_player = @player1
       end
+      board.token = @current_player.token
   end
 end
 
