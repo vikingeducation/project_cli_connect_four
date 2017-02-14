@@ -4,6 +4,7 @@ module ConnectFour
     attr_accessor :grid
 
     # create grid with 7 columns upon object instantation
+    # each new item in the array is part of a new row
     def initialize
       @grid = {
         1 => [],
@@ -37,7 +38,6 @@ module ConnectFour
     # checks if there are 4 in a row horizontally in the rows of the last move
     def horizontal_win?(move)
       col, row = move[0], move[1]
-
       last_marker = grid[col][row]
 
       count = 0
@@ -49,8 +49,6 @@ module ConnectFour
     # checks if there are 4 in a row vertically in the column of the last move
     def vertical_win?(move)
       col, row = move[0], move[1]
-
-      # check marker of last move
       last_marker = grid[col][row]
 
       return true if grid[col].count { |marker| marker == last_marker } == 4
@@ -58,8 +56,25 @@ module ConnectFour
       false
     end
 
-    def diagonal_win?(move)
+    # count markers that are the same as the marker in the last move,
+    # in a specified direction represented by an offset
+    def count_markers(move, col_offset, row_offset)
+      col, row = move[0], move[1]
+      marker_in_move = grid[col][row]
+      count = 0
 
+      while valid_index?(col, row)
+        count += 1 if grid[col][row] == marker_in_move
+        col += col_offset
+        row += row_offset
+      end
+
+      count
+    end
+
+    # checks if the provided column/row indices are valid
+    def valid_index?(col, row)
+      (1..7).include?(col) && (0..5).include?(row)
     end
 
     # renders the grid
@@ -80,21 +95,3 @@ module ConnectFour
     end
   end
 end
-
-include ConnectFour
-
-g = Grid.new
-# p g.place_marker(1, "R")
-# p g.place_marker(2, "Y")
-# p g.place_marker(1, "R")
-# p g.place_marker(1, "R")
-# move = g.place_marker(1, "R")
-# p move
-# p g.vertical_win?(move)
-
-g.place_marker(1, "R")
-g.place_marker(2, "R")
-g.place_marker(3, "R")
-move = g.place_marker(4, "R")
-p g.horizontal_win?(move)
-puts g.render
