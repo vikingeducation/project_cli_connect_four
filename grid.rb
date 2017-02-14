@@ -38,25 +38,41 @@ module ConnectFour
     # checks if there are 4 in a row horizontally in the rows of the last move
     def horizontal_win?(move)
       # count markers to the left of the move
-      marker_count_to_left = count_markers(move, -1, 0)
+      markers_to_left = count_markers(move, -1, 0)
 
       # count markers to the right of the move
-      marker_count_to_right = count_markers(move, 1, 0)
+      markers_to_right = count_markers(move, 1, 0)
 
       # subtract one as the marker in the move is counted twice
-      total = marker_count_to_left + marker_count_to_right - 1
+      total = markers_to_left + markers_to_right - 1
 
       total == 4 ? true : false
     end
 
     # checks if there are 4 in a row vertically in the column of the last move
     def vertical_win?(move)
-      col, row = move[0], move[1]
-      last_marker = grid[col][row]
+      markers_to_top = count_markers(move, 0, 1)
+      markers_to_bottom = count_markers(move, 0, -1)
+      total = markers_to_top + markers_to_bottom - 1
 
-      return true if grid[col].count { |marker| marker == last_marker } == 4
+      total == 4 ? true : false
+    end
 
-      false
+    # checks if there are 4 in a row in any diagonal that includes the last move
+    def diagonal_win?(move)
+      markers_to_top_left = count_markers(move, -1, 1)
+      markers_to_top_right = count_markers(move, 1, 1)
+      markers_to_bottom_left = count_markers(move, -1, -1)
+      markers_to_bottom_right = count_markers(1, -1)
+
+      total = markers_to_top_left + markers_to_top_right +
+              markers_to_bottom_left + markers_to_bottom_right
+
+      # subtract 2 as the marker in the move is counted twice per diagonal
+      # (top-left / bot-right, top-right / bot-left)
+      total -= 2
+
+      total == 4 ? true : false
     end
 
     # count markers that are the same as the marker in the last move,
@@ -94,26 +110,8 @@ module ConnectFour
 
       output.map! { |string| string.center(24) }
       output.map! { |string| string += "\n" }
-      output.reverse!
+      output.reverse!.join
     end
   end
+  
 end
-
-include ConnectFour
-
-g = Grid.new
-# p g.place_marker(1, "R")
-# p g.place_marker(2, "Y")
-# p g.place_marker(1, "R")
-# p g.place_marker(1, "R")
-# move = g.place_marker(1, "R")
-# p move
-# p g.vertical_win?(move)
-
-g.place_marker(1, "R")
-g.place_marker(2, "R")
-g.place_marker(3, "R")
-move = g.place_marker(4, "R")
-p g.horizontal_win?(move)
-puts g.render
-puts
