@@ -113,5 +113,5 @@ module ConnectFour
       output.reverse!.join
     end
   end
-  
+
 end
