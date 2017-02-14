@@ -37,13 +37,16 @@ module ConnectFour
 
     # checks if there are 4 in a row horizontally in the rows of the last move
     def horizontal_win?(move)
-      col, row = move[0], move[1]
-      last_marker = grid[col][row]
+      # count markers to the left of the move
+      marker_count_to_left = count_markers(move, -1, 0)
 
-      count = 0
-      1.upto(7) { |column| count += 1 if grid[column][row] == last_marker }
+      # count markers to the right of the move
+      marker_count_to_right = count_markers(move, 1, 0)
 
-      count == 4 ? true : false
+      # subtract one as the marker in the move is counted twice
+      total = marker_count_to_left + marker_count_to_right - 1
+
+      total == 4 ? true : false
     end
 
     # checks if there are 4 in a row vertically in the column of the last move
@@ -95,3 +98,22 @@ module ConnectFour
     end
   end
 end
+
+include ConnectFour
+
+g = Grid.new
+# p g.place_marker(1, "R")
+# p g.place_marker(2, "Y")
+# p g.place_marker(1, "R")
+# p g.place_marker(1, "R")
+# move = g.place_marker(1, "R")
+# p move
+# p g.vertical_win?(move)
+
+g.place_marker(1, "R")
+g.place_marker(2, "R")
+g.place_marker(3, "R")
+move = g.place_marker(4, "R")
+p g.horizontal_win?(move)
+puts g.render
+puts
