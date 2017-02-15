@@ -94,6 +94,11 @@ module ConnectFour
       (1..7).include?(col) && (0..5).include?(row)
     end
 
+    # checks if the grid is full, i.e. all 42 spaces are filled up
+    def full?
+      grid.values.all? { |column| column.size == 6 }
+    end
+
     # renders the grid
     def render
       output = []
