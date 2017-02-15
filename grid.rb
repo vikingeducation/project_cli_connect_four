@@ -19,7 +19,7 @@ module ConnectFour
 
     # checks if the column a player wants to place a marker in is valid
     def valid_move?(column)
-      grid[column].size <= 6
+      grid[column].size < 6 && (1..7).include?(column)
     end
 
     # "drops" a marker into the specified column
