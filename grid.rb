@@ -51,11 +51,9 @@ module ConnectFour
 
     # checks if there are 4 in a row vertically in the column of the last move
     def vertical_win?(move)
-      markers_to_top = count_markers(move, 0, 1)
       markers_to_bottom = count_markers(move, 0, -1)
-      total = markers_to_top + markers_to_bottom - 1
 
-      total == 4 ? true : false
+      markers_to_bottom == 4 ? true : false
     end
 
     # checks if there are 4 in a row in any diagonal that includes the last move
