@@ -1,4 +1,4 @@
-module Mastermind
+module ConnectFour
 
   class Player
   end
