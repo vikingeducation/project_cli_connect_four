@@ -9,11 +9,11 @@ module ConnectFour
 
     # main game method
     def play
+      setup_game
+    end
+
+    def setup_game
       welcome_message
-
-      # display current state of game grid
-      grid.render
-
       create_players
       switch_players
     end
@@ -34,13 +34,25 @@ module ConnectFour
     # check if the game is for two human players,
     # to allow us to initialize the proper player objects
     def two_players?
+      puts "Is this game for two human players, or one?"
+      print "Please enter either 1 or 2: "
+
+      players = gets.chomp.to_i
+      until (1..2).include?(players)
+        print "Invalid input. Please enter either 1 or 2: "
+        players = gets.chomp.to_i
+      end
+
+      puts
+
+      players == 2 ? true : false
     end
 
     # create the appropriate player 
     def create_players
-      @player_red = Human.new
+      @player_red = Human.new("Mr Red", "R")
 
-      @player_yellow = two_players? ? Human.new : Computer.new
+      @player_yellow = two_players? ? Human.new("Ms Yellow", "Y") : Computer.new("Ms Yellow", "Y")
     end
 
     # switches the current player
