@@ -121,7 +121,21 @@ class ConnectFour
   # Board
   # ------------------------------------------
 
+  def horizontals
+    (0..5).reduce([]) do |horizontals, row|
+      horizontals << (0..6).reduce([]) do |acc_row, col|
+        acc_row << app_state[:board][row][col]
+      end
+    end
+  end
 
+  # def horizontals
+  #   (0..6).reduce([]) do |horizontals, col|
+  #     horizontals << (0..5).reduce([]) do |acc_row, row|
+  #       acc_row << app_state[:board][row][col]
+  #     end
+  #   end
+  # end
 
   # ------------------------------------------
   # Winning conditions
@@ -152,17 +166,30 @@ class ConnectFour
     result
   end
 
-  def horizontals
-    horizontals = []
-    6.times do |i|
-      horizontals << [@board[0][i],@board[1][i],@board[2][i]]
+  def winning_horizontal?(piece)
+    result, previous = false, nil
+    horizontals.each do |horz|
+      in_a_row = 0
+      horz.each do |cell|
+        result = true if in_a_row == 4
+        unless cell.nil?
+          if previous.nil?
+            previous, in_a_row = cell, 1
+            next
+          elsif cell == piece && previous == piece
+            in_a_row += 1
+          else
+            previous, in_a_row = cell, 1
+          end
+        end
+      end
     end
-    horizontals
+    result
   end
 
   def winning_combination?(piece)
     # todo: winning_diagonal?(piece) ||
-    #winning_horizontal?(piece) ||
+    winning_horizontal?(piece) ||
     winning_vertical?(piece)
   end
 
