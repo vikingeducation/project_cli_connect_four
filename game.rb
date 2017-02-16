@@ -10,6 +10,7 @@ module ConnectFour
     # main game method
     def play
       setup_game
+      run_game
     end
 
     # helper method for game setup
@@ -17,6 +18,15 @@ module ConnectFour
       welcome_message
       create_players
       switch_players
+    end
+
+    # helper method for main game loop
+    def run_game
+      until game_over?
+        current_player.ask_for_move
+        grid.render
+        switch_players
+      end
     end
 
     # check if the game is over
