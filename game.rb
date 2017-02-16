@@ -29,10 +29,10 @@ module ConnectFour
       end
     end
 
-    # check if the game is over
-    def game_over?
-      victory? || draw?
-    end
+    # # check if the game is over
+    # def game_over?
+    #   victory? || draw?
+    # end
 
     # check if a player has made a winning move
     def victory?(move)
