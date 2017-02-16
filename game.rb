@@ -13,6 +13,14 @@ module ConnectFour
       run_game
     end
 
+    private
+
+    attr_accessor :grid, 
+                  :current_player, 
+                  :player_red, 
+                  :player_yellow
+
+
     # helper method for game setup
     def setup_game
       welcome_message
@@ -92,13 +100,6 @@ module ConnectFour
         self.current_player = player_red
       end
     end
-
-    private
-
-    attr_accessor :grid, 
-                  :current_player, 
-                  :player_red, 
-                  :player_yellow
 
     # prints out welcome message / instructions
     def welcome_message
