@@ -56,22 +56,21 @@ module ConnectFour
       markers_to_bottom == 4 ? true : false
     end
 
-    # checks if there are 4 in a row in any diagonal that includes the last move
+    # checks if there are 4 in a row in either of these two diagonals, 
+    # that includes the last move:
+    # 1. top left to bottom right
+    # 2. top right to bottom left 
     def diagonal_win?(move)
       markers_to_top_left = count_markers(move, -1, 1)
       markers_to_top_right = count_markers(move, 1, 1)
       markers_to_bottom_left = count_markers(move, -1, -1)
       markers_to_bottom_right = count_markers(move, 1, -1)
 
-      total = markers_to_top_left + markers_to_top_right +
-              markers_to_bottom_left + markers_to_bottom_right
+      top_left_bottom_right_markers = markers_to_top_left + markers_to_bottom_right - 1
 
-      # subtract 3 as the marker in the move is counted 3 extra times
-      # we should only count it once, but everytime we check for 4 in
-      # a row in a diagonal, we're including it, so we need to adjust this
-      total -= 3
+      top_right_bottom_left_markers = markers_to_top_right + markers_to_bottom_left - 1 
 
-      total == 4 ? true : false
+      top_left_bottom_right_markers == 4 || top_right_bottom_left_markers == 4 ? true : false
     end
 
     # count markers in a row that are identical as that 
