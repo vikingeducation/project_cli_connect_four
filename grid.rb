@@ -66,9 +66,10 @@ module ConnectFour
       total = markers_to_top_left + markers_to_top_right +
               markers_to_bottom_left + markers_to_bottom_right
 
-      # subtract 2 as the marker in the move is counted twice per diagonal
-      # (top-left / bot-right, top-right / bot-left)
-      total -= 2
+      # subtract 3 as the marker in the move is counted 3 extra times
+      # we should only count it once, but everytime we check for 4 in
+      # a row in a diagonal, we're including it, so we need to adjust this
+      total -= 3
 
       total == 4 ? true : false
     end
