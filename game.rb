@@ -3,7 +3,7 @@ module ConnectFour
   class Game
     def initialize
       @grid = Grid.new
-      @player_red, @player_yellow, @current_player = nil
+      @player_one, @player_two, @current_player = nil
 
     end
 
@@ -17,8 +17,8 @@ module ConnectFour
 
     attr_accessor :grid, 
                   :current_player, 
-                  :player_red, 
-                  :player_yellow
+                  :player_one, 
+                  :player_two
 
 
     # helper method for game setup
@@ -26,6 +26,7 @@ module ConnectFour
       welcome_message
       create_players
       switch_players
+      introduce_players
     end
 
     # helper method for main game loop
@@ -89,23 +90,6 @@ module ConnectFour
       players == 2 ? true : false
     end
 
-    # create the appropriate player objects, depending on
-    # whether the game is two-player or single-player
-    def create_players
-      @player_red = Human.new("Mr Red", "R")
-
-      @player_yellow = two_players? ? Human.new("Ms Yellow", "Y") : Computer.new("Ms Yellow", "Y")
-    end
-
-    # switches the current player
-    def switch_players
-      if current_player == player_red
-        self.current_player = player_yellow
-      else
-        self.current_player = player_red
-      end
-    end
-
     # prints out welcome message / instructions
     def welcome_message
       puts "Welcome to Connect Four!"
@@ -115,6 +99,23 @@ module ConnectFour
       puts
       puts "Best of luck!"
       puts
+    end
+
+    # create the appropriate player objects, depending on
+    # whether the game is two-player or single-player
+    def create_players
+      @player_one = Human.new("Mr Cross", "X")
+
+      @player_two = two_players? ? Human.new("Ms Nought", "O") : Computer.new("Ms Nought", "O")
+    end
+
+    # switches the current player
+    def switch_players
+      if current_player == player_one
+        self.current_player = player_two
+      else
+        self.current_player = player_one
+      end
     end
 
     def quit_game
