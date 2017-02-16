@@ -73,15 +73,19 @@ module ConnectFour
       total == 4 ? true : false
     end
 
-    # count markers that are the same as the marker in the last move,
-    # in a specified direction represented by an offset
+    # count markers in a row that are identical as that 
+    # of the last move, in a direction represented by 
+    # a grid offset
     def count_markers(move, col_offset, row_offset)
       col, row = move[0], move[1]
       marker_in_move = grid[col][row]
       count = 0
 
       while valid_index?(col, row)
-        count += 1 if grid[col][row] == marker_in_move
+        # break if we find a marker that's identical
+        # to the one in the move
+        grid[col][row] == marker_in_move ? count += 1 : break
+        
         col += col_offset
         row += row_offset
       end
