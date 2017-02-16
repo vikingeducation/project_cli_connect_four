@@ -25,12 +25,14 @@
 # diagonally, or vertically in a line
 
 class ConnectFour
-  attr_accessor :board, :player1, :player2
+  attr_accessor :app_state
 
   def initialize
-    @board = Array.new(6) { Array.new(7) }
-    @player1 = {name: "p1", piece: "x"}
-    @player2 = {name: "p2", piece: "o"}
+    @app_state = {
+      board: Array.new(6) { Array.new(7) },
+      player1: {name: "p1", piece: "x"},
+      player2: {name: "p2", piece: "o"}
+    }
   end
 
   # ------------------------------------------
@@ -54,13 +56,13 @@ class ConnectFour
     puts
     puts "Insert your names so we can begin:"
     print "Player 1 > "
-    player1[:name] = gets.chomp
+    app_state[:player1][:name] = gets.chomp
     print "Player 1 pieces > "
-    player1[:piece] = gets.chomp
+    app_state[:player1][:piece] = gets.chomp
     print "Player 2 > "
-    player2[:name] = gets.chomp
+    app_state[:player2][:name] = gets.chomp
     print "Player 2 pieces > "
-    player2[:piece] = gets.chomp
+    app_state[:player2][:piece] = gets.chomp
   end
 
   # ------------------------------------------
@@ -68,9 +70,9 @@ class ConnectFour
   # ------------------------------------------
 
   def render
-    unless board.empty?
+    unless app_state[:board].empty?
       puts
-      board.each do |row|
+      app_state[:board].each do |row|
         row.each do |cell|
           cell.nil? ? print(" - ") : print(" " + cell.to_s + " ")
         end
@@ -108,8 +110,8 @@ class ConnectFour
 
   def place_move(player, move)
     5.downto(0).each do |row|
-      if board[row][move].nil?
-        @board[row][move] = player[:piece]
+      if app_state[:board][row][move].nil?
+        app_state[:board][row][move] = player[:piece]
         break
       end
     end
@@ -119,9 +121,7 @@ class ConnectFour
   # Board
   # ------------------------------------------
 
-  def verticals
-    board
-  end
+
 
   # ------------------------------------------
   # Winning conditions
@@ -135,8 +135,7 @@ class ConnectFour
       # loop rows 5..0
       5.downto(0).each do |row|
         result = true if in_a_row == 4
-        cell = @board[row][col]
-        puts "#{row},#{col}: #{cell}, #{previous}; #{in_a_row}"
+        cell = app_state[:board][row][col]
         unless cell.nil?
           if previous.nil?
             previous = cell
@@ -152,12 +151,14 @@ class ConnectFour
     end
     result
   end
-  # todo:
-  # def winning_diagonal?(piece)
-  #   diagonals.any? do |diag|
-  #     diag.all?{|cell| cell == piece}
-  #   end
-  # end
+
+  def horizontals
+    horizontals = []
+    6.times do |i|
+      horizontals << [@board[0][i],@board[1][i],@board[2][i]]
+    end
+    horizontals
+  end
 
   def winning_combination?(piece)
     # todo: winning_diagonal?(piece) ||
@@ -179,22 +180,13 @@ class ConnectFour
   # ------------------------------------------
 
   def run_game
-    game_over = [player1, player2].reduce(false) do |win, player|
+    game_over = [app_state[:player1], app_state[:player2]].reduce(false) do |win, player|
       render
       move = prompt_move(player)
       place_move(player, move)
-      if check_game_over(player)
-        return true
-      end
+      return true if check_game_over(player)
       false
-      # break if check_game_over(player)
     end
-    # [player1, player2].each do |player|
-    #   render
-    #   move = prompt_move(player)
-    #   place_move(player, move)
-    #   break :win if check_game_over(player)
-    # end
     return if game_over
     run_game
   end
