@@ -22,10 +22,18 @@ module ConnectFour
 
     # helper method for main game loop
     def run_game
-      until game_over?
-        current_player.ask_for_move
-        grid.render
-        switch_players
+      until draw?
+        begin
+          column = current_player.ask_for_column
+          grid.place_marker(column, current_player.marker)
+          grid.render
+
+          # check for victory condition..
+
+          switch_players
+        rescue Interrupt
+          quit_game
+        end
       end
     end
 
