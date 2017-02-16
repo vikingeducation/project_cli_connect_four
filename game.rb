@@ -25,16 +25,24 @@ module ConnectFour
       until draw?
         begin
           column = current_player.ask_for_column
-          grid.place_marker(column, current_player.marker)
+          move = grid.place_marker(column, current_player.marker)
           grid.render
 
           # check for victory condition..
+          if victory?(move)
+            congratulate(current_player.name)
+            
+            # we could ask if the players want to try again..
+            quit_game
+          end
 
           switch_players
         rescue Interrupt
           quit_game
         end
       end
+
+      # draw condition..
     end
 
     # # check if the game is over
@@ -106,6 +114,10 @@ module ConnectFour
     def quit_game
       puts "\nThank you for playing, goodbye!"
       exit
+    end
+
+    def congratulate(name)
+      puts "Congratulations, #{name}! You won!"
     end
   end
 
