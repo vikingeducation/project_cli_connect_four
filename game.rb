@@ -12,6 +12,7 @@ module ConnectFour
       setup_game
     end
 
+    # helper method for game setup
     def setup_game
       welcome_message
       create_players
@@ -24,11 +25,13 @@ module ConnectFour
     end
 
     # check if a player has made a winning move
-    def victory?
+    def victory?(move)
+      grid.winning_move?(move)
     end
 
     # check if the game has drawn
     def draw?
+      grid.full?
     end
 
     # check if the game is for two human players,
