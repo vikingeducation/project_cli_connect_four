@@ -32,11 +32,18 @@ module ConnectFour
     def run_game
       until draw?
         begin
-          column = current_player.ask_for_column
+          # get column the current player wants to place his marker in
+          column = current_player.ask_for_column 
+          until grid.valid_move?(column)
+            puts "That column is full. Please try again."
+            column = current_player.ask_for_column
+          end
+
           move = grid.place_marker(column, current_player.marker)
+          
           grid.render
 
-          # check for victory condition..
+          # victory condition
           if victory?(move)
             congratulate(current_player.name)
             
@@ -50,7 +57,7 @@ module ConnectFour
         end
       end
 
-      # draw condition..
+      # draw condition
       game_ends_in_a_draw
       quit_game
     end
