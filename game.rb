@@ -51,6 +51,8 @@ module ConnectFour
       end
 
       # draw condition..
+      game_ends_in_a_draw
+      quit_game
     end
 
     # check if a player has made a winning move
@@ -114,6 +116,10 @@ module ConnectFour
 
     def congratulate(name)
       puts "Congratulations, #{name}! You won!"
+    end
+
+    def game_ends_in_a_draw
+      puts "The game has ended in a draw."
     end
   end
 
