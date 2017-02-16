@@ -89,7 +89,8 @@ module ConnectFour
       players == 2 ? true : false
     end
 
-    # create the appropriate player 
+    # create the appropriate player objects, depending on
+    # whether the game is two-player or single-player
     def create_players
       @player_red = Human.new("Mr Red", "R")
 
