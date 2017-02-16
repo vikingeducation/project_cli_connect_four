@@ -102,6 +102,11 @@ module ConnectFour
       puts "Best of luck!"
       puts
     end
+
+    def quit_game
+      puts "\nThank you for playing, goodbye!"
+      exit
+    end
   end
 
 end
