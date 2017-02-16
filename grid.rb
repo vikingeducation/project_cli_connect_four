@@ -61,7 +61,7 @@ module ConnectFour
       markers_to_top_left = count_markers(move, -1, 1)
       markers_to_top_right = count_markers(move, 1, 1)
       markers_to_bottom_left = count_markers(move, -1, -1)
-      markers_to_bottom_right = count_markers(1, -1)
+      markers_to_bottom_right = count_markers(move, 1, -1)
 
       total = markers_to_top_left + markers_to_top_right +
               markers_to_bottom_left + markers_to_bottom_right
