@@ -106,7 +106,7 @@ module ConnectFour
       0.upto(5) do |row|
         string = "Row #{row + 1}:  "
         1.upto(7) do |col|
-          string += grid[col][row].nil? ? "." : grid[col][row]
+          string += grid[col][row].nil? ? ".".center(3) : "#{grid[col][row].center(3)}"
         end
         output.push(string)
       end
