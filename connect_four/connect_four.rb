@@ -93,9 +93,25 @@ class ConnectFour
     move.strip.to_i - 1
   end
 
+  def within_valid_coordinates?(move)
+    if move >= 0 && move <= 6
+      true
+    else
+      puts "Piece coordinate out of bounds"
+    end
+  end
+
+  def coordinates_available?(move)
+    if app_state[:board].any?{ |row| row[move].nil? }
+      true
+    else
+      puts "This column is already filled"
+    end
+  end
 
   def valid_move?(move)
-    move >= 0 && move <= 6
+    within_valid_coordinates?(move) &&
+    coordinates_available?(move)
   end
 
   def prompt_move(player)
