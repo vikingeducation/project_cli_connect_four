@@ -33,7 +33,6 @@ module ConnectFour
     def run_game
       until draw?
         begin
-          # get column the current player wants to place his marker in
           column = current_player.choose_column
 
           quit_game if column == 'q'
@@ -47,11 +46,11 @@ module ConnectFour
           
           grid.render
 
-          # victory condition
+          current_player.grid = grid
+
           if victory?(move)
             congratulate(current_player.name)
             
-            # we could ask if the players want to try again..
             quit_game
           end
 
@@ -61,7 +60,6 @@ module ConnectFour
         end
       end
 
-      # draw condition
       game_ends_in_a_draw
       quit_game
     end
