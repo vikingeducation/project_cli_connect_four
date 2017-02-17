@@ -46,7 +46,7 @@ module ConnectFour
       # subtract one as the marker in the move is counted twice
       total = markers_to_left + markers_to_right - 1
 
-      total == 4 ? true : false
+      total >= 4 ? true : false
     end
 
     # checks if there are 4 in a row vertically in the column of the last move
