@@ -34,7 +34,10 @@ module ConnectFour
       until draw?
         begin
           # get column the current player wants to place his marker in
-          column = current_player.choose_column 
+          column = current_player.choose_column
+
+          quit_game if column == 'q'
+
           until grid.valid_move?(column)
             puts "That column is full. Please try again."
             column = current_player.choose_column
@@ -79,14 +82,19 @@ module ConnectFour
       puts "Is this game for two human players, or one?"
       print "Please enter either 1 or 2: "
 
-      players = gets.chomp.to_i
-      until (1..2).include?(players)
-        print "Invalid input. Please enter either 1 or 2: "
-        players = gets.chomp.to_i
+      players = gets.chomp.downcase
+
+      if players == 'q'
+        quit_game
+      else
+        players = players.to_i
+        until (1..2).include?(players)
+          print "Invalid input. Please enter either 1 or 2: "
+          players = gets.chomp
+        end
       end
 
       puts
-
       players == 2 ? true : false
     end
 
@@ -96,7 +104,7 @@ module ConnectFour
       puts "In this game, two players take turns dropping a colored marker"
       puts "into a 7 by 6 grid. Whoever manages to get 4 markers in a row"
       puts "(whether horizontally, vertically, or diagonally) wins the game!"
-      puts "Hit Ctrl-C at any time to quit."
+      puts "Hit Ctrl-C or 'q' at any time to quit."
       puts "Best of luck!"
       puts
     end
