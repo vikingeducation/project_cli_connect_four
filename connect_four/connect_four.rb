@@ -244,9 +244,18 @@ class ConnectFour
     winning_vertical?(piece)
   end
 
+  def board_full?
+    app_state[:board].all? do |row|
+      row.none?(&:nil?)
+    end
+  end
+
   def check_game_over(current_player)
     if winning_combination?(current_player[:piece])
       puts "Congratulations #{current_player[:name]}, you win!"
+      true
+    elsif board_full?
+      puts "\nDraw!"
       true
     else
       false
