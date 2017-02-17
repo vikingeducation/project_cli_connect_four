@@ -106,7 +106,7 @@ module ConnectFour
     def create_players
       @player_one = Human.new("Mr Cross", "X")
 
-      @player_two = two_players? ? Human.new("Ms Nought", "O") : Computer.new("Ms Nought", "O")
+      @player_two = two_players? ? Human.new("Ms Nought", "O") : Computer.new("Skynet", "O")
     end
 
     # switches the current player
