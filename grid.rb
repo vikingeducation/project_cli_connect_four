@@ -115,14 +115,14 @@ module ConnectFour
         output.push(string)
       end
 
-      output.map! { |string| string.center(24) }
+      output.map! { |string| string.center(32) }
       output.map! { |string| string += "\n" }
       output.reverse!
       
       # add column listing to output
-      column_listing = " "
+      column_listing = ""
       1.upto(7) { |col| column_listing += col.to_s.center(3) }
-      output.push(column_listing)
+      output.push(column_listing.center(32))
 
       puts output.join
       puts
