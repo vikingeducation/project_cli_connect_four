@@ -1,7 +1,7 @@
 module ConnectFour
   
   class Grid
-    attr_accessor :grid
+    attr_reader :grid
 
     # create grid with 7 columns upon object instantation
     # each new item in the array is part of a new row
@@ -34,6 +34,38 @@ module ConnectFour
     def winning_move?(move)
       horizontal_win?(move) || vertical_win?(move) || diagonal_win?(move)
     end
+
+    # checks if the grid is full, i.e. all 42 spaces are filled up
+    def full?
+      grid.values.all? { |column| column.size == 6 }
+    end
+
+    # renders the grid
+    def render
+      output = []
+
+      0.upto(5) do |row|
+        string = ""
+        1.upto(7) do |col|
+          string += grid[col][row].nil? ? ".".center(3) : "#{grid[col][row].center(3)}"
+        end
+        output.push(string)
+      end
+
+      output.map! { |string| string.center(32) }
+      output.map! { |string| string += "\n" }
+      output.reverse!
+      
+      # add column listing to output
+      column_listing = ""
+      1.upto(7) { |col| column_listing += col.to_s.center(3) }
+      output.push(column_listing.center(32))
+
+      puts output.join
+      puts
+    end
+
+    private
 
     # checks if there are 4 in a row horizontally in the rows of the last move
     def horizontal_win?(move)
@@ -96,36 +128,6 @@ module ConnectFour
     # checks if the provided column/row indices are valid
     def valid_index?(col, row)
       (1..7).include?(col) && (0..5).include?(row)
-    end
-
-    # checks if the grid is full, i.e. all 42 spaces are filled up
-    def full?
-      grid.values.all? { |column| column.size == 6 }
-    end
-
-    # renders the grid
-    def render
-      output = []
-
-      0.upto(5) do |row|
-        string = ""
-        1.upto(7) do |col|
-          string += grid[col][row].nil? ? ".".center(3) : "#{grid[col][row].center(3)}"
-        end
-        output.push(string)
-      end
-
-      output.map! { |string| string.center(32) }
-      output.map! { |string| string += "\n" }
-      output.reverse!
-      
-      # add column listing to output
-      column_listing = ""
-      1.upto(7) { |col| column_listing += col.to_s.center(3) }
-      output.push(column_listing.center(32))
-
-      puts output.join
-      puts
     end
   end
 
