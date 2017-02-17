@@ -34,10 +34,10 @@ module ConnectFour
       until draw?
         begin
           # get column the current player wants to place his marker in
-          column = current_player.ask_for_column 
+          column = current_player.choose_column 
           until grid.valid_move?(column)
             puts "That column is full. Please try again."
-            column = current_player.ask_for_column
+            column = current_player.choose_column
           end
 
           move = grid.place_marker(column, current_player.marker)
