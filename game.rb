@@ -25,8 +25,8 @@ module ConnectFour
     def setup_game
       welcome_message
       create_players
-      switch_players
       introduce_players
+      switch_players
     end
 
     # helper method for main game loop
@@ -116,6 +116,8 @@ module ConnectFour
       else
         self.current_player = player_one
       end
+
+      puts "The current player is: #{current_player.name}."
     end
 
     # introduce the players - inform our players
