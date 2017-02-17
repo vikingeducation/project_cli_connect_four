@@ -72,12 +72,14 @@ class ConnectFour
   def render
     unless app_state[:board].empty?
       puts
-      app_state[:board].each do |row|
+      app_state[:board].each_with_index do |row, i|
+        print "#{i+1} "
         row.each do |cell|
           cell.nil? ? print(" - ") : print(" " + cell.to_s + " ")
         end
         puts
       end
+      print "  "
       (1..7).each{ |i| print " #{i} "}
       puts
     end
@@ -129,13 +131,23 @@ class ConnectFour
     end
   end
 
-  # def horizontals
-  #   (0..6).reduce([]) do |horizontals, col|
-  #     horizontals << (0..5).reduce([]) do |acc_row, row|
-  #       acc_row << app_state[:board][row][col]
-  #     end
-  #   end
-  # end
+  def diagonals(l)
+    h, w = l.length, l[0].length
+    (0...(h + w - 1)).reduce([]) do |acc, p|
+      acc << ([p-h+1, 0].max...[p+1, w].min).reduce([]) do |partial, q|
+        partial << l[h - p + q - 1][q]
+      end
+    end
+  end
+
+  def antidiagonals(l)
+    h, w = l.length, l[0].length
+    (0...(h + w - 1)).reduce([]) do |acc, p|
+      acc << ([p-h+1, 0].max...[p+1, w].min).reduce([]) do |partial, q|
+        partial << l[p - q][q]
+      end
+    end
+  end
 
   # ------------------------------------------
   # Winning conditions
@@ -166,6 +178,29 @@ class ConnectFour
     result
   end
 
+  def winning_diagonal?(piece)
+    board = app_state[:board]
+    result = false
+    (diagonals(board) + antidiagonals(board)).each do |diag|
+      previous, in_a_row = nil, 0
+      diag.each do |cell|
+        unless cell.nil?
+          if previous.nil?
+            previous, in_a_row = cell, 1
+            next
+          elsif cell == piece && previous == piece
+            in_a_row += 1
+          else
+            previous, in_a_row = cell, 1
+          end
+        end
+        result = true if in_a_row == 4
+      end
+    end
+    result
+  end
+
+
   def winning_horizontal?(piece)
     result, previous = false, nil
     horizontals.each do |horz|
@@ -188,7 +223,7 @@ class ConnectFour
   end
 
   def winning_combination?(piece)
-    # todo: winning_diagonal?(piece) ||
+    winning_diagonal?(piece) ||
     winning_horizontal?(piece) ||
     winning_vertical?(piece)
   end
