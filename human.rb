@@ -8,7 +8,7 @@ module ConnectFour
     # asks human player which column to place his marker in
     def choose_column
       print "Please enter the column you want to place your marker in: "
-      column = gets.chomp
+      column = gets.chomp.downcase
 
       # allow player to quit game by entering 'q'
       if column == "q"
@@ -20,7 +20,7 @@ module ConnectFour
           column = gets.chomp
         end
       end
-      
+
       column
     end
   end
