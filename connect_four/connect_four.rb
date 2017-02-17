@@ -31,7 +31,8 @@ class ConnectFour
     @app_state = {
       board: Array.new(6) { Array.new(7) },
       player1: {name: "p1", piece: "x"},
-      player2: {name: "p2", piece: "o"}
+      player2: {name: "p2", piece: "o"},
+      game_mode: nil
     }
   end
 
@@ -50,6 +51,12 @@ class ConnectFour
       "Moves are the number of the column, from 1 to 7, i.e forth column: 4"
     ]
     info.each { |msg| puts msg }
+  end
+
+  def game_mode
+    puts "\nSingle-player (1) or Multi-player (2)?"
+    print "\n[1/2] > "
+    app_state[:game_mode] = gets.strip.to_i
   end
 
   def prompt_names
@@ -115,14 +122,18 @@ class ConnectFour
   end
 
   def prompt_move(player)
-    print "\n#{player[:name]} move > "
-    move = gets
-    move = sanitize_move(move)
-    unless valid_move?(move)
-      puts "Please insert a valid move"
-      prompt_move(player)
+    if app_state[:game_mode] == 1 && player[:name] == "p2"
+      rand(0..6)
     else
-      move
+      print "\n#{player[:name]} move > "
+      move = gets
+      move = sanitize_move(move)
+      unless valid_move?(move)
+        puts "Please insert a valid move"
+        prompt_move(player)
+      else
+        move
+      end
     end
   end
 
@@ -280,6 +291,7 @@ class ConnectFour
 
   def play
     intro
+    game_mode
     # prompt_names
     run_game
   end
