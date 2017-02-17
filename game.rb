@@ -118,6 +118,14 @@ module ConnectFour
       end
     end
 
+    # introduce the players - inform our players
+    # about their names and markers
+    def introduce_players
+      puts "Player 1 is #{player_one.name}, and his marker is '#{player_one.marker}'."
+      puts "Player 2 is #{player_two.name}, and his marker is '#{player_two.marker}'."
+      puts
+    end
+
     def quit_game
       puts "\nThank you for playing, goodbye!"
       exit
