@@ -108,7 +108,7 @@ module ConnectFour
       output = []
 
       0.upto(5) do |row|
-        string = "Row #{row + 1}:  "
+        string = ""
         1.upto(7) do |col|
           string += grid[col][row].nil? ? ".".center(3) : "#{grid[col][row].center(3)}"
         end
@@ -117,7 +117,14 @@ module ConnectFour
 
       output.map! { |string| string.center(24) }
       output.map! { |string| string += "\n" }
-      puts output.reverse!.join
+      output.reverse!
+      
+      # add column listing to output
+      column_listing = " "
+      1.upto(7) { |col| column_listing += col.to_s.center(3) }
+      output.push(column_listing)
+
+      puts output.join
       puts
     end
   end
