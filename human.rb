@@ -6,7 +6,7 @@ module ConnectFour
     end
 
     # asks human player which column to place his marker in
-    def choose_column(grid = nil)
+    def choose_column
       print "Please enter the column you want to place your marker in: "
       column = gets.chomp.downcase
 
