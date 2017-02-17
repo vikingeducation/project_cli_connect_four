@@ -96,7 +96,7 @@ module ConnectFour
       puts "In this game, two players take turns dropping a colored marker"
       puts "into a 7 by 6 grid. Whoever manages to get 4 markers in a row"
       puts "(whether horizontally, vertically, or diagonally) wins the game!"
-      puts
+      puts "Hit Ctrl-C at any time to quit."
       puts "Best of luck!"
       puts
     end
