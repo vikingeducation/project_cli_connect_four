@@ -118,6 +118,7 @@ module ConnectFour
       output.map! { |string| string.center(24) }
       output.map! { |string| string += "\n" }
       puts output.reverse!.join
+      puts
     end
   end
 
