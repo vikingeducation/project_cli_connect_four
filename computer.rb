@@ -9,7 +9,7 @@ module ConnectFour
       rows = column_heights
       moves = possible_moves(rows)
       winning_column = column_of_winning_move(moves)
-      # randomly choose a column for now..
+
       winning_column.nil? ? (1..7).to_a.sample : winning_column
     end
 
