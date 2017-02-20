@@ -297,3 +297,6 @@ class ConnectFour
   end
 
 end
+
+cf = ConnectFour.new
+cf.play
