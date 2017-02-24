@@ -53,16 +53,20 @@ module ConnectFour
 
     # create grid with 7 columns upon object instantation
     # each new item in the array is part of a new row
-    def initialize
-      @grid = {
-        1 => [],
-        2 => [],
-        3 => [],
-        4 => [],
-        5 => [],
-        6 => [],
-        7 => []
-      }
+    def initialize(grid = nil)
+      if grid.nil?
+        @grid = {
+          1 => [],
+          2 => [],
+          3 => [],
+          4 => [],
+          5 => [],
+          6 => [],
+          7 => []
+        }
+      else
+        @grid = grid
+      end
     end
 
     # checks if the column a player wants to place a marker in is valid
