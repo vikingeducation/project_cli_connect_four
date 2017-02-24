@@ -1,5 +1,6 @@
 =begin
   Public interface:
+    initialize
     valid_move?(column)
     winning_move?(move)
     full?
@@ -14,6 +15,9 @@
     valid_index?(col, row)
 
   Test paths:
+    initialize
+      - Test that grid is a dictionary with 7 keys mapping to 7 empty arrays
+
     valid_move?(column)
       - Value between 1 to 7 returns true
       - Any other value returns false
