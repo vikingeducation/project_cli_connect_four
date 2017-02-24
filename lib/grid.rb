@@ -1,3 +1,48 @@
+=begin
+  Public interface:
+    valid_move?(column)
+    winning_move?(move)
+    full?
+    render
+    place_marker(column, marker)
+
+  Private methods:
+    horizontal_win?(move)
+    vertical_win?(move)
+    diagonal_win?(move)
+    count_markers(move, col_offset, row_offset)
+    valid_index?(col, row)
+
+  Test paths:
+    valid_move?(column)
+      - Value between 1 to 7 returns true
+      - Any other value returns false
+      - Test it with other types, e.g. floats and strings
+
+    winning_move?(move)
+      - Setup grid by manually configuring the arrays
+      - A move that makes 4 in a row horizontally returns true
+        - Test multiple rows
+        - Test multiple possible combinations in the same row
+      - A move that makes 4 in a row vertically returns true
+        - Test multiple columns
+        - Test multiple possible combinations in the same column
+      - A move that makes 4 in a row diagonally returns true
+        - Test both diagonals
+        - Test multiple diagonals across the grid
+      - Any other move returns false
+
+    full?
+      - Return true only if the grid is full
+      - Return false otherwise
+
+    place_marker(column, marker)
+      - Test that marker placed in column is correct
+      - Test that method returns the move's [col, row]
+      - Test invalid inputs for column
+
+=end
+
 module ConnectFour
   
   class Grid
