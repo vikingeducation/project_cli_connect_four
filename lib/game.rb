@@ -1,3 +1,36 @@
+=begin
+  Public interface:
+    initialize
+    play
+
+  Private methods:
+    Accessors:
+      :grid
+      :current_player
+      :player_one
+      :player_two
+    
+    setup_game
+    run_game
+    victory?(move)
+    draw?
+    two_players?
+    welcome_message
+    create_players
+    switch_players
+    introduce_players
+    quit_game
+    congratulate(name)
+    game_ends_in_a_draw
+
+  Test paths:
+    initialize
+      - verify that instance variables are correctly set
+
+    play
+      - (think about how we can setup tests for this)
+=end
+
 module ConnectFour
 
   class Game
