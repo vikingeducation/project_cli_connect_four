@@ -8,7 +8,6 @@
       - test it with a mock
       - test for valid input, e.g. q, Q, 1 to 7
       - test for invalid input (anything else)
-
 =end
 
 module ConnectFour

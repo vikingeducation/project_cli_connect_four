@@ -44,7 +44,6 @@
       - Test that marker placed in column is correct
       - Test that method returns the move's [col, row]
       - Test invalid inputs for column
-
 =end
 
 module ConnectFour
