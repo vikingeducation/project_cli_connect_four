@@ -1,3 +1,31 @@
+=begin
+  Public interface:
+    Readers:
+      name
+      marker
+    
+    Accessors:
+      grid
+
+    initialize
+
+  Private methods:
+    n/a
+
+  Test paths:
+    initialize
+      - test that instance variables are correctly set
+
+    name, marker, grid
+      - test that it returns the same value initially set 
+
+    name=, marker=
+      - (sneakily) test that instance variables can be set
+
+    grid=
+      - test that the grid can be set
+=end
+
 module ConnectFour
 
   class Player
