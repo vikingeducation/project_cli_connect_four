@@ -1,3 +1,19 @@
+=begin
+  Public interface:
+    initialize
+    choose_column
+
+  Private methods:
+    column_heights
+    possible_moves(rows)
+    column_of_winning_move(moves)
+
+  Test paths:
+    choose_column:
+      - test that if there's a move that wins the game, the method returns that column
+      - if there is no winning move, test that a value from 1 to 7 is returned (not sure we can actually test that it returns a random value within that range)
+=end
+
 module ConnectFour
 
   class Computer < Player
