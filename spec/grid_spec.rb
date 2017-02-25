@@ -120,6 +120,50 @@ describe "Grid" do
   end
 
   describe "#place_marker(column, marker)" do
+    let (:grid) { Grid.new }
+    let (:game_grid) { grid.instance_variable_get(:@grid) }
 
+    it "places the specified marker in the correct column" do
+      grid.place_marker(1, "A")
+      grid.place_marker(2, "B")
+      grid.place_marker(3, "C")
+      grid.place_marker(4, "D")
+      grid.place_marker(5, "E")
+      grid.place_marker(6, "F")
+      grid.place_marker(7, "G")
+
+      expect(game_grid[1].last).to eq("A")
+      expect(game_grid[2].last).to eq("B")
+      expect(game_grid[3].last).to eq("C")
+      expect(game_grid[4].last).to eq("D")
+      expect(game_grid[5].last).to eq("E")
+      expect(game_grid[6].last).to eq("F")
+      expect(game_grid[7].last).to eq("G")
+
+      grid.place_marker(1, "H")
+
+      expect(game_grid[1].last).not_to eq("A")
+      expect(game_grid[1].last).to eq("H")
+    end
+
+    it "returns the [col, row] position of the marker just placed" do
+      last_pos = grid.place_marker(1, "A")
+      col, row = last_pos[0], last_pos[1]
+
+      expect(col).to eq(1)
+      expect(row).to eq(0)
+
+      last_pos = grid.place_marker(1, "B")
+      col, row = last_pos[0], last_pos[1]
+
+      expect(col).to eq(1)
+      expect(row).to eq(1)
+
+      last_pos = grid.place_marker(7, "C")
+      col, row = last_pos[0], last_pos[1]
+
+      expect(col).to eq(7)
+      expect(row).to eq(0)
+    end
   end
 end
