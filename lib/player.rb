@@ -33,8 +33,8 @@ module ConnectFour
     attr_accessor :grid
 
     def initialize(name, marker)
-      @name = name
-      @marker = marker
+      @name = name.to_s
+      @marker = marker.to_s
       @grid = nil
     end
   end
