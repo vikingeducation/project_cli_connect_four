@@ -6,7 +6,7 @@ include ConnectFour
 describe "Grid" do
   describe "#initialize" do
     let (:grid) { Grid.new }
-    let (:game_grid) { grid.instance_variable_get(:@grid) }
+    let (:game_grid) { grid.grid }
 
     it "creates a Hash to store markers in the grid" do
       expect(game_grid).to be_kind_of(Hash)
@@ -121,7 +121,7 @@ describe "Grid" do
 
   describe "#place_marker(column, marker)" do
     let (:grid) { Grid.new }
-    let (:game_grid) { grid.instance_variable_get(:@grid) }
+    let (:game_grid) { grid.grid }
 
     it "places the specified marker in the correct column" do
       grid.place_marker(1, "A")
