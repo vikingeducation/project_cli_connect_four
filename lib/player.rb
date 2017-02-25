@@ -19,9 +19,6 @@
     name, marker, grid
       - test that it returns the same value initially set 
 
-    name=, marker=
-      - (sneakily) test that instance variables can be set
-
     grid=
       - test that the grid can be set
 =end
