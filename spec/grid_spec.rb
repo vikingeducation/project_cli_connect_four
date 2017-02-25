@@ -73,6 +73,49 @@ describe "Grid" do
   end
 
   describe "#full?" do
+    it "returns true if all 42 spaces on the grid are correctly filled up" do
+      full_grid = { 1 => ["X", "X", "X", "X", "X", "X"],
+                    2 => ["X", "X", "X", "X", "X", "X"],
+                    3 => ["X", "X", "X", "X", "X", "X"],
+                    4 => ["X", "X", "X", "X", "X", "X"],
+                    5 => ["X", "X", "X", "X", "X", "X"],
+                    6 => ["X", "X", "X", "X", "X", "X"],
+                    7 => ["X", "X", "X", "X", "X", "X"]
+                  }
+
+      expect(Grid.new(full_grid).full?).to be_truthy
+    end
+
+    it "returns false if the grid has more than 42 values" do
+      invalid_grid = { 1 => ["X", "X", "X", "X", "X", "X"],
+                       2 => ["X", "X", "X", "X", "X", "X"],
+                       3 => ["X", "X", "X", "X", "X", "X"],
+                       4 => ["X", "X", "X", "X", "X", "X"],
+                       5 => ["X", "X", "X", "X", "X", "X"],
+                       6 => ["X", "X", "X", "X", "X", "X"],
+                       7 => ["X", "X", "X", "X", "X", "X", "X"]
+                     } 
+
+      expect(Grid.new(invalid_grid).full?).to be_falsey
+    end
+
+    it "returns false if the grid is imbalanced (more than 6 values in a column)" do
+      # 42 total values, but there are 7 values in the first column
+      imbalanced_grid = { 1 => ["X", "X", "X", "X", "X", "X", "X"],
+                          2 => ["X", "X", "X", "X", "X", "X"],
+                          3 => ["X", "X", "X", "X", "X", "X"],
+                          4 => ["X", "X", "X", "X", "X", "X"],
+                          5 => ["X", "X", "X", "X", "X", "X"],
+                          6 => ["X", "X", "X", "X", "X", "X"],
+                          7 => ["X", "X", "X", "X", "X"]
+                        }
+
+      expect(Grid.new(imbalanced_grid).full?).to be_falsey
+    end
+
+    it "returns false if the grid is empty" do
+      expect(Grid.new.full?).to be_falsey
+    end
   end
 
   describe "#place_marker(column, marker)" do
