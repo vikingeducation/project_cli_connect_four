@@ -70,11 +70,8 @@ describe "Grid" do
     end
   end
 
-  describe "#winning_move?(column)" do
-  end
-
   describe "#full?" do
-    it "returns true if all 42 spaces on the grid are correctly filled up" do
+    it "returns true if all 42 spaces on the grid are filled up" do
       full_grid = { 1 => ["X", "X", "X", "X", "X", "X"],
                     2 => ["X", "X", "X", "X", "X", "X"],
                     3 => ["X", "X", "X", "X", "X", "X"],
@@ -164,6 +161,149 @@ describe "Grid" do
 
       expect(col).to eq(7)
       expect(row).to eq(0)
+    end
+  end
+
+  describe "#winning_move?(column)" do
+    it "determines a horizontal winning move" do
+      horizontal_winning_grid_for_x = { 1 => ["X"],
+                                        2 => ["X"],
+                                        3 => ["X"],
+                                        4 => [],
+                                        5 => ["O"],
+                                        6 => ["O"],
+                                        7 => ["O"]
+                                      }
+
+      grid = Grid.new(horizontal_winning_grid_for_x)
+      horizontal_winning_move = grid.place_marker(4, "X")
+      expect(grid.winning_move?(horizontal_winning_move)).to be_truthy
+
+      horizontal_winning_grid_for_o = { 1 => ["X"],
+                                        2 => ["X"],
+                                        3 => ["X"],
+                                        4 => [],
+                                        5 => ["O"],
+                                        6 => ["O"],
+                                        7 => ["O"]
+                                      }
+
+      grid = Grid.new(horizontal_winning_grid_for_o)
+      horizontal_winning_move = grid.place_marker(4, "O")
+      expect(grid.winning_move?(horizontal_winning_move)).to be_truthy
+    end
+
+    it "determines a vertical winning move" do
+      vertical_winning_grid_for_x = { 1 => [],
+                                      2 => [],
+                                      3 => ["X", "X", "X"],
+                                      4 => ["O", "O", "O"],
+                                      5 => [],
+                                      6 => [],
+                                      7 => []
+                                    }
+
+      grid = Grid.new(vertical_winning_grid_for_x)
+      vertical_winning_move_x = grid.place_marker(3, "X")
+      expect(grid.winning_move?(vertical_winning_move_x)).to be_truthy
+
+      vertical_winning_grid_for_o = { 1 => [],
+                                      2 => [],
+                                      3 => ["X", "X", "X"],
+                                      4 => ["O", "O", "O"],
+                                      5 => [],
+                                      6 => [],
+                                      7 => []
+                                    }
+
+      grid = Grid.new(vertical_winning_grid_for_o)
+      vertical_winning_move_x = grid.place_marker(4, "O")
+      expect(grid.winning_move?(vertical_winning_move_x)).to be_truthy
+    end
+
+    it "determines a diagonal winning move" do
+      diagonal_winning_grid_for_x = { 1 => ["X"],
+                                      2 => ["O", "X"],
+                                      3 => ["X", "O", "X"],
+                                      4 => ["O", "X", "O"],
+                                      5 => ["O"],
+                                      6 => [],
+                                      7 => []
+                                    }
+
+      grid = Grid.new(diagonal_winning_grid_for_x)
+      diagonal_winning_move_x = grid.place_marker(4, "X")
+      expect(grid.winning_move?(diagonal_winning_move_x)).to be_truthy
+
+      diagonal_winning_grid_for_o = { 1 => ["X"],
+                                      2 => ["O", "X", "X"],
+                                      3 => ["X", "O", "O"],
+                                      4 => ["X", "O", "O"],
+                                      5 => ["O", "X"],
+                                      6 => [],
+                                      7 => []
+                                    }
+
+      grid = Grid.new(diagonal_winning_grid_for_o)
+      diagonal_winning_move_o = grid.place_marker(2, "O")
+      expect(grid.winning_move?(diagonal_winning_move_x)).to be_truthy
+    end
+
+    it "determines a non-winning horizontal move" do
+      game_grid =  { 1 => ["X"],
+                     2 => ["O", "X", "X"],
+                     3 => ["X", "O", "O"],
+                     4 => ["X", "O", "O"],
+                     5 => ["O", "X"],
+                     6 => [],
+                     7 => []
+                   }
+
+      grid = Grid.new(game_grid)
+      
+      move_x = grid.place_marker(6, "X")
+      expect(grid.winning_move?(move_x)).to be_falsey
+
+      move_o = grid.place_marker(5, "O")
+      expect(grid.winning_move?(move_o)).to be_falsey
+    end
+
+    it "determines a non-winning vertical move" do
+      game_grid =  { 1 => ["X"],
+                     2 => ["O", "X", "X"],
+                     3 => ["X", "O", "O"],
+                     4 => ["X", "O", "O"],
+                     5 => ["O", "X"],
+                     6 => [],
+                     7 => []
+                   }
+
+      grid = Grid.new(game_grid)
+      
+      move_x = grid.place_marker(2, "X")
+      expect(grid.winning_move?(move_x)).to be_falsey
+
+      move_o = grid.place_marker(4, "O")
+      expect(grid.winning_move?(move_o)).to be_falsey
+    end
+
+    it "determines a non-winning diagonal move" do
+      game_grid =  { 1 => ["X"],
+                     2 => ["O", "X", "X"],
+                     3 => ["X", "O", "O"],
+                     4 => ["X", "O", "O"],
+                     5 => ["O", "X"],
+                     6 => [],
+                     7 => []
+                   }
+
+      grid = Grid.new(game_grid)
+      
+      move_x = grid.place_marker(5, "X")
+      expect(grid.winning_move?(move_x)).to be_falsey
+
+      move_o = grid.place_marker(3, "O")
+      expect(grid.winning_move?(move_o)).to be_falsey
     end
   end
 end
