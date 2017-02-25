@@ -54,7 +54,7 @@ describe "Grid" do
 
     it "does not accept 1 to 7 as a valid column if the corresponding column is full" do
       full_column = { 1 => ["X", "X", "X", "X", "X", "X"],
-                      2 => [],
+                      2 => ["X", "X", "X", "X", "X"],
                       3 => [],
                       4 => [],
                       5 => [],
@@ -66,6 +66,7 @@ describe "Grid" do
 
       expect(grid.valid_move?(1)).to be_falsey
       expect(grid.valid_move?(2)).to be_truthy
+      expect(grid.valid_move?(3)).to be_truthy
     end
   end
 
@@ -119,5 +120,6 @@ describe "Grid" do
   end
 
   describe "#place_marker(column, marker)" do
+
   end
 end
