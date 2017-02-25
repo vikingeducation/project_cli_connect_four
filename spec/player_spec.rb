@@ -32,6 +32,13 @@ describe "Player" do
 
       expect(player.name).to eq("Charlie Brown")
     end
+
+    it "returns the @name instance variable as a string" do
+      player = Player.new(42, "?")
+
+      expect(player.name).to be_a(String)
+      expect(player.name).to eq("42")
+    end
   end
 
   describe "#marker" do
@@ -39,6 +46,13 @@ describe "Player" do
       player = Player.new("Snoopy", "O")
 
       expect(player.marker).to eq("O")
+    end
+
+    it "returns the @marker instance variable as a string" do
+      player = Player.new("Snoopy", 4)
+
+      expect(player.marker).to be_a(String)
+      expect(player.marker).to eq("4")
     end
   end
 
