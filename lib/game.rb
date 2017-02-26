@@ -16,6 +16,27 @@
     initialize
       - verify that instance variables are correctly set
 
+    victory?
+      - returns true if last move won the game
+      - returns false otherwise
+
+    draw?
+      - returns true if the game grid is full
+      - returns false otherwise
+
+    two_players?
+      - returns true if player inputs the integer 2
+      - returns false otherwise
+
+    create_players
+      - check that player objects are correctly initialized
+
+    switch_players
+      - check that @current_player is correctly switched between @player_one and @player_two
+
+    quit
+      - check that SystemExit is raised
+
 =end
 
 module ConnectFour
