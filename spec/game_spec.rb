@@ -22,7 +22,113 @@ describe "Game" do
     end
   end
 
-  describe "draw?" do
+  describe "#victory?" do
+    it "returns true if a player has a made a horizontal winning move" do
+      game_grid = { 1 => ["X"],
+                    2 => ["X"],
+                    3 => ["X"],
+                    4 => ["X"],
+                    5 => ["O"],
+                    6 => ["O"],
+                    7 => ["O"]
+                  }
+
+      col, row = 4, 0
+      expect(Game.new(game_grid).victory?([col, row])).to be_truthy
+
+      game_grid = { 1 => ["O", "X"],
+                    2 => ["X", "O"],
+                    3 => ["X", "O"],
+                    4 => ["X", "O"],
+                    5 => ["O", "O"],
+                    6 => ["O", "X", "X", "X"],
+                    7 => ["O"]
+                  }
+
+      col, row = 5, 1
+      expect(Game.new(game_grid).victory?([col, row])).to be_truthy
+    end
+
+    it "returns true if a player has made a vertical winning move" do
+      game_grid = { 1 => [],
+                    2 => [],
+                    3 => ["X", "X", "X", "X"],
+                    4 => [],
+                    5 => ["O", "O", "O"],
+                    6 => [],
+                    7 => []
+                  }
+
+      col, row = 3, 3
+      expect(Game.new(game_grid).victory?([col, row])).to be_truthy
+
+      game_grid = { 1 => [],
+                    2 => [],
+                    3 => ["X", "X", "X"],
+                    4 => [],
+                    5 => ["O", "O", "O", "O"],
+                    6 => [],
+                    7 => []
+                  }
+
+      col, row = 5, 3
+      expect(Game.new(game_grid).victory?([col, row])).to be_truthy
+    end
+
+    it "returns true if a player has made a diagonal winning move" do
+      game_grid = { 1 => ["X"],
+                    2 => ["O", "X"],
+                    3 => ["X", "O", "X"],
+                    4 => ["O", "X", "O", "X"],
+                    5 => ["O"],
+                    6 => [],
+                    7 => []
+                  }
+
+      col, row = 4, 3
+      expect(Game.new(game_grid).victory?([col, row])).to be_truthy
+
+      game_grid = { 1 => ["X"],
+                    2 => ["O", "X", "X", "O"],
+                    3 => ["X", "O", "O"],
+                    4 => ["X", "O", "O"],
+                    5 => ["O", "X"],
+                    6 => [],
+                    7 => []
+                  }
+
+      col, row = 2, 3
+      expect(Game.new(game_grid).victory?([col, row])).to be_truthy
+    end
+
+    it "returns false if a player's move does not win the game" do
+      game_grid = { 1 => ["X"],
+                    2 => ["X"],
+                    3 => ["X"],
+                    4 => [],
+                    5 => ["O", "X"],
+                    6 => ["O"],
+                    7 => ["O"]
+                  }
+
+      col, row = 5, 1
+      expect(Game.new(game_grid).victory?([col, row])).to be_falsey
+
+      game_grid = { 1 => [],
+                    2 => [],
+                    3 => ["X", "X", "X", "O"],
+                    4 => [],
+                    5 => ["O", "O", "O"],
+                    6 => [],
+                    7 => []
+                  }
+
+      col, row = 3, 3
+      expect(Game.new(game_grid).victory?([col, row])).to be_falsey
+    end
+  end
+
+  describe "#draw?" do
     it "returns true if the game grid's 42 squares are all filled" do
       full_grid = { 1 => ["X", "X", "X", "X", "X", "X"],
                     2 => ["X", "X", "X", "X", "X", "X"],
