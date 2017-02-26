@@ -19,21 +19,17 @@ module ConnectFour
 
     # asks human player which column to place his marker in
     def choose_column
-      print "Please enter the column you want to place your marker in: "
-      column = gets.chomp.downcase
+      loop do
+        print "Please enter a column to place your marker in: "
+        column = gets.chomp.downcase
 
-      # allow player to quit game by entering 'q'
-      if column == "q"
-        return column
-      else
-        column = column.to_i
-        until (1..7).include?(column)
-          print "That is an invalid column. Please enter a number from 1 to 7: "
-          column = gets.chomp.to_i
-        end
+        # user indicated he wants to quit
+        return column if column == 'q'
+
+        return column.to_i if (1..7).include?(column.to_i)
+
+        puts "Your input is invalid, please try again."
       end
-
-      column
     end
   end
 end
