@@ -160,6 +160,20 @@ describe "Game" do
     end
   end
 
+  describe "#two_players?" do
+    it "returns false if the player has specified the game is single-player" do
+      allow(game).to receive(:gets).and_return("1")
+
+      expect(game.two_players?).to be_falsey
+    end
+
+    it "returns true if the player has specified the game is two-player" do
+      allow(game).to receive(:gets).and_return("2")
+
+      expect(game.two_players?).to be_truthy
+    end
+  end
+
   describe "#quit" do
     it "raises a SystemExit error and exits the game" do
       expect { game.quit }.to raise_error(SystemExit)
