@@ -36,7 +36,6 @@
 
     quit
       - check that SystemExit is raised
-
 =end
 
 module ConnectFour
@@ -89,11 +88,10 @@ module ConnectFour
     def create_players
       @player_one = Human.new("Mr Cross", "X")
 
-      # @player_two = two_players? ? Human.new("Ms Nought", "O") : Computer.new("Skynet", "O")
       if two_players?
         @player_two = Human.new("Ms Nought", "O")
       else
-        @player_two = Computer.new("Ms Nought", "O")
+        @player_two = Computer.new("Skynet", "O")
         @player_two.grid = @grid
       end
     end
