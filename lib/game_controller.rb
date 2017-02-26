@@ -34,7 +34,7 @@ module ConnectFour
         begin
           column = game.current_player.choose_column
 
-          game.quit_game if column == 'q'
+          game.quit if column == 'q'
 
           until game.grid.valid_move?(column)
             puts "That column is full. Please try again."
@@ -50,17 +50,17 @@ module ConnectFour
           if game.victory?(move)
             game.congratulate(game.current_player.name)
             
-            game.quit_game
+            game.quit
           end
 
           game.switch_players
         rescue Interrupt
-          game.quit_game
+          game.quit
         end
       end
 
       game.ends_in_a_draw
-      game.quit_game
+      game.quit
     end
   end
 
