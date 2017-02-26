@@ -64,23 +64,18 @@ module ConnectFour
     # check if the game is for two human players,
     # to allow us to initialize the proper player objects
     def two_players?
+      num_players = nil
       puts "Is this game for two human players, or one?"
-      print "Please enter either 1 or 2: "
+      loop do
+        print "Please enter either 1 or 2: "
+        num_players = gets.chomp.to_i
 
-      players = gets.chomp.downcase
+        break if (1..2).include?(num_players)
 
-      if players == 'q'
-        quit_game
-      else
-        players = players.to_i
-        until (1..2).include?(players)
-          print "Invalid input. Please enter either 1 or 2: "
-          players = gets.chomp
-        end
+        puts "Your input is invalid, please try again."
       end
 
-      puts
-      players == 2 ? true : false
+      num_players == 2 ? true : false
     end
 
     # create the appropriate player objects, depending on
