@@ -100,4 +100,19 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+
+  # custom settings to suppress output to stdout and stderr,
+  # for methods that use 'print' and 'puts'
+  original_stdout = $stdout
+  original_stderr = $stderr
+
+  config.before(:all) do
+    $stdout = File.open(File::NULL, "w")
+    $stderr = File.open(File::NULL, "w")
+  end
+
+  config.after(:all) do
+    $stdout = original_stdout
+    $stderr = original_stderr
+  end
 end
