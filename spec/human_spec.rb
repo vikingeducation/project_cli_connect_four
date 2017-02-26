@@ -27,7 +27,23 @@ describe "Human" do
       expect(human.choose_column).to eq("q")
     end
 
-    # need to figure out how to test this with the loop in the method
-    it "does not accept anything else as valid input"
+    
+    # the #choose_column method has a loop that prompts the user to re-enter
+    # input via gets if we determine the initial input is invalid.
+    # we set the first gets to return an invalid input, then the second gets to
+    # return a valid input.
+    it "does not accept anything else as valid input" do
+      allow(human).to receive(:gets).and_return("blah", "1")
+      expect(human.choose_column).to eq(1)
+
+      allow(human).to receive(:gets).and_return("bleh", "2")
+      expect(human.choose_column).to eq(2)
+
+      allow(human).to receive(:gets).and_return("-1.0", "3")
+      expect(human.choose_column).to eq(3)
+
+      allow(human).to receive(:gets).and_return("meep", "Q")
+      expect(human.choose_column).to eq("q")
+    end
   end
 end
