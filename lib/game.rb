@@ -1,17 +1,6 @@
 =begin
   Public interface:
     initialize
-    play
-
-  Private methods:
-    Accessors:
-      :grid
-      :current_player
-      :player_one
-      :player_two
-    
-    setup_game
-    run_game
     victory?(move)
     draw?
     two_players?
@@ -19,82 +8,24 @@
     create_players
     switch_players
     introduce_players
-    quit_game
+    quit
     congratulate(name)
-    game_ends_in_a_draw
+    ends_in_a_draw
 
   Test paths:
     initialize
       - verify that instance variables are correctly set
 
-    play
-      - (think about how we can setup tests for this)
 =end
 
 module ConnectFour
 
   class Game
-    def initialize
-      @grid = Grid.new
+    attr_accessor :grid, :player_one, :player_two, :current_player
+
+    def initialize(grid = nil)
+      @grid = Grid.new(grid)
       @player_one, @player_two, @current_player = nil
-
-    end
-
-    # main game method
-    def play
-      setup_game
-      run_game
-    end
-
-    private
-
-    attr_accessor :grid, 
-                  :current_player, 
-                  :player_one, 
-                  :player_two
-
-
-    # helper method for game setup
-    def setup_game
-      welcome_message
-      create_players
-      introduce_players
-      switch_players
-    end
-
-    # helper method for main game loop
-    def run_game
-      until draw?
-        begin
-          column = current_player.choose_column
-
-          quit_game if column == 'q'
-
-          until grid.valid_move?(column)
-            puts "That column is full. Please try again."
-            column = current_player.choose_column
-          end
-
-          move = grid.place_marker(column, current_player.marker)
-          
-          grid.render
-
-          current_player.grid = grid
-
-          if victory?(move)
-            congratulate(current_player.name)
-            
-            quit_game
-          end
-
-          switch_players
-        rescue Interrupt
-          quit_game
-        end
-      end
-
-      game_ends_in_a_draw
-      quit_game
     end
 
     # check if a player has made a winning move
@@ -173,7 +104,7 @@ module ConnectFour
       puts
     end
 
-    def quit_game
+    def quit
       puts "\nThank you for playing, goodbye!"
       exit
     end
@@ -182,21 +113,9 @@ module ConnectFour
       puts "Congratulations, #{name}! You won!"
     end
 
-    def game_ends_in_a_draw
+    def ends_in_a_draw
       puts "The game has ended in a draw."
     end
   end
 
-end
-
-if $0 == __FILE__
-  require_relative 'grid'
-  require_relative 'player'
-  require_relative 'human'
-  require_relative 'computer'
-
-  include ConnectFour
-
-  game = Game.new
-  game.play
 end
