@@ -6,7 +6,7 @@ require 'grid'
 include ConnectFour
 
 describe "Computer" do
-  describe "choose_column" do
+  describe "#choose_column" do
     it "always chooses a vertical winning column if one is available" do
       game_grid = { 1 => [],
                     2 => ["X", "X", "X"],
