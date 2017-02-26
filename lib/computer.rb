@@ -34,7 +34,6 @@ module ConnectFour
     # undoes the move if it does, and returns the winning column
     def find_winning_column
       (1..7).each do |col|
-        p col
         move = self.grid.place_marker(col, self.marker)
         if self.grid.winning_move?(move)
           self.grid.grid[col].pop
