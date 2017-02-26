@@ -174,6 +174,34 @@ describe "Game" do
     end
   end
 
+  describe "#create_players" do
+    it "creates one Human player and one Computer player in a single-player game" do
+      allow(game).to receive(:gets).and_return("1")
+
+      game.create_players
+
+      expect(game.player_one).to be_a(Human)
+      expect(game.player_one.name).to eq("Mr Cross")
+      expect(game.player_one.marker).to eq("X")
+      expect(game.player_two).to be_a(Computer)
+      expect(game.player_two.name).to eq("Skynet")
+      expect(game.player_two.marker).to eq("O")
+    end
+
+    it "creates two Human players in a two-player game" do
+      allow(game).to receive(:gets).and_return("2")
+
+      game.create_players
+
+      expect(game.player_one).to be_a(Human)
+      expect(game.player_one.name).to eq("Mr Cross")
+      expect(game.player_one.marker).to eq("X")
+      expect(game.player_two).to be_a(Human)
+      expect(game.player_two.name).to eq("Ms Nought")
+      expect(game.player_two.marker).to eq("O")
+    end
+  end
+
   describe "#quit" do
     it "raises a SystemExit error and exits the game" do
       expect { game.quit }.to raise_error(SystemExit)
