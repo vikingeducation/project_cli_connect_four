@@ -29,7 +29,7 @@ module ConnectFour
         column = column.to_i
         until (1..7).include?(column)
           print "That is an invalid column. Please enter a number from 1 to 7: "
-          column = gets.chomp
+          column = gets.chomp.to_i
         end
       end
 
