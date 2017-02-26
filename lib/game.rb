@@ -21,7 +21,10 @@
 module ConnectFour
 
   class Game
-    attr_accessor :grid, :player_one, :player_two, :current_player
+    attr_accessor :grid,
+                  :player_one,
+                  :player_two,
+                  :current_player
 
     def initialize(grid = nil)
       @grid = Grid.new(grid)
@@ -60,17 +63,6 @@ module ConnectFour
       players == 2 ? true : false
     end
 
-    # prints out welcome message / instructions
-    def welcome_message
-      puts "Welcome to Connect Four!"
-      puts "In this game, two players take turns dropping a colored marker"
-      puts "into a 7 by 6 grid. Whoever manages to get 4 markers in a row"
-      puts "(whether horizontally, vertically, or diagonally) wins the game!"
-      puts "Hit Ctrl-C or 'q' at any time to quit."
-      puts "Best of luck!"
-      puts
-    end
-
     # create the appropriate player objects, depending on
     # whether the game is two-player or single-player
     def create_players
@@ -96,6 +88,23 @@ module ConnectFour
       puts "The current player is: #{current_player.name}."
     end
 
+    # quits the game
+    def quit
+      puts "\nThank you for playing, goodbye!"
+      exit
+    end
+
+    # prints out welcome message / instructions
+    def welcome_message
+      puts "Welcome to Connect Four!"
+      puts "In this game, two players take turns dropping a colored marker"
+      puts "into a 7 by 6 grid. Whoever manages to get 4 markers in a row"
+      puts "(whether horizontally, vertically, or diagonally) wins the game!"
+      puts "Hit Ctrl-C or 'q' at any time to quit."
+      puts "Best of luck!"
+      puts
+    end
+
     # introduce the players - inform our players
     # about their names and markers
     def introduce_players
@@ -104,15 +113,12 @@ module ConnectFour
       puts
     end
 
-    def quit
-      puts "\nThank you for playing, goodbye!"
-      exit
-    end
-
+    # prints a congratulatory message for the winning player
     def congratulate(name)
       puts "Congratulations, #{name}! You won!"
     end
 
+    # prints a message indicating the game has ended in a draw
     def ends_in_a_draw
       puts "The game has ended in a draw."
     end
