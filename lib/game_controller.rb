@@ -4,8 +4,8 @@ module ConnectFour
   # so that we could easily test the interface that the 
   # Game class exposes.
   #
-  # This also allows us to (hopefully) switch out GameControllers
-  # in the future.
+  # This should also allows us to (hopefully) switch out 
+  # GameController classes in the future.
 
   class GameController
     attr_reader :game
