@@ -59,7 +59,7 @@ module ConnectFour
         end
       end
 
-      game.game_ends_in_a_draw
+      game.ends_in_a_draw
       game.quit_game
     end
   end
