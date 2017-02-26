@@ -202,6 +202,29 @@ describe "Game" do
     end
   end
 
+  describe "#switch_players" do
+    it "initially sets the current player to Player 1" do
+      allow(game).to receive(:gets).and_return("2")
+      game.create_players
+      game.switch_players
+      expect(game.current_player).to eq(game.player_one)
+    end
+
+    it "switches the current player to Player 2 if it's Player 1, and vice versa" do
+      allow(game).to receive(:gets).and_return("2")
+      game.create_players
+      game.switch_players
+      expect(game.current_player).to eq(game.player_one)
+
+      game.switch_players
+      expect(game.current_player).to eq(game.player_two)
+
+      game.switch_players
+      expect(game.current_player).to eq(game.player_one)
+    end
+
+  end
+
   describe "#quit" do
     it "raises a SystemExit error and exits the game" do
       expect { game.quit }.to raise_error(SystemExit)
