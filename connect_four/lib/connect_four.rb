@@ -83,7 +83,7 @@ class ConnectFour
 
 end
 
-# c = ConnectFour.new
-# c.play
+c = ConnectFour.new
+c.play
 
 
