@@ -1,3 +1,28 @@
+=begin
+  Public Methods Human
+  1.  get name
+  2. get move
+  Private Methods Human
+  1.  valid_move_input_format
+  Tests Human
+  1. init
+  2. get name
+  3. get move
+    valid input
+    invalid input
+
+    Pulic Methods Machine
+    1. get move
+    Private Methods Machine
+    1. win_block
+    Tests Machine
+    1. init
+    2. get move
+      win
+      block
+      random move
+=end
+
 class Player
   attr_accessor :token, :name
 

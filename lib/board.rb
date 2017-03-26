@@ -1,3 +1,33 @@
+=begin
+  Public Methods
+  1.  render *skip testing render method
+  2.  add_token
+  3.  valid_move?
+  4.  winning_combination?
+  5.  full?
+  Private Methods
+  1.  make_board
+  2.  make_color
+  3.  diagonal_steps?
+  4.  winning_diagonal?
+  5.  winning_vertical?
+  6.  winning_horizontal?
+
+  Tests
+  1.  init
+    default
+  2.  add_token
+    empty columns
+    column with empty spaces
+    full column
+  3. winning_combination
+    none
+    winning_diagonal
+    winning_vertical
+    winning_horizontal
+  4.  full
+=end
+
 class Board
     def initialize(board_state = nil)
       @columns = (board_state || make_board)
