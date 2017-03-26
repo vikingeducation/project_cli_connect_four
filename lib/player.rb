@@ -1,5 +1,67 @@
 class Player
   attr_accessor :token, :name
-  @name
-  @token
+
+  def initialize(token)
+    @token  = token
+  end
+
+end
+
+class Human < Player
+  def initialize(token)
+    super(token)
+  end
+
+  def get_name
+    puts "What's your name?"
+    @name = gets.chomp
+  end
+
+  def get_move(board)
+    puts "#{@name}, please enter your column:"
+    loop do
+      col_num = gets.chomp.to_i
+      break if valid_move_input_format?(col_num) && board.add_token(col_num, @token)
+    end
+  end
+
+  private
+
+  def valid_move_input_format?(col_num)
+    if (1..7).include?(col_num)
+      return true
+    else
+      puts "Invalid input.  Please enter a number between 1 and 7."
+    end
+  end
+
+end
+
+class Machine < Player
+  def initialize(token)
+    super(token)
+    @name = "Conrad"
+  end
+
+  def get_move(board)
+    win = win_block(:y, board)
+    block = win_block(:r, board)
+    move = win || block || (1..7).to_a.sample
+    board.add_token(move, @token)
+  end
+
+  private
+
+  def win_block(token, board)
+    1.upto(7) do |col_num|
+      test_board = Marshal::load(Marshal.dump(board))
+      test_board.add_token(col_num, token)
+      if test_board.winning_combination?(token)
+        return col_num
+      else
+        next
+      end
+    end
+    return false
+  end
 end

@@ -1,121 +1,121 @@
 class Board
-  attr_accessor :board_state, :drop, :token
-    def initialize
-      @board_state = Array.new(6){Array.new(7)}
-      @drop
-      @token
+    def initialize(board_state = nil)
+      @columns = (board_state || make_board)
     end
 
     def render
-      puts "1 2 3 4 5 6 7"
-      @board_state.each do |row|
-        row.each do |cell|
-          cell.nil? ? print("_ ") : print("#{cell.to_s} ")
-        end
-        puts
-      end
-      puts
-    end
-
-    def add_token
-      @column = @drop
-      @row = rows_available[@drop]
-      @board_state[@row][@column] = @token
-    end
-
-    def remove_test
-      @board_state[@row][@column] = nil
-    end
-
-    def rows_available
-      moves_arr = []
-      7.times do |col|
-        moves_arr << nil
-       (5).downto(0) do |row|
-         if @board_state[row][col].nil?
-           moves_arr[col] = row
-           break
-         end
-       end
-     end
-     return moves_arr
-    end
-
-    def winning_combination?
-        winning_diagonal?   ||
-        winning_horizontal? ||
-        winning_vertical?
-    end
-
-    def winning_diagonal?
-      diagonal = []
-      #down right
-      if (@column <= 3) && (@row <= 2)
-        diagonal = [@board_state[@row][@column], @board_state[@row + 1][@column + 1], @board_state[@row + 2][@column + 2], @board_state[@row + 3][@column + 3] ]
-        if diagonal.all? {|cell| cell == @token }
-          return true
+      system 'clear'
+      5.downto(0) do |position|
+        print "\n"
+        1.upto(7) do |col_num|
+          print " "
+          print "(#{make_color(@columns[col_num][position])})"
+          print " "
         end
       end
-        #up right
-      if (@column <= 3) && (@row >= 3)
-        diagonal = [@board_state[@row][@column], @board_state[@row - 1][@column + 1], @board_state[@row - 2][@column + 2], @board_state[@row - 3][@column + 3] ]
-        if diagonal.all? {|cell| cell == @token }
-          return true
+      print "\n"
+    end
+
+    def add_token(column, token)
+      if valid_move?(column)
+        top_blank = @columns[column].find_index(&:nil?)
+        @columns[column][top_blank] = token
+      end
+    end
+
+    def valid_move?(column)
+      if @columns[column].last == nil
+        true
+      else
+        puts "That column is full."
+      end
+    end
+
+    def winning_combination?(token)
+        winning_diagonal?(token)   ||
+        winning_horizontal?(token) ||
+        winning_vertical?(token)
+    end
+
+    def full?
+      @columns.values.flatten.all? { |token| token != nil }
+        @columns.each do |col_num, column|
+          return false if column.any? {|pos| pos  == nil}
+        end
+        return true
+    end
+
+    private
+
+    def make_board
+      columns = {}
+      1.upto(7) do |i|
+        columns[i] = Array.new(6)
+      end
+      columns
+    end
+
+    def make_color(token)
+      colors = {:r => :light_red,
+                     :y => :light_yellow}
+      if token == nil
+        "o"
+      else
+        "o".colorize((colors[token]))
+      end
+    end
+
+    def diagonal_steps?(token, starting_column, starting_position)
+      if @columns[(starting_column + 1)][(starting_position + 1)] == token &&
+        @columns[(starting_column + 2)][(starting_position + 2)] == token &&
+        @columns[(starting_column + 3)][(starting_position + 3)] == token ||
+        @columns[(starting_column + 1)][(starting_position - 1)] == token &&
+        @columns[(starting_column + 2)][(starting_position - 2)] == token &&
+        @columns[(starting_column + 3)][(starting_position - 3)] == token
+        return true
+      end
+    end
+
+    def winning_diagonal?(token)
+      @columns.each do |col_num, column|
+        column.each_with_index do |blank, position|
+          if col_num == 5
+            return false
+          elsif blank == token &&
+            diagonal_steps?(token, col_num, position)
+            return true
+          end
         end
       end
-        #down left
-      if (@column >= 3) && (@row <= 2)
-        diagonal = [@board_state[@row][@column], @board_state[@row + 1][@column - 1], @board_state[@row + 2][@column - 2], @board_state[@row + 3][@column - 3] ]
-        if diagonal.all? {|cell| cell == @token }
-          return true
-        end
-      end
-        #up left
-      if (@column >= 3) && (@row >= 3)
-        diagonal = [@board_state[@row][@column], @board_state[@row - 1][@column - 1], @board_state[@row - 2][@column - 2], @board_state[@row - 3][@column - 3] ]
-        if diagonal.all? {|cell| cell == @token }
-          return true
+    end
+
+    def winning_vertical?(token)
+      @columns.each do |col_num, column|
+        column.each_with_index do |blank, position|
+          if blank == token &&
+            column[(position + 1)] == token &&
+            column[(position + 2)] == token &&
+            column[(position + 3)] == token
+            return true
+          end
         end
       end
       return false
     end
 
-    def winning_vertical?
-        if @row <= 2
-          vertical = [@board_state[@row][@column], @board_state[@row + 1][@column], @board_state[@row + 2][@column], @board_state[@row + 3][@column] ]
-           if vertical.all? {|cell| cell == @token }
-             return true
-           end
-        end
-        if @row >= 3
-          vertical = [@board_state[@row][@column], @board_state[@row][@column - 1], @board_state[@row][@column - 2], @board_state[@row][@column - 3] ]
-          if vertical.all? {|cell| cell == @token }
+    def winning_horizontal?(token)
+      @columns.each do |col_num, column|
+        column.each_with_index do |blank, position|
+          if col_num == 5
+            return false
+          elsif blank == token &&
+            @columns[(col_num + 1)][position] == token &&
+            @columns[(col_num + 2)][position] == token &&
+            @columns[(col_num + 3)][position] == token
             return true
           end
-          return false
-        end
-    end
-
-    def winning_horizontal?
-      if @column <= 3
-        horizontal = [@board_state[@row][@column], @board_state[@row ][@column + 1], @board_state[@row][@column + 2], @board_state[@row][@column + 3 ]]
-        if horizontal.all? {|cell| cell == @token }
-          return true
         end
       end
-      if @column >= 3
-        horizontal = [@board_state[@row][@column], @board_state[@row][@column - 1], @board_state[@row][@column - 2], @board_state[@row][@column - 3] ]
-        if horizontal.all? {|cell| cell == @token }
-          return true
-        end
-        return false
-      end
-    end
-
-    def full?
-        @board_state.all? do |row|
-            row.none?(&:nil?)
-        end
     end
 
 end
