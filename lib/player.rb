@@ -1,4 +1,6 @@
 =begin
+  Tests player
+  1. init
   Public Methods Human
   1.  get name
   2. get move
@@ -29,7 +31,6 @@ class Player
   def initialize(token)
     @token  = token
   end
-
 end
 
 class Human < Player

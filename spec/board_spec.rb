@@ -14,7 +14,7 @@ require 'board'
   not full
   full
 =end
-describe Board do
+describe "Board class" do
   empty = {1 => Array.new(6),
                 2 => Array.new(6),
                 3 => Array.new(6),
@@ -59,7 +59,7 @@ describe Board do
               7 => Array.new(6)}
 
   describe '#initialize' do
-    it 'should give you a Board' do
+    it 'should create a Board' do
       expect(Board.new.instance_variable_get( :@columns)).to eq(empty)
     end
   end
