@@ -104,6 +104,7 @@ class ConnectFour
 end
 
 class Player
+
   def initialize(name = "Anonymous", disc, grid)
 
 		raise "Disc must be a Symbol!" unless disc.is_a?(Symbol)
@@ -112,6 +113,7 @@ class Player
     @disc = disc
     @grid = grid
   end
+  
   def get_choice
 
     loop do
@@ -142,10 +144,12 @@ end
 class Grid
 
   attr_reader :grid_arr
+
   def initialize 
 
     @grid_arr = Array.new(6, Array.new(7))
-	  end
+	
+  end
 
   def render
 
