@@ -3,7 +3,7 @@
 
 class ConnectFour
 
-	def initialize
+  def initialize
 
     @grid = Grid.new
 
@@ -12,9 +12,9 @@ class ConnectFour
 
     @current_player = @player_1
 
-	end
+  end
 
-	def play
+  def play
 
     instructions
     
@@ -29,9 +29,9 @@ class ConnectFour
     	
     end
 
-	end
+  end
 
-	def instructions
+  def instructions
     
     puts
     puts "=== Welcome to Connect Four! ==="
@@ -46,19 +46,19 @@ class ConnectFour
     puts "Let's get started!"
     puts
 
-	end
+  end
 
-	def game_over?
+  def game_over?
     winner? || draw?
-	end
+  end
 
-	def winner?
+  def winner?
     vertical_winner?
     horizontal_winner?
     diagonal_winner?
-	end
+  end
 
-	def draw?
+  def draw?
     
     if @grid.full?
       puts "It's a draw."
@@ -67,55 +67,52 @@ class ConnectFour
       false
     end
 
-	end
+  end
 
-	def vertical_winner?
+  def vertical_winner?
     
-	end
+  end
 
-	def horizontal_winner?
+  def horizontal_winner?
     
-	end
+  end
 
-	def diagonal_winner?
+  def diagonal_winner?
     
-	end
+  end
 
-	def verticals
+  def verticals
 
-	end
+  end
 
-	def horizontals
+  def horizontals
 
-	end
+  end
 
-	def diagonals
+  def diagonals
 
-	end
+  end
 
-	def switch_players
+  def switch_players
     if @current_player = @player_1
     	@current_player = @player_2
     else
       @current_player = @player_1
     end
-	end
+  end
 
 end
 
 class Player
-
-	def initialize(name = "Anonymous", disc, grid)
+  def initialize(name = "Anonymous", disc, grid)
 
 		raise "Disc must be a Symbol!" unless disc.is_a?(Symbol)
     
     @name = name 
     @disc = disc
     @grid = grid
-
-	end
-
-	def get_choice
+  end
+  def get_choice
 
     loop do
 
@@ -124,38 +121,31 @@ class Player
       break if valid_column_number?(column) && @grid.add_piece(column - 1, @disc)
 
     end
-
-	end
-
-	def ask_for_column
+  end
+  def ask_for_column
     
     puts
     puts "#{@name}, enter the column (1-7) that you want to put your disc (#{@disc}) in."
     gets.strip.to_i
-
-	end
-
-	def valid_column_number?(column)
+  end
+  def valid_column_number?(column)
     
     if (1..7).include?(column)
     	true
     else
     	puts "Your column of choice is not within the allowed range (1-7)."
     end
-
-	end
+  end
 
 end
 
 class Grid
 
   attr_reader :grid_arr
-
-	def initialize 
+  def initialize 
 
     @grid_arr = Array.new(6, Array.new(7))
-	
-	end
+	  end
 
   def render
 
