@@ -3,6 +3,8 @@
 
 class ConnectFour
 
+  attr_reader :current_player
+
   def initialize
 
     @grid = Grid.new
@@ -68,60 +70,6 @@ class ConnectFour
     else
       false
     end
-
-  end
-
-  def vertical_winner?
-    
-  end
-
-  def horizontal_winner?
-    
-  end
-
-  def diagonal_winner?
-    
-  end
-
-  def verticals
-    vertical_possibilities = []
-    @grid_arr.each do |column|
-      3.times do |i|
-        vertical_possibilities << [column[i], column[i + 1], column[i + 2], column[i + 3]]
-      end
-    end
-    vertical_possibilities
-  end
-
-  def horizontals
-    horizontal_possibilities = []
-
-      4.times do |i|
-        6.times do |j|
-          horizontal_possibilities << [@grid_arr[i][j], @grid_arr[i + 1][j], @grid_arr[i + 2][j] ,@grid_arr[i + 3][j]
-        end
-      end
-
-    horizontal_possibilities
-  end
-
-  def diagonals
-
-    diagonal_possibilities = [
-
-    [@grid_arr[3][0], @grid_arr[4][1], @grid_arr[5][2]], @grid_arr[6][3]],
-    [@grid_arr[2][0], @grid_arr[3][1], @grid_arr[4][2]], @grid_arr[5][3]],   
-    [@grid_arr[3][1], @grid_arr[4][2], @grid_arr[5][3]], @grid_arr[6][4]],
-    [@grid_arr[1][0], @grid_arr[2][1], @grid_arr[3][2]], @grid_arr[4][2]],
-    [@grid_arr[2][1], @grid_arr[3][2], @grid_arr[4][3]], @grid_arr[5][4]],
-    [@grid_arr[3][2], @grid_arr[4][3], @grid_arr[5][4]], @grid_arr[6][5]],
-    [@grid_arr[1][1], @grid_arr[2][2], @grid_arr[3][3]], @grid_arr[4][4]],
-    [@grid_arr[2][2], @grid_arr[3][3], @grid_arr[4][4]], @grid_arr[5][5]],
-    [@grid_arr[0][1], @grid_arr[1][2], @grid_arr[2][3]], @grid_arr[3][4]],
-    [@grid_arr[1][2], @grid_arr[2][3], @grid_arr[3][4]], @grid_arr[4][5]],
-    [@grid_arr[0][2], @grid_arr[1][3], @grid_arr[2][4]], @grid_arr[3][5]]
-
-    diagonal_possibilities 
 
   end
 
@@ -222,6 +170,63 @@ class Grid
     else
       false
     end
+
+  end
+
+  def vertical_winner?
+    
+    verticals.any? do |vertical|
+      vertical.all?{ |disc| disc == @current_player.disc}
+    end
+
+  end
+
+  def horizontal_winner?
+    
+  end
+
+  def diagonal_winner?
+    
+  end
+
+  def verticals
+    vertical_possibilities = []
+    @grid_arr.each do |column|
+      3.times do |i|
+        vertical_possibilities << [column[i], column[i + 1], column[i + 2], column[i + 3]]
+      end
+    end
+    vertical_possibilities
+  end
+
+  def horizontals
+    horizontal_possibilities = []
+
+      4.times do |i|
+        6.times do |j|
+          horizontal_possibilities << [@grid_arr[i][j], @grid_arr[i + 1][j], @grid_arr[i + 2][j] ,@grid_arr[i + 3][j]]
+        end
+      end
+
+    horizontal_possibilities
+  end
+
+  def diagonals
+
+    diagonal_possibilities = [
+    [@grid_arr[3][0], @grid_arr[4][1], @grid_arr[5][2], @grid_arr[6][3]],
+    [@grid_arr[2][0], @grid_arr[3][1], @grid_arr[4][2], @grid_arr[5][3]],   
+    [@grid_arr[3][1], @grid_arr[4][2], @grid_arr[5][3], @grid_arr[6][4]],
+    [@grid_arr[1][0], @grid_arr[2][1], @grid_arr[3][2], @grid_arr[4][2]],
+    [@grid_arr[2][1], @grid_arr[3][2], @grid_arr[4][3], @grid_arr[5][4]],
+    [@grid_arr[3][2], @grid_arr[4][3], @grid_arr[5][4], @grid_arr[6][5]],
+    [@grid_arr[1][1], @grid_arr[2][2], @grid_arr[3][3], @grid_arr[4][4]],
+    [@grid_arr[2][2], @grid_arr[3][3], @grid_arr[4][4], @grid_arr[5][5]],
+    [@grid_arr[0][1], @grid_arr[1][2], @grid_arr[2][3], @grid_arr[3][4]],
+    [@grid_arr[1][2], @grid_arr[2][3], @grid_arr[3][4], @grid_arr[4][5]],
+    [@grid_arr[0][2], @grid_arr[1][3], @grid_arr[2][4], @grid_arr[3][5]]]
+
+    diagonal_possibilities 
 
   end
 
