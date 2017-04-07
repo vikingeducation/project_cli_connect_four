@@ -7,8 +7,8 @@ class ConnectFour
 
     @grid = Grid.new
 
-    @player_1 = Player.new("Player 1", "X", @grid)
-    @player_2 = Player.new("Player 2", "O", @grid)
+    @player_1 = Player.new("Player 1", :X, @grid)
+    @player_2 = Player.new("Player 2", :O, @grid)
 
     @current_player = @player_1
 
@@ -151,16 +151,15 @@ class Grid
 
   attr_reader :grid_arr
 
-  def initialize 
+  def initialize
 
-    @grid_arr = Array.new(7, Array.new(6))
+    @grid_arr = Array.new(7){ Array.new(6) }
 
   end
 
   def render
     columns = @grid_arr.length - 1
-
-    while columns > 0
+    while columns >= 0
       @grid_arr.each do |row|
         row[columns].nil? ? print(" - ") : print(" #{row[columns]} ")
       end
@@ -175,11 +174,10 @@ class Grid
 
   def add_piece(column, disc)
 
-    if destination_available?(column)
-      @grid_arr[column].shift
-      @grid_arr[column].unshift(disc)
-      print @grid_arr
-      puts
+    if destination_col_available?(column)
+      first_available_spot = @grid_arr[column].index(&:nil?)
+      
+      @grid_arr[column][first_available_spot] = disc
       true
     else
       false
@@ -187,7 +185,7 @@ class Grid
 
   end
 
-  def destination_available?(column)
+  def destination_col_available?(column)
 
     if @grid_arr[column].last.nil?
       true
@@ -198,7 +196,7 @@ class Grid
   end
 
   def full? 
-    
+
     @grid_arr.all? do |row|
       row.none?(&:nil?)
     end
