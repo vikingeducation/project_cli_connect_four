@@ -84,11 +84,25 @@ class ConnectFour
   end
 
   def verticals
-
+    vertical_possibilities = []
+    @grid_arr.each do |column|
+      3.times do |i|
+        vertical_possibilities << [column[i], column[i + 1], column[i + 2], column[i + 3]]
+      end
+    end
+    vertical_possibilities
   end
 
   def horizontals
+    horizontal_possibilities = []
 
+      4.times do |i|
+        6.times do |j|
+          horizontal_possibilities << [@grid_arr[i][j], @grid_arr[i + 1][j], @grid_arr[i + 2][j] ,@grid_arr[i + 3][j]
+        end
+      end
+      
+    horizontal_possibilities
   end
 
   def diagonals
