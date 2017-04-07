@@ -101,11 +101,27 @@ class ConnectFour
           horizontal_possibilities << [@grid_arr[i][j], @grid_arr[i + 1][j], @grid_arr[i + 2][j] ,@grid_arr[i + 3][j]
         end
       end
-      
+
     horizontal_possibilities
   end
 
   def diagonals
+
+    diagonal_possibilities = [
+
+    [@grid_arr[3][0], @grid_arr[4][1], @grid_arr[5][2]], @grid_arr[6][3]],
+    [@grid_arr[2][0], @grid_arr[3][1], @grid_arr[4][2]], @grid_arr[5][3]],   
+    [@grid_arr[3][1], @grid_arr[4][2], @grid_arr[5][3]], @grid_arr[6][4]],
+    [@grid_arr[1][0], @grid_arr[2][1], @grid_arr[3][2]], @grid_arr[4][2]],
+    [@grid_arr[2][1], @grid_arr[3][2], @grid_arr[4][3]], @grid_arr[5][4]],
+    [@grid_arr[3][2], @grid_arr[4][3], @grid_arr[5][4]], @grid_arr[6][5]],
+    [@grid_arr[1][1], @grid_arr[2][2], @grid_arr[3][3]], @grid_arr[4][4]],
+    [@grid_arr[2][2], @grid_arr[3][3], @grid_arr[4][4]], @grid_arr[5][5]],
+    [@grid_arr[0][1], @grid_arr[1][2], @grid_arr[2][3]], @grid_arr[3][4]],
+    [@grid_arr[1][2], @grid_arr[2][3], @grid_arr[3][4]], @grid_arr[4][5]],
+    [@grid_arr[0][2], @grid_arr[1][3], @grid_arr[2][4]], @grid_arr[3][5]]
+
+    diagonal_possibilities 
 
   end
 
