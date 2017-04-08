@@ -50,15 +50,21 @@ class ConnectFour
 
   def game_over?
 
-    winner? || draw?
+    victory? || draw?
 
   end
 
-  def winner?
+  def victory?
 
-    vertical_winner?
-    horizontal_winner?
-    diagonal_winner?
+    if @grid.winner?(@current_player.disc)
+      @grid.render
+      puts
+      puts "#{@current_player.name} wins. Congrats!"
+      puts
+      true
+    else
+      false
+    end
 
   end
 
@@ -86,6 +92,8 @@ class ConnectFour
 end
 
 class Player
+
+  attr_reader :name, :disc
 
   def initialize(name = "Anonymous", disc, grid)
     
@@ -173,47 +181,56 @@ class Grid
 
   end
 
-  def vertical_winner?
-    
+  def winner?(disc)
+    vertical_winner?(disc) ||
+    horizontal_winner?(disc) ||
+    diagonal_winner?(disc)
+  end
+
+  def vertical_winner?(disc)
     verticals.any? do |vertical|
-      vertical.all?{ |disc| disc == @current_player.disc}
+      vertical.all?{ |cell| cell == disc }
     end
-
   end
 
-  def horizontal_winner?
-    
+  def horizontal_winner?(disc)
+    horizontals.any? do |horizontal|
+      horizontal.all?{ |cell| cell == disc }
+    end
   end
 
-  def diagonal_winner?
-    
+  def diagonal_winner?(disc)
+    diagonals.any? do |diagonal|
+      diagonal.all?{ |cell| cell == disc }
+    end
   end
 
   def verticals
-    vertical_possibilities = []
+    verticals = []
     @grid_arr.each do |column|
       3.times do |i|
-        vertical_possibilities << [column[i], column[i + 1], column[i + 2], column[i + 3]]
+        verticals << [column[i], column[i + 1], column[i + 2], column[i + 3]]
       end
     end
-    vertical_possibilities
+    verticals
   end
 
   def horizontals
-    horizontal_possibilities = []
+    horizontals = []
 
       4.times do |i|
         6.times do |j|
-          horizontal_possibilities << [@grid_arr[i][j], @grid_arr[i + 1][j], @grid_arr[i + 2][j] ,@grid_arr[i + 3][j]]
+          horizontals << [@grid_arr[i][j], @grid_arr[i + 1][j], @grid_arr[i + 2][j] ,@grid_arr[i + 3][j]]
         end
       end
 
-    horizontal_possibilities
+    horizontals
   end
 
   def diagonals
 
-    diagonal_possibilities = [
+    diagonals = [
+
     [@grid_arr[3][0], @grid_arr[4][1], @grid_arr[5][2], @grid_arr[6][3]],
     [@grid_arr[2][0], @grid_arr[3][1], @grid_arr[4][2], @grid_arr[5][3]],   
     [@grid_arr[3][1], @grid_arr[4][2], @grid_arr[5][3], @grid_arr[6][4]],
@@ -224,9 +241,11 @@ class Grid
     [@grid_arr[2][2], @grid_arr[3][3], @grid_arr[4][4], @grid_arr[5][5]],
     [@grid_arr[0][1], @grid_arr[1][2], @grid_arr[2][3], @grid_arr[3][4]],
     [@grid_arr[1][2], @grid_arr[2][3], @grid_arr[3][4], @grid_arr[4][5]],
-    [@grid_arr[0][2], @grid_arr[1][3], @grid_arr[2][4], @grid_arr[3][5]]]
+    [@grid_arr[0][2], @grid_arr[1][3], @grid_arr[2][4], @grid_arr[3][5]]
 
-    diagonal_possibilities 
+    ]
+
+    diagonals 
 
   end
 
