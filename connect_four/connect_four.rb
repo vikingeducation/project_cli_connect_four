@@ -1,4 +1,4 @@
-# Your code here!
+ # Your code here!
 
 
 class ConnectFour
@@ -30,6 +30,8 @@ class ConnectFour
     end
 
   end
+
+  private
 
   def instructions
     
@@ -102,7 +104,7 @@ class Player
     @grid = grid
 
   end
-  
+
   def get_choice
 
     loop do
@@ -112,6 +114,8 @@ class Player
     end
 
   end
+
+  private
 
   def ask_for_column
     
@@ -171,12 +175,11 @@ class Grid
 
   end
 
-  def destination_col_available?(column)
 
-    if @grid_arr[column].last.nil?
-      true
-    else
-      false
+  def full? 
+
+    @grid_arr.all? do |row|
+      row.none?(&:nil?)
     end
 
   end
@@ -185,6 +188,18 @@ class Grid
     vertical_winner?(disc) ||
     horizontal_winner?(disc) ||
     diagonal_winner?(disc)
+  end
+
+  private
+
+  def destination_col_available?(column)
+
+    if @grid_arr[column].last.nil?
+      true
+    else
+      false
+    end
+
   end
 
   def vertical_winner?(disc)
@@ -249,13 +264,6 @@ class Grid
 
   end
 
-  def full? 
-
-    @grid_arr.all? do |row|
-      row.none?(&:nil?)
-    end
-
-  end
 
 end
 
