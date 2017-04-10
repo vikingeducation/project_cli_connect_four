@@ -16,6 +16,7 @@
 # users commonly want.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+require 'pry'
 
 require_relative '../connect_four/connect_four'
 RSpec.configure do |config|
