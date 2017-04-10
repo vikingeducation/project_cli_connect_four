@@ -1,5 +1,45 @@
  # Your code here!
 
+=begin
+
+Public interface:
+
+:current_player (reader)
+initialize
+play
+
+=Private methods=
+
+instructions
+game_over?
+victory?
+draw?
+switch_players
+
+=Paths=
+
+  initialize:
+    -test if instance variables get created correctly
+
+  play:
+    -test if the game loop runs properly
+
+  instructions:
+    -print instructions correctly
+
+  game_over?
+    -returns true if there's a victory/draw?
+
+  victory?
+    -returns true, prints a winner message, if the last move makes a row for the current player
+
+  draw?
+    -returns true if the board is full, false if not
+
+  switch_players
+    -correctly switches between players
+
+=end
 
 class ConnectFour
 
@@ -84,186 +124,12 @@ class ConnectFour
   def switch_players
 
     if @current_player == @player_1
-    	@current_player = @player_2
+      @current_player = @player_2
     else
       @current_player = @player_1
     end
 
   end
-
-end
-
-class Player
-
-  attr_reader :name, :disc
-
-  def initialize(name = "Anonymous", disc, grid)
-    
-    @name = name 
-    @disc = disc
-    @grid = grid
-
-  end
-
-  def get_choice
-
-    loop do
-      column = ask_for_column - 1
-
-      break if valid_column_number?(column) && @grid.add_piece(column, @disc)
-    end
-
-  end
-
-  private
-
-  def ask_for_column
-    
-    puts
-    puts "#{@name}, enter the column (1-7) that you want to put your disc (#{@disc}) in."
-    gets.strip.to_i
-
-  end
-
-  def valid_column_number?(column)
-    
-    if (0..6).include?(column)
-    	true
-    else
-    	puts "Your column of choice is not within the allowed range (1-7)."
-    end
-
-  end
-
-end
-
-class Grid
-
-  attr_reader :grid_arr
-
-  def initialize
-
-    @grid_arr = Array.new(7){ Array.new(6) }
-
-  end
-
-  def render
-    columns = @grid_arr.length - 1
-    while columns >= 0
-      @grid_arr.each do |row|
-        row[columns].nil? ? print(" - ") : print(" #{row[columns]} ")
-      end
-      puts
-      columns -= 1 
-    end
-
-    print " =================== "
-    puts
-
-  end
-
-  def add_piece(column, disc)
-
-    if destination_col_available?(column)
-      first_available_spot = @grid_arr[column].index(&:nil?)
-      
-      @grid_arr[column][first_available_spot] = disc
-      true
-    else
-      false
-    end
-
-  end
-
-
-  def full? 
-
-    @grid_arr.all? do |row|
-      row.none?(&:nil?)
-    end
-
-  end
-
-  def winner?(disc)
-    vertical_winner?(disc) ||
-    horizontal_winner?(disc) ||
-    diagonal_winner?(disc)
-  end
-
-  private
-
-  def destination_col_available?(column)
-
-    if @grid_arr[column].last.nil?
-      true
-    else
-      false
-    end
-
-  end
-
-  def vertical_winner?(disc)
-    verticals.any? do |vertical|
-      vertical.all?{ |cell| cell == disc }
-    end
-  end
-
-  def horizontal_winner?(disc)
-    horizontals.any? do |horizontal|
-      horizontal.all?{ |cell| cell == disc }
-    end
-  end
-
-  def diagonal_winner?(disc)
-    diagonals.any? do |diagonal|
-      diagonal.all?{ |cell| cell == disc }
-    end
-  end
-
-  def verticals
-    verticals = []
-    @grid_arr.each do |column|
-      3.times do |i|
-        verticals << [column[i], column[i + 1], column[i + 2], column[i + 3]]
-      end
-    end
-    verticals
-  end
-
-  def horizontals
-    horizontals = []
-
-      4.times do |i|
-        6.times do |j|
-          horizontals << [@grid_arr[i][j], @grid_arr[i + 1][j], @grid_arr[i + 2][j] ,@grid_arr[i + 3][j]]
-        end
-      end
-
-    horizontals
-  end
-
-  def diagonals
-
-    diagonals = [
-
-    [@grid_arr[3][0], @grid_arr[4][1], @grid_arr[5][2], @grid_arr[6][3]],
-    [@grid_arr[2][0], @grid_arr[3][1], @grid_arr[4][2], @grid_arr[5][3]],   
-    [@grid_arr[3][1], @grid_arr[4][2], @grid_arr[5][3], @grid_arr[6][4]],
-    [@grid_arr[1][0], @grid_arr[2][1], @grid_arr[3][2], @grid_arr[4][2]],
-    [@grid_arr[2][1], @grid_arr[3][2], @grid_arr[4][3], @grid_arr[5][4]],
-    [@grid_arr[3][2], @grid_arr[4][3], @grid_arr[5][4], @grid_arr[6][5]],
-    [@grid_arr[1][1], @grid_arr[2][2], @grid_arr[3][3], @grid_arr[4][4]],
-    [@grid_arr[2][2], @grid_arr[3][3], @grid_arr[4][4], @grid_arr[5][5]],
-    [@grid_arr[0][1], @grid_arr[1][2], @grid_arr[2][3], @grid_arr[3][4]],
-    [@grid_arr[1][2], @grid_arr[2][3], @grid_arr[3][4], @grid_arr[4][5]],
-    [@grid_arr[0][2], @grid_arr[1][3], @grid_arr[2][4], @grid_arr[3][5]]
-
-    ]
-
-    diagonals 
-
-  end
-
 
 end
 
