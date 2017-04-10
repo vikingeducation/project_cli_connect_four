@@ -1,6 +1,6 @@
 class ConnectFourPresenter
   def display_grid(grid)
-    grid.to_s
+    puts grid.to_s
   end
 
   def display_tie(grid)
