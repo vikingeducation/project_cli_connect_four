@@ -7,18 +7,24 @@ class Grid
     @grid = Array.new(7) { Array.new(6, EMPTY_SPOT) }
   end
 
+  def full?
+    grid.size.times do |col_num|
+      return false if valid_move?(col_num)
+    end
+
+    true
+  end
+
   def valid_move?(column)
-    grid[column - 1].any? { |spot| spot == EMPTY_SPOT } ? true : false
+    chosen_column = column.to_i
+    grid[chosen_column.to_i - 1].any? { |spot| spot == EMPTY_SPOT } ? true : false
   end
 
   # call valid_move? first
   def record_move(column, player_disc)
-    target_spot = grid[column - 1].index(EMPTY_SPOT)
-    grid[column - 1][target_spot] = player_disc
-  end
-
-  def tie?(player1_disc, player2_disc)
-    full? && !(winner?(player1_disc) || winner?(player2_disc))
+    chosen_column = column.to_i
+    target_spot = grid[chosen_column - 1].index(EMPTY_SPOT)
+    grid[chosen_column - 1][target_spot] = player_disc
   end
 
   def to_s
@@ -47,14 +53,6 @@ class Grid
 
   def displayable_grid
     transposed_grid.reverse
-  end
-
-  def full?
-    grid.size.times do |col_num|
-      return false if valid_move?(col_num)
-    end
-
-    true
   end
 
   def horizontal_winner?(player_disc)

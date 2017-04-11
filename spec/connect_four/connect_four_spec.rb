@@ -57,7 +57,6 @@ RSpec.describe ConnectFour do
 
     context 'tie game' do
       before { allow(game).to receive(:winner?) { false } }
-      before { allow(game).to receive(:tie?) { true } }
 
       it 'give winning details' do
         game.play

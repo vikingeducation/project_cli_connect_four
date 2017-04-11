@@ -9,12 +9,12 @@ class ConnectFourPresenter
   end
 
   def display_winner(player, grid)
-    puts "#{player} won! Here's the grid:"
+    puts "#{player.name} won! Here's the grid:"
     display_grid(grid)
   end
 
-  def prompt_player_move
-    print 'Choose a column 1 - 7: '
+  def prompt_player_move(player_name)
+    print "#{player_name}--choose a column 1 - 7: "
     gets.chomp
   end
 

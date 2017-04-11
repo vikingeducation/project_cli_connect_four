@@ -13,7 +13,7 @@ RSpec.describe Grid do
         end
       end
 
-      it 'each colomn spot is empty' do
+      it 'each column spot is empty' do
         empty_space_char = Grid::EMPTY_SPOT
         grid.grid.each do |col|
           all_empty = col.select { |c| c == empty_space_char }
@@ -175,33 +175,6 @@ RSpec.describe Grid do
 
         it 'returns true' do
           expect(grid.winner?(winning_disc)).to be_truthy
-        end
-      end
-    end
-
-    describe '#tie' do
-      context 'board is not full' do
-        it 'returns false' do
-          allow(grid).to receive(:full?) { false }
-          expect(grid.tie?('R', 'B')).to be_falsey
-        end
-      end
-
-      context 'board is full' do
-        context 'when a winner' do
-          it 'returns false' do
-            allow(grid).to receive(:full?) { true }
-            allow(grid).to receive(:winner?).and_return(false, true)
-            expect(grid.tie?('R', 'B')).to be_falsey
-          end
-        end
-
-        context 'when no winner' do
-          it 'returns true' do
-            allow(grid).to receive(:full?) { true }
-            allow(grid).to receive(:winner?).and_return(false, false)
-            expect(grid.tie?('R', 'B')).to be_truthy
-          end
         end
       end
     end
