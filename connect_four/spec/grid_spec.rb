@@ -27,6 +27,29 @@ describe Grid do
    
   end
 
+  describe '#add_piece(column, disc)' do
+    
+    it 'adds a piece correctly to the grid model' do
+      expect(grid_instance.add_piece(3, :O)).to be true
+    end
+
+    it 'returns false if the column is out of range' do
+      expect(grid_instance.add_piece(10, :O)).to be false
+    end
+
+  end 
+
+  describe '#first_available_spot(column)' do
+    
+    it 'returns the index of the first item that is nil' do
+      
+      grid_instance.grid_arr = [[:X, :X, nil, nil, nil, nil], [], [], [], [], [], []]
+      expect(grid_instance.first_available_spot(0)).to eq(2)
+
+    end
+
+  end 
+
   describe '#full?' do
 
     let(:full_grid){ Grid.new(Array.new(7){ Array.new(6, :O) }) }

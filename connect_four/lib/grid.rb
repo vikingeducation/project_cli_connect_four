@@ -5,6 +5,7 @@ Public interface:
 :grid_arr (reader)
 initialize
 add_piece(column, disc)
+first_available_spot(column)
 full?
 winner?
 
@@ -35,17 +36,6 @@ diagonals
 
   winner? 
     -returns true if there's either a vertical/horizontal/diagonal winner, else false
-
-  destination_col_available?
-    -returns true if there's at least one spot available in the column
-    -returns false if the column is full
-
-  vertical_winner? / horizontal? / diagonal_winner?
-    -returns true if there are 4 discs of the same kind in a row vertically/horizontally/diagonally
-    -checks with all possibilities from the array it gets 
-
-  verticals/horizontals/diagonals
-    -collect all possible vertical/horizontal/diagonal rows of 4
     
 
 
@@ -81,9 +71,7 @@ class Grid
   def add_piece(column, disc)
 
     if destination_col_available?(column)
-      first_available_spot = @grid_arr[column].index(&:nil?)
-      
-      @grid_arr[column][first_available_spot] = disc
+      @grid_arr[column][first_available_spot(column)] = disc
       true
     else
       false
@@ -91,6 +79,9 @@ class Grid
 
   end
 
+  def first_available_spot(column)
+    @grid_arr[column].index(&:nil?)
+  end
 
   def full? 
 
@@ -110,7 +101,8 @@ class Grid
 
   def destination_col_available?(column)
 
-    if @grid_arr[column].last.nil?
+    if @grid_arr[column]
+      @grid_arr[column].last.nil?
       true
     else
       false
