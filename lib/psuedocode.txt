@@ -1,0 +1,42 @@
+psuedocode
+
+class: ConnectFour
+  initialize
+  get_players_names
+  play
+  winning_message(player)
+  play
+  player_moves(player)
+  win?
+  full_board?
+  check_win(arrays)
+
+class: Player
+  name
+
+class: Piece
+  color
+  empty?
+
+class: Human
+  make_move
+  check_move_valid?(column)
+
+class: AI(Not complete)
+  initialize
+  make_move
+  close?
+  close_wins(array)
+  close_verticals(array)
+
+class: Board
+  initialize
+  render_board
+  update_board(column, color)
+  bottom(column)
+  horizontals
+  verticals
+  rising_diagonals
+  falling_diagonals
+
+  
