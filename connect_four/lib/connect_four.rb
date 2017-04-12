@@ -41,6 +41,10 @@ switch_players
 
 =end
 
+require_relative 'player.rb'
+require_relative 'grid.rb'
+
+
 class ConnectFour
 
   attr_reader :current_player
@@ -62,7 +66,8 @@ class ConnectFour
     loop do 
       @grid.render     
       @current_player.get_choice 
- 
+      @grid.add_piece(@current_player.column, @current_player.disc)
+
       break if game_over?
 
       switch_players

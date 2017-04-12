@@ -11,6 +11,7 @@ get_choice
 
 ask_for_column
 valid_column_number?(column)
+destination_col_available?(column)
 
 =Paths=
 
@@ -40,7 +41,7 @@ valid_column_number?(column)
 
 class Player
 
-  attr_reader :name, :disc
+  attr_reader :name, :disc, :grid
 
   def initialize(name, disc, grid)
     
@@ -53,9 +54,13 @@ class Player
   def get_choice
 
     loop do
-      column = ask_for_column - 1
+      @column = ask_for_column - 1
 
-      break if valid_column_number?(column) && @grid.add_piece(column, @disc)
+      if valid_column_number?(@column) && destination_col_available?(@column)
+        true
+        break
+      end
+      false
     end
 
   end
@@ -78,6 +83,15 @@ class Player
     	puts "Your column of choice is not within the allowed range (1-7)."
     end
 
+  end
+
+  def destination_col_available?(column)
+    if @grid.grid_arr[column]
+      @grid.grid_arr[column].last.nil?
+      true
+    else
+      false
+    end
   end
 
 end

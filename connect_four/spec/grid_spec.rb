@@ -28,13 +28,24 @@ describe Grid do
   end
 
   describe '#add_piece(column, disc)' do
-    
-    it 'adds a piece correctly to the grid model' do
-      expect(grid_instance.add_piece(3, :O)).to be true
-    end
 
-    it 'returns false if the column is out of range' do
-      expect(grid_instance.add_piece(10, :O)).to be false
+    it 'adds a piece correctly to the grid model' do
+
+      result_grid = [
+        [nil, nil, nil, nil, nil, nil], 
+        [nil, nil, nil, nil, nil, nil], 
+        [nil, nil, nil, nil, nil, nil], 
+        [:O, :O, nil, nil, nil, nil], 
+        [nil, nil, nil, nil, nil, nil], 
+        [nil, nil, nil, nil, nil, nil], 
+        [nil, nil, nil, nil, nil, nil]
+      ]
+
+      grid_instance.add_piece(3, :O)
+      grid_instance.add_piece(3, :O)
+
+      expect(grid_instance.grid_arr).to eq(result_grid)
+
     end
 
   end 

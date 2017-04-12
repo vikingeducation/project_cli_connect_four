@@ -52,9 +52,8 @@ class Grid
   end
 
   def render
-    print @grid_arr
     puts
-    rows = @grid_arr[0].length
+    rows = @grid_arr[0].length - 1
     while rows >= 0
       @grid_arr.each do |column|
         column[rows].nil? ? print(" - ") : print(" #{column[rows]} ")
@@ -68,15 +67,8 @@ class Grid
 
   end
 
-  def add_piece(column, disc)
-
-    if destination_col_available?(column)
-      @grid_arr[column][first_available_spot(column)] = disc
-      true
-    else
-      false
-    end
-
+  def add_piece(column, disc)      
+    @grid_arr[column][first_available_spot(column)] = disc
   end
 
   def first_available_spot(column)
