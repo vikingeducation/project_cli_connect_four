@@ -24,19 +24,19 @@ describe Player do
     it 'should convert user input to an integer' do
       allow(player).to receive(:gets).and_return('4')
       player.get_choice
-      expect(player.instance_variable_get(:column)).to be_an(Integer)
+      expect(player.instance_variable_get(:@column)).to be_an(Integer)
     end
 
     it 'should return the user input - 1 to match array indeces' do
       allow(player).to receive(:gets).and_return('4')
       player.get_choice
-      expect(player.instance_variable_get(:column)).to eq(3)
+      expect(player.instance_variable_get(:@column)).to eq(3)
     end
 
      it 'should not accept the column until it is within a valid range (1-7)' do
       allow(player).to receive(:gets).and_return('39', '3')
       player.get_choice
-      expect(player.instance_variable_get(:column)).to eq(2)
+      expect(player.instance_variable_get(:@column)).to eq(2)
     end
 
   end

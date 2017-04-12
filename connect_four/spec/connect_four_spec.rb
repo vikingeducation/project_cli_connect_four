@@ -7,7 +7,7 @@ describe ConnectFour do
   describe '#initialize' do
     
     it 'creates a new grid' do
-      expect(game.instance_variable_get(:grid)).to be_a(Grid)
+      expect(game.instance_variable_get(:@grid)).to be_a(Grid)
     end
 
   end
