@@ -41,7 +41,7 @@ destination_col_available?(column)
 
 class Player
 
-  attr_reader :name, :disc, :grid
+  attr_reader :name, :disc, :grid, :column
 
   def initialize(name, disc, grid)
     
@@ -54,7 +54,7 @@ class Player
   def get_choice
 
     loop do
-      @column = ask_for_column - 1
+      ask_for_column
 
       if valid_column_number?(@column) && destination_col_available?(@column)
         true
@@ -71,7 +71,8 @@ class Player
     
     puts
     puts "#{@name}, enter the column (1-7) that you want to put your disc (#{@disc}) in."
-    gets.strip.to_i
+
+    @column = gets.strip.to_i - 1
 
   end
 

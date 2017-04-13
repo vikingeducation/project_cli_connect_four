@@ -10,6 +10,12 @@ describe ConnectFour do
       expect(game.instance_variable_get(:@grid)).to be_a(Grid)
     end
 
+    it 'creates two players' do
+      expect(game.instance_variable_get(:@player_1)).to be_a(Player)
+      expect(game.instance_variable_get(:@player_2)).to be_a(Player)
+
+    end
+
   end
 
 end
