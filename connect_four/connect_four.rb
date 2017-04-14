@@ -1,4 +1,8 @@
-# /connect_four.rb
+# /connect_four.
+require_relative 'player'
+require_relative 'board'
+#require_relative 'game'
+
 class Game
   def initialize
     @board = Board.new
@@ -20,7 +24,7 @@ class Game
       test_horizon
       test_vertical
       @board.render
-      @cur_player.select_row(1)
+  #    @cur_player.select_row(1)
       break if game_over?
       puts "the game continued because no match was found"
       break
@@ -58,7 +62,7 @@ private
       matches = 0
       prev = ""
       @board.board_arr[col].each do |key|
-        if key == "_"
+        if key == "-"
           prev = ""
         end
         if key == prev
@@ -87,60 +91,7 @@ private
   # change_player
 end
 
-class Board
-  attr_accessor :board_arr
-  def initialize
-    @board_arr = Array.new(7) {Array.new(7, "_")}
-  end
 
-  # render
-  def render
-    puts board_arr.to_s
-    (0..6).each do |y|
-      output_str = "\n|"
-      (0..6).each do |x|
-         output_str << "  #{@board_arr[x][y]}  |"
-      end
-      puts output_str + "\n"
-    end
-    col_str = "\n|"
-    (1..7).each {|n| col_str << "  #{n}  |"}
-    puts col_str
-  end
-end
-
-class Player
-  # initialize
-  def initialize(board)
-    @piece = ""
-    @board = board
-  end
-
-  def piece
-    @piece
-  end
-
-  def def_piece(input)
-    if val_piece(input)
-      @piece = input
-    else
-      puts "please select a symbol or letter, (not a number)"
-    end
-  end
-
-  # select_row
-  def select_row(input)
-    #
-  end
-
-  private
-
-  # val_piece
-  def val_piece(input)
-    # Checks to see if input for piece value is valid
-    input.is_a?(Integer) || input.length > 1 ? false : true
-  end
-end
 
 g = Game.new
 g.play
