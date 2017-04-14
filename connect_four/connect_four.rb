@@ -21,9 +21,8 @@ class Game
       test_vertical
       @board.render
       @cur_player.select_row(1)
-      puts up_down
       break if game_over?
-      puts "the game continued"
+      puts "the game continued because no match was found"
       break
     end
   end
@@ -53,32 +52,36 @@ end
 
 private
   def up_down
+    win = false
+    # iterates through each of the columns
     (0..6).each do |col|
       matches = 0
       prev = ""
-      match_arr = []
       @board.board_arr[col].each do |key|
         if key == "_"
           prev = ""
         end
         if key == prev
           matches += 1
-          match_arr << key
         end
-          prev = key
-        if matches < 4
-          puts "number of matches is #{matches}"
-          puts match_arr.to_s
-        else
-          puts "it worrrrrrked!"
+        prev = key
+        if matches > 2
+            win = true
         end
       end
     end
-    false
+    win
   end
 
+ #abstract the end_game value to Game class
   def game_over?
-    up_down ? true : false
+    end_game = false
+   # up_down ? true : false
+   if up_down
+       puts "horizontal match"
+    end_game = true
+   end
+    end_game
   end
 
   # change_player
@@ -89,10 +92,6 @@ class Board
   def initialize
     @board_arr = Array.new(7) {Array.new(7, "_")}
   end
-  # board_arr
-  # def board_arr
-  #   @board_arr
-  # end
 
   # render
   def render
