@@ -11,52 +11,96 @@ class Game
     # Identifies player piece designations
     puts "Player 1, select your symbol"
     # @player1.piece(gets.chomp)
-    @player1.def_piece("#")
+    @player1.def_piece("X")
     puts "Player 2, select your symbol"
     # @player2.piece(gets.chomp)
     @player2.def_piece("&")
     loop do
+      test_up_down
+      test_horizon
+      test_vertical
       @board.render
       @cur_player.select_row(1)
+      puts up_down
       break if game_over?
-
+      puts "the game continued"
       break
     end
   end
 
-  def game_over?
+######
+# This method provides a board containing a winning sequence
+def test_up_down
+  @board.board_arr[1][1] = "X"
+  @board.board_arr[1][2] = "X"
+  @board.board_arr[1][3] = "X"
+  @board.board_arr[1][4] = "X"
+end
+
+def test_horizon
+  @board.board_arr[2][6] = "O"
+  @board.board_arr[3][6] = "O"
+  @board.board_arr[4][6] = "O"
+  @board.board_arr[5][6] = "O"
+end
+
+def test_vertical
+  @board.board_arr[6][0] = "Y"
+  @board.board_arr[5][1] = "Y"
+  @board.board_arr[4][2] = "Y"
+  @board.board_arr[3][3] = "Y"
+end
+
+private
+  def up_down
+    (0..6).each do |col|
+      matches = 0
+      prev = ""
+      match_arr = []
+      @board.board_arr[col].each do |key|
+        if key == "_"
+          prev = ""
+        end
+        if key == prev
+          matches += 1
+          match_arr << key
+        end
+          prev = key
+        if matches < 4
+          puts "number of matches is #{matches}"
+          puts match_arr.to_s
+        else
+          puts "it worrrrrrked!"
+        end
+      end
+    end
     false
-    puts "you win!"
+  end
+
+  def game_over?
+    up_down ? true : false
   end
 
   # change_player
 end
 
 class Board
+  attr_accessor :board_arr
   def initialize
-    @board_setup = Array.new(7, Array.new(7, "_"))
+    @board_arr = Array.new(7) {Array.new(7, "_")}
   end
-  # board_setup
-  def board_setup
-    @board_setup
-  end
+  # board_arr
+  # def board_arr
+  #   @board_arr
+  # end
 
   # render
   def render
-    # dummy board
-    # (0..6).each do |x|
-    #   i = 1
-    #   (0..6).each do |y|
-    #     @board_setup[x][y] = i
-    #     i += 1
-    #   end
-    # end
-    # puts "This is my dummy board:"
-    # puts board_setup.to_s
+    puts board_arr.to_s
     (0..6).each do |y|
       output_str = "\n|"
       (0..6).each do |x|
-         output_str << "  #{@board_setup[x][y]}  |"
+         output_str << "  #{@board_arr[x][y]}  |"
       end
       puts output_str + "\n"
     end
