@@ -2,8 +2,9 @@
 class Game
   def initialize
     @board = Board.new
-    @player1 = Player.new
-    @player2 = Player.new
+    @player1 = Player.new(@board)
+    @player2 = Player.new(@board)
+    @cur_player = @player1
   end
   # play
   def play
@@ -16,15 +17,19 @@ class Game
     @player2.def_piece("&")
     loop do
       @board.render
+      @cur_player.select_row(1)
       break if game_over?
-      puts "it worked"
+
       break
     end
   end
 
   def game_over?
     false
+    puts "you win!"
   end
+
+  # change_player
 end
 
 class Board
@@ -38,24 +43,34 @@ class Board
 
   # render
   def render
-    puts board_setup.to_s
     # dummy board
-    (0..6).each do |x|
-      i = 1
-      (0..6).each do |y|
-        @board_setup[x][y] = i
-        i += 1
+    # (0..6).each do |x|
+    #   i = 1
+    #   (0..6).each do |y|
+    #     @board_setup[x][y] = i
+    #     i += 1
+    #   end
+    # end
+    # puts "This is my dummy board:"
+    # puts board_setup.to_s
+    (0..6).each do |y|
+      output_str = "\n|"
+      (0..6).each do |x|
+         output_str << "  #{@board_setup[x][y]}  |"
       end
+      puts output_str + "\n"
     end
-    puts board_setup.to_s
+    col_str = "\n|"
+    (1..7).each {|n| col_str << "  #{n}  |"}
+    puts col_str
   end
-
 end
 
 class Player
   # initialize
-  def initialize
+  def initialize(board)
     @piece = ""
+    @board = board
   end
 
   def piece
@@ -70,6 +85,7 @@ class Player
     end
   end
 
+  # select_row
   def select_row(input)
     #
   end
@@ -81,7 +97,6 @@ class Player
     # Checks to see if input for piece value is valid
     input.is_a?(Integer) || input.length > 1 ? false : true
   end
-  # select_row
 end
 
 g = Game.new
