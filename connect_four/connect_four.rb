@@ -20,9 +20,9 @@ class Game
     # @player2.piece(gets.chomp)
     @player2.def_piece("&")
     loop do
-      test_up_down
-      test_horizon
       test_vertical
+      test_horizontal
+      test_diagonal
       @board.render
   #    @cur_player.select_row(1)
       break if game_over?
@@ -33,29 +33,29 @@ class Game
 
 ######
 # This method provides a board containing a winning sequence
-def test_up_down
+def test_vertical
   @board.board_arr[1][1] = "X"
   @board.board_arr[1][2] = "X"
   @board.board_arr[1][3] = "X"
-  @board.board_arr[1][4] = "X"
+#  @board.board_arr[1][4] = "X"
 end
 
-def test_horizon
+def test_horizontal
   @board.board_arr[2][6] = "O"
   @board.board_arr[3][6] = "O"
   @board.board_arr[4][6] = "O"
-  @board.board_arr[5][6] = "O"
+#  @board.board_arr[5][6] = "O"
 end
 
-def test_vertical
-  @board.board_arr[6][0] = "Y"
-  @board.board_arr[5][1] = "Y"
-  @board.board_arr[4][2] = "Y"
+def test_diagonal
+  @board.board_arr[1][1] = "Y"
+  @board.board_arr[2][2] = "Y"
   @board.board_arr[3][3] = "Y"
+  @board.board_arr[4][4] = "Y"
 end
 
 private
-  def up_down
+  def vertical
     win = false
     # iterates through each of the columns
     (0..6).each do |col|
@@ -71,18 +71,55 @@ private
         prev = key
         if matches > 2
             win = true
+            puts "Vertical match!"
+            break
         end
       end
     end
     win
   end
 
+  def horizontal
+    win = false
+    (0..6).each do |row|
+      matches = 0
+      prev = ""
+      (0..6).each do |col|
+        value = @board.board_arr[col][row]
+        ## Seperate method?
+        if value == "-"
+          prev = ""
+        end
+        if value == prev
+          matches += 1
+        end
+        prev = value
+        if matches > 2
+            win = true
+            puts "Horizontal match!"
+            break
+        end
+        # Seperate method?
+      end
+    end
+    win
+  end
+
+  def diagonal
+    win = false
+    (0..6).each do |col|
+      @board.board_arr
+
+
+  end
+
+
  #abstract the end_game value to Game class
   def game_over?
     end_game = false
-   # up_down ? true : false
-   if up_down
-       puts "horizontal match"
+   # vertical ? true : false
+   if vertical || horizontal || diagonal
+       puts "a match was made"
     end_game = true
    end
     end_game

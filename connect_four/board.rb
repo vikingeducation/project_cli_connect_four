@@ -7,6 +7,15 @@ class Board
 
   # render
   def render
+###################################
+    # (0..6).each do |x|
+    #    i = 0
+    #    (0..6).each do |y|
+    #      @board_arr[x][y] = i
+    #      i += 1
+    #    end
+    #  end
+ ######################################
     puts board_arr.to_s
     (0..6).each do |y|
       output_str = "\n|"
