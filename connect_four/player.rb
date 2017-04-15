@@ -6,10 +6,6 @@ class Player
     @board = board.board_arr
   end
 
-  # def piece
-  #   @piece
-  # end
-
   def def_piece(input)
     if val_piece(input)
       @piece = input
@@ -20,23 +16,17 @@ class Player
 
   # select_row
   def select_row(input)
-    selection = (input - 1).to_i
+    selection = (input.to_i - 1)
     if val_input(selection)
-      reversed = @board[selection].reverse
-      puts reversed.to_s
-      row_position = reversed.index("-")
-      puts "#{row_position} is an empty row!"
+      row_position = 0
+      while @board[selection][row_position + 1] == "-"
+        row_position += 1
+      end
       @board[selection][row_position] = @piece
-
-      true
-    else
-      false
     end
-
   end
 
   private
-
   # val_piece
   def val_piece(input)
     # Checks to see if input for piece value is valid

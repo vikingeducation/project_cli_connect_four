@@ -14,22 +14,17 @@ class Game
   def play
     # Identifies player piece designations
     puts "Player 1, select your symbol"
-    # @player1.piece(gets.chomp)
+    # @player1.def_piece(gets.chomp)
     @player1.def_piece("X")
     puts "Player 2, select your symbol"
-    # @player2.piece(gets.chomp)
+    # @player2.def_piece(gets.chomp)
     @player2.def_piece("&")
     loop do
-      test_vertical
-      test_horizontal
-      test_diagonal
       @board.render
-      @cur_player.select_row(3)
-      @board.render
+      @cur_player.select_row(gets.chomp)
       break if game_over?
-      puts "the game continued because no match was found"
+      @board.render
       change_player
-      break
     end
   end
 
@@ -168,13 +163,13 @@ private
  #abstract the end_game value to Game class
   def game_over?
     end_game = false
-    puts vertical
-    puts horizontal
-    puts diagonal
-   # vertical ? true : false
    if vertical || horizontal || diagonal
-       puts "a match was made"
     end_game = true
+    if @cur_player == @player1
+      puts "Player 1 wins!"
+    else
+      puts "Player 2 wins!"
+    end
    end
     end_game
   end
@@ -183,8 +178,10 @@ private
   def change_player
     if @cur_player == @player1
       @cur_player = @player2
+      puts "Your turn, Player 2"
     else
       @cur_player = @player1
+      "Your turn, Player 1"
     end
   end
 end

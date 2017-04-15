@@ -16,7 +16,7 @@ class Board
     #    end
     #  end
  ######################################
-    puts board_arr.to_s
+  #  puts board_arr.to_s
     (0..6).each do |y|
       output_str = "\n|"
       (0..6).each do |x|
