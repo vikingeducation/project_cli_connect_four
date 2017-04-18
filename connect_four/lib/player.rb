@@ -15,7 +15,7 @@ class Player
   end
 
   # select_row
-  def select_row(input)
+  def select_col(input)
     selection = (input.to_i - 1)
     if val_input(selection)
       row_position = 0
@@ -26,7 +26,28 @@ class Player
     end
   end
 
+  def ai_select_col
+    options = []
+    (0..6).each do |col|
+      (0..6).to_a.reverse.each do |row|
+        if @board[col][row] == "-"
+          next
+        end
+        puts "Column #{col}, Row #{row}: #{@board[col][row]}"
+        #creates a string
+
+        #adds that string to an array
+      end
+    end
+    # evaluates possible moves, first for horiztonal matches
+
+    # if row contains
+  end
+
   private
+  # AI
+  # def
+
   # val_piece
   def val_piece(input)
     # Checks to see if input for piece value is valid
@@ -40,5 +61,4 @@ class Player
       false
     end
   end
-
 end

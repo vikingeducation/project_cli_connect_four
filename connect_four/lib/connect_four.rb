@@ -20,11 +20,16 @@ class Game
     # @player2.def_piece(gets.chomp)
     @player2.def_piece("&")
     loop do
+      test_horizontal
       @board.render
-      @cur_player.select_row(gets.chomp)
+      #@cur_player.select_col(gets.chomp)
+      @cur_player.ai_select_col
+#      @board.render
       break if game_over?
-      @board.render
       change_player
+      ###
+      break
+      ###
     end
   end
 
@@ -43,7 +48,7 @@ def test_horizontal
   @board.board_arr[2][6] = "O"
   @board.board_arr[3][6] = "O"
   @board.board_arr[4][6] = "O"
-#  @board.board_arr[5][6] = "O"
+  @board.board_arr[5][6] = "X"
 end
 
 def test_diagonal
@@ -114,7 +119,6 @@ private
         reverse = false
         until col > 6 || row > 6
           value = @board.board_arr[col][row]
-        #  puts "#{value} at coordinates #{col}, #{row}"
           if value == "-"
             prev = ""
           end
@@ -141,7 +145,6 @@ private
         reverse = false
         until col > 6 || row > 6
           value = @board.board_arr[col][row]
-          #puts "#{value} at coordinates #{col}, #{row}"
           if value == "-"
             prev = ""
           end
@@ -160,10 +163,18 @@ private
     win
   end
 
+  def draw
+    if @board.board_arr.index("=") == nil
+      return true
+    else
+      return false
+    end
+  end
+
  #abstract the end_game value to Game class
   def game_over?
     end_game = false
-   if vertical || horizontal || diagonal
+   if vertical || horizontal || diagonal || draw
     end_game = true
     if @cur_player == @player1
       puts "Player 1 wins!"
