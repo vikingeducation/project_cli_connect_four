@@ -6,6 +6,7 @@ require_relative 'board'
 class Game
   def initialize
     @board = Board.new
+    @board_arr = @board.board_arr
     @player1 = Player.new(@board)
     @player2 = Player.new(@board)
     @cur_player = @player1
@@ -37,26 +38,26 @@ class Game
 ######
 # This method provides a board containing a winning sequence
 def test_vertical
-  @board.board_arr[0][0] = "X"
-  @board.board_arr[1][1] = "X"
-  @board.board_arr[1][2] = "X"
-  @board.board_arr[1][3] = "X"
-#  @board.board_arr[1][4] = "X"
-#  @board.board_arr[1][5] = "X"
+  @board_arr[0][0] = "X"
+  @board_arr[1][1] = "X"
+  @board_arr[1][2] = "X"
+  @board_arr[1][3] = "X"
+#  @board_arr[1][4] = "X"
+#  @board_arr[1][5] = "X"
 end
 
 def test_horizontal
-  @board.board_arr[2][6] = "O"
-  @board.board_arr[3][6] = "O"
-  @board.board_arr[4][6] = "O"
-  @board.board_arr[5][6] = "X"
+  @board_arr[2][6] = "O"
+  @board_arr[3][6] = "O"
+  @board_arr[4][6] = "O"
+  @board_arr[5][6] = "X"
 end
 
 def test_diagonal
-  @board.board_arr[3][1] = "Y"
-  @board.board_arr[2][2] = "Y"
-  @board.board_arr[1][3] = "Y"
-  @board.board_arr[0][4] = "Y"
+  @board_arr[3][1] = "Y"
+  @board_arr[2][2] = "Y"
+  @board_arr[1][3] = "Y"
+  @board_arr[0][4] = "Y"
 end
 
 private
@@ -66,7 +67,7 @@ private
     (0..6).each do |col|
       matches = 0
       prev = ""
-      @board.board_arr[col].each do |row|
+      @board_arr[col].each do |row|
         break if win == true
         find_matches(win, matches, prev, row)
       end
@@ -94,7 +95,7 @@ private
       prev = ""
       (0..6).each do |col|
         break if win == true
-        piece = @board.board_arr[col][row]
+        piece = @board_arr[col][row]
         find_matches(win, matches, prev, piece)
       end
     end
@@ -114,7 +115,7 @@ private
         prev = ""
         reverse = false
         until col > 6 || row > 6
-          piece = @board.board_arr[col][row]
+          piece = @board_arr[col][row]
           find_matches(win, matches, prev, piece)
           col += 1
           row += 1
@@ -131,7 +132,7 @@ private
         prev = ""
         reverse = false
         until col > 6 || row > 6
-          piece = @board.board_arr[col][row]
+          piece = @board_arr[col][row]
           find_matches(win, matches, prev, piece)
           col += 1
           row -= 1
@@ -142,7 +143,7 @@ private
   end
 
   def draw
-    if @board.board_arr.index("=") == nil
+    if @board_arr.index("=") == nil
       return true
     else
       return false
