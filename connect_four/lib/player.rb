@@ -14,14 +14,35 @@ class Player
     end
   end
 
-  def select_col(input)
-    selection = (input.to_i - 1)
+  def place_piece(selection)
     if val_input(selection)
       row_position = 0
       while @board[selection][row_position + 1] == "-"
         row_position += 1
       end
       @board[selection][row_position] = @piece
+    end
+  end
+
+  def get_select
+    loop do
+      input = gets.chomp
+      selection = (input.to_i - 1)
+      if val_input(selection)
+        return selection
+        break
+      else
+        puts "Choose a number between 1 and 7, and a column which is not full!"
+      end
+    end
+  end
+
+  def ai_selection
+    loop do
+      input = Random.new.rand(1..7)
+      if val_input(input)
+        return input
+      end
     end
   end
 
