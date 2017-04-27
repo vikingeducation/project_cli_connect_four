@@ -3,6 +3,7 @@ require 'colorize' # https://github.com/fazibear/colorize
 class C4_space
   @@states = [:empty, :red, :yellow]
   @@unknown_state_mssg = "C4_space class: your disc wasn't either :blue or :yellow, missed any : ?"
+  @@DISC = "\u2B24".encode('utf-8')
 
   def initialize
     @state = :empty
@@ -19,7 +20,7 @@ class C4_space
   end
 
   def render
-    @state == :empty ? "O" : "*".colorize(@state)
+    @state == :empty ? @@DISC + " ": @@DISC.colorize(@state) + " "
   end
 
   def state
@@ -44,11 +45,13 @@ class C4_board
   end
 
   def render
-    puts "1234567"
+    puts "\t  1 2 3 4 5 6 7"
+    j = 1
     @board.each{ |y|
-      row = "\t"
+      row = "\t#{j} "
       y.each {|x| row += x.render}
       puts row
+      j += 1
     }
   end
 
@@ -79,23 +82,125 @@ class C4_board
     end
   end
 
+  def column_win?(player)
+    i = @last_row + 1
+    total = 1
+    while i <= 6 do
+      total += 1 if space(@last_col, i).state == player
+      i += 1
+    end
+    true if total > 3
+  end
+
+  def row_win?(player)
+    y = @last_col + 1
+    total = 1
+    # search to the right
+    while y < 6 && space(y, @last_row).state == player do
+      total += 1
+      y += 1
+    end
+    y = @last_col - 1
+    # search to the left
+    while y > 0 && space(y, @last_row).state == player do
+      total += 1
+      y -= 1
+    end
+    true if total > 3
+  end
+
+  def f_diagonal_win?(player)
+    x = @last_row + 1
+    y = @last_col + 1
+    puts("x", x,"y", y,"s")
+    total = 1
+    # search downwards
+    while y < 6 && x < 7 && space(y, x).state == player do
+      total += 1
+      y += 1
+      x += 1
+    end
+    x = @last_row - 1
+    y = @last_col - 1
+    # search upward
+    while y * x > 0 && space(y, x).state == player do
+      total += 1
+      y -= 1
+      x -= 1
+    end
+    true if total > 3
+  end
+
+  def s_diagonal_win?(player)
+    x = @last_row - 1
+    y = @last_col + 1
+    total = 1
+    # search downwards
+    while y < 6 && x > 0 && space(y, x).state == player do
+      total += 1
+      y += 1
+      x -= 1
+    end
+    x = @last_row + 1
+    y = @last_col - 1
+    # search upward
+    while y > 0 && x < 7 && space(y, x).state == player do
+      total += 1
+      y -= 1
+      x += 1
+    end
+    true if total > 3
+  end
+
+  def won?(player)
+    if column_win?(player)
+      true
+    elsif row_win?(player)
+      true
+    elsif f_diagonal_win?(player)
+      true
+    elsif s_diagonal_win?(player)
+      true
+    else
+      false
+    end
+  end
 end
 
-a = C4_board.new
+class Player
+  def initialize
+    @player = :yellow
+  end
 
-a.render
+  def switch
+    @player == :yellow ? @player = :red : @player = :yellow
+  end
 
-5.times { a.drop(2,:yellow) }
+  def who
+    @player
+  end
 
-a.render
+  def ask_input
+    puts( "#{@player}, choose a column to drop your stone")
+    col = gets.chomp.to_i
+    if col < 1 || col > 7
+      ask_input
+    else
+      col
+    end
+  end
+end
 
-c = a.drop(2,:red)
 
-a.render
 
-b = a.drop(2,:yellow)
+game = C4_board.new
+player = Player.new
 
-puts(c)
-puts("c is nil") if b == nil
+while !game.won?(player.who) do
+  player.switch
+  game.render
+  game.drop(player.ask_input, player.who)
+end
 
-a.render
+game.render
+puts("#{player.who} won!")
