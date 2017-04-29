@@ -173,9 +173,9 @@ class C4_board
 end
 
 class Player
-  def initialize(two_players)
+  def initialize(one_player)
     @player = :yellow
-    @two_players = two_players
+    @one_player = one_player
   end
 
   def switch
@@ -216,7 +216,7 @@ class Player
   end
 
   def ask_input(game)
-    if @two_players && @player == :yellow
+    if @one_player && @player == :yellow
       ai_input(game)
     else
       puts( "#{@player}, choose a column to drop your stone")
@@ -233,14 +233,14 @@ end
 
 
 game = C4_board.new
-if ARGV[0] == "2"
-  two_players = true
+if ARGV[0] == "1"
+  one_player = true
 else
-  two_players = false
+  one_player = false
 end
 ARGV.clear
 
-player = Player.new(two_players)
+player = Player.new(one_player)
 dropped = true
 turns = 0
 
