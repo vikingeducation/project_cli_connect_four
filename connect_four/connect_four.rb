@@ -72,7 +72,7 @@ class C4_board
 
   def drop(column, player)
     if column_full?(column)
-      puts("Column full")
+      puts("\b\t\nColumn full")
       false
     else
       i = 6
@@ -102,7 +102,7 @@ class C4_board
     y = @last_col + 1
     total = 1
     # search to the right
-    while y < 6 && space(y, @last_row).state == player do
+    while y < 8 && space(y, @last_row).state == player do
       total += 1
       y += 1
     end
@@ -120,7 +120,7 @@ class C4_board
     y = @last_col + 1
     total = 1
     # search downwards
-    while y < 6 && x < 7 && space(y, x).state == player do
+    while y < 8 && x < 7 && space(y, x).state == player do
       total += 1
       y += 1
       x += 1
@@ -141,7 +141,7 @@ class C4_board
     y = @last_col + 1
     total = 1
     # search downwards
-    while y < 6 && x > 0 && space(y, x).state == player do
+    while y < 8 && x > 0 && space(y, x).state == player do
       total += 1
       y += 1
       x -= 1
@@ -188,17 +188,18 @@ class Player
 
   def win?(game, player)
     col = 1
-    while col < 7 do
-      game.drop(col, player)
-      if game.won?(player)
-        game.undrop
-        found = col
-        break
-      else
-        game.undrop
-        col += 1
-        found = false
+    found = false
+    while col < 8 do
+      if game.drop(col, player) != false
+        if game.won?(player)
+          game.undrop
+          found = col
+          break
+        else
+          game.undrop
+        end
       end
+      col += 1
     end
     found
   end
@@ -219,7 +220,7 @@ class Player
     if @one_player && @player == :yellow
       ai_input(game)
     else
-      puts( "#{@player}, choose a column to drop your stone")
+      puts( "\n\t #{@player}, choose a column to drop your stone 1-7")
       col = gets.chomp.to_i
       if col < 1 || col > 7
         ask_input(game)
@@ -246,15 +247,17 @@ turns = 0
 
 while !game.won?(player.who) do
   break if turns > 42
-  player.switch unless dropped
+  if dropped != false
+    player.switch
+    turns += 1
+  end
   game.render
   dropped = game.drop(player.ask_input(game), player.who)
-  turns += 1
 end
 
 game.render
 if turns > 42
-  puts("It's a draw")
+  puts("\n\tIt's a draw")
 else
-  puts("#{player.who} won!")
+  puts("\n\t #{player.who} won!")
 end
