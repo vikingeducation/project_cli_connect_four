@@ -1,12 +1,13 @@
 =begin
-  public - print_board
-         - winning_combo?
+  public - print_board - skip for now per instructions
+         - winning_combo? ~
             - set up: board
                       no winning combos
                       at least one of each vertical, horizontal, diagonal winning combo
          - board_full? ~
-            - set up: board
+            - set up: empty board
                       full board
+                      almost full board
          - column_full? ~
             - set up: board
                       at least one full column
@@ -14,11 +15,10 @@
          - place_piece ~
             -set up: board
                      place a piece
-         - board_column - reader
-         - board - reader
+         - board_column - reader ~
+         - board - reader ~
 
   private - initialize
-          - board_column
           - diagonals
           - win_diagonal
           - horizontals
@@ -26,10 +26,6 @@
           - win_vertical
           - space_available
           - find_four
-
-  paths -
-
-
 =end
 
 class Board

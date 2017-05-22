@@ -1,12 +1,12 @@
 =begin
-  public  - initialize
-          - play_game
-  private - instructions
+  public  - play_game
+  private - initialize
+          - instructions
           - game_over
           - win?
           - draw?
           - switch_players
-  paths - 
+  paths -
 =end
 
 class ConnectFour
@@ -17,7 +17,7 @@ class ConnectFour
   def initialize
     @board = Board.new
     @player1 = Player.new("x", @board, "Player 1")
-    @player2 = AI.new("o", @board, "Computer")
+    @player2 = Player.new("o", @board, "Player 2")
     @current_player = @player1
   end
 
