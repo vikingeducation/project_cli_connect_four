@@ -220,7 +220,7 @@ class Player
     if @one_player && @player == :yellow
       ai_input(game)
     else
-      puts( "\n\t #{@player}, choose a column to drop your stone 1-7")
+      puts("\n\t #{@player}, choose a column to drop your stone 1-7")
       col = gets.chomp.to_i
       if col < 1 || col > 7
         ask_input(game)
@@ -233,31 +233,31 @@ end
 
 
 
-game = C4_board.new
-if ARGV[0] == "1"
-  one_player = true
-else
-  one_player = false
-end
-ARGV.clear
-
-player = Player.new(one_player)
-dropped = true
-turns = 0
-
-while !game.won?(player.who) do
-  break if turns > 42
-  if dropped != false
-    player.switch
-    turns += 1
-  end
-  game.render
-  dropped = game.drop(player.ask_input(game), player.who)
-end
-
-game.render
-if turns > 42
-  puts("\n\tIt's a draw")
-else
-  puts("\n\t #{player.who} won!")
-end
+# game = C4_board.new
+# if ARGV[0] == "1"
+#   one_player = true
+# else
+#   one_player = false
+# end
+# ARGV.clear
+#
+# player = Player.new(one_player)
+# dropped = true
+# turns = 0
+#
+# while !game.won?(player.who) do
+#   break if turns > 42
+#   if dropped != false
+#     player.switch
+#     turns += 1
+#   end
+#   game.render
+#   dropped = game.drop(player.ask_input(game), player.who)
+# end
+#
+# game.render
+# if turns > 42
+#   puts("\n\tIt's a draw")
+# else
+#   puts("\n\t #{player.who} won!")
+# end
