@@ -9,6 +9,10 @@ class ConnectFour
     player1 = Player.new("r", false)
     player2 = Player.new("y", computer_player)
     board = Board.new(5,5,player1,player2)
+    play_game(board)
+  end
+
+  def self.play_game(board)
     while !board.finished? do
       input = board.current_player.get_input(board)
 

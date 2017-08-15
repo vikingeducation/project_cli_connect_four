@@ -1,7 +1,7 @@
 class Board
   attr_reader :current_player, :width
 
-  def initialize(width = 5, height = 5, player1 = Player.new("red"), player2 = Player.new("yellow"))
+  def initialize(width = 5, height = 5, player1 = Player.new("r", false), player2 = Player.new("y", true))
     @player1 = player1
     @player2 = player2
     @width = width
