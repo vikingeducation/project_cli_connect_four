@@ -1,3 +1,5 @@
+require 'pry'
+
 class Board
   attr_accessor :board, :red_piece, :black_piece
 
@@ -8,7 +10,7 @@ class Board
               ['-', '-', '-', '-', '-', '-', '-'],
               ['-', '-', '-', '-', '-', '-', '-'],
               ['-', '-', '-', '-', '-', '-', '-'],
-              ['-', '-', 'X', '-', '-', '-', '-']]
+              ['-', '-', '-', '-', '-', '-', '-']]
   end
 
   def display_board
@@ -19,16 +21,11 @@ class Board
   end
 
   def update_board(column)
-    row = 1
-    while self.board[row][column - 1] == '-' && row < 7
-      row += 1
+    row = 0
+    1.upto(6) do |num|
+      row = num if self.board[num][column - 1] == '-'
     end
-    puts row
-    if row == 7
-      self.board[6][column - 1] = 'X'
-    else
-      self.board[row - 1][column - 1] = 'X'
-    end
+    self.board[row][column - 1] = 'X'
   end
 end
 
