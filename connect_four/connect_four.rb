@@ -1,1 +1,3 @@
-# Your code here!
+require_relative 'game'
+
+Game.new.play
