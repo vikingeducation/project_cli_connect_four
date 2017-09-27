@@ -5,12 +5,12 @@ class Board
 
   def initialize
     @board = [['1', '2', '3', '4', '5', '6', '7'],
-              ['-', '-', '-', '-', '-', '-', '-'],
-              ['-', '-', '-', '-', '-', '-', '-'],
-              ['-', '-', '-', '-', '-', '-', '-'],
-              ['-', '-', '-', '-', '-', '-', '-'],
-              ['-', '-', '-', '-', '-', '-', '-'],
-              ['-', '-', '-', '-', '-', '-', '-']]
+              ['-', '-', '-', '-', '-', 'X', '-'],
+              ['-', '-', '-', '-', '-', 'X', '-'],
+              ['-', '-', '-', '-', '-', 'X', '-'],
+              ['-', '-', '-', '-', '-', 'X', '-'],
+              ['-', '-', '-', '-', '-', 'X', '-'],
+              ['-', '-', '-', '-', '-', 'X', '-']]
   end
 
   def display_board
@@ -18,11 +18,6 @@ class Board
       row.each { |space| print space}
       print "\n"
     end
-  end
-
-  def full_column(column)
-    puts "Tha column is already full; select another:"
-    
   end
 
   def update_board(column)
@@ -33,7 +28,7 @@ class Board
     if !row.zero?
       self.board[row][column - 1] = 'X'
     else
-      full_column
+      row
     end
   end
 end

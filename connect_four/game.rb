@@ -37,13 +37,20 @@ class Game
     puts "Enter the slot in which you'd like to drop your game piece:"
   end
 
+  def full_column
+    puts "That colum is already full; selct another:"
+    current_player(turn).make_move
+  end
+
   def play 
     greeting
     create_players
     prompt_for_move
     column = current_player(turn).make_move
+    while @board.update_board(column) == 0
+      column = full_column
+    end
     self.turn += 1
-    @board.update_board(column)
     @board.display_board
     prompt_for_move
     column = current_player(turn).make_move
