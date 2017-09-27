@@ -20,11 +20,20 @@ class Board
     end
   end
 
+  def full_column(column)
+    puts "Tha column is already full; select another:"
+    
+  end
+
   def update_board(column)
     row = 0
     1.upto(6) do |num|
       row = num if self.board[num][column - 1] == '-'
     end
-    self.board[row][column - 1] = 'X'
+    if !row.zero?
+      self.board[row][column - 1] = 'X'
+    else
+      full_column
+    end
   end
 end
