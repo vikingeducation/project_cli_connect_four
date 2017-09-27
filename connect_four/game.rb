@@ -33,6 +33,10 @@ class Game
     turn.odd? ? player_1 : player_2
   end
 
+  def current_player_piece
+    turn.odd? ? player_1_piece : player_2_piece
+  end
+
   def prompt_for_move
     puts "Enter the slot in which you'd like to drop your game piece:"
   end
@@ -47,15 +51,15 @@ class Game
     create_players
     prompt_for_move
     column = current_player(turn).make_move
-    while @board.update_board(column) == 0
+    while @board.update_board(column, current_player_piece) == 0
       column = full_column
     end
     self.turn += 1
     @board.display_board
     prompt_for_move
     column = current_player(turn).make_move
+    @board.update_board(column, current_player_piece)
     self.turn += 1
-    @board.update_board(column)
     @board.display_board
   end
 end

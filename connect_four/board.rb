@@ -20,13 +20,13 @@ class Board
     end
   end
 
-  def update_board(column)
+  def update_board(column, current_player_piece)
     row = 0
     1.upto(6) do |num|
       row = num if self.board[num][column - 1] == '-'
     end
     if !row.zero?
-      self.board[row][column - 1] = 'X'
+      self.board[row][column - 1] = current_player_piece
     else
       row
     end
