@@ -28,8 +28,3 @@ class Board
     self.board[row][column - 1] = 'X'
   end
 end
-
-a = Board.new
-
-a.update_board(3)
-a.display_board
