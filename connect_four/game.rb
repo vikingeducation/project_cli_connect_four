@@ -1,3 +1,4 @@
+require 'pry'
 require_relative 'human_player'
 require_relative 'computer_player'
 require_relative 'board'
@@ -46,11 +47,42 @@ class Game
     current_player(turn).make_move
   end
 
+  def win_horizontal?
+    count = 0
+    binding.pry
+    board.each do |row|
+      row.each do |position|
+        if position == current_player_piece
+          count += 1
+          return true if count == 4
+        end
+      end
+    end
+    puts count
+    puts current_player_piece
+    false
+  end
+
+  def win_vertical?
+    count = 0
+    binding.pry
+    board.transpose.each do |row|
+      row.each do |position|
+        if position == current_player_piece
+          count += 1
+          return true if count == 4
+        end
+      end
+    end
+    false
+  end
+
   def play 
     greeting
     create_players
     prompt_for_move
     column = current_player(turn).make_move
+    puts win_vertical?
     while @board.update_board(column, current_player_piece) == 0
       column = full_column
     end
