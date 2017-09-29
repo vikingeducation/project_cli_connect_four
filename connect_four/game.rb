@@ -44,25 +44,33 @@ class Game
 
   def full_column
     puts "That colum is already full; selct another:"
-    current_player(turn).make_move
+    current_player(turn).make_move(current_player_piece, board)
   end
 
   def win?
-    board.win_horizontal?(current_player_piece) || board.win_vertical?(current_player_piece) || board.win_diagonal?(current_player_piece)
+    board.win_horizontal?(current_player_piece) || 
+    board.win_vertical?(current_player_piece) || 
+    board.win_diagonal?(current_player_piece)
   end
 
   def play 
     greeting
     create_players
+    board.display_board
     loop do
       prompt_for_move
-      column = current_player(turn).make_move
+      column = current_player(turn).make_move(current_player_piece, board)
       while @board.update_board(column, current_player_piece) == 0
         column = full_column
       end
-      self.turn += 1
       board.display_board
       break if board.full? || win?
+      self.turn += 1
+    end
+    if board.full?
+      puts "It's a tie!"
+    else
+      puts "Winner!!!"
     end
   end
 end

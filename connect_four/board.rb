@@ -20,7 +20,7 @@ class Board < Array
                   [board[2][6], board[3][5], board[4][4], board[5][3], board[6][2]],
                   [board[1][6], board[2][5], board[3][4], board[4][3], board[5][2], board[6][1]],
                   [board[1][5], board[2][4], board[3][3], board[4][2], board[5][1], board[6][0]],
-                  [board[1][4], board[3][3], board[4][2], board[5][1], board[6][0]],
+                  [board[1][4], board[2][3], board[3][2], board[4][1], board[5][0]],
                   [board[1][3], board[2][2], board[3][1], board[4][0]]]                      
   end
 
@@ -82,8 +82,8 @@ class Board < Array
   end
 
   def win_diagonal?(current_player_piece)
-    count = 0
     @diagonals.each do |diagonal|
+      count = 0
       diagonal.each do |position|
         if position == current_player_piece
           count += 1
