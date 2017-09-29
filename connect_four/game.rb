@@ -48,25 +48,22 @@ class Game
   end
 
   def win?
-    win_horizontal? || win_vertical? || win_diagonal?
+    board.win_horizontal?(current_player_piece) || board.win_vertical?(current_player_piece) || board.win_diagonal?(current_player_piece)
   end
 
   def play 
     greeting
     create_players
-    prompt_for_move
-    column = current_player(turn).make_move
-    puts board.win_diagonal?(current_player_piece)
-    while @board.update_board(column, current_player_piece) == 0
-      column = full_column
+    loop do
+      prompt_for_move
+      column = current_player(turn).make_move
+      while @board.update_board(column, current_player_piece) == 0
+        column = full_column
+      end
+      self.turn += 1
+      board.display_board
+      break if board.full? || win?
     end
-    self.turn += 1
-    board.display_board
-    prompt_for_move
-    column = current_player(turn).make_move
-    board.update_board(column, current_player_piece)
-    self.turn += 1
-    board.display_board
   end
 end
 

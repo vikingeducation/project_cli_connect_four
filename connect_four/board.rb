@@ -5,10 +5,10 @@ class Board < Array
   def initialize
     @board = [['1', '2', '3', '4', '5', '6', '7'],
               ['-', '-', '-', '-', '-', '-', '-'],
-              ['-', '-', 'R', '-', '-', '-', '-'],
-              ['-', '-', '-', 'R', '-', '-', '-'],
-              ['-', '-', '-', '-', 'R', '-', '-'],
-              ['-', '-', '-', '-', '-', 'R', '-'],
+              ['-', '-', '-', '-', '-', '-', '-'],
+              ['-', '-', '-', '-', '-', '-', '-'],
+              ['-', '-', '-', '-', '-', '-', '-'],
+              ['-', '-', '-', '-', '-', '-', '-'],
               ['-', '-', '-', '-', '-', '-', '-']]
     @diagonals = [[board[3][0], board[4][1], board[5][2], board[6][3]],
                   [board[2][0], board[3][1], board[4][2], board[5][3], board[6][4]],
@@ -92,7 +92,16 @@ class Board < Array
          count = 0
         end
       end
-      false
     end
+    false
+  end
+
+  def full?
+    board.each do |row|
+      row.each do |position|
+        return false if position == '-'
+      end
+    end
+    true
   end
 end
