@@ -59,7 +59,7 @@ class Game
     board.display_board
     loop do
       prompt_for_move
-      column = current_player(turn).make_move(current_player_piece, board)
+      column = current_player(turn).make_move(current_player_piece, board, board.diagonals)
       while @board.update_board(column, current_player_piece) == 0
         column = full_column
       end

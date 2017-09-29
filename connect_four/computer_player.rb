@@ -33,14 +33,14 @@ class ComputerPlayer
     false
   end
 
-  def almost_win_diagonal?(current_player_piece, baord)
-    @diagonals.each_with_index do |diagonal, diagonal_index|
+  def almost_win_diagonal?(current_player_piece, diagonals)
+    diagonals.each_with_index do |diagonal, diagonal_index|
       count = 0
       diagonal.each_with_index do |position, position_index|
         if position == current_player_piece
           count += 1
-          return row_index + 1 if count == 3
-        elsif position == '-' && row[position_index + 1] == current_player_piece
+          return diagonal_index + 1 if count == 3
+        elsif position == '-' && diagonal[position_index + 1] == current_player_piece
           next
         else
          count = 0
@@ -50,15 +50,15 @@ class ComputerPlayer
     false
   end
 
-  def almost_win?
+  def almost_win?(current_player_piece, board, diagonals)
     almost_win_horizontal?(current_player_piece, board) ||
     almost_win_vertical?(current_player_piece, board) ||
-    almost_win_diagonal?(current_player_piece, board)
+    almost_win_diagonal?(current_player_piece, diagonals)
   end
 
-  def make_move(current_player_piece, board)
-    if almost_win?(current_player_piece, board)
-      almost_win?(current_player_piece, board) 
+  def make_move(current_player_piece, board, diagonals)
+    if almost_win?(current_player_piece, board, diagonals)
+      almost_win?(current_player_piece, board, diagonals)
     else
       sleep 1
       (1..7).to_a.sample

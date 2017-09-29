@@ -1,6 +1,6 @@
 require 'pry'
 class Board < Array
-  attr_accessor :board, :red_piece, :black_piece
+  attr_accessor :board, :diagonals
 
   def initialize
     @board = [['1', '2', '3', '4', '5', '6', '7'],
