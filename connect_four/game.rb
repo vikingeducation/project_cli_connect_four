@@ -48,33 +48,50 @@ class Game
   end
 
   def win_horizontal?
-    count = 0
-    binding.pry
     board.each do |row|
+      count = 0
       row.each do |position|
         if position == current_player_piece
           count += 1
           return true if count == 4
+        else
+          count = 0
         end
       end
     end
-    puts count
-    puts current_player_piece
     false
   end
 
   def win_vertical?
-    count = 0
-    binding.pry
     board.transpose.each do |row|
+      count = 0
       row.each do |position|
         if position == current_player_piece
           count += 1
           return true if count == 4
+        else
+          count = 0
         end
       end
     end
     false
+  end
+
+  def win_diagonal?
+    count = 0
+    @diagonals.each do |position|
+      if position == current_player_piece
+        count += 1
+        return true if count == 4
+      else
+        count = 0
+      end
+    end
+    false
+  end
+
+  def win?
+    win_horizontal? || win_vertical? || win_diagonal?
   end
 
   def play 
@@ -82,17 +99,17 @@ class Game
     create_players
     prompt_for_move
     column = current_player(turn).make_move
-    puts win_vertical?
+    puts win_horizontal?
     while @board.update_board(column, current_player_piece) == 0
       column = full_column
     end
     self.turn += 1
-    @board.display_board
+    board.display_board
     prompt_for_move
     column = current_player(turn).make_move
-    @board.update_board(column, current_player_piece)
+    board.update_board(column, current_player_piece)
     self.turn += 1
-    @board.display_board
+    board.display_board
   end
 end
 
