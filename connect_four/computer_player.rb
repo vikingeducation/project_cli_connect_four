@@ -1,4 +1,4 @@
-require_relative 'board'
+#require_relative 'board'
 class ComputerPlayer
   def almost_win_horizontal?(current_player_piece, board)
     board.each_with_index do |row, row_index|
