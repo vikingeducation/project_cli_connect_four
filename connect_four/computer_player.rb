@@ -1,4 +1,3 @@
-#require_relative 'board'
 class ComputerPlayer
   def almost_win_horizontal?(current_player_piece, board)
     board.each_with_index do |row, row_index|
@@ -16,6 +15,7 @@ class ComputerPlayer
     end
     false
   end
+  
   def almost_win_vertical?(current_player_piece, board)
     board.transpose.each_with_index do |row, row_index|
       count = 0

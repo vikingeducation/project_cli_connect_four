@@ -53,10 +53,7 @@ class Game
     board.win_diagonal?(current_player_piece)
   end
 
-  def play 
-    greeting
-    create_players
-    board.display_board
+  def game_loop
     loop do
       prompt_for_move
       column = current_player(turn).make_move(current_player_piece, board, board.diagonals)
@@ -67,11 +64,22 @@ class Game
       break if board.full? || win?
       self.turn += 1
     end
-    if board.full?
+  end
+
+  def display_outcome
+     if board.full?
       puts "It's a tie!"
     else
       puts "Winner!!!"
     end
+  end
+
+  def play 
+    greeting
+    create_players
+    board.display_board
+    game_loop
+    display_outcome
   end
 end
 
