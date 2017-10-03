@@ -1,5 +1,5 @@
 require 'pry'
-class Board < Array
+class Board
   attr_accessor :board, :diagonals
 
   def initialize
@@ -28,14 +28,6 @@ class Board < Array
                     [board[1][3], board[2][2], board[3][1], board[4][0]]]
   end   
 
-  def each(&block)
-    @board.each(&block)
-  end
-
-  def transpose
-    @board.transpose
-  end
-
   def display_board
     board.each do |row|
       row.each { |space| print space}
@@ -54,6 +46,7 @@ class Board < Array
       row
     end
     set_diagonals
+    row
   end
 
   def win_horizontal?(current_player_piece)

@@ -44,7 +44,7 @@ class Game
 
   def full_column
     puts "That colum is already full; selct another:"
-    current_player(turn).make_move(current_player_piece, board)
+    current_player(turn).make_move(current_player_piece, board.board, board.diagonals)
   end
 
   def win?
@@ -56,7 +56,7 @@ class Game
   def game_loop
     loop do
       prompt_for_move
-      column = current_player(turn).make_move(current_player_piece, board, board.diagonals)
+      column = current_player(turn).make_move(current_player_piece, board.board, board.diagonals)
       while @board.update_board(column, current_player_piece) == 0
         column = full_column
       end
