@@ -14,6 +14,8 @@ class Game
     @turn = 1
   end
 
+  #private
+
   def greeting
     puts "**Welcome to Connect Four!"
     puts "Enter 1 for a one player game or 2 for a two player game."
@@ -30,7 +32,7 @@ class Game
     end
   end
 
-  def current_player(turn)
+  def current_player
     turn.odd? ? player_1 : player_2
   end
 
@@ -44,7 +46,7 @@ class Game
 
   def full_column
     puts "That colum is already full; selct another:"
-    current_player(turn).make_move(current_player_piece, board.board, board.diagonals)
+    current_player.make_move(current_player_piece, board.board, board.diagonals)
   end
 
   def win?
@@ -56,7 +58,7 @@ class Game
   def game_loop
     loop do
       prompt_for_move
-      column = current_player(turn).make_move(current_player_piece, board.board, board.diagonals)
+      column = current_player.make_move(current_player_piece, board.board, board.diagonals)
       while @board.update_board(column, current_player_piece) == 0
         column = full_column
       end
@@ -74,6 +76,8 @@ class Game
     end
   end
 
+  public
+
   def play 
     greeting
     create_players
@@ -82,5 +86,3 @@ class Game
     display_outcome
   end
 end
-
-Game.new.play
