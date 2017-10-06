@@ -8,7 +8,7 @@ class ComputerPlayer
       position_index = 0
       while position_index <= 4
         if row[position_index..(position_index + 3)].count('B') == 3
-          #Sbinding.pry
+          #binding.pry
           return (position_index + row[position_index..(position_index + 3)].index('-')) + 1
         end 
       position_index += 1
@@ -34,13 +34,19 @@ class ComputerPlayer
     false
   end
 
-  def almost_win_diagonal?(current_player_piece, diagonals)
+  def almost_win_diagonal?(current_player_piece, diagonals, board)
+    #p diagonals
     diagonals.each_with_index do |diagonal, diagonal_index|
       position_index = 0
-      while position_index <= 4
-        if diagonal[position_index..(position_index + 3)].count('B') == 3
-          #Sbinding.pry
-          return (position_index + diagonal[position_index..(position_index + 3)].index('-')) + 1
+      #binding.pry
+      while position_index <= diagonal.length - 3
+        blank_space = 
+        (DIAGONAL_COORDINATES[diagonal_index][position_index + 
+          diagonal[position_index..(position_index + 3)].index('-')]).divmod(10)
+        if diagonal[position_index..position_index + 3].count('B') == 3 && 
+          (board[blank_space[0] + 1][blank_space[1]] != '-' || blank_space[0] == 6)
+          p blank_space 
+          return blank_space[1] + 1
         end 
       position_index += 1
       end 
@@ -51,7 +57,7 @@ class ComputerPlayer
   def almost_win?(current_player_piece, board, diagonals)
     almost_win_horizontal?(current_player_piece, board) ||
     almost_win_vertical?(current_player_piece, board) ||
-    almost_win_diagonal?(current_player_piece, diagonals)
+    almost_win_diagonal?(current_player_piece, diagonals, board)
   end
 
   public
