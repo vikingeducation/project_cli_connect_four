@@ -35,14 +35,12 @@ class ComputerPlayer
   end
 
   def almost_win_diagonal?(current_player_piece, diagonals, board)
-    #p diagonals
     diagonals.each_with_index do |diagonal, diagonal_index|
       position_index = 0
-      #binding.pry
       while position_index <= diagonal.length - 4
         
         if diagonal[position_index..position_index + 3].count('B') == 3
-          #binding.pry
+          
           blank_space = 
             (DIAGONAL_COORDINATES[diagonal_index][position_index + 
             diagonal[position_index..(position_index + 3)].index('-')]).divmod(10)
