@@ -8,7 +8,6 @@ class ComputerPlayer
       position_index = 0
       while position_index <= 4
         if row[position_index..(position_index + 3)].count('B') == 3
-          #binding.pry
           return (position_index + row[position_index..(position_index + 3)].index('-')) + 1
         end 
       position_index += 1
@@ -40,7 +39,7 @@ class ComputerPlayer
       while position_index <= diagonal.length - 4
         
         if diagonal[position_index..position_index + 3].count('B') == 3
-          
+
           blank_space = 
             (DIAGONAL_COORDINATES[diagonal_index][position_index + 
             diagonal[position_index..(position_index + 3)].index('-')]).divmod(10)
@@ -65,9 +64,10 @@ class ComputerPlayer
 
   def make_move(current_player_piece, board, diagonals)
     if almost_win?(current_player_piece, board, diagonals)
+      sleep 0.5
       almost_win?(current_player_piece, board, diagonals)
     else
-      sleep 1
+      sleep 0.5
       (1..7).to_a.sample
     end
   end
