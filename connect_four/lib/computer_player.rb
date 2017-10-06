@@ -39,14 +39,17 @@ class ComputerPlayer
     diagonals.each_with_index do |diagonal, diagonal_index|
       position_index = 0
       #binding.pry
-      while position_index <= diagonal.length - 3
-        blank_space = 
-        (DIAGONAL_COORDINATES[diagonal_index][position_index + 
-          diagonal[position_index..(position_index + 3)].index('-')]).divmod(10)
-        if diagonal[position_index..position_index + 3].count('B') == 3 && 
-          (board[blank_space[0] + 1][blank_space[1]] != '-' || blank_space[0] == 6)
-          p blank_space 
-          return blank_space[1] + 1
+      while position_index <= diagonal.length - 4
+        
+        if diagonal[position_index..position_index + 3].count('B') == 3
+          #binding.pry
+          blank_space = 
+            (DIAGONAL_COORDINATES[diagonal_index][position_index + 
+            diagonal[position_index..(position_index + 3)].index('-')]).divmod(10)
+
+          if (blank_space[0] == 6 || board[blank_space[0] + 1][blank_space[1]] != '-') 
+            return blank_space[1] + 1
+          end
         end 
       position_index += 1
       end 

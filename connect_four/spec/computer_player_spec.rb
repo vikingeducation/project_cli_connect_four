@@ -1,8 +1,10 @@
 require 'computer_player'
+require 'board'
 
 describe ComputerPlayer do 
 
   let(:player) { ComputerPlayer.new }
+  let(:board) {Board.new}
 
   describe "#almost_win_horizontal?" do 
     context "there is a row on the board with three computer game pieces in consecutive postitions" do 
@@ -37,15 +39,29 @@ describe ComputerPlayer do
   describe "#almost_win_diagonal?" do 
     context "there is a row on the board with three computer game pieces in consecutive postitions" do 
       it "returns the index of the column that would result in a win + 1" do 
-        board = [['1', '2', '3', '4', '5', '6', '7'],
-                 ['-', '-', '-', '-', '-', '-', '-'],
-                 ['-', '-', '-', '-', '-', '-', '-'],
-                 ['-', '-', '-', '-', '-', 'B', '-'],
-                 ['-', '-', '-', '-', 'B', '-', '-'],
-                 ['-', '-', '-', 'B', '-', '-', '-'],
-                 ['-', '-', '-', '-', '-', '-', '-']]
+        board.board = [['1', '2', '3', '4', '5', '6', '7'],
+                       ['-', '-', '-', '-', '-', '-', '-'],
+                       ['-', '-', '-', '-', '-', '-', '-'],
+                       ['-', '-', '-', '-', '-', 'B', '-'],
+                       ['-', '-', '-', '-', 'B', '-', '-'],
+                       ['-', '-', '-', 'B', '-', '-', '-'],
+                       ['-', '-', '-', '-', '-', '-', '-']]
         current_player_piece = "B"
-        expect(player.almost_win_diagonal?(current_player_piece, board)).to eql(6)
+        board.set_diagonals
+        expect(player.almost_win_diagonal?(current_player_piece, board.diagonals, board.board)).to eql(3)
+      end
+
+      it "returns the index of the column that would result in a win + 1" do 
+        board.board = [['1', '2', '3', '4', '5', '6', '7'],
+                       ['-', '-', '-', '-', '-', '-', '-'],
+                       ['-', '-', '-', '-', '-', '-', '-'],
+                       ['-', '-', '-', '-', '-', '-', '-'],
+                       ['-', '-', '-', '-', 'B', 'R', '-'],
+                       ['-', '-', '-', 'B', '-', 'R', '-'],
+                       ['-', '-', 'B', '-', '-', 'R', '-']]
+        current_player_piece = "B"
+        board.set_diagonals
+        expect(player.almost_win_diagonal?(current_player_piece, board.diagonals, board.board)).to eql(6)
       end
     end
 =begin
