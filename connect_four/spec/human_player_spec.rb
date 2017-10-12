@@ -10,9 +10,11 @@ describe HumanPlayer do
   end 
 
   describe "#make_move" do 
+
     let(:board) { Board.new }
-    let(:current_player_piece) { 'R' }
+    let(:current_player_piece) { 'R' } 
     before { allow(player).to receive(:gets).and_return('5') }
+    
     it "calls #validate_move" do
       expect(player).to receive(:validate_move)
       player.make_move(current_player_piece, board.board, board.diagonals)
