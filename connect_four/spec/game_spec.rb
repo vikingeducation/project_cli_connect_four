@@ -5,6 +5,10 @@ describe Game do
   let(:game) { Game.new }
   let(:board) { Board.new }
 
+  it "is a Game instance" do 
+    expect( subject ).to be_a( Game ) 
+  end 
+
   describe "#initialize" do 
     context "argument given" do 
       it "raises an error" do 
@@ -30,7 +34,7 @@ describe Game do
       end
     end
 
-     context "game type = 2" do 
+    context "game type = 2" do
       before do 
         allow(game).to receive(:gets).and_return('2')
       end
@@ -40,7 +44,6 @@ describe Game do
       end
 
       it "intializes player_2 as a HumanPlayer" do 
-        game_type = 1
         game.create_players
         expect(game.player_2).to be_an_instance_of(HumanPlayer)
       end
@@ -75,6 +78,15 @@ describe Game do
       it "returns player_2_piece" do 
         game.turn = 4 
         expect(game.current_player_piece).to eql(game.player_2_piece)
+      end
+    end
+  end
+
+  describe "#win?" do 
+    context "winning condition present" do 
+      it "returns true" do 
+        allow_any_instance_of(Board).to receive(:win_diagonal?).and_return(true)
+        expect(game.win?).to be true
       end
     end
   end

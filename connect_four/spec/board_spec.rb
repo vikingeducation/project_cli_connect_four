@@ -4,7 +4,7 @@ describe Board do
   let(:board) { Board.new }
 
   describe "#initialize" do 
-    it "initializes @board a blank board with numbered columns" do 
+    it "initializes @board to a blank board with numbered columns" do 
       test_array = [['1', '2', '3', '4', '5', '6', '7'],
                     ['-', '-', '-', '-', '-', '-', '-'],
                     ['-', '-', '-', '-', '-', '-', '-'],
@@ -136,7 +136,7 @@ describe Board do
       end
     end
 
-    context "Bord is not full" do
+    context "Board is not full" do
       it "returns false" do
         board.board = [['1', '2', '3', '4', '5', '6', '7'],
                       ['-', 'R', 'R', 'R', 'R', 'R', 'R'],
