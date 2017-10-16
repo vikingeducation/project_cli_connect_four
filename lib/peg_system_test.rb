@@ -73,15 +73,15 @@ class PegSystem
 
   def south_east_diagonals_array
     se_diagonals = Array.new(6){Array.new}
-       0.upto(5) do |diag|
-        se_diagonals[0] << @board.board[2 + diag][diag] if diag <= 3
-        se_diagonals[1] << @board.board[1 + diag][diag] if diag <= 4
-        se_diagonals[2] << @board.board[diag][diag]
-        se_diagonals[3] << @board.board[diag][1 + diag]
-        se_diagonals[4] << @board.board[diag][2 + diag] if diag <= 4
-        se_diagonals[5] << @board.board[diag][3 + diag] if diag <= 3
-      end
-      se_diagonals
+    0.upto(5) do |diag|
+      se_diagonals[0] << @board.board[2 + diag][diag] if diag <= 3
+      se_diagonals[1] << @board.board[1 + diag][diag] if diag <= 4
+      se_diagonals[2] << @board.board[diag][diag]
+      se_diagonals[3] << @board.board[diag][1 + diag]
+      se_diagonals[4] << @board.board[diag][2 + diag] if diag <= 4
+      se_diagonals[5] << @board.board[diag][3 + diag] if diag <= 3
+    end
+    se_diagonals
   end
 
   def north_east_diagonals_array
