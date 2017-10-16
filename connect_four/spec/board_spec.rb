@@ -153,7 +153,7 @@ describe Board do
   describe "#update_board" do 
     let(:current_player_piece) { 'R' }
     context "Board is empty" do 
-      it "returns 6" do 
+      it "returns 6 (bottom row)" do 
         column = 6
         expect(board.update_board(column, current_player_piece)).to eql(6)
       end

@@ -1,9 +1,12 @@
 require 'game'
 require 'board'
+require 'human_player'
+require 'computer_player'
 
 describe Game do 
   let(:game) { Game.new }
   let(:board) { Board.new }
+  let(:current_player) { HumanPlayer.new }
 
   it "is a Game instance" do 
     expect( subject ).to be_a( Game ) 
@@ -54,14 +57,14 @@ describe Game do
     context "game.turn is odd" do 
       it "returns player_1" do 
         game.turn = 3 
-        expect(game.current_player).to eql(game.player_1)
+        expect(game.current_player).to eq(game.player_1)
       end
     end
 
     context "game.turn is even" do 
       it "returns player_2" do 
         game.turn = 4 
-        expect(game.current_player).to eql(game.player_2)
+        expect(game.current_player).to eq(game.player_2)
       end
     end
   end
@@ -70,14 +73,14 @@ describe Game do
     context "game.turn is odd" do 
       it "returns player_1_piece" do 
         game.turn = 3 
-        expect(game.current_player_piece).to eql(game.player_1_piece)
+        expect(game.current_player_piece).to eq(game.player_1_piece)
       end
     end
 
     context "game.turn is even" do 
       it "returns player_2_piece" do 
         game.turn = 4 
-        expect(game.current_player_piece).to eql(game.player_2_piece)
+        expect(game.current_player_piece).to eq(game.player_2_piece)
       end
     end
   end

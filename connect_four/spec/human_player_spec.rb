@@ -22,7 +22,7 @@ describe HumanPlayer do
 
     it "receives a value for @column from the user" do 
       player.make_move(current_player_piece, board.board, board.diagonals)
-      expect(player.column).to eql(5)
+      expect(player.column).to eq(5)
     end
   end
 end

@@ -17,7 +17,7 @@ describe ComputerPlayer do
                  ['-', '-', '-', 'B', 'B', 'B', '-'],
                  ['-', '-', '-', '-', '-', '-', '-']]
         current_player_piece = "B"
-        expect(player.almost_win_horizontal?(current_player_piece, board)).to eql(3)
+        expect(player.almost_win_horizontal?(current_player_piece, board)).to eq(3)
       end
     end
 
@@ -31,7 +31,7 @@ describe ComputerPlayer do
                  ['-', '-', 'B', '-', 'B', 'B', '-'],
                  ['-', '-', '-', '-', '-', '-', '-']]
         current_player_piece = "B"
-        expect(player.almost_win_horizontal?(current_player_piece, board)).to eql(4)
+        expect(player.almost_win_horizontal?(current_player_piece, board)).to eq(4)
       end
     end
   end
@@ -48,7 +48,7 @@ describe ComputerPlayer do
                        ['-', '-', '-', '-', '-', '-', '-']]
         current_player_piece = "B"
         board.set_diagonals
-        expect(player.almost_win_diagonal?(current_player_piece, board.diagonals, board.board)).to eql(3)
+        expect(player.almost_win_diagonal?(current_player_piece, board.diagonals, board.board)).to eq(3)
       end
 
       it "returns the index of the column that would result in a win + 1" do 
@@ -92,7 +92,7 @@ describe ComputerPlayer do
                          ['-', '-', 'B', '-', 'R', '-', '-']]
           current_player_piece = "B"
           board.set_diagonals
-          expect(player.almost_win_diagonal?(current_player_piece, board.diagonals, board.board)).to eql(5)
+          expect(player.almost_win_diagonal?(current_player_piece, board.diagonals, board.board)).to eq(5)
         end
       end
 
@@ -123,7 +123,7 @@ describe ComputerPlayer do
                    ['-', '-', '-', '-', '-', 'B', '-'],
                    ['-', '-', '-', '-', '-', 'B', '-']]
           current_player_piece = "B"
-          expect(player.almost_win_vertical?(current_player_piece, board)).to eql(6)
+          expect(player.almost_win_vertical?(current_player_piece, board)).to eq(6)
         end
       end
 
