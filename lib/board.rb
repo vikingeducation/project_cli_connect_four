@@ -87,7 +87,7 @@ class Board
 
     def make_color(token)
       colors = {:r => :light_red,
-                     :y => :light_yellow}
+                :y => :light_yellow}
       if token == nil
         "o"
       else
